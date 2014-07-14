@@ -1,0 +1,1562 @@
+﻿<div>
+    <div class="full-width notes-header">
+        <div class="row row-narrow title">
+            <div class="small-6 columns col-narrow" data-bind = "text: model.HeaderText"></div>
+            <div class="small-6 columns col-narrow text-right">
+                    <a href="#" class="button tiny selected" data-bind="click: defaultSave, css: { display_none: model.NotesType() !== constants.enum.notesType.Default, disabled: !session.isDirty() }"><i class="button-icon fi-save"></i>Save</a>
+                    <a href="#" class="button tiny selected" data-bind="click: save, css: { display_none: model.NotesType() !== constants.enum.notesType.New && model.NotesType() !== constants.enum.notesType.Saved, disabled: !session.isDirty() }"><i class="button-icon fi-save"></i>Save</a>
+                    <a href="#" class="button tiny selected" data-bind="click: correct, css: { display_none: model.NotesType() !== constants.enum.notesType.Correct, disabled: !session.isDirty() }"><i class="button-icon fi-clipboard-pencil"></i>Correct</a>
+                    <a href="#" class="button tiny selected" data-bind="click: signOff, css: { display_none: model.NotesType() !== constants.enum.notesType.New && model.NotesType() !== constants.enum.notesType.Saved, disabled: !session.isDirty() }"><i class="button-icon fi-clipboard-notes"></i>Sign off</a>
+                    <div class="button tiny selected" data-bind="click: cancel"><i class="button-icon fi-x"></i>Cancel</div>
+            </div>
+        </div>
+        <div class="row row-narrow notes-menu">
+            <div id="default-info-menu" class="small-2 columns col-narrow notes-menu notes-menu-selected" data-bind="css: { display_none: model.NotesType() === window.constants.enum.notesType.Default }"><a data-bind="click: function () { scrollToHeader('info-header') }">Patient Information</a></div>
+            <div id="patient-info-menu" class="small-2 columns col-narrow notes-menu notes-menu-selected" data-bind="css: { display_none: model.NotesType() !== window.constants.enum.notesType.Default }"><a data-bind="click: function () { scrollToHeader('info-header') }">Default Information</a></div>
+            <div id="cc-history-menu" class="small-2 columns col-narrow notes-menu"><a data-bind="click: function () { scrollToHeader('cc-history-header') }">CC/History</a></div>
+            <div id="acuity-menu" class="small-2 columns col-narrow notes-menu"><a data-bind="click: function () { scrollToHeader('acuity-header') }">Acuity</a></div>
+            <div id="ocular-mot-menu" class="small-2 columns col-narrow notes-menu"><a data-bind="click: function () { scrollToHeader('ocular-mot-header') }">Ocular Motility</a></div>
+            <div id="ant-seg-menu" class="small-2 columns col-narrow notes-menu"><a data-bind="click: function () { scrollToHeader('ant-seg-header') }">Anterior Segment</a></div>
+            <div id="summary-menu" class="small-2 columns col-narrow notes-menu"><a data-bind="click: function () { scrollToHeader('summary-header') }">Summary</a></div>
+        </div>
+    </div>
+
+    <div id="info-header">
+        <div data-bind="css: { display_none: model.NotesType() !== window.constants.enum.notesType.Default }">
+        <h5 class="notes_heading" id="default-info-header">Default Information</h5>    
+        <fieldset>
+            <div class="row row-narrow">
+                <div class="small-4 columns col-narrow">
+                    <label>Default Name</label>
+                    <input type="text" data-bind="notesvalue: model.DefaultName" />
+                </div>
+                <div class="small-2 columns left col-narrow">
+                    <label>Age Start(months)</label>
+                    <input type="text" data-bind="notesvalue: model.AgeStart" />
+                </div>
+                <div class="small-2 columns left col-narrow">
+                    <label>Age End (months)</label>
+                    <input type="text" data-bind="notesvalue: model.AgeEnd" />
+                </div>
+                <div class="small-4 columns left col-narrow">
+                    <label>Premature</label>
+                    <select data-bind="notesselect: model.PrematureBirth"></select>
+                </div>
+            </div>
+        </fieldset>
+        </div>
+        <div data-bind="css: { display_none: model.NotesType() === window.constants.enum.notesType.Default }">
+        <h5 class="notes_heading" id="patient-info-header">Patient Information</h5>   
+        <fieldset>
+        <div class="row row-narrow">
+            <div class="tiny-16 columns">&nbsp;</div>
+            <div class="tiny-3 columns tight text-right side-label">Doctor:</div>
+            <div class="tiny-5 columns right tight">
+                <select data-bind="options: $root.doctors, optionsValue: 'Value' , optionsText:'Text', value: model.User.Value, optionsCaption: '', event: { change: doctorChange }"></select>
+            </div>
+        </div>
+        <div class="row row-narrow">
+            <div class="tiny-8 columns col-narrow">
+                <div class="row full-width row-narrow">
+                    <label>Patient Name</label>
+                </div>
+                <div class="row full-width row-narrow">
+                    <div class="tiny-4 columns tight">
+                        <select data-bind="notesselect: model.Greeting"></select>
+                    </div>
+                    <div class="tiny-8 columns tight">
+                        <input type="text" data-bind="notesvalue: model.FirstName" />
+                    </div>
+                    <div class="tiny-4 columns left tight">
+                        <input type="text" data-bind="notesvalue: model.MiddleName" />
+                    </div>
+                    <div class="tiny-8 columns left tight">
+                        <input type="text" data-bind="notesvalue: model.LastName" />
+                    </div>
+                </div>
+            </div>
+            <div class="tiny-3 columns left col-narrow">
+                <label>DOB</label>
+                <input type="text" placeholder="" data-bind="notesdatepicker: model.DOB" />
+            </div>
+            <div class="tiny-3 columns left col-narrow">
+                <label>Age</label>
+                <input type="text" placeholder="" data-bind="notesvalue: model.tbAge" />
+            </div>
+            <div class="tiny-3 columns left col-narrow">
+                <label>Sex</label>
+                <select data-bind="notesselect: model.Sex" />
+            </div>
+            <div class="tiny-3 columns left col-narrow">
+                <label>Premature</label>
+                <select data-bind="notesselect: model.PrematureBirth"></select>
+            </div>
+            <div class="tiny-4 columns left col-narrow">
+                <label>Date</label>
+                <input type="text" placeholder="" data-bind="notesdatepicker: model.ExamDate" />
+            </div>
+        </div>
+        <div class="row row-narrow">
+            <div class="small-4 columns col-narrow">
+                <div class="row full-width row-narrow">
+                    <label>Hx From</label>
+                </div>
+                <div class="row full-width row-narrow">
+                    <div class="small-6 columns tight">
+                        <select data-bind="notesselect: model.HxFromList"></select>
+                    </div>
+                    <div class="small-6 columns left tight">
+                        <input type="text" data-bind="notesvalue: model.HxFromOther, enable: model.HxFromList.Value() === undefined " />
+                    </div>
+                </div>
+            </div>
+            <div class="small-3 columns col-narrow">
+                <label>Ref'd By</label>
+                <input type="text" placeholder="" data-bind="notesvalue: model.Refd" />
+            </div>
+            <div class="small-3 columns col-narrow">
+                <label>&nbsp;</label>
+                <div class="row full-width row-narrow">
+                    <div class="tiny-2 columns tight side-label">(Dr.</div>
+                    <div class="tiny-21 columns left tight">
+                        <input type="text" data-bind="notesvalue: model.RefDoctor" />
+                    </div>
+                    <div class="tiny-1 columns tight side-label-left">)</div>
+                </div>
+            </div>
+            <div class="small-2 columns col-narrow">&nbsp;</div>
+        </div> 
+        <div class="row row-narrow">
+            <div class="small-4 columns left col-narrow">
+                <label>Allergies</label>
+                <input type="text" placeholder="" data-bind="notesvalue: model.Allergies" />
+            </div>
+            <div class="small-6 columns left col-narrow">
+                <label>Grade Level/Occup</label>
+                <input type="text" placeholder="" data-bind="notesvalue: model.Occupation" />
+            </div>
+            <div class="small-2 columns col-narrow text-right">
+                <a href="#" class="button tiny selected" data-bind="click: savePatient, css: { disabled: !session.isNotesPatientDirty() }"><i class="button-icon fi-check"></i>Save Patient</a>
+            </div>
+        </div>
+        </fieldset>  
+        </div>
+    </div>
+    <h5 class="notes_heading" id="cc-history-header">CC/History</h5>
+    <fieldset class="no-bottom-border">
+        <div class="togglenotes">
+            <div class="row row-narrow tight">
+                <div class="small-6 columns tight">
+                    <b>Chief Complaint:</b>
+                    <span data-bind="displaytext: [model.Compliant]"></span>
+                </div>
+                <div class="small-6 columns tight">
+                    <b>History:</b>
+                    <span data-bind="displaytext: [model.SubjectiveHistory]"></span>
+                </div>
+            </div>
+            <div class="row row-narrow tight">
+                <div class="small-12 columns tight">
+                    <b>Mentation:</b>
+                    <span data-bind="displaytext: [model.Mentation1, model.Mentation2]"></span>
+                </div>
+            </div>
+        </div>
+        <div class="notes-display">
+            <div class="row row-narrow">
+                <div class="small-6 columns col-narrow">
+                    <label>Chief Complaint</label>
+                    <textarea data-bind="notesvalue: model.Compliant"></textarea>
+                </div>
+                <div class="small-6 columns col-narrow">
+                    <div class="row row-narrow">
+                        <div class="small-8 columns tight"><label>History</label></div>
+                        <div class="small-4 columns tight text-right">
+                            <div class="button icon selected" title="CC History" data-bind="click: cchHistory"><i class="button-icon fi-first-aid"></i></div>
+                        </div>
+                    </div>
+                    <textarea data-bind="notesvalue: model.SubjectiveHistory"></textarea>
+                </div>
+            </div>
+            <div id="cchHistoryWindow" style="display:none">
+                <div data-bind="foreach: model.History.Cch">
+                    <div class="row title" data-bind="text: Header, attr: { id: 'cch' + ExamID() }"></div>
+                    <fieldset class="history-box">
+                        <div data-bind="css: { display_none: FieldValue.HasCcHistory }">No History</div>
+                        <div class="row row-narrow tight" data-bind="css: { display_none: !FieldValue.HasCcHistory() }">
+                            <div class="small-12 columns tight">
+                                <b>Chief Complaint:</b>
+                                <span data-bind="text: FieldValue.Compliant"></span>
+                            </div>
+                        </div>
+                        <div class="row row-narrow tight" data-bind="css: { display_none: !FieldValue.HasCcHistory() }">
+                            <div class="small-12 columns tight">
+                                <b>History:</b>
+                                <span data-bind="text: FieldValue.SubjectiveHistory"></span>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="row row-narrow">
+                <div class="small-6 columns col-narrow">
+                    <label>Mentation</label>
+                    <select data-bind="notesselect: model.Mentation1"></select>
+                </div>
+                <div class="small-6 columns col-narrow">
+                    <label>&nbsp;</label>
+                    <input type="text" data-bind="notesvalue: model.Mentation2" />
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset class="no-bottom-border">
+        <div class="togglenotes">
+            <h6>Past Ocular</h6>
+            <div class="row row-narrow tight">
+                <div class="small-4 columns tight">
+                    <b>Glasses:</b>
+                    <span data-bind="displaytext: [model.Glasses1, model.Glasses2]"></span>
+                </div>
+                <div class="small-2 columns tight">
+                    <b>Last Exam:</b>
+                    <span data-bind="displaytext: [model.LastExam]"></span>
+                </div>
+                <div class="small-6 columns tight">
+                    <b>Contact Lens Hx:</b>
+                    <span data-bind="displaytext: [model.ContactLens1, model.ContactLens2]"></span>
+                </div>
+            </div>
+            <div class="row row-narrow tight">
+                <div class="small-6 columns tight">
+                    <b>Disease/Trauma:</b>
+                    <span data-bind="displaytext: [model.DiseaseTrauma1, model.DiseaseTrauma2, model.DiseaseTrauma3, model.DiseaseTrauma4, model.DiseaseTrauma5, model.DiseaseTrauma6]"></span>
+                </div>
+                <div class="small-6 columns tight">
+                    <b>Surgery/Treatment:</b>
+                    <span data-bind="displaytext: [model.SurgeryTreatment1, model.SurgeryTreatment2, model.SurgeryTreatment3, model.SurgeryTreatment4, model.SurgeryTreatment5]"></span>
+                </div>
+            </div>
+        </div>
+        <div class="notes-display">
+            <div class="row row-narrow">
+                <div class="small-6 columns col-narrow">
+                    <label>Glasses</label>
+                    <div class="row row-narrow">
+                        <div class="small-6 columns tight">
+                            <select data-bind="notesselect: model.Glasses1"></select>
+                        </div>
+                        <div class="small-6 columns tight">
+                            <input type="text" data-bind="notesvalue:model.Glasses2" />
+                        </div>
+                    </div>
+                </div>
+                <div class="small-2 columns col-narrow">
+                    <label>Last Exam</label>
+                    <input type="text" data-bind="notesdatepicker: model.LastExam" />
+                </div>
+                <div class="small-4 columns col-narrow">
+                    <label>Contact Lens Hx</label>
+                    <div class="row row-narrow">
+                        <div class="small-6 columns tight">
+                            <select data-bind="notesselect: model.ContactLens1"></select>
+                        </div>
+                        <div class="small-6 columns tight">
+                            <input type="text" data-bind="notesvalue: model.ContactLens2" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-narrow">
+                <div class="small-6 columns col-narrow">
+                    <label>Disease/Trauma</label>
+                    <div class="row row-narrow">
+                        <div class="small-6 columns tight">
+                            <select data-bind="notesselect: model.DiseaseTrauma1"></select>
+                        </div>
+                        <div class="small-6 columns tight">
+                            <input type="text" data-bind="notesvalue: model.DiseaseTrauma2" />
+                        </div>
+                    </div>
+                    <div class="row row-narrow">
+                        <div class="small-6 columns tight">
+                            <select data-bind="notesselect: model.DiseaseTrauma3"></select>
+                        </div>
+                        <div class="small-6 columns tight">
+                            <input type="text" data-bind="notesvalue: model.DiseaseTrauma4" />
+                        </div>
+                    </div>
+                    <div class="row row-narrow">
+                        <div class="small-6 columns tight">
+                            <select data-bind="notesselect: model.DiseaseTrauma5"></select>
+                        </div>
+                        <div class="small-6 columns tight">
+                            <input type="text" data-bind="notesvalue: model.DiseaseTrauma6" />
+                        </div>
+                    </div>
+                </div>
+                <div class="small-6 columns col-narrow">
+                    <label>Surgery/Treatment</label>
+                    <div class="row row-narrow">
+                        <div class="small-6 columns tight">
+                            <select data-bind="notesselect: model.SurgeryTreatment1"></select>
+                        </div>
+                        <div class="small-6 columns tight">
+                            <input type="text" data-bind="notesvalue: model.SurgeryTreatment2" />
+                        </div>
+                    </div>
+                    <div class="row row-narrow">
+                        <div class="small-6 columns tight">
+                            <select data-bind="notesselect: model.SurgeryTreatment3"></select>
+                        </div>
+                        <div class="small-6 columns tight">
+                            <input type="text" data-bind="notesvalue: model.SurgeryTreatment4" />
+                        </div>
+                    </div>
+                    <div class="row row-narrow">
+                        <div class="small-12 columns tight">
+                            <input type="text" data-bind="notesvalue: model.SurgeryTreatment5" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <div class="togglenotes">
+            <h6>Medical History</h6>
+            <div class="row row-narrow tight">
+                <div class="small-6 columns tight">
+                    <b>Medications:</b>
+                    <span data-bind="displaytext: [model.Medications]"></span>
+                </div>
+                <div class="small-6 columns tight">
+                    <b>PMH:</b>
+                    <span data-bind="displaytext: [model.PMH1, model.PMH2, model.PMH3, model.PHM4]"></span>
+                </div>
+            </div>
+            <div class="row row-narrow tight">
+                <div class="small-12 columns tight">
+                    <b>Birth Hx:</b>
+                    <span data-bind="displaytext: [model.BirthHist1, model.BirthHist2]"></span>
+                </div>
+            </div>
+            <div class="row row-narrow tight">
+                <div class="small-6 columns tight">
+                    <b>GA:</b>
+                    <span data-bind="displaytext: [model.GA, model.BirthHist3]"></span>
+                </div>
+                <div class="small-3 columns tight">
+                    <b>PC Age:</b>
+                    <span data-bind="displaytext: [model.PCA]"></span>
+                </div>
+                <div class="small-3 columns tight">
+                    <b>Birth Wt:</b>
+                    <span data-bind="displaytext: [model.BirthWt]"></span>
+                </div>
+            </div>
+            <div class="row row-narrow tight">
+                <div class="small-6 columns tight">
+                    <b>Development Hx:</b>
+                    <span data-bind="displaytext: [model.DevelopHist1, model.DevelopHist2, model.DevelopHist3, model.DevelopHist4]"></span>
+                </div>
+                <div class="small-6 columns tight">
+                    <b>Family Hx:</b>
+                    <span data-bind="displaytext: [model.FH1, model.FH2, model.FH3, model.FH4, model.FH5, model.FH6]"></span>
+                </div>
+            </div>
+        </div>
+        <div class="notes-display">
+            <div class="row row-narrow">
+                <div class="small-6 columns col-narrow">
+                    <label>Medications</label>
+                    <textarea data-bind="notesvalue: model.Medications"></textarea>
+                </div>
+                <div class="small-6 columns col-narrow">
+                    <label>PMH</label>
+                    <div class="row row-narrow">
+                        <div class="small-6 columns tight">
+                            <select data-bind="notesselect: model.PMH1"></select>
+                        </div>
+                        <div class="small-6 columns tight">
+                            <input type="text" data-bind="notesvalue: model.PMH2" />
+                        </div>
+                    </div>
+                    <div class="row row-narrow">
+                        <div class="small-6 columns tight">
+                            <select data-bind="notesselect: model.PMH3"></select>
+                        </div>
+                        <div class="small-6 columns tight">
+                            <input type="text" data-bind="notesvalue: model.PHM4" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-narrow">
+                <div class="small-6 columns col-narrow">
+                    <label>Birth Hx</label>
+                    <select data-bind="notesselect: model.BirthHist1"></select>
+                </div>
+                <div class="small-2 columns col-narrow">
+                    <label>GA</label>
+                    <input type="text" data-bind="notesvalue: model.GA, enable: model.BirthHist1.Value() === 'Premature'" />
+                </div>
+                <div class="small-2 columns col-narrow">
+                    <label>PC Age</label>
+                    <input type="text" data-bind="notesvalue: model.PCA, enable: model.BirthHist1.Value() === 'Premature'" />
+                </div>
+                <div class="small-2 columns col-narrow">
+                    <label>Birth Wt</label>
+                    <input type="text" data-bind="notesvalue: model.BirthWt, enable: model.BirthHist1.Value() === 'Premature'" />
+                </div>
+            </div>
+            <div class="row row-narrow">
+                <div class="small-6 columns col-narrow"><input type="text" data-bind="notesvalue: model.BirthHist2" /></div>
+                <div class="small-6 columns col-narrow"><input type="text" data-bind="notesvalue: model.BirthHist3, enable: model.BirthHist1.Value() === 'Premature'" /></div>
+            </div>
+            <div class="row row-narrow">
+                <div class="small-6 columns col-narrow">
+                    <label>Development Hx</label>
+                    <div class="row row-narrow">
+                        <div class="small-6 columns tight">
+                            <select data-bind="notesselect: model.DevelopHist1"></select>
+                        </div>
+                        <div class="small-6 columns tight">
+                            <input type="text" data-bind="notesvalue: model.DevelopHist2" />
+                        </div>
+                    </div>
+                    <div class="row row-narrow">
+                        <div class="small-6 columns tight">
+                            <select data-bind="notesselect: model.DevelopHist3"></select>
+                        </div>
+                        <div class="small-6 columns tight">
+                            <input type="text" data-bind="notesvalue: model.DevelopHist4" />
+                        </div>
+                    </div>
+                </div>
+                <div class="small-6 columns col-narrow">
+                    <label>Family Hx</label>
+                    <div class="row row-narrow">
+                        <div class="small-6 columns tight">
+                            <select data-bind="notesselect: model.FH1"></select>
+                        </div>
+                        <div class="small-6 columns tight">
+                            <input type="text" data-bind="notesvalue:model.FH2" />
+                        </div>
+                    </div>
+                    <div class="row row-narrow">
+                        <div class="small-6 columns tight">
+                            <select data-bind="notesselect: model.FH3"></select>
+                        </div>
+                        <div class="small-6 columns tight">
+                            <input type="text" data-bind="notesvalue:model.FH4" />
+                        </div>
+                    </div>
+                    <div class="row row-narrow">
+                        <div class="small-6 columns tight">
+                            <select data-bind="notesselect: model.FH5"></select>
+                        </div>
+                        <div class="small-6 columns tight">
+                            <input type="text" data-bind="notesvalue:model.FH6" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <h5 class="notes_heading" id="acuity-header">Acuity</h5>
+    <fieldset class="no-bottom-border">
+        <div class="togglenotes">
+            <div class="row row-narrow tight">
+                <div class="small-4 columns tight">
+                    <b>Tested with:</b>
+                    <span data-bind="displaytext: [model.VisualAcuity]"></span>
+                </div>
+                <div class="small-8 columns tight">
+                    <b>BINOC sc Dist:</b>
+                    <span data-bind="displaytext: [model.Binocsc1, model.Binocsc2]"></span>
+                </div>
+            </div>
+        </div>
+        <div class="notes-display">
+            <div class="row row-narrow">
+                <div class="small-4 columns col-narrow">
+                    <label>Tested with</label>
+                    <select data-bind="notesselect: model.VisualAcuity"></select>
+                </div>
+                <div class="small-8 columns col-narrow">
+                    <label>BINOC sc Dist</label>
+                    <div class="row row-narrow">
+                        <div class="small-4 columns tight">
+                            <select data-bind="notesselect: model.Binocsc1"></select>
+                        </div>
+                        <div class="small-8 columns tight">
+                            <input type="text" data-bind="notesvalue: model.Binocsc2" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset class="no-bottom-border">
+        <div class="togglenotes">
+            <div class="row row-narrow tight">
+                <div class="small-4 columns tight">
+                    <b>Tested with:</b>
+                    <span data-bind="displaytext: [model.VisualAcuity]"></span>
+                </div>
+                <div class="small-8 columns tight">
+                    <b>BINOC sc Dist:</b>
+                    <span data-bind="displaytext: [model.Binocsc1, model.Binocsc2]"></span>
+                </div>
+            </div>
+        </div>
+        <div class="notes-display">
+            <div class="row row-narrow">
+                <div class="small-4 columns col-narrow">
+                    <div class="row row-narrow">
+                        <div class="small-8 columns tight">
+                            <label>VA sc Dist</label>
+                        </div>
+                        <div class="small-4 columns tight text-right small-font">
+                            <input type="checkbox" class="tight" data-bind="notescheck: model.NoPref" /> No pref
+                        </div>
+                    </div>
+                    <div class="row row-narrow">
+                        <div class="small-1 columns odos">
+                            OD:
+                        </div>
+                        <div class="small-6 columns tight">
+                            <select data-bind="notesselect: model.VAscOD1"></select>
+                        </div>
+                        <div class="small-5 columns tight">
+                            <input type="text" data-bind="notesvalue: model.VAscOD2" />
+                        </div>
+                    </div>
+                    <div class="row row-narrow">
+                        <div class="small-1 columns odos">
+                            OS:
+                        </div>
+                        <div class="small-6 columns tight">
+                            <select data-bind="notesselect: model.DistOS1"></select>
+                        </div>
+                        <div class="small-5 columns tight">
+                            <input type="text" data-bind="notesvalue: model.DistOS2" />
+                        </div>
+                    </div>
+                </div>
+                <div class="small-4 columns col-narrow">
+                    <label>VA cc Dist</label>
+                    <div class="row row-narrow">
+                        <div class="small-1 columns odos">
+                            OD:
+                        </div>
+                        <div class="small-6 columns tight">
+                            <select data-bind="notesselect: model.VAccOD1"></select>
+                        </div>
+                        <div class="small-5 columns tight">
+                            <input type="text" data-bind="notesvalue: model.VAccOD2" />
+                        </div>
+                    </div>
+                    <div class="row row-narrow">
+                        <div class="small-1 columns odos">
+                            OS:
+                        </div>
+                        <div class="small-6 columns tight">
+                            <select data-bind="notesselect: model.DistOS3"></select>
+                        </div>
+                        <div class="small-5 columns tight">
+                            <input type="text" data-bind="notesvalue: model.DistOS4" />
+                        </div>
+                    </div>
+                </div>
+                <div class="small-4 columns col-narrow">
+                    <div class="row row-narrow">
+                        <div class="small-8 columns tight"><label>VA Near</label></div>
+                        <div class="small-4 columns tight text-right">
+                            <div class="button icon selected" title="Dist & Near History" data-bind="click: distHistory"><i class="button-icon fi-first-aid"></i></div>
+                        </div>
+                    </div>
+                    <div class="row row-narrow">
+                        <div class="small-1 columns odos">
+                            OD:
+                        </div>
+                        <div class="small-6 columns tight">
+                            <select data-bind="notesselect: model.VAOD1"></select>
+                        </div>
+                        <div class="small-5 columns tight">
+                            <input type="text" data-bind="notesvalue: model.VAOD2" />
+                        </div>
+                    </div>
+                    <div class="row row-narrow">
+                        <div class="small-1 columns odos">
+                            OS:
+                        </div>
+                        <div class="small-6 columns tight">
+                            <select data-bind="notesselect: model.NearOS1"></select>
+                        </div>
+                        <div class="small-5 columns tight">
+                            <input type="text" data-bind="notesvalue: model.NearOS2" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <div id="distHistoryWindow" style="display:none">
+        <div data-bind="foreach: model.History.Dist">
+        <div class="row title" data-bind="text: Header, attr: { id: 'dist' + ExamID() }"></div>
+        <fieldset class="history-box">
+            <div data-bind="css: { display_none: FieldValue.HasHistory }">No History</div>
+            <div class="row row-narrow tight" data-bind="css: { display_none: !FieldValue.HasHistory() }">
+                <div class="small-6 columns tight">
+                    <b>VA sc Dist:</b>
+                    <span data-bind="text: FieldValue.VAsc"></span>
+                </div>
+                <div class="small-6 columns tight">
+                    <b>VA Near:</b>
+                    <span data-bind="text: FieldValue.VAnear"></span>
+                </div>
+            </div>
+            <div class="row row-narrow tight" data-bind="css: { display_none: !FieldValue.HasHistory() }">
+                <div class="small-6 columns tight">
+                    <b>VA cc Dist:</b>
+                    <span data-bind="text: FieldValue.VAcc"></span>
+                </div>
+            </div>
+        </fieldset>
+        </div>
+    </div>
+    <fieldset class="no-bottom-border">
+        <div class="small-4 columns col-narrow">
+            <label>Spc Wr1</label>
+            <div class="row row-narrow">
+                <div class="small-1 columns odos">
+                    OD:
+                </div>
+                <div class="small-11 columns tight">
+                    <input type="text" data-bind="notesvalue: model.SpcWr1OD" />
+                </div>
+            </div>
+            <div class="row row-narrow">
+                <div class="small-1 columns odos">
+                    OS:
+                </div>
+                <div class="small-11 columns tight">
+                    <input type="text" data-bind="notesvalue: model.SpcWr1OS" />
+                </div>
+            </div>
+        </div>
+        <div class="small-4 columns col-narrow">
+            <label>Spc Wr2</label>
+            <div class="row row-narrow">
+                <div class="small-1 columns odos">
+                    OD:
+                </div>
+                <div class="small-11 columns tight">
+                    <input type="text" data-bind="notesvalue: model.SpcWr2OD" />
+                </div>
+            </div>
+            <div class="row row-narrow">
+                <div class="small-1 columns odos">
+                    OS:
+                </div>
+                <div class="small-11 columns tight">
+                    <input type="text" data-bind="notesvalue: model.SpcWr2OS" />
+                </div>
+            </div>
+        </div>
+        <div class="small-4 columns col-narrow">
+            <label>Spc Wr3</label>
+            <div class="row row-narrow">
+                <div class="small-1 columns odos">
+                    OD:
+                </div>
+                <div class="small-11 columns tight">
+                    <input type="text" data-bind="notesvalue: model.SpcWr3OD" />
+                </div>
+            </div>
+            <div class="row row-narrow">
+                <div class="small-1 columns odos">
+                    OS:
+                </div>
+                <div class="small-11 columns tight">
+                    <input type="text" data-bind="notesvalue: model.SpcWr3OS" />
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset class="no-bottom-border">
+    <div class="row row-narrow">
+        <div class="small-4 columns col-narrow">
+            <label>Man Rfx</label>
+            <div class="row row-narrow">
+                <div class="small-1 columns odos">
+                    OD:
+                </div>
+                <div class="small-6 columns tight">
+                    <input type="text" data-bind="notesvalue: model.ManRfxOD1" />
+                </div>
+                <div class="small-5 columns tight">
+                    <input type="text" data-bind="notesvalue: model.ManRfxOD2" />
+                </div>
+            </div>
+            <div class="row row-narrow">
+                <div class="small-1 columns odos">
+                    OS:
+                </div>
+                <div class="small-6 columns tight">
+                    <input type="text" data-bind="notesvalue: model.ManRfxOS1" />
+                </div>
+                <div class="small-5 columns tight">
+                    <input type="text" data-bind="notesvalue: model.ManRfxOS2" />
+                </div>
+            </div>
+        </div>
+        <div class="small-3 columns col-narrow">
+            <label>VA</label>
+            <div class="row row-narrow">
+                <div class="tiny-3 columns odos">
+                    OD:
+                </div>
+                <div class="tiny-9 columns tight">
+                    <select data-bind="notesselect: model.ManVAOD1"></select>
+                </div>
+                <div class="tiny-12 columns tight">
+                    <input type="text" data-bind="notesvalue: model.ManVAOD2" />
+                </div>
+            </div>
+            <div class="row row-narrow">
+                <div class="tiny-3 columns odos">
+                    OS:
+                </div>
+                <div class="tiny-9 columns tight">
+                    <select data-bind="notesselect: model.ManVSOS1"></select>
+                </div>
+                <div class="tiny-12 columns tight">
+                    <input type="text" data-bind="notesvalue: model.ManVSOS2" />
+                </div>
+            </div>
+        </div>
+        <div class="small-2 columns col-narrow">
+            <label>Cyc Rfx</label>
+            <div class="row row-narrow">
+                <div class="small-2 columns odos">
+                    OD:
+                </div>
+                <div class="small-10 columns tight">
+                    <input type="text" data-bind="notesvalue: model.CycRfxOD" />
+                </div>
+            </div>
+            <div class="row row-narrow">
+                <div class="small-2 columns odos">
+                    OS:
+                </div>
+                <div class="small-10 columns tight">
+                    <input type="text" data-bind="notesvalue: model.CycRfxOS" />
+                </div>
+            </div>
+        </div>
+        <div class="small-3 columns col-narrow">
+            
+            <div class="row row-narrow">
+                <div class="small-8 columns tight"><label>VA</label></div>
+                <div class="small-4 columns tight text-right">
+                    <div class="button icon selected" title="Rfx History" data-bind="click: rfxHistory"><i class="button-icon fi-first-aid"></i></div>
+                </div>
+            </div>
+            
+            <div class="row row-narrow">
+                <div class="tiny-3 columns odos">
+                    OD:
+                </div>
+                <div class="tiny-9 columns tight">
+                    <select data-bind="notesselect: model.CycVAOD3"></select>
+                </div>
+                <div class="tiny-12 columns tight">
+                    <input type="text" data-bind="notesvalue: model.CycVAOD4" />
+                </div>
+            </div>
+            <div class="row row-narrow">
+                <div class="tiny-3 columns odos">
+                    OS:
+                </div>
+                <div class="tiny-9 columns tight">
+                    <select data-bind="notesselect: model.CycVSOS1"></select>
+                </div>
+                <div class="tiny-12 columns tight">
+                    <input type="text" data-bind="notesvalue: model.CycVSOS2" />
+                </div>
+            </div>
+        </div>
+    </div>
+    </fieldset>
+    <div id="rfxHistoryWindow" style="display:none">
+        <div data-bind="foreach: model.History.Rfx">
+        <div class="row title"  data-bind="text: Header, attr: { id: 'rfx' + ExamID() }"></div>
+        <fieldset class="history-box">
+            <div data-bind="css: { display_none: FieldValue.HasHistory }">No History</div>
+            <div class="row row-narrow tight" data-bind="css: { display_none: !FieldValue.HasHistory() }">
+                <div class="small-6 columns tight">
+                    <b>Man Rfx: </b>
+                    <span data-bind="text: FieldValue.ManRfx"></span>
+                </div>
+                <div class="small-6 columns tight">
+                    <b>Cyc Rfx: </b>
+                    <span data-bind="text: FieldValue.CycRfx"></span>
+                </div>
+            </div>
+            <div class="row row-narrow tight" data-bind="css: { display_none: !FieldValue.HasHistory() }">
+                <div class="small-6 columns tight">
+                    <b>VA:</b>
+                    <span data-bind="text: FieldValue.ManVA"></span>
+                </div>
+                <div class="small-6 columns tight">
+                    <b>VA:</b>
+                    <span data-bind="text: FieldValue.CycVA"></span>
+                </div>
+            </div>
+        </fieldset>
+        </div>
+    </div>
+    <fieldset class="no-bottom-border">
+        <div class="small-7 columns col-narrow">
+            <label>Rx given</label>
+            <div class="row row-narrow">
+                <div class="small-1 columns tight odos">OD:</div>
+                <div class="small-3 columns tight"><input type="text" data-bind="notesvalue: model.RxOD1" /></div>
+                <div class="small-3 columns tight"><input type="text" data-bind="notesvalue: model.RxOD2" /></div>
+                <div class="small-3 columns tight small-font side-label-left left">&nbsp;<input type="checkbox" data-bind="notescheck: model.PopulateRxGiven" />Populate</div>
+                <div class="small-2 columns tight">&nbsp;</div>
+            </div>
+            <div class="row row-narrow">
+                <div class="small-1 columns tight odos">OS:</div>
+                <div class="small-3 columns tight"><input type="text" data-bind="notesvalue: model.RXOS1" /></div>
+                <div class="small-3 columns tight"><input type="text" data-bind="notesvalue: model.RXOS2" /></div>
+                <div class="small-3 columns tight"><input type="text" data-bind="notesvalue: model.RXOS3" /></div>
+                <div class="small-2 columns tight left"><input type="text" data-bind="notesvalue: model.RXOS4" /></div>
+            </div>
+        </div>
+        <div class="small-5 columns col-narrow">
+            <label>CTL Rx</label>
+            <div class="row row-narrow tight">
+                <div class="small-1 columns tight odos">OD:</div>
+                <div class="small-4 columns tight"><input type="text" data-bind="notesvalue: model.CTLRxOD1" /></div>
+                <div class="small-3 columns tight"><input type="text" data-bind="notesvalue: model.CTLRxOD2" /></div>
+                <div class="small-2 columns tight"><input type="text" data-bind="notesvalue: model.CTLRxOD3" /></div>
+                <div class="small-2 columns tight small-font side-label-left">&nbsp;<input type="checkbox" data-bind="notescheck: model.PopulateCtlRx"  />Populate</div>
+            </div>
+            <div class="row row-narrow tight">
+                <div class="small-1 columns tight odos">OS:</div>
+                <div class="small-4 columns tight"><input type="text" data-bind="notesvalue: model.CTLRxOS1" /></div>
+                <div class="small-3 columns tight"><input type="text" data-bind="notesvalue: model.CTLRxOS2" /></div>
+                <div class="small-2 columns tight"><input type="text" data-bind="notesvalue: model.CTLRxOS3" /></div>
+                <div class="small-2 columns tight small-font side-label-left">&nbsp;</div>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <div class="row row-narrow">
+            <label>Visual Fields</label>
+            <div class="small-3 columns tight"><select data-bind="notesselect: model.Confront1" /></div>
+            <div class="small-3 columns tight"><select data-bind="notesselect: model.Confront2" /></div>
+            <div class="small-4 columns tight"><input type="text" data-bind="notesvalue: model.Confront3" /></div>
+            <div class="small-2 columns tight">&nbsp;</div>
+        </div>
+        <div class="row row-narrow">
+            <label>Pupils</label>
+            <div class="small-1 columns tight"><select data-bind="notesselect: model.PupilOD1" /></div>
+            <div class="small-4 columns tight"><select data-bind="notesselect: model.PupilOD2" /></div>
+            <div class="small-1 columns tight"><select data-bind="notesselect: model.PupilOS1" /></div>
+            <div class="small-4 columns tight"><select data-bind="notesselect: model.PupilOS2" /></div>
+            <div class="small-2 columns tight"><input type="text" data-bind="notesvalue: model.Pupil" /></div>
+        </div>
+    </fieldset>
+    <h5 class="notes_heading" id="ocular-mot-header">Ocular Motility</h5>
+    <fieldset class="no-bottom-border">
+        <div class="row row-narrow">
+            <div class="small-2 columns col-narrow">
+                <label>Ocular Motility</label>
+                <select data-bind="notesselect: model.OcularMotility6" />
+            </div>
+            <div class="small-2 columns tight">
+                <label>&nbsp;</label>
+                <select data-bind="notesselect: model.OcularMotility1" />
+            </div>
+            <div class="small-3 columns tight">
+                <label>&nbsp;</label>
+                <input type="text" data-bind="notesvalue: model.OcularMotility5" />
+            </div>
+            <div class="small-2 columns tight">
+                <label>&nbsp;</label>
+                <select data-bind="notesselect: model.OcularMotility2" />
+            </div>
+            <div class="small-3 columns tight">
+                <label>&nbsp;</label>
+                <input type="text" data-bind="notesvalue: model.OcularMotility4" />
+            </div>
+        </div>
+        <div class="row row-narrow">
+            <div class="small-1 columns col-narrow">&nbsp;</div>
+            <div class="small-10 columns col-narrow">
+                <fieldset class="notes-box">
+                    <div class="row row-narrow">
+                        <div class="tic-tac-outer columns col-narrow"></div>
+                        <div class="tic-tac-data-side columns col-narrow">
+                            <div class="row tight">
+                                <div class="small-6 columns tight"><input type="text" data-bind="notesvalue: model.OcMot1a" /></div>
+                                <div class="small-6 columns tight"><input type="text" data-bind="notesvalue: model.OcMot1b" /></div>
+                            </div>
+                        </div>
+                        <div class="tic-tac-center columns col-narrow">&nbsp;</div>
+                        <div class="tic-tac-data-center columns col-narrow">
+                            <div class="row tight">
+                                <div class="small-6 columns tight"><input type="text" data-bind="notesvalue: model.OcMot2a" /></div>
+                                <div class="small-6 columns tight"><input type="text" data-bind="notesvalue: model.OcMot2b" /></div>
+                            </div>
+                        </div>
+                        <div class="tic-tac-center columns col-narrow">&nbsp;</div>
+                        <div class="tic-tac-data-side columns col-narrow">
+                            <div class="row tight">
+                                <div class="small-6 columns tight"><input type="text" data-bind="notesvalue: model.OcMot3a" /></div>
+                                <div class="small-6 columns tight"><input type="text" data-bind="notesvalue: model.OcMot3b" /></div>
+                            </div>
+                        </div>
+                        <div class="tic-tac-outer columns col-narrow"></div>
+                    </div>
+                    <div class="row row-narrow">
+                        <div class="tic-tac-outer columns col-narrow"></div>
+                        <div class="tic-tac-data-side columns col-narrow">
+                            <div class="row tight">
+                                <div class="small-6 columns tight"><input type="text" data-bind="notesvalue: model.OcMot4a" /></div>
+                                <div class="small-6 columns tight"><input type="text" data-bind="notesvalue: model.OcMot4b" /></div>
+                            </div>
+                        </div>
+                        <div class="tic-tac-center columns col-narrow">&nbsp;</div>
+                        <div class="tic-tac-data-center columns col-narrow">
+                            <div class="row tight">
+                                <div class="small-6 columns tight"><input type="text" data-bind="notesvalue: model.OcMot5a" /></div>
+                                <div class="small-6 columns tight"><input type="text" data-bind="notesvalue: model.OcMot5b" /></div>
+                            </div>
+                        </div>
+                        <div class="tic-tac-center columns col-narrow">&nbsp;</div>
+                        <div class="tic-tac-data-side columns col-narrow">
+                            <div class="row tight">
+                                <div class="small-6 columns tight"><input type="text" data-bind="notesvalue: model.OcMot6a" /></div>
+                                <div class="small-6 columns tight"><input type="text" data-bind="notesvalue: model.OcMot6b" /></div>
+                            </div>
+                        </div>
+                        <div class="tic-tac-outer columns col-narrow"></div>
+                    </div>
+                    <div class="row row-narrow">
+                        <div class="tic-tac-outer columns col-narrow"></div>
+                        <div class="tic-tac-data-side columns col-narrow">
+                            <div class="row tight">
+                                <div class="small-6 columns tight"><input type="text" data-bind="notesvalue: model.OcMot7a" /></div>
+                                <div class="small-6 columns tight"><input type="text" data-bind="notesvalue: model.OcMot7b" /></div>
+                            </div>
+                        </div>
+                        <div class="tic-tac-center columns col-narrow">&nbsp;</div>
+                        <div class="tic-tac-data-center columns col-narrow">
+                            <div class="row tight">
+                                <div class="small-6 columns tight"><input type="text" data-bind="notesvalue: model.OcMot8a" /></div>
+                                <div class="small-6 columns tight"><input type="text" data-bind="notesvalue: model.OcMot8b" /></div>
+                            </div>
+                        </div>
+                        <div class="tic-tac-center columns col-narrow">&nbsp;</div>
+                        <div class="tic-tac-data-side columns col-narrow">
+                            <div class="row tight">
+                                <div class="small-6 columns tight"><input type="text" data-bind="notesvalue: model.OcMot9a" /></div>
+                                <div class="small-6 columns tight"><input type="text" data-bind="notesvalue: model.OcMot9b" /></div>
+                            </div>
+                        </div>
+                        <div class="tic-tac-outer columns col-narrow"></div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="small-1 columns col-narrow">        
+                <div class="button icon selected display_none" title="Ocular Motility History" data-bind="click: ocmHistory"><i class="button-icon fi-first-aid"></i></div>
+            </div>
+        </div>
+        <div id="ocmHistoryWindow" style="display:none">
+            <div data-bind="foreach: model.History.Ocm">
+            <div class="row title" data-bind="text: Header, attr: { id: 'ocm' + ExamID() }"></div>
+            <fieldset class="history-box">
+                <table class="ocm-outer">
+                    <tr>
+                        <td>
+                            <table class="ocm-inner">
+                                <tr>
+                                    <td data-bind="text: FieldValue.OcMot1a">&nbsp;</td>
+                                    <td data-bind="text: FieldValue.OcMot1b">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td data-bind="text: FieldValue.OcMot4a">&nbsp;</td>
+                                    <td data-bind="text: FieldValue.OcMot4b">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td data-bind="text: FieldValue.OcMot7a"></td>
+                                    <td data-bind="text: FieldValue.OcMot7b"></td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>
+                            <table class="ocm-inner">
+                                <tr>
+                                    <td data-bind="text: FieldValue.OcMot2a"></td>
+                                    <td data-bind="text: FieldValue.OcMot2b"></td>
+                                </tr>
+                                <tr>
+                                    <td data-bind="text: FieldValue.OcMot5a"></td>
+                                    <td data-bind="text: FieldValue.OcMot5b"></td>
+                                </tr>
+                                <tr>
+                                    <td data-bind="text: FieldValue.OcMot8a"></td>
+                                    <td data-bind="text: FieldValue.OcMot8b"></td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>
+                            <table class="ocm-inner">
+                                <tr>
+                                    <td data-bind="text: FieldValue.OcMot3a"></td>
+                                    <td data-bind="text: FieldValue.OcMot3b"></td>
+                                </tr>
+                                <tr>
+                                    <td data-bind="text: FieldValue.OcMot6a"></td>
+                                    <td data-bind="text: FieldValue.OcMot6b"></td>
+                                </tr>
+                                <tr>
+                                    <td data-bind="text: FieldValue.OcMot9a"></td>
+                                    <td data-bind="text: FieldValue.OcMot9b"></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+            </div>
+        </div>
+        <div class="row row-narrow">
+            <div class="small-4 columns col-narrow">
+                <label>Head Tilt Right</label>
+                <div class="row row-narrow">
+                    <div class="small-6 columns tight"><input type="text" data-bind="notesvalue: model.HeadTiltRight1" /></div>
+                    <div class="small-6 columns tight"><input type="text" data-bind="notesvalue: model.HeadTiltRight2" /></div>
+                </div>
+            </div>
+            <div class="small-4 columns col-narrow">
+                <label>Head Tilt Left</label>
+                <div class="row row-narrow">
+                    <div class="small-6 columns tight"><input type="text" data-bind="notesvalue: model.HeadTiltLeft1" /></div>
+                    <div class="small-6 columns tight"><input type="text" data-bind="notesvalue: model.HeadTiltLeft2" /></div>
+                </div>
+            </div>
+            <div class="small-4 columns col-narrow">
+                <label>Adaptive Head Positions</label>
+                <div class="row row-narrow">
+                    <div class="small-6 columns tight"><select data-bind="notesselect: model.HeadPosition1" /></div>
+                    <div class="small-6 columns tight"><input type="text" data-bind="notesvalue: model.HeadPosition2" /></div>
+                </div>
+            </div>
+        </div>
+        <div class="row row-narrow">
+            <div class="small-4 columns col-narrow">
+                <label>Double Maddox Rod</label>
+                <input type="text" data-bind="notesvalue: model.DMR2" />
+            </div>
+            <div class="small-4 columns col-narrow">
+                <label>Preference</label>
+                <select data-bind="notesselect: model.Preference" />
+            </div>
+            <div class="small-4 columns col-narrow">
+                &nbsp;
+            </div>
+        </div>
+    </fieldset>
+    <fieldset class="no-bottom-border">
+        <div class="row row-narrow">
+            <div class="small-6 columns col-narrow">
+                <div class="row row-narrow">
+                    <div class="small-12 columns tight">
+                        <label>Ocular Versions</label>
+                    </div>
+                </div>
+                <div class="row row-narrow">
+                    <div class="small-4 columns tight"><select data-bind="notesselect: model.OcularVersions1" /></div>
+                    <div class="small-4 columns tight"><select data-bind="notesselect: model.OcularVersions11" /></div>
+                    <div class="small-4 columns tight"><select data-bind="notesselect: model.OcularVersions2" /></div>
+                </div>
+                <div class="row row-narrow">
+                    <div class="small-4 columns tight"><select data-bind="notesselect: model.OcularVersions3" /></div>
+                    <div class="small-4 columns tight"><select data-bind="notesselect: model.OcularVersions31" /></div>
+                    <div class="small-4 columns tight"><select data-bind="notesselect: model.OcularVersions4" /></div>
+                </div>
+                <div class="row row-narrow">
+                    <div class="small-12 columns tight"><input type="text" data-bind="notesvalue: model.OcularVersions5" /></div>
+                </div>
+                <div class="row row-narrow">
+                    <div class="small-12 columns tight">
+                        <label>Nystagmus</label>
+                    </div>
+                </div>
+                <div class="row row-narrow">
+                    <div class="small-4 columns tight"><select data-bind="notesselect: model.Nystagmus1" /></div>
+                    <div class="small-8 columns tight"><input type="text" data-bind="notesvalue: model.Nystagmus2" /></div>
+                </div>
+            </div>
+            <div class="small-6 columns col-narrow">
+                <label>&nbsp;</label>
+                <table class="h-table">
+                    <tr>
+                        <td><select data-bind="notesselect: model.OcularVersionOD1" /></td>
+                        <td colspan="3">&nbsp;</td>
+                        <td><select data-bind="notesselect: model.OcularVersionOD2" /></td>
+                        <td>&nbsp;</td>
+                        <td><select data-bind="notesselect: model.OcularVersionOS1" /></td>
+                        <td colspan="3">&nbsp;</td>
+                        <td><select data-bind="notesselect: model.OcularVersionOS2" /></td>
+                    </tr>
+                    <tr>
+                        <td><select data-bind="notesselect: model.OcularVersionOD3" /></td>
+                        <td><img data-bind="attr: { src: utility.virtualDirectory + '/content/images/line-vertical.gif' }" class="h-image-vertical" /></td>
+                        <td class="tight"><img data-bind="attr: { src: utility.virtualDirectory + '/content/images/line-horizontal.gif' }" class="h-image-horizontal" /></td>
+                        <td class="tight"><img data-bind="attr: { src: utility.virtualDirectory + '/content/images/line-vertical.gif' }" class="h-image-vertical" /></td>
+                        <td><select data-bind="notesselect: model.OcularVersionOD4" /></td>
+                        <td>&nbsp;</td>
+                        <td><select data-bind="notesselect: model.OcularVersionOS3" /></td>
+                        <td><img data-bind="attr: { src: utility.virtualDirectory + '/content/images/line-vertical.gif' }" class="h-image-vertical" /></td>
+                        <td class="tight"><img data-bind="attr: { src: utility.virtualDirectory + '/content/images/line-horizontal.gif' }" class="h-image-horizontal" /></td>
+                        <td class="tight"><img data-bind="attr: { src: utility.virtualDirectory + '/content/images/line-vertical.gif' }" class="h-image-vertical" /></td>
+                        <td><select data-bind="notesselect: model.OcularVersionOS4" /></td>
+                    </tr>
+                    <tr>
+                        <td><select data-bind="notesselect: model.OcularVersionOD5" /></td>
+                        <td colspan="3">&nbsp;</td>
+                        <td><select data-bind="notesselect: model.OcularVersionOD6" /></td>
+                        <td>&nbsp;</td>
+                        <td><select data-bind="notesselect: model.OcularVersionOS5" /></td>
+                        <td colspan="3">&nbsp;</td>
+                        <td><select data-bind="notesselect: model.OcularVersionOS6" /></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset class="no-bottom-border">
+        <div class="row row-narrow">
+            <div class="small-6 columns tight">
+                <label>Fusional Amplitudes</label>
+                <div class="row row-narrow">
+                    <div class="small-1 columns tight text-right odos">BO</div>
+                    <div class="small-2 columns tight"><input type="text" data-bind="notesvalue: model.FusAmpBO" /></div>
+                    <div class="small-1 columns tight text-right odos">BI</div>
+                    <div class="small-2 columns tight"><input type="text" data-bind="notesvalue: model.FusAmpBI" /></div>
+                    <div class="small-1 columns tight text-right odos">BU</div>
+                    <div class="small-2 columns tight"><input type="text" data-bind="notesvalue: model.FusAmpBU" /></div>
+                    <div class="small-1 columns tight text-right odos">BD</div>
+                    <div class="small-2 columns tight left"><input type="text" data-bind="notesvalue: model.FusAmpBD" /></div>
+                </div>
+            </div>
+            <div class="small-6 columns tight">
+                <label>Near Point</label>
+                <div class="row row-narrow">
+                    <div class="small-3 columns tight text-right side-label">Convergence</div>
+                    <div class="small-3 columns tight"><input type="text" data-bind="notesvalue: model.Convergence" /></div>
+                    <div class="small-3 columns tight text-right side-label">Accommodation</div>
+                    <div class="small-3 columns tight"><input type="text" data-bind="notesvalue: model.Accommodation" /></div>
+                </div>
+            </div>
+        </div>
+        <div class="row row-narrow">
+            <div class="small-6 columns tight">
+                <label>&nbsp;</label>
+                <div class="row row-narrow">
+                    <div class="small-1 columns tight text-right odos">LVR</div>
+                    <div class="small-2 columns tight"><input type="text" data-bind="notesvalue: model.LVRR1" /></div>
+                    <div class="small-1 columns tight text-right odos">R</div>
+                    <div class="small-2 columns tight"><input type="text" data-bind="notesvalue: model.LVRR2" /></div>
+                    <div class="small-1 columns tight odos">&nbsp;</div>
+                    <div class="small-2 columns tight"><input type="text" data-bind="notesvalue: model.LVRL1" /></div>
+                    <div class="small-1 columns tight text-center odos">L</div>
+                    <div class="small-2 columns tight left"><input type="text" data-bind="notesvalue: model.LVRL2" /></div>
+                </div>
+            </div>
+            <div class="small-6 columns tight">&nbsp;</div>
+        </div>
+    </fieldset>
+    <fieldset>
+        
+        <div class="row row-narrow">
+            <div class="small-8 columns tight"><h6>Binocularity</h6></div>
+            <div class="small-4 columns tight text-right">
+                <div class="button icon selected" title="Binocularity History" data-bind="click: binoHistory"><i class="button-icon fi-first-aid"></i></div>
+            </div>
+        </div>
+        <div class="row row-narrow">
+            <div class="small-4 columns col-narrow">
+                <div class="row row-narrow">
+                    <div class="small-3 columns tight side-label">tested with</div>
+                    <div class="small-9 columns tight"><select data-bind="notesselect: model.Binocularity1" /></div>
+                </div>
+            </div>
+            <div class="small-4 columns col-narrow">
+                <div class="row row-narrow">
+                    <div class="small-12 columns tight"><select data-bind="notesselect: model.Binocularity2" /></div>
+                </div>
+            </div>
+            <div class="small-4 columns col-narrow">
+                <div class="row row-narrow">
+                    <div class="small-6 columns tight"><input type="text" data-bind="notesvalue: model.Binocularity3" /></div>
+                    <div class="small-6 columns tight"><input type="text" data-bind="notesvalue: model.Binocularity4" /></div>
+                </div>
+            </div>
+        </div>
+        <div class="row row-narrow">
+            <div class="small-4 columns col-narrow">
+                <label>W4D Near</label>
+                <div class="row row-narrow">
+                    <div class="small-6 columns tight"><select data-bind="notesselect: model.W4DNear1" /></div>
+                    <div class="small-6 columns tight"><input type="text" data-bind="notesvalue: model.W4DNear2" /></div>
+                </div>
+            </div>
+            <div class="small-4 columns col-narrow">
+                <label>W4D Distance</label>
+                <div class="row row-narrow">
+                    <div class="small-6 columns tight"><select data-bind="notesselect: model.W4DDistance1" /></div>
+                    <div class="small-6 columns tight"><input type="text" data-bind="notesvalue: model.W4DDistance2" /></div>
+                </div>
+            </div>
+            <div class="small-4 columns col-narrow">
+                <label>Stereo(Titmus)</label>
+                <div class="row row-narrow">
+                    <div class="small-6 columns tight"><select data-bind="notesselect: model.Stereo1" /></div>
+                    <div class="small-6 columns tight"><input type="text" data-bind="notesvalue: model.Stereo2" /></div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <div id="binoHistoryWindow" style="display:none">
+        <div data-bind="foreach: model.History.Bino">
+        <div class="row title" data-bind="text: Header, attr: { id: 'bino' + ExamID() }"></div>
+        <fieldset class="history-box">
+            <div data-bind="css: { display_none: FieldValue.HasHistory }">No History</div>
+            <div class="row row-narrow tight" data-bind="css: { display_none: !FieldValue.HasHistory() }">
+                <div class="small-12 columns tight">
+                    <b>Binocularity:</b>
+                    <span data-bind="text: FieldValue.Binocularity"></span>
+                </div>
+            </div>
+            <div class="row row-narrow tight" data-bind="css: { display_none: !FieldValue.HasHistory() }">
+                <div class="small-6 columns tight">
+                    <b>W4D Near:</b>
+                    <span data-bind="text: FieldValue.W4DNear"></span>
+                </div>
+                <div class="small-6 columns tight">
+                    <b>Stereo(Titmus):</b>
+                    <span data-bind="text: FieldValue.Stereo"></span>
+                </div>
+            </div>
+            <div class="row row-narrow tight" data-bind="css: { display_none: !FieldValue.HasHistory() }">
+                <div class="small-6 columns tight">
+                    <b>W4D Distance:</b>
+                    <span data-bind="text: FieldValue.W4DDist"></span>
+                </div>
+            </div>
+        </fieldset>
+        </div>
+    </div>
+    <h5 class="notes_heading" id="ant-seg-header">Anterior Segment</h5>
+    <fieldset class="no-bottom-border">
+        <div class="row row-narrow">
+            <div class="small-6 columns col-narrow">
+                <label>Anterior Segment examination</label>
+            </div>
+            <div class="small-6 columns col-narrow">
+                SLE: <input type="checkbox" data-bind="notescheck: model.SLE"/> &nbsp;&nbsp;
+                Pen-light: <input type="checkbox" data-bind="notescheck: model.PenLight"/>
+            </div>
+        </div>
+        <div class="row row-narrow">
+            <div class="small-12 columns col-narrow">
+                <textarea data-bind="notesvalue: model.AnteriorSegment"></textarea>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset class="no-bottom-border">
+        <div class="row row-narrow">
+            <div class="small-7 columns col-narrow">
+                <label>Lids/Lashes/Lacrimal</label>
+                <div class="row row-narrow">
+                    <div class="small-3 columns tight"><select data-bind="notesselect: model.LidLashLacrimal1" /></div>
+                    <div class="small-1 columns tight"><select data-bind="notesselect: model.LidLashLacrimal2" /></div>
+                    <div class="small-3 columns tight"><select data-bind="notesselect: model.LidLashLacrimal3" /></div>
+                    <div class="small-1 columns tight"><select data-bind="notesselect: model.LidLashLacrimal4" /></div>
+                    <div class="small-4 columns tight"><input type="text" data-bind="notesvalue: model.LidLashLacrimal5" /></div>
+                </div>
+            </div>
+            <div class="small-5 columns col-narrow">
+                <label>Exophthalmometry</label>
+                <div class="row row-narrow">
+                    <div class="tiny-8 columns tight"><select data-bind="notesselect: model.Exophthalmometry" /></div>
+                    <div class="tiny-2 columns odos">OD:</div>
+                    <div class="tiny-6 columns tight"><input type="text" data-bind="notesvalue: model.ExophthalmometryOD" /></div>
+                    <div class="tiny-2 columns odos">OS:</div>
+                    <div class="tiny-6 columns tight left"><input type="text" data-bind="notesvalue: model.ExophthalmometryOS" /></div>
+                </div>
+            </div>
+        </div>
+        <div class="row row-narrow">
+            <div class="small-7 columns col-narrow">
+                <div class="row row-narrow">
+                    <div class="small-1 columns tight side-label">OD PF:</div>
+                    <div class="small-1 columns tight"><input type="text" data-bind="notesvalue: model.ODPF" /></div>
+                    <div class="small-1 columns tight side-label">MRD1:</div>
+                    <div class="small-1 columns tight"><input type="text" data-bind="notesvalue: model.ODMRD1" /></div>
+                    <div class="small-1 columns tight side-label">MRD2:</div>
+                    <div class="small-1 columns tight"><input type="text" data-bind="notesvalue: model.ODMRD2" /></div>
+                    <div class="small-2 columns tight side-label">Levator Fxn:</div>
+                    <div class="small-2 columns tight"><select data-bind="notesselect: model.ODLevatorFxn1" /></div>
+                    <div class="small-2 columns tight"><input type="text" data-bind="notesvalue: model.ODLevatorFxn2" /></div>
+                </div>
+                <div class="row row-narrow">
+                    <div class="small-1 columns tight side-label">OS PF:</div>
+                    <div class="small-1 columns tight"><input type="text" data-bind="notesvalue: model.OSPF" /></div>
+                    <div class="small-1 columns tight side-label">MRD1:</div>
+                    <div class="small-1 columns tight"><input type="text" data-bind="notesvalue: model.OSMRD1" /></div>
+                    <div class="small-1 columns tight side-label">MRD2:</div>
+                    <div class="small-1 columns tight"><input type="text" data-bind="notesvalue: model.OSMRD2" /></div>
+                    <div class="small-2 columns tight side-label">Levator Fxn:</div>
+                    <div class="small-2 columns tight"><select data-bind="notesselect: model.OSLevatorFxn1" /></div>
+                    <div class="small-2 columns tight"><input type="text" data-bind="notesvalue: model.OSLevatorFxn2" /></div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset class="no-bottom-border">
+        <div class="row row-narrow">
+            <div class="small-4 columns col-narrow">
+                <label>Conj/Sclera</label>
+                <div class="row row-narrow">
+                    <div class="small-8 columns tight"><select data-bind="notesselect: model.ConjSclera1" /></div>
+                    <div class="small-4 columns tight"><select data-bind="notesselect: model.ConjSclera2" /></div>
+                </div>
+                <div class="row row-narrow">
+                    <div class="small-8 columns tight"><select data-bind="notesselect: model.ConjSclera3" /></div>
+                    <div class="small-4 columns tight"><select data-bind="notesselect: model.ConjSclera4" /></div>
+                </div>
+                <div class="row row-narrow">
+                    <div class="small-12 columns tight"><input type="text" data-bind="notesvalue: model.ConjSclera5" /></div>
+                </div>
+            </div>
+            <div class="small-4 columns col-narrow">
+                <label>Cornea</label>
+                <div class="row row-narrow">
+                    <div class="small-8 columns tight"><select data-bind="notesselect: model.Cornea1" /></div>
+                    <div class="small-4 columns tight"><select data-bind="notesselect: model.Cornea2" /></div>
+                </div>
+                <div class="row row-narrow">
+                    <div class="small-8 columns tight"><select data-bind="notesselect: model.Cornea3" /></div>
+                    <div class="small-4 columns tight"><select data-bind="notesselect: model.Cornea4" /></div>
+                </div>
+                <div class="row row-narrow">
+                    <div class="small-12 columns tight"><input type="text" data-bind="notesvalue: model.Cornea5" /></div>
+                </div>
+            </div>
+            <div class="small-4 columns col-narrow">
+                <label>Ant Chamber</label>
+                <div class="row row-narrow">
+                    <div class="small-8 columns tight"><select data-bind="notesselect: model.AntChamber1" /></div>
+                    <div class="small-4 columns tight"><select data-bind="notesselect: model.AntChamber2" /></div>
+                </div>
+                <div class="row row-narrow">
+                    <div class="small-8 columns tight"><select data-bind="notesselect: model.AntChamber3" /></div>
+                    <div class="small-4 columns tight"><select data-bind="notesselect: model.AntChamber4" /></div>
+                </div>
+                <div class="row row-narrow">
+                    <div class="small-12 columns tight"><input type="text" data-bind="notesvalue: model.AntChamber5" /></div>
+                </div>
+            </div>
+        </div>
+        <div class="row row-narrow">
+            <div class="small-4 columns col-narrow">
+                <label>Iris</label>
+                <div class="row row-narrow">
+                    <div class="small-8 columns tight"><select data-bind="notesselect: model.Iris1" /></div>
+                    <div class="small-4 columns tight"><select data-bind="notesselect: model.Iris2" /></div>
+                </div>
+                <div class="row row-narrow">
+                    <div class="small-8 columns tight"><select data-bind="notesselect: model.Iris3" /></div>
+                    <div class="small-4 columns tight"><select data-bind="notesselect: model.Iris4" /></div>
+                </div>
+                <div class="row row-narrow">
+                    <div class="small-12 columns tight"><input type="text" data-bind="notesvalue: model.Iris5" /></div>
+                </div>
+            </div>
+            <div class="small-4 columns col-narrow">
+                <label>Lens</label>
+                <div class="row row-narrow">
+                    <div class="small-8 columns tight"><select data-bind="notesselect: model.Lens1" /></div>
+                    <div class="small-4 columns tight"><select data-bind="notesselect: model.Lens2" /></div>
+                </div>
+                <div class="row row-narrow">
+                    <div class="small-8 columns tight"><select data-bind="notesselect: model.Lens3" /></div>
+                    <div class="small-4 columns tight"><select data-bind="notesselect: model.Lens4" /></div>
+                </div>
+                <div class="row row-narrow">
+                    <div class="small-12 columns tight"><input type="text" data-bind="notesvalue: model.Lens5" /></div>
+                </div>
+            </div>
+            <div class="small-4 columns col-narrow">
+                <label>Tono</label>
+                <div class="row row-narrow">
+                    <div class="small-8 columns tight"><select data-bind="notesselect: model.Tono1" /></div>
+                    <div class="small-4 columns tight"><select data-bind="notesselect: model.Tono2" /></div>
+                </div>
+                <div class="row row-narrow">
+                    <div class="small-5 columns tight"><input type="text" data-bind="notesvalue: model.Tono3" /></div>
+                    <div class="small-1 columns odos">OD</div>
+                    <div class="small-5 columns tight"><input type="text" data-bind="notesvalue: model.Tono4" /></div>
+                    <div class="small-1 columns odos">OS</div>
+                </div>
+            </div>
+            <div class="small-4 columns col-narrow">&nbsp;</div>
+            <div class="small-4 columns col-narrow">&nbsp;</div>
+        </div>
+    </fieldset>
+    <fieldset class="no-bottom-border">
+        <div class="row row-narrow">
+            <div class="small-4 columns col-narrow">
+                <label>Dilated</label>
+                <div class="row row-narrow">
+                    <div class="small-12 columns tight"><select data-bind="notesselect: model.Dilate3" /></div>
+                </div>
+                <div class="row row-narrow">
+                    <div class="small-12 columns tight">&nbsp;</div>
+                </div>
+            </div>
+            <div class="small-8 columns col-narrow">
+                <label>Fundus Exam</label>
+                <div class="row row-narrow">
+                    <div class="small-3 columns tight side-label">Optic nerve heads are</div>
+                    <div class="small-9 columns tight"><input type="text" data-bind="notesvalue: model.Fundus1" /></div>
+                </div>
+                <div class="row row-narrow">
+                    <div class="small-3 columns tight side-label">with</div>
+                    <div class="small-9 columns tight"><input type="text" data-bind="notesvalue: model.Fundus2" /></div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <div class="row row-narrow">
+            <div class="small-12 columns col-narrow">
+                <label>Retina and Mac OU</label>
+                <textarea data-bind="notesvalue: model.RetinaOU"></textarea>
+            </div>
+        </div>
+        <div class="row row-narrow">
+            <div class="small-6 columns col-narrow">
+                <label>Ret Vessels OD</label>
+                <textarea data-bind="notesvalue: model.RetOD"></textarea>
+            </div>
+            <div class="small-6 columns col-narrow">
+                <label>Ret Vessels OS</label>
+                <textarea data-bind="notesvalue: model.RetOS"></textarea>
+            </div>
+        </div>
+        <div class="row row-narrow">
+            <div class="small-6 columns col-narrow">
+                <label>Macula OD</label>
+                <textarea data-bind="notesvalue: model.MaculaOD"></textarea>
+            </div>
+            <div class="small-6 columns col-narrow">
+                <label>Macula OS</label>
+                <textarea data-bind="notesvalue: model.MaculaOS"></textarea>
+            </div>
+        </div>
+    </fieldset>
+
+    <h5 class="notes_heading" id="summary-header">Summary</h5>     
+    <fieldset class="no-bottom-border">
+        <div class="row row-narrow">
+            <div class="small-12 columns col-narrow">
+                <div class="row row-narrow">
+                    <div class="small-8 columns tight"><label>Summary</label></div>
+                    <div class="small-4 columns tight text-right">
+                        <div class="button icon selected" title="Summary History" data-bind="click: sumHistory"><i class="button-icon fi-first-aid"></i></div>
+                    </div>
+                </div>
+                <textarea data-bind="notesvalue: model.Summary"></textarea>
+            </div>
+        </div>
+        <div id="sumHistoryWindow" style="display:none">
+            <div data-bind="foreach: model.History.Cch">
+            <div class="row title" data-bind="text: Header, attr: { id: 'sum' + ExamID() }"></div>
+            <fieldset class="history-box">
+                <div data-bind="css: { display_none: FieldValue.HasSumHistory }">No History</div>
+                <div class="row row-narrow tight" data-bind="css: { display_none: !FieldValue.HasSumHistory() }">
+                    <div class="small-12 columns tight">
+                        <b>Summary:</b>
+                        <span data-bind="text: FieldValue.Summary"></span>
+                    </div>
+                </div>
+            </fieldset>
+            </div>
+        </div>
+        <div class="row row-narrow">
+            <div class="small-12 columns col-narrow">
+                <label>Discussed</label>
+                <input type="text" data-bind="notesvalue: model.Discussed" />
+            </div>
+        </div>
+        <div class="row row-narrow">
+            <div class="small-12 columns col-narrow">
+                <label>Advised</label>
+                <textarea data-bind="notesvalue: model.Advised"></textarea>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <div class="row row-narrow">
+            <div class="small-3 columns col-narrow">
+                <label>Follow-up</label>
+                <select data-bind="notesselect: model.FollowUp1"></select>
+            </div>
+            <div class="small-3 columns tight">
+                <label>&nbsp;</label>
+                <select data-bind="notesselect: model.FollowUp2"></select>
+            </div>
+            <div class="small-3 columns tight">
+                <label>&nbsp;</label>
+                <select data-bind="notesselect: model.FollowUp3"></select>
+            </div>
+            <div class="small-3 columns tight">
+                <label>&nbsp;</label>
+                <input type="text" data-bind="notesvalue: model.FollowUp4" />
+            </div>
+        </div>
+        <div class="row row-narrow">
+            <div class="small-10 columns col-narrow">
+                <label>Letter to</label>
+                <input type="text" data-bind="notesvalue: model.CopyTo" />
+            </div>
+            <div class="small-2 columns side-label-left">
+                <label>&nbsp;</label>
+                <input type="checkbox" data-bind="notescheck: model.cbPrintQueue" />&nbsp;Print Queue
+            </div>
+        </div>
+        <div class="row row-narrow">
+            <div class="small-12 columns col-narrow">
+                <label>Exam Note to</label>
+                <input type="text" data-bind="notesvalue: model.ExamNoteTo" />
+            </div>
+        </div>
+        <div class="row row-narrow">
+            <div class="small-12 columns col-narrow">
+                <label>Notes</label>
+                <textarea data-bind="notesvalue: model.Notes"></textarea>
+            </div>
+        </div>
+    </fieldset>
+</div>
