@@ -16,12 +16,22 @@ namespace pos
     {
         protected void Application_Start()
         {
-            AreaRegistration.RegisterAllAreas();
+            //AreaRegistration.RegisterAllAreas();
 
-            WebApiConfig.Register(GlobalConfiguration.Configuration);
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
+           // WebApiConfig.Register(GlobalConfiguration.Configuration);
+            //FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            //RouteConfig.RegisterRoutes(RouteTable.Routes);
+            //BundleConfig.RegisterBundles(BundleTable.Bundles);
+            RegisterRoutes(RouteTable.Routes);
+        }
+
+        public static void RegisterRoutes(RouteCollection routes)
+        {
+            routes.MapRoute(
+            "Default", // Route name
+            "{controller}/{action}/{id}", // Route Pattern
+            new { controller = "POSHome", action = "Index", id = UrlParameter.Optional } // Default values for above defined parameters
+            );
         }
     }
 }

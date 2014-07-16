@@ -1,0 +1,76 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using pos.Lib.Repository;
+using pos.Lib.Shared;
+using pos.Models;
+using pos.Lib.Domain;
+
+namespace pos.Controllers
+{
+    public class CompatController : ApiController
+    {
+        //[Route("api/compatlastvisit")]
+        [HttpPost]
+        public AjaxModel<string> LastVisitDateUpdate()
+        {
+            AjaxModel<string> ajax = new AjaxModel<string>() { Success = true, Message = PosMessage.LastVisitDateUpdateSuccess, Model = null };
+
+            try
+            {
+                PosRepository.UpdateLastVisitDate();
+            }
+            catch (Exception exp)
+            {
+                ajax.Success = false;
+                ajax.Message = exp.Message;
+            }
+
+            return ajax;
+        }
+
+       // [Route("api/compatpatientids")]
+        [HttpPost]
+        public AjaxModel<List<int>> GetPatientIds([FromBody] int patientUpdateCount)
+        {
+            AjaxModel<List<int>> ajax = new AjaxModel<List<int>>() { Success = true, Message = "", Model = null };
+    
+            try
+            {
+                //System.Threading.Thread.Sleep(100);
+                ajax.Model = PatientRepository.PatientGetAllIds(patientUpdateCount);
+            }
+            catch (Exception exp)
+            {
+                ajax.Success = false;
+                ajax.Message = exp.Message;
+            }
+
+            return ajax;
+        }
+        //[Route("api/compatupdatehistory")]
+        [HttpPost]
+        public AjaxModel<List<int>> UpdatePatientHistory([FromBody] int patientID)
+        {
+            AjaxModel<List<int>> ajax = new AjaxModel<List<int>>() { Success = true, Message = "", Model = null };
+
+            try
+            {
+                //System.Threading.Thread.Sleep(100);
+                NotesDomain domain = new NotesDomain();
+                domain.PatientExamDataSave(patientID);
+            }
+            catch (Exception exp)
+            {
+                ajax.Success = false;
+                ajax.Message = exp.Message;
+            }
+
+            return ajax;
+        }
+    }
+
+}

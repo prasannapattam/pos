@@ -1,0 +1,60 @@
+﻿using pos.Models;
+using pos.Lib.Shared;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using pos.Lib.Repository;
+using System.IO;
+using System.Xml;
+using System.Reflection;
+using System.Web.Mvc;
+using pos.Lib.Domain;
+
+namespace pos.Controllers
+{
+    public class NotesController : ApiController
+    {
+
+        public AjaxModel<NotesViewModel> Get(string userName, int patientID, int? examID)
+        {
+		AjaxModel<NotesViewModel> ajax = new AjaxModel<NotesViewModel>() { Success = true };
+
+            try
+            {
+                ajax.Model = new NotesDomain().GetNotes(userName, patientID, examID);
+            }
+            catch (Exception exp)
+            {
+                ajax.Success = false;
+                ajax.Message = exp.Message;
+                ajax.Model = null;
+            }
+
+            return ajax;
+        }
+
+        public AjaxModel<string> Post([FromUri] int type, [FromBody] NotesModel model)
+        {
+            PosConstants.NotesSaveType saveType = (PosConstants.NotesSaveType) type;
+            AjaxModel<string> ajax = new AjaxModel<string>() { Success = true, Model = PosMessage.Blank };
+            try
+            {
+                ajax.Message = new NotesDomain().Save(saveType, model);
+            }
+            catch (Exception exp)
+            {
+                ajax.Success = false;
+                ajax.Message = exp.Message;
+            }
+
+
+            return ajax;
+        }
+    
+    }
+
+
+}
