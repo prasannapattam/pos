@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace pos.Controllers
 {
-    public class POSHomeController : Controller
+    public class HomeController : Controller
     {
         public ActionResult Index()
         {

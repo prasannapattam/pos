@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace pos
+namespace pos.App_Start
 {
     public class BundleConfig
     {
@@ -13,7 +13,7 @@ namespace pos
                     .Include("~/scripts/Angular/angular.min.js")
                     .Include("~/scripts/Angular/angular-cookies.min.js")
                     .Include("~/scripts/Angular/angular-loader.min.js")
-                    .Include("~/scripts/Angulars/angular-resource.min.js")
+                    .Include("~/scripts/Angular/angular-resource.min.js")
                     .Include("~/scripts/Angular/angular-route.min.js")
                     .Include("~/scripts/Angular/angular-route.min.js")
                     .Include("~/scripts/toastr.js")
@@ -34,7 +34,6 @@ namespace pos
                     .Include("~/content/toastr.css")
                     .Include("~/content/jquery.textcomplete.css")
                     .Include("~/content/app.css")
-                     .Include("~/content/kendo.common.min.css")
                       .Include("~/content/bootstrap/bootstrap-theme.min.css")
                        .Include("~/content/bootstrap/bootstrap.min.css")
                 );

@@ -19,7 +19,7 @@
     @Scripts.Render("~/scripts/libraries")
     <script>
         window.virtualDirectory = '@ViewBag.VirtualDirectory';
-        window.userState = @ViewBag.UserState;
+        window.userState = '@ViewBag.UserState';
     </script>
     <script src="~/scripts/require.js" data-main="@Url.Content("~/App/main")"></script>
 </body>

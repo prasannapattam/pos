@@ -6,7 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-
+using pos.App_Start;
 namespace pos
 {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
@@ -16,21 +16,26 @@ namespace pos
     {
         protected void Application_Start()
         {
-            //AreaRegistration.RegisterAllAreas();
+            AreaRegistration.RegisterAllAreas();
 
-           // WebApiConfig.Register(GlobalConfiguration.Configuration);
+            //WebApiConfig.Register(GlobalConfiguration.Configuration);
             //FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             //RouteConfig.RegisterRoutes(RouteTable.Routes);
             //BundleConfig.RegisterBundles(BundleTable.Bundles);
-            RegisterRoutes(RouteTable.Routes);
+            //RegisterRoutes(RouteTable.Routes);
+            WebApiConfig.Register(GlobalConfiguration.Configuration);
+            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
+            AutoMapperConfig.RegisterMappings();
         }
 
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.MapRoute(
-            "Default", // Route name
+            "Home", // Route name
             "{controller}/{action}/{id}", // Route Pattern
-            new { controller = "POSHome", action = "Index", id = UrlParameter.Optional } // Default values for above defined parameters
+            new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Default values for above defined parameters
             );
         }
     }
