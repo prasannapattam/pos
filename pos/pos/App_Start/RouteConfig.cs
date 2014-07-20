@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace pos.App_Start
+namespace pos
 {
     public class RouteConfig
     {

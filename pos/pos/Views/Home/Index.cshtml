@@ -1,26 +1,26 @@
 ﻿@using System.Web.Optimization
-<html>
+<html data-ng-app="AngularKendoBootstrapApp">
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Pediatric Ophthalmology</title>
     @Styles.Render("~/Content/css")
 </head>
 <body class="main">
-
     <div id="applicationHost">
         <div id="splash" class="splash">
             <br /><br />
             <h2 class="splash-header">Welcome to e-Pediatric Ophthalmology & Strabismus</h2>
             <br />
-            <img class="splash-loading" src="~/content/images/loading.gif" />
+            <a href="/home">Home</a> <a href="/contact">Contact</a>
+            <div ng-view>
+                <div id="splash" class="splash">
+                    Loading ...
+                </div>
+            </div>
         </div>
     </div>
-
     @Scripts.Render("~/scripts/libraries")
-    <script>
-        window.virtualDirectory = '@ViewBag.VirtualDirectory';
-        window.userState = '@ViewBag.UserState';
-    </script>
-    <script src="~/scripts/require.js" data-main="@Url.Content("~/App/main")"></script>
+    @Scripts.Render("~/scripts/app")
 </body>
 </html>
+

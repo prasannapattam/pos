@@ -6,7 +6,7 @@ using AutoMapper;
 using pos.Lib.Repository;
 using pos.Models;
 
-namespace pos.App_Start
+namespace pos
 {
     public class AutoMapperConfig
     {

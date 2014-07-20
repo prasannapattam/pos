@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace pos.App_Start
+namespace pos
 {
     public class FilterConfig
     {
