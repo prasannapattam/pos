@@ -238,10 +238,30 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\app.js" />
+    <Content Include="App\pages\compat\compat.html" />
+    <Content Include="App\pages\compat\compat.js" />
     <Content Include="App\pages\contact\contact.html" />
     <Content Include="App\pages\contact\contact.js" />
     <Content Include="App\pages\home\home.html" />
     <Content Include="App\pages\home\home.js" />
+    <Content Include="App\pages\login\login.html" />
+    <Content Include="App\pages\login\login.js" />
+    <Content Include="App\pages\notes\notes.html" />
+    <Content Include="App\pages\notes\notes.js" />
+    <Content Include="App\pages\notes\notesautocomplete.html" />
+    <Content Include="App\pages\notes\notesautocomplete.js" />
+    <Content Include="App\pages\patient\patientsearch.html" />
+    <Content Include="App\pages\patient\patientsearch.js" />
+    <Content Include="App\pages\patient\patient.html" />
+    <Content Include="App\pages\patient\patient.js" />
+    <Content Include="App\pages\print\print.html" />
+    <Content Include="App\pages\print\print.js" />
+    <Content Include="App\pages\print\printqueue.html" />
+    <Content Include="App\pages\print\printqueue.js" />
+    <Content Include="App\pages\user\user.html" />
+    <Content Include="App\pages\user\user.js" />
+    <Content Include="App\pages\user\usersearch.html" />
+    <Content Include="App\pages\user\usersearch.js" />
     <Content Include="bin\Antlr3.Runtime.dll" />
     <Content Include="bin\AutoMapper.dll" />
     <Content Include="bin\AutoMapper.Net4.dll" />
