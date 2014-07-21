@@ -35,6 +35,7 @@ namespace pos
             bundles.Add(
                 new ScriptBundle("~/scripts/app")
                     .Include("~/app/app.js")
+                    .Include("~/app/app.route.js")
                     .IncludeDirectory("~/app/services", "*.js")
                     .IncludeDirectory("~/app/directives", "*.js")
                     .IncludeDirectory("~/app/layout", "*.js")

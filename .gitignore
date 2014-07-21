@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/pos/packages
+/pos/pos/bin
+/pos/pos/obj/Debug
+/pos/pos/pos.csproj.user
+/pos/pos.v12.suo
