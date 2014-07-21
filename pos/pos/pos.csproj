@@ -199,11 +199,6 @@
     <Compile Include="Lib\Repository\Pos.Designer.cs">
       <DependentUpon>Pos.cs</DependentUpon>
     </Compile>
-    <Compile Include="Lib\Repository\Pos1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Pos.tt</DependentUpon>
-    </Compile>
     <Compile Include="Lib\Repository\PosRepository.cs" />
     <Compile Include="Lib\Repository\PrintQueue.cs">
       <DependentUpon>Pos.tt</DependentUpon>
@@ -387,14 +382,6 @@
     <Content Include="Lib\Repository\Pos.edmx.diagram">
       <DependentUpon>Pos.edmx</DependentUpon>
     </Content>
-    <Content Include="Lib\Repository\Pos.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Pos.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Lib\Repository\Pos.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Pos1.cs</LastGenOutput>
-    </Content>
     <Content Include="bin\epos.dll.config" />
     <Content Include="Scripts\angular\angular-route.js" />
     <Content Include="Scripts\angular\angular.js" />
@@ -485,6 +472,16 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Lib\Repository\Pos.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Pos.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Lib\Repository\Pos.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Pos1.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
