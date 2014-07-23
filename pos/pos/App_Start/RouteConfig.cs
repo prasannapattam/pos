@@ -14,10 +14,9 @@ namespace pos
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                "pos",
-                "{controller}/{action}/{id}",
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional },
-                new[] { "pos.Controllers" }
+                "default",
+                "{*url}",
+                new { controller = "Home", action = "Index" }
             );
         }
     }
