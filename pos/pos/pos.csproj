@@ -232,7 +232,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app\app.route.js" />
+    <Content Include="app\app.config.js" />
     <Content Include="app\app.js" />
     <Content Include="app\pages\compat\compat.html" />
     <Content Include="app\pages\compat\compat.js" />
@@ -379,6 +379,7 @@
   <ItemGroup>
     <Folder Include="app\directives\" />
     <Folder Include="app\layout\" />
+    <Folder Include="app\models\" />
     <Folder Include="app\services\" />
   </ItemGroup>
   <ItemGroup>
