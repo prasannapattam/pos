@@ -15,6 +15,7 @@ namespace pos
                 new ScriptBundle("~/scripts/libraries")
                     .Include("~/scripts/angular/angular.js")
                     .Include("~/scripts/angular/angular-route.js")
+                     .Include("~/scripts/angular/angular-resource.js")
                     .Include("~/scripts/bootstrap.js")
                     .Include("~/scripts/jquery.js")
                     .Include("~/scripts/kendo/kendo.ui.core.js")
@@ -35,11 +36,7 @@ namespace pos
             bundles.Add(
                 new ScriptBundle("~/scripts/app")
                     .Include("~/app/app.js")
-                    .Include("~/app/app.route.js")
-                    .IncludeDirectory("~/app/services", "*.js")
-                    .IncludeDirectory("~/app/directives", "*.js")
-                    .IncludeDirectory("~/app/layout", "*.js")
-                    .IncludeDirectory("~/app/pages", "*.js", true)
+                    .IncludeDirectory("~/app", "*.js", true)
                 );
         }
     }

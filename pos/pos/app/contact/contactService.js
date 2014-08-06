@@ -1,0 +1,29 @@
+﻿'use strict'
+
+angular.module('AngularKendoBootstrapApp').factory('contactService', contactService);
+
+contactService.$inject = ['$http'];
+
+function contactService($http) {
+    var model = {};
+
+    var service = {
+        model: model,
+        fetch: fetch,
+        save: save
+    };
+
+    return service;
+
+    function fetch() {
+        return $http.get("/api/contact")
+            .success(function (data) {
+                angular.extend(model, data);
+            });
+    }
+
+    function save() {
+
+    }
+
+}

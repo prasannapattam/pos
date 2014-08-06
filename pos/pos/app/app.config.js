@@ -4,35 +4,35 @@ app.config(function ($routeProvider, $locationProvider) {
     $routeProvider
         .when("/home", {
             controller: "home",
-            templateUrl: "/app/pages/home/home.html"
+            templateUrl: "/app/home/home.html"
         })
         .when("/contact", {
             controller: "contact",
-            templateUrl: "/app/pages/contact/contact.html"
+            templateUrl: "/app/contact/contact.html"
         })
          .when("/login", {
              controller: "login",
-             templateUrl: "/app/pages/login/login.html"
+             templateUrl: "/app/login/login.html"
          })
          .when("/patient", {
              controller: "patient",
-             templateUrl: "/app/pages/patient/patient.html"
+             templateUrl: "/app/patient/patient.html"
          })
          .when("/notes", {
              controller: "notes",
-             templateUrl: "/app/pages/notes/notes.html"
+             templateUrl: "/app/notes/notes.html"
          })
          .when("/user", {
              controller: "user",
-             templateUrl: "/app/pages/user/user.html"
+             templateUrl: "/app/user/user.html"
          })
          .when("/print", {
              controller: "print",
-             templateUrl: "/app/pages/print/print.html"
+             templateUrl: "/app/print/print.html"
          })
            .when("/compat", {
                controller: "compat",
-               templateUrl: "/app/pages/compat/compat.html"
+               templateUrl: "/app/compat/compat.html"
            })
         .otherwise({ redirectTo: "/home" });
     $locationProvider.html5Mode(true);
