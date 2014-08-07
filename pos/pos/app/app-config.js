@@ -14,10 +14,7 @@ function appConfig($routeProvider, $locationProvider, $provide, $httpProvider) {
         .when("/contact", {
             templateUrl: "/app/contact/contact.html",
             controller: "contact",
-            controllerAs: "vm",
-            resolve: {
-                service: 'contactService',
-            }
+            controllerAs: "vm"
         })
         .otherwise({ redirectTo: "/home" });
     $locationProvider.html5Mode(true);
