@@ -1,6 +1,6 @@
 ﻿'use strict'
 
-angular.module('AngularKendoBootstrapApp').factory('patientService', patientService);
+angular.module('pos').factory('patientService', patientService);
 
 patientService.$inject = ['$http'];
 

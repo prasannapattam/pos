@@ -1,4 +1,6 @@
-﻿angular.module('AngularKendoBootstrapApp').factory('WebAPIInterceptor', WebAPIInterceptor);
+﻿'use strict';
+
+angular.module('pos').factory('WebAPIInterceptor', WebAPIInterceptor);
 WebAPIInterceptor.$inject = ['$q'];
 
 function WebAPIInterceptor($q) {

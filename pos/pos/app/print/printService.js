@@ -1,6 +1,6 @@
 ﻿'use strict'
 
-angular.module('AngularKendoBootstrapApp').factory('printService', printService);
+angular.module('pos').factory('printService', printService);
 
 printService.$inject = ['$http'];
 

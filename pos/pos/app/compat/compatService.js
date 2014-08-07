@@ -1,6 +1,6 @@
 ﻿'use strict'
 
-angular.module('AngularKendoBootstrapApp').factory('compactService', compactService);
+angular.module('pos').factory('compactService', compactService);
 
 compactService.$inject = ['$http'];
 

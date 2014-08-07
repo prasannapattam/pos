@@ -1,6 +1,6 @@
 ﻿'use strict'
 
-angular.module('AngularKendoBootstrapApp').factory('contactService', contactService);
+angular.module('pos').factory('contactService', contactService);
 
 contactService.$inject = ['$http'];
 
@@ -23,7 +23,9 @@ function contactService($http) {
     }
 
     function save() {
+        return $http.post("/api/contact", model)
+            .success(function (data) {
 
+            });
     }
-
 }

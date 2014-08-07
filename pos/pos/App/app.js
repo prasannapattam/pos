@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-var app = angular.module('AngularKendoBootstrapApp', ['ngRoute', 'ngResource']);
+var app = angular.module('pos', ['ngRoute', 'ngResource']);
 
 
 

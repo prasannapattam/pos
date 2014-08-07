@@ -1,6 +1,6 @@
 ﻿'use strict'
 
-angular.module('AngularKendoBootstrapApp').factory('userService', userService);
+angular.module('pos').factory('userService', userService);
 
 userService.$inject = ['$http'];
 
