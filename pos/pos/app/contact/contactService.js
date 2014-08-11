@@ -9,16 +9,16 @@ function contactService($http) {
 
     var service = {
         model: model,
-        fetch: fetch,
+        resolve: resolve,
         save: save
     };
 
     return service;
 
-    function fetch() {
+    function resolve() {
         return $http.get("/api/contact")
             .success(function (data) {
-                angular.extend(model, data);
+                service.model = data;
             });
     }
 
@@ -28,4 +28,5 @@ function contactService($http) {
 
             });
     }
+
 }
