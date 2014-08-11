@@ -16,6 +16,11 @@ function appConfig($routeProvider, $locationProvider, $provide, $httpProvider) {
             controller: "contact",
             controllerAs: "vm"
         })
+         .when("/patient", {
+             templateUrl: "/app/patient/patientSearch.html",
+             controller: "patient",
+             controllerAs: "vm"
+         })
         .otherwise({ redirectTo: "/home" });
     $locationProvider.html5Mode(true);
 

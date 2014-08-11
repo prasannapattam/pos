@@ -13,12 +13,14 @@ namespace pos
             //including all the libraries used in our app such as angular
             bundles.Add(
                 new ScriptBundle("~/scripts/libraries")
+                .Include("~/scripts/jquery.js")
                     .Include("~/scripts/angular/angular.js")
                     .Include("~/scripts/angular/angular-route.js")
                      .Include("~/scripts/angular/angular-resource.js")
                     .Include("~/scripts/bootstrap.js")
-                    .Include("~/scripts/jquery.js")
-                    .Include("~/scripts/kendo/kendo.ui.core.js")
+                    .Include("~/scripts/kendo/kendo.all.min.js")
+                     .Include("~/scripts/kendo/kendo.autocomplete.js")
+                            .Include("~/scripts/kendo/kendo.window.min.js")
                 );
 
             //including all the css used in our app

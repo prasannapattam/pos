@@ -313,6 +313,7 @@
     <Content Include="Scripts\angular\angular.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\jquery.js" />
+    <Content Include="Scripts\kendo\kendo.all.min.js" />
     <Content Include="Scripts\kendo\kendo.angular.js" />
     <Content Include="Scripts\kendo\kendo.autocomplete.js" />
     <Content Include="Scripts\kendo\kendo.binder.js" />

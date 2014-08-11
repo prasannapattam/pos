@@ -4,7 +4,7 @@ angular.module('pos').controller('contact', contact);
 contact.$inject = ['contactService'];
 
 function contact(contactService) {
-
+    debugger;
     var vm = {
         model: {},
         save: save
