@@ -433,9 +433,6 @@
       <LastGenOutput>Pos1.cs</LastGenOutput>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="bin\pos.dll.config" />
-  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
