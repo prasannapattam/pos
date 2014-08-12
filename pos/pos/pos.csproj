@@ -391,6 +391,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\layout\" />
+    <Folder Include="bin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
