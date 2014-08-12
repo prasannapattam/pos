@@ -15,6 +15,7 @@ function contactService($http) {
 
     return service;
 
+    //this gets called from the routing. Use this to get data from webapi
     function resolve() {
         return $http.get("/api/contact")
             .success(function (data) {

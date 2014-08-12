@@ -10,27 +10,27 @@ namespace pos
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
+            //ignoring the bundle list
+            bundles.IgnoreList.Clear();
+
             //including all the libraries used in our app such as angular
             bundles.Add(
                 new ScriptBundle("~/scripts/libraries")
-                .Include("~/scripts/jquery.js")
+                    .Include("~/scripts/jquery.js")
                     .Include("~/scripts/angular/angular.js")
                     .Include("~/scripts/angular/angular-route.js")
-                     .Include("~/scripts/angular/angular-resource.js")
+                    .Include("~/scripts/angular/angular-resource.js")
                     .Include("~/scripts/bootstrap.js")
                     .Include("~/scripts/kendo/kendo.all.min.js")
-                     .Include("~/scripts/kendo/kendo.autocomplete.js")
-                            .Include("~/scripts/kendo/kendo.window.min.js")
                 );
 
             //including all the css used in our app
             bundles.Add(
                 new StyleBundle("~/content/css")
-                    .Include("~/content/normalize.css")
                     .Include("~/content/bootstrap/bootstrap.css")
                     .Include("~/content/bootstrap/bootstrap-theme.css")
-                    .Include("~/content/kendo/kendo.common.css")
-                    .Include("~/content/kendo/kendo.blueopal.css")
+                    .Include("~/content/kendo.common.min.css")
+                    .Include("~/content/kendo.blueopal.min.css")
                     .Include("~/content/app.css")
                 );
 

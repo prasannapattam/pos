@@ -1,8 +1,9 @@
 ﻿'use strict';
 angular.module('pos').controller('patient', patient);
 patient.$inject = ['patientService'];
-var title='Patient Search'
+
 function patient(patientService) {
+    var title = 'Patient Search'
     var countryNames = [
           "Albania",
           "Andorra",
@@ -11,8 +12,13 @@ function patient(patientService) {
           "Azerbaijan",
           "Belarus"
     ];
+
+    var model = {
+        country: ""
+    };
+
     var vm = {
-        model: {},
+        model: model,
         save: save,
         title: title,
         countryNames: countryNames
@@ -23,24 +29,12 @@ function patient(patientService) {
     return vm;
 
     function init() {
-        //var autoComplete = $("#patientAutoComplete").data("kendoAutoComplete");
-        //autoComplete.bind("change", onChangeEvent);
-        //function onChangeEvent() {
-        //    alert('Change event occurs');
-        //}
+        //uncomment the below code to get the model from the webapi. The patientService.resolve will be called by routing 
+        //which in turn fetches the records from webapi
+        //vm.model = patientService.model;
        
-        return patientService.fetch().success(function (data) {
-            //console.log(data);
-            // vm.model = patientService.model;
-            $("#patientAutoComplete").kendoAutoComplete({
-                dataSource: countryNames
-            });
-        })
-        .error(function (data, status, headers, config) {
-            //console.log(data);
-        });
     }
-    //Not used
+
     function save() {
         patientService.save().success(function () {
             alert('Saved');

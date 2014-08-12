@@ -9,17 +9,18 @@ function patientService($http) {
 
     var service = {
         model: model,
-        fetch: fetch,
+        resolve: resolve,
         save: save
     };
 
     return service;
 
-    function fetch() {
-        return $http.get("/api/patient")
-            .success(function (data) {
-                angular.extend(model, data);
-            });
+    //this gets called from the routing. Use this to get data from webapi
+    function resolve() {
+        //return $http.get("/api/contact")
+        //    .success(function (data) {
+        //        service.model = data;
+        //    });
     }
 
     function save() {
