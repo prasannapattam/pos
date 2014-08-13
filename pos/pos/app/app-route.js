@@ -27,6 +27,14 @@ function routeConfig($routeProvider, $locationProvider, $provide) {
                 return patientService.resolve();
             }]
         })
+        .when("/notes/:notestype/:id/:examid?", {
+            templateUrl: "/app/notes/notestest.html",
+            controller: "notestest",
+            controllerAs: "vm",
+            resolve: ['notestestService', function (notestestService) {
+                return notestestService.resolve();
+            }]
+        })
         .otherwise({ redirectTo: "/home" });
     $locationProvider.html5Mode(true);
 

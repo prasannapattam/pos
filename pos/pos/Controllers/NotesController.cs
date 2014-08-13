@@ -20,7 +20,7 @@ namespace pos.Controllers
 
         public AjaxModel<NotesViewModel> Get(string userName, int patientID, int? examID)
         {
-		AjaxModel<NotesViewModel> ajax = new AjaxModel<NotesViewModel>() { Success = true };
+		    AjaxModel<NotesViewModel> ajax = new AjaxModel<NotesViewModel>() { Success = true };
 
             try
             {
