@@ -33,7 +33,7 @@ function notestestService($http, $route, constants, profile) {
     }
 
     function getNotes(doctorUserName) {
-        var getdata = { params: { "userName": doctorUserName, "patientid": notespatientid, "examid": notesexamid } };
+        var getdata = { params: { "userName": doctorUserName, "patientid": notespatientid, "examid": notesexamid || '' } };
         return $http.get('/api/notes', getdata).success(function (data) {
                 var model = data.Notes;
                 model.HxFromList = {

@@ -1,4 +1,12 @@
 ﻿
+.focusctrl {
+    background-color: #ffffda !important;
+}
+
+.correctctrl {
+    background-color: Aqua !important;
+}
+
 
 
 /*
@@ -528,13 +536,6 @@ select{
     width: 120px;
 }
 
-.focusctrl {
-    background-color: #ffffda !important;
-}
-
-.correctctrl {
-    background-color: Aqua !important;
-}
 
 .tiny-1 {
     position: relative;
