@@ -1,7 +1,7 @@
 ﻿'use strict'
 
 angular.module('pos').directive('notesText', notesText);
-angular.module('pos').directive('notesText', notesSelect);
+angular.module('pos').directive('notesSelect', notesSelect);
 
 notesText.$inject = ['constants'];
 function notesText(constants) {
@@ -63,5 +63,5 @@ function notesSelect(constants) {
     }
 }
 
-value.id as value.label group by value.group for value in myOptions
+//value.id as value.label group by value.group for value in myOptions
 

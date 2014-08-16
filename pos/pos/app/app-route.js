@@ -31,9 +31,15 @@ function routeConfig($routeProvider, $locationProvider, $provide) {
             templateUrl: "/app/notes/notestest.html",
             controller: "notestest",
             controllerAs: "vm",
-            resolve: ['notestestService', function (notestestService) {
-                return notestestService.resolve();
-            }]
+            resolve: {
+                lookupsresolve: ['lookupService', function (lookupService) {
+                                    return lookupService.resolve();
+                                }],
+                notesresolve:  ['notestestService', function (notestestService) {
+                                    return notestestService.resolve();
+                                }]
+            }
+               
         })
         .otherwise({ redirectTo: "/home" });
     $locationProvider.html5Mode(true);
