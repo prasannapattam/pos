@@ -9,7 +9,7 @@ function profile(utility) {
     var lastName = 'Pattam';
     var userName = 'prasanna';
     var photoUrl = '/pos/data/prasanna.jpg';
-    var isAuthenticated = true;
+    var isAuthenticated = false;
 
 
     var vm = {

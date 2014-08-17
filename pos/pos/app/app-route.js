@@ -11,6 +11,11 @@ function routeConfig($routeProvider, $locationProvider, $provide) {
             controller: "home",
             controllerAs: "vm",
         })
+        .when("/login", {
+            templateUrl: "/app/account/login.html",
+            controller: "login",
+            controllerAs: "vm",
+        })
         .when("/contact", {
             templateUrl: "/app/contact/contact.html",
             controller: "contact",

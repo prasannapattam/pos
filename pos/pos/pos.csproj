@@ -234,6 +234,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\account\account-service.js" />
     <Content Include="app\app-route.js" />
     <Content Include="app\app-interceptor.js" />
     <Content Include="app\app-config.js" />
@@ -247,8 +248,8 @@
     <Content Include="app\home\home-service.js" />
     <Content Include="app\home\home.html" />
     <Content Include="app\home\home.js" />
-    <Content Include="app\login\login.html" />
-    <Content Include="app\login\login.js" />
+    <Content Include="app\account\login.html" />
+    <Content Include="app\account\login.js" />
     <Content Include="app\notes\lookup-service.js" />
     <Content Include="app\notes\notes.html" />
     <Content Include="app\notes\notes.js" />
@@ -270,6 +271,7 @@
     <Content Include="app\print\printqueue.js" />
     <Content Include="app\print\print-service.js" />
     <Content Include="app\shared\constants.js" />
+    <Content Include="app\shared\messages.html" />
     <Content Include="app\shared\profile.js" />
     <Content Include="app\shared\session.js" />
     <Content Include="app\shared\utility.js" />
@@ -306,6 +308,8 @@
     <Content Include="Content\kendo.blueopal.min.css" />
     <Content Include="Content\kendo.common.min.css" />
     <Content Include="Content\toastr.css" />
+    <Content Include="Data\NoPhoto.jpg" />
+    <Content Include="Data\prasanna.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />

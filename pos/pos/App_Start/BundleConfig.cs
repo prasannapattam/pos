@@ -18,8 +18,7 @@ namespace pos
                 new ScriptBundle("~/scripts/libraries")
                     .Include("~/scripts/jquery.js")
                     .Include("~/scripts/angular/angular.js")
-                    .Include("~/scripts/angular/angular-route.js")
-                    .Include("~/scripts/angular/angular-resource.js")
+                    .IncludeDirectory("~/scripts/angular", "*.js", true)
                     .Include("~/scripts/bootstrap.js")
                     .Include("~/scripts/kendo/kendo.all.min.js")
                 );
