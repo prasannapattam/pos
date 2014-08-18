@@ -1,7 +1,7 @@
 ﻿'use strict'
 
 angular.module('pos').factory('profile', profile);
-constants.$inject = ['utility'];
+profile.$inject = ['utility'];
 
 function profile(utility) {
     var userID = 1;

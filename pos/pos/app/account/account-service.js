@@ -5,7 +5,10 @@ angular.module('pos').factory('accountService', accountService);
 accountService.$inject = ['$http', 'profile'];
 
 function accountService($http, profile) {
-    var model = {};
+    var model = {
+        UserName: '',
+        UserPassword: ''
+    };
 
     var service = {
         model: model,

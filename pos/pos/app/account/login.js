@@ -4,14 +4,9 @@ angular.module('pos').controller('login', login);
 login.$inject = ['accountService'];
 
 function login(accountService) {
-    var model = {
-        UserName: '',
-        UserPassword: ''
-    };
-
 
     var vm = {
-        model: model,
+        model: {},
         init: init,
         userNameFocus: true,
         submitted: false,
@@ -24,11 +19,10 @@ function login(accountService) {
     return vm;
 
     function init() {
-
+        vm.model = accountService.model;
     }
 
     function validate(form) {
-        //alert('validating');
         vm.submitted = true;
         if (form.$valid)
         {
@@ -39,7 +33,6 @@ function login(accountService) {
     }
 
     function isFormSubmitted(field) {
-        //console.log(field);
         return vm.submitted || field.$dirty;
     };
 

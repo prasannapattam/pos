@@ -236,7 +236,7 @@
   <ItemGroup>
     <Content Include="app\account\account-service.js" />
     <Content Include="app\app-route.js" />
-    <Content Include="app\app-interceptor.js" />
+    <Content Include="app\shared\webapi-interceptor.js" />
     <Content Include="app\app-config.js" />
     <Content Include="app\app.js" />
     <Content Include="app\compat\compat.html" />
