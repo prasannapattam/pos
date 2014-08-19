@@ -8,8 +8,8 @@ function profile(utility) {
     var firstName = 'Prasanna';
     var lastName = 'Pattam';
     var userName = 'prasanna';
-    var photoUrl = '/pos/data/prasanna.jpg';
-    var isAuthenticated = false;
+    var photoUrl = '/data/prasanna.jpg';
+    var isAuthenticated = window.userAuthenticated;
 
 
     var vm = {
@@ -40,7 +40,6 @@ function profile(utility) {
     };
 
     function logout() {
-        this.photoUrl = undefined;
         this.isAuthenticated = false;
     };
 };

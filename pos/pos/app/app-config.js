@@ -4,8 +4,9 @@ angular.module('pos').config(appConfig);
 appConfig.$inject = ['$httpProvider', 'sessionProvider'];
 
 angular.module('pos').run(appRun);
-appRun.$inject = ['$rootScope', 'session'];
+appRun.$inject = ['session'];
 
+app.value('toastr', toastr)
 
 
 function appConfig($httpProvider, sessionProvider) {
@@ -15,15 +16,7 @@ function appConfig($httpProvider, sessionProvider) {
 
 }
 
-function appRun($rootScope, session) {
+function appRun(session) {
     
     session.initialize();
-
-    $rootScope.$on('$routeChangeStart', function () {
-        $rootScope.isLoading = true;
-    });
-
-    $rootScope.$on('$routeChangeSuccess', function () {
-        $rootScope.isLoading = false;
-    });
 }

@@ -6,23 +6,23 @@
     @Styles.Render("~/Content/css")
 </head>
 <body class="main">
-    <div class="container">
+    <div class="container" ng-controller="index as vm">
         <div class="top-header" ng-cloak>
             <div class="left-header">
                 <img class="top-header" src="~/content/images/logo.gif" />
             </div>
-            <div class="right-header">
+            <div class="right-header" ng-show="vm.profile.isAuthenticated">
                 <ul class="tight top-menu">
                     <li class="dropdown" style="list-style: none">
                         <a class="dropdown-toggle" id="photodrop" role="button" href="#" data-toggle="dropdown">
-                            <img class="top-header" src="~/Data/prasanna.jpg" />
+                            <img class="top-header" ng-src="{{vm.profile.photoUrl}}" />
                         </a>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="photodrop">
-                            <li role="presentation"><a tabindex="-1" role="menuitem" href="#">Logout</a></li>
+                            <li role="presentation"><a tabindex="-1" role="menuitem" ng-click="vm.logout()">Logout</a></li>
                             @*<li class="divider" role="presentation"></li>*@
                         </ul>
                     </li>
-                </ul>            
+                </ul>
             </div>
             <div class="loading" ng-show="isLoading">
                 <img class="loading" src="~/content/images/loading.gif" />
@@ -31,13 +31,13 @@
                 <div class="row tight header-row">
                     <div class="app-header">e-Pediatric Ophthalmology & Strabismus</div>
                     @*<div class="small-12 columns tight">
-                        <ul class="tabrow" data-bind="foreach: navigation.tabs">
-                            <li data-bind="css: {selected: active }">
-                                <a data-bind="click: $root.navigation.activateTab, text: title"></a>
-                                <a class="tab-close" data-bind="click: $root.navigation.removeTab, css: { display_none: firstTab }">x</a>
-                            </li>
-                        </ul>
-                    </div>*@
+                            <ul class="tabrow" data-bind="foreach: navigation.tabs">
+                                <li data-bind="css: {selected: active }">
+                                    <a data-bind="click: $root.navigation.activateTab, text: title"></a>
+                                    <a class="tab-close" data-bind="click: $root.navigation.removeTab, css: { display_none: firstTab }">x</a>
+                                </li>
+                            </ul>
+                        </div>*@
                 </div>
             </div>
         </div>
@@ -52,9 +52,13 @@
             </div>
         </div>
     </div>
+    <script>
+        window.virtualDirectory = '@ViewBag.VirtualDirectory';
+        window.userAuthenticated = @ViewBag.UserAuthenticated;
+    </script>
     @Scripts.Render("~/scripts/libraries")
     @Scripts.Render("~/scripts/app")
 </body>
 </html>
 
-<a href="/home">Home</a> | <a href="/contact">Contact</a> | <a href="/login">Login</a> | <a href="/notes/1/395/53738">Notes</a>
+<a href="/home">Home</a> | <a href="/contact">Contact</a> | <a href="/login">Login</a> | <a href="/notes/1/395/53738">Notes 1</a> | <a href="/notes/1/1053/53775">Notes 2</a>

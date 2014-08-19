@@ -21,6 +21,7 @@ namespace pos
                     .IncludeDirectory("~/scripts/angular", "*.js", true)
                     .Include("~/scripts/bootstrap.js")
                     .Include("~/scripts/kendo/kendo.all.min.js")
+                    .Include("~/scripts/toastr.js")
                 );
 
             //including all the css used in our app
@@ -30,6 +31,7 @@ namespace pos
                     .Include("~/content/bootstrap/bootstrap-theme.css")
                     .Include("~/content/kendo.common.min.css")
                     .Include("~/content/kendo.blueopal.min.css")
+                    .Include("~/content/toastr.css")
                     .Include("~/content/app.css")
                 );
 

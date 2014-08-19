@@ -1,16 +1,26 @@
 ﻿'use strict'
 
-angular.module('pos').value('utility', utility());
+angular.module('pos').factory('utility', utility);
+utility.$inject = ['toastr'];
 
-function utility() {
+function utility(toastr) {
 
     var virtualDirectory = window.virtualDirectory || '';
 
     var vm = {
-        virtualDirectory: virtualDirectory
+        virtualDirectory: virtualDirectory,
+        showInfo: showInfo,
+        showError: showError
     };
 
     return vm;
 
+    function showInfo(message) {
+        toastr.info(message);
+    }
+
+    function showError(message) {
+        toastr.error(message);
+    }
 };
 

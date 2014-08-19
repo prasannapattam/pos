@@ -1,9 +1,11 @@
 ﻿'use strict';
 
 angular.module('pos').factory('webapiInterceptor', webapiInterceptor);
-webapiInterceptor.$inject = ['$q', '$rootScope'];
+webapiInterceptor.$inject = ['$q', '$rootScope', 'utility'];
 
-function webapiInterceptor($q, $rootScope) {
+function webapiInterceptor($q, $rootScope, utility) {
+
+    var apiUrl = utility.virtualDirectory + '/api/'
 
     return {
         request: request,
@@ -15,7 +17,8 @@ function webapiInterceptor($q, $rootScope) {
     //request success
     function request(config) {
 
-        $rootScope.isLoading = true;
+        if (config.url.indexOf(apiUrl) === 0)
+            $rootScope.isLoading = true;
 
         // Return the config or promise.
         return config || $q.when(config);
@@ -23,7 +26,9 @@ function webapiInterceptor($q, $rootScope) {
 
     //request error
     function requestError(rejection) {
-        $rootScope.isLoading = false;
+        if (rejection.url.indexOf(apiUrl) === 0)
+            $rootScope.isLoading = false;
+        utility.showError(rejection.data.Message);
 
         // Return the promise rejection.
         return $q.reject(rejection);
@@ -31,12 +36,14 @@ function webapiInterceptor($q, $rootScope) {
 
     // response success
     function response(response) {
-        $rootScope.isLoading = false;
+        if (response.config.url.indexOf(apiUrl) === 0)
+            $rootScope.isLoading = false;
 
         //checking whether we got our AjaxModel
         if (response.data.hasOwnProperty("Success") && response.data.hasOwnProperty("Message") && response.data.hasOwnProperty("Model")) {
             if (response.data.Success === false) {
                 //alert(response.data.Message);
+                utility.showError(response.data.Message);
                 return $q.reject(response);
             }
             else {
@@ -50,8 +57,11 @@ function webapiInterceptor($q, $rootScope) {
 
     //response Error
     function responseError(rejection) {
-        $rootScope.isLoading = false;
-
+        if (response.url.indexOf(apiUrl) === 0) {
+            $rootScope.isLoading = false;
+            utility.showError(rejection.data.Message);
+        }
+            
         // Return the promise rejection.
         return $q.reject(rejection);
     }

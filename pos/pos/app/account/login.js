@@ -1,9 +1,9 @@
 ﻿'use strict';
 
 angular.module('pos').controller('login', login);
-login.$inject = ['accountService'];
+login.$inject = ['$location', 'accountService', 'utility'];
 
-function login(accountService) {
+function login($location, accountService, utility) {
 
     var vm = {
         model: {},
@@ -27,7 +27,7 @@ function login(accountService) {
         if (form.$valid)
         {
             accountService.validate(vm.model).success(function () {
-                alert('Validation successfull');
+                $location.path('/home')
             });
         }
     }
