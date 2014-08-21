@@ -15,7 +15,7 @@
                 <ul class="tight top-menu">
                     <li class="dropdown" style="list-style: none">
                         <a class="dropdown-toggle" id="photodrop" role="button" href="#" data-toggle="dropdown">
-                            <img class="top-header" ng-src="{{vm.profile.photoUrl}}" />
+                            <img class="top-header" ng-src="{{profile.photoUrl}}" />
                         </a>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="photodrop">
                             <li role="presentation"><a tabindex="-1" role="menuitem" ng-click="vm.logout()">Logout</a></li>
@@ -24,7 +24,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="loading" ng-show="isLoading">
+            <div class="loading" ng-show="session.isLoading">
                 <img class="loading" src="~/content/images/loading.gif" />
             </div>
             <div class="content">

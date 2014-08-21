@@ -6,6 +6,8 @@ session.$inject = ['$rootScope', '$location', 'toastr', 'profile'];
 function session($rootScope, $location, toastr, profile) {
 
     var vm = {
+        isLoading: true,
+        profile: profile,
         initialize: initialize,
         logout: logout
     };
@@ -15,9 +17,11 @@ function session($rootScope, $location, toastr, profile) {
     function initialize() {
         toastr.options.positionClass = 'toast-bottom-right';
         toastr.options.backgroundpositionClass = 'toast-bottom-right';
+        $rootScope.session = vm;
+        $rootScope.profile = profile;
 
         $rootScope.$on('$routeChangeStart', function () {
-            $rootScope.isLoading = true;
+            vm.isLoading = true;
             //checking whether user is authenticated
             if (profile.isAuthenticated === false && $location.path() !== '/login') {
                 $location.path('/login');
@@ -25,12 +29,8 @@ function session($rootScope, $location, toastr, profile) {
         });
 
         $rootScope.$on('$routeChangeSuccess', function () {
-            $rootScope.isLoading = false;
+            vm.isLoading = false;
         });
-
-        //setting logout
-        //$rootscope.logout 
-
     };
 
     function logout() {
