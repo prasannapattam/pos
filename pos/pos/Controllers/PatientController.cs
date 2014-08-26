@@ -29,7 +29,12 @@ namespace pos.Controllers
 
             return ajax;
         }
+        public List<PatientModel> Get()
+        {
+            List<PatientModel> result = PatientRepository.PatientAllGet(true);
 
+            return result;
+        }
         public AjaxModel<string> Post([FromBody] PatientModel model)
         {
             AjaxModel<string> ajax = new AjaxModel<string>() { Success = true, Message = PosMessage.PatientSaveSuccessful, Model = PosMessage.Blank };

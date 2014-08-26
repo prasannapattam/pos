@@ -97,10 +97,40 @@ namespace pos.Lib.Repository
                 return patientModel;
             }
         }
+        public static List<PatientModel> PatientAllGet(bool includeHistory)
+        {
+            using (var db = new PosEntities())
+            {
 
+                var patientModel = from dbPatient in db.Patients
+                                   select new PatientModel
+                                {
+                                    PatientID = dbPatient.PatientID,
+                                    PatientNumber = dbPatient.PatientNumber,
+                                    Greeting = dbPatient.Greeting,
+                                    FirstName = dbPatient.FirstName,
+                                    MiddleName = dbPatient.MiddleName,
+                                    LastName = dbPatient.LastName,
+                                    NickName = dbPatient.NickName,
+                                    DateOfBirth = dbPatient.DateOfBirth,
+                                    Sex = dbPatient.Sex,
+                                    Occupation = dbPatient.Occupation,
+                                    HxFrom = dbPatient.HxFrom,
+                                    ReferredFrom = dbPatient.ReferredFrom,
+                                    ReferredDoctor = dbPatient.ReferredDoctor,
+                                    Allergies = dbPatient.Allergies,
+                                    Medications = dbPatient.Medications,
+                                    PrematureBirth = dbPatient.PrematureBirth,
+
+                                };
+
+
+                return patientModel.ToList();
+            }
+        }
         public static bool PatientSave(PatientModel patient)
         {
-            if(PosRepository.PatientExists(patient))
+            if (PosRepository.PatientExists(patient))
             {
                 throw new ApplicationException(PosMessage.PatientNumberExists);
             }
@@ -215,21 +245,21 @@ namespace pos.Lib.Repository
             Dictionary<string, string> dicJson;
             ExamData data = new ExamData();
 
-            using(var db = new PosEntities())
+            using (var db = new PosEntities())
             {
                 var dataConfigurationQuery = from dbConfig in db.ExamDataConfigurations select dbConfig;
 
-                foreach(var config in dataConfigurationQuery)
+                foreach (var config in dataConfigurationQuery)
                 {
                     dicJson = new Dictionary<string, string>();
                     if (config.FieldDataType == (int)PosConstants.FieldDataType.Json)
                     {
-                        string[] examFields = config.Field.Replace(" ", "") .Split(',');
-                        
-                        foreach(string examField in examFields)
+                        string[] examFields = config.Field.Replace(" ", "").Split(',');
+
+                        foreach (string examField in examFields)
                         {
                             pi = notesFields.First(f => f.Name == examField);
-                            field = (Field) pi.GetValue(notes);
+                            field = (Field)pi.GetValue(notes);
                             dicJson.Add(field.Name, field.Value);
                         }
 
@@ -245,7 +275,7 @@ namespace pos.Lib.Repository
                     }
 
                     db.ExamDatas.Add(data);
-                    
+
                 }
 
                 //finally saving
@@ -279,7 +309,7 @@ namespace pos.Lib.Repository
 
         public static string ExamDefaultNotesText(string userName, int patientAge, bool prematureBirth)
         {
-            using(var db = new PosEntities())
+            using (var db = new PosEntities())
             {
                 var defaultQuery = from dbDefault in db.ExamDefaults
                                    join dbUser in db.Users on dbDefault.DoctorUserID equals dbUser.UserID
