@@ -1,4 +1,101 @@
-﻿<br />
-<input kendo-auto-complete ng-model="vm.model.FirstName" k-data-source="vm.patientName" style="width: 400px" />
+﻿<style>
+    .dropdown-header {
+        font-size: 1.2em;
+    }
+
+        .dropdown-header > span {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            text-align: left;
+            display: inline-block;
+            border-style: solid;
+            border-width: 0 0 1px 1px;
+            padding: .3em .6em;
+            width: 290px;
+        }
+
+            .dropdown-header > span:first-child {
+                width: 82px;
+                border-left-width: 0;
+            }
+
+    .demo-section {
+        width: 400px;
+    }
+
+    #Patients-list .k-item > span {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        display: inline-block;
+        border-style: solid;
+        border-width: 0 0 1px 1px;
+        vertical-align: top;
+        min-height: 95px;
+        width: 79%;
+        padding: .6em 0 0 .6em;
+    }
+
+        #Patients-list .k-item > span:first-child {
+            width: 77px;
+            border-left-width: 0;
+            padding: .6em 0 0 0;
+        }
+
+    #Patients-list img {
+        -moz-box-shadow: 0 0 2px rgba(0,0,0,.4);
+        -webkit-box-shadow: 0 0 2px rgba(0,0,0,.4);
+        box-shadow: 0 0 2px rgba(0,0,0,.4);
+        width: 70px;
+        height: 77px;
+    }
+
+    #Patients-list h3 {
+        font-size: 1.6em;
+        margin: 0;
+        padding: 0;
+    }
+
+    #Patients-list p {
+        margin: 0;
+        padding: 0;
+    }
+</style>
+<script language="JavaScript">
+    $(document).ready(function () {
+        var autocomplete = $("#Patients").kendoAutoComplete({
+            minLength: 1,
+            dataTextField: "PatientName",
+            headerTemplate: '<div class="dropdown-header">' +
+                    '<span class="k-widget k-header">Photo</span>' +
+                    '<span class="k-widget k-header">Contact info</span>' +
+                '</div>',
+            template: '<span class="k-state-default"><img src=\"../content/web/Customers/#:data.PatientID#.jpg\" alt=\"#:data.PatientID#\" /></span>' +
+                      '<span class="k-state-default"><h3>#: data.PatientName #</h3><p>Patient No. #: data.PatientNumber #</p><p>DOB #: data.DateOfBirth #</p></span>',
+            dataSource: {
+                transport: {
+                    read: {
+                        dataType: "json",
+                        url: "/api/Patient"
+                    }, //read
+                    parameterMap: function () {// send value of autocomplete as the "startsWith" parameter
+                        return {
+                            FirstName: $("#Patients").data("kendoAutoComplete").value()
+                        };
+                    }
+                }
+            },
+            height: 370,
+        }).data("kendoAutoComplete");
+    });
+</script>
+<div class="demo-section k-header">
+    <h4>Search Patient</h4>
+    <input id="Patients" style="width: 400px;" />
+    <p class="demo-hint">
+        Start typing to find a Patient.
+    </p>
+</div>
 <br />
-<p>Your selection: {{ vm.model.FirstName }}</p>
+<br />

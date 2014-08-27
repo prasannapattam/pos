@@ -9,12 +9,11 @@ function patient(patientService) {
     var model = {
         FirstName: ""
     };
-    init();
+   // init();
     var vm = {
         model: model,
         save: save,
-        title: title,
-        patientName: patientName
+        title: title
     };
 
   

@@ -97,12 +97,13 @@ namespace pos.Lib.Repository
                 return patientModel;
             }
         }
-        public static List<PatientModel> PatientAllGet(bool includeHistory)
+        public static List<PatientModel> PatientAllGet(string name)
         {
             using (var db = new PosEntities())
             {
 
                 var patientModel = from dbPatient in db.Patients
+                                   where dbPatient.FirstName.StartsWith(name)
                                    select new PatientModel
                                 {
                                     PatientID = dbPatient.PatientID,

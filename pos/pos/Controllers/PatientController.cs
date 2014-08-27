@@ -29,9 +29,9 @@ namespace pos.Controllers
 
             return ajax;
         }
-        public List<PatientModel> Get()
+        public List<PatientModel> GetPatient(string FirstName)
         {
-            List<PatientModel> result = PatientRepository.PatientAllGet(true);
+            List<PatientModel> result = PatientRepository.PatientAllGet(FirstName);
 
             return result;
         }
