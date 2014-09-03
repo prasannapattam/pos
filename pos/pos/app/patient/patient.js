@@ -18,7 +18,12 @@ function patient(patientService) {
     init();
 
     return vm;
-
+    if (data.PhotoUrl === null) {
+        vm.photoUrl = utility.virtualDirectory + '/Data/NoPhoto.jpg';
+    }
+    else {
+        vm.photoUrl = utility.virtualDirectory + '/Data/' + data.PhotoUrl + '.jpg';
+    }
     function init() {
         var autocomplete = $("#Patients").kendoAutoComplete({
             minLength: 1,
