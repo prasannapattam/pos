@@ -15,7 +15,6 @@ namespace pos.Controllers
         public AjaxModel<ProfileModel> Post([FromBody] LoginModel model)
         {
             AjaxModel<ProfileModel> ajax = null;
-
             ProfileModel profile = PosRepository.ProfileGet(model);
             if(profile == null)
             {

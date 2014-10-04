@@ -234,38 +234,33 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app\account\account-service.js" />
+    <Content Include="app\account\accountService.js" />
     <Content Include="app\app-route.js" />
-    <Content Include="app\home\index.js" />
-    <Content Include="app\shared\webapi-interceptor.js" />
+    <Content Include="app\layout\index.js" />
+    <Content Include="app\shared\navigation.js" />
+    <Content Include="app\shared\webapiInterceptor.js" />
     <Content Include="app\app-config.js" />
     <Content Include="app\app.js" />
-    <Content Include="app\compat\compat.html" />
-    <Content Include="app\compat\compat.js" />
-    <Content Include="app\compat\compat-service.js" />
-    <Content Include="app\contact\contact.html" />
-    <Content Include="app\contact\contact.js" />
-    <Content Include="app\contact\contact-service.js" />
-    <Content Include="app\home\home-service.js" />
-    <Content Include="app\home\home.html" />
-    <Content Include="app\home\home.js" />
+    <Content Include="app\dashboard\dashboardService.js" />
+    <Content Include="app\dashboard\dashboard.html" />
+    <Content Include="app\dashboard\dashboard.js" />
     <Content Include="app\account\login.html" />
     <Content Include="app\account\login.js" />
-    <Content Include="app\notes\lookup-service.js" />
+    <Content Include="app\notes\lookupService.js" />
     <Content Include="app\notes\notes.html" />
     <Content Include="app\notes\notes.js" />
     <Content Include="app\notes\notesautocomplete.html" />
     <Content Include="app\notes\notesautocomplete.js" />
-    <Content Include="app\notes\notes-directives.js" />
-    <Content Include="app\notes\notes-service.js" />
+    <Content Include="app\notes\notesDirectives.js" />
+    <Content Include="app\notes\notesService.js" />
     <Content Include="app\notes\notestest.html" />
     <Content Include="app\notes\notestest.js" />
-    <Content Include="app\notes\notestest-service.js" />
+    <Content Include="app\notes\notestestService.js" />
     <Content Include="app\patient\patientsearch.html" />
-    <Content Include="app\patient\patientsearch.js" />
+    <Content Include="app\patient\patientSearch.js" />
     <Content Include="app\patient\patient.html" />
     <Content Include="app\patient\patient.js" />
-    <Content Include="app\patient\patient-service.js" />
+    <Content Include="app\patient\patientService.js" />
     <Content Include="app\print\print.html" />
     <Content Include="app\print\print.js" />
     <Content Include="app\print\printqueue.html" />
@@ -297,18 +292,33 @@
     <Content Include="Content\bootstrap\bootstrap.css" />
     <Content Include="Content\bootstrap\bootstrap.min.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Content\Images\eye-background.jpg" />
+    <Content Include="Content\Images\background.jpg" />
     <Content Include="Content\Images\line-horizontal.gif" />
     <Content Include="Content\Images\line-vertical.gif" />
-    <Content Include="Content\Images\loading - old.gif" />
     <Content Include="Content\Images\loading.gif" />
     <Content Include="Content\Images\logo.gif" />
     <Content Include="Content\Images\texture.png" />
+    <Content Include="Content\Images\top.jpg" />
     <Content Include="Content\Images\WordImage.jpg" />
     <Content Include="Content\jquery.textcomplete.css" />
+    <Content Include="Content\kendo.blueopal.css" />
     <Content Include="Content\kendo.blueopal.min.css" />
+    <Content Include="Content\kendo.common.core.css" />
+    <Content Include="Content\kendo.common.core.min.css" />
     <Content Include="Content\kendo.common.min.css" />
+    <Content Include="Content\kendo.uniform.css" />
+    <Content Include="Content\kendo.uniform.min.css" />
     <Content Include="Content\toastr.css" />
+    <Content Include="Content\Uniform\editor.png" />
+    <Content Include="Content\Uniform\imagebrowser.png" />
+    <Content Include="Content\Uniform\indeterminate.gif" />
+    <Content Include="Content\Uniform\loading-image.gif" />
+    <Content Include="Content\Uniform\loading.gif" />
+    <Content Include="Content\Uniform\loading_2x.gif" />
+    <Content Include="Content\Uniform\slider-h.gif" />
+    <Content Include="Content\Uniform\slider-v.gif" />
+    <Content Include="Content\Uniform\sprite.png" />
+    <Content Include="Content\Uniform\sprite_2x.png" />
     <Content Include="Data\NoPhoto.jpg" />
     <Content Include="Data\prasanna.jpg" />
     <Content Include="Global.asax" />
@@ -402,7 +412,6 @@
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app\layout\" />
     <Folder Include="bin\" />
   </ItemGroup>
   <ItemGroup>
@@ -433,6 +442,13 @@
       <DependentUpon>Pos.edmx</DependentUpon>
       <LastGenOutput>Pos.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap\bootstrap.css.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Uniform\Thumbs.db" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

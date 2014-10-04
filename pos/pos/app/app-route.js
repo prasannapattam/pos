@@ -6,25 +6,20 @@ routeConfig.$inject = ['$routeProvider', '$locationProvider', '$provide'];
 function routeConfig($routeProvider, $locationProvider, $provide) {
 
     $routeProvider
-        .when("/home", {
-            templateUrl: "/app/home/home.html",
-            controller: "home",
+        .when("/", {
+            title: "Dashboard",
+            templateUrl: "/app/dashboard/dashboard.html",
+            controller: "dashboard",
             controllerAs: "vm",
         })
         .when("/login", {
+            title: "Login",
             templateUrl: "/app/account/login.html",
             controller: "login",
             controllerAs: "vm",
         })
-        .when("/contact", {
-            templateUrl: "/app/contact/contact.html",
-            controller: "contact",
-            controllerAs: "vm",
-            resolve: ['contactService', function (contactService) {
-                return contactService.resolve();
-            }]
-        })
-        .when("/patient", {
+        .when("/patient/:patientid", {
+            title: "Patients",
             templateUrl: "/app/patient/patient.html",
             controller: "patient",
             controllerAs: "vm",
@@ -32,7 +27,8 @@ function routeConfig($routeProvider, $locationProvider, $provide) {
                 return patientService.resolve();
             }]
         })
-        .when("/notes/:notestype/:id/:examid?", {
+        .when("/notes/:notestype/:patientid/:examid?", {
+            title: "Notes",
             templateUrl: "/app/notes/notestest.html",
             controller: "notestest",
             controllerAs: "vm",
@@ -46,7 +42,7 @@ function routeConfig($routeProvider, $locationProvider, $provide) {
             }
                
         })
-        .otherwise({ redirectTo: "/home" });
+        .otherwise({ redirectTo: "/login" });
     $locationProvider.html5Mode(true);
 
 }

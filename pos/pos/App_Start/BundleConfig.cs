@@ -29,8 +29,8 @@ namespace pos
                 new StyleBundle("~/content/css")
                     .Include("~/content/bootstrap/bootstrap.css")
                     .Include("~/content/bootstrap/bootstrap-theme.css")
-                    .Include("~/content/kendo.common.min.css")
-                    .Include("~/content/kendo.blueopal.min.css")
+                    .Include("~/content/kendo.common.core.css")
+                    .Include("~/content/kendo.uniform.css")
                     .Include("~/content/toastr.css")
                     .Include("~/content/app.css")
                 );

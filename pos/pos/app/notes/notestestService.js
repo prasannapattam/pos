@@ -21,7 +21,7 @@ function notestestService($http, $route, constants, profile) {
 
     //this gets called from the routing. Use this to get data from webapi
     function resolve() {
-        notespatientid = $route.current.params.id;
+        notespatientid = $route.current.params.patientid;
         notesexamid = $route.current.params.examid;
 
         if (parseInt($route.current.params.notestype) === constants.notesType.Default) {

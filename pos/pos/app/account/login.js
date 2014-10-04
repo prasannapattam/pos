@@ -27,7 +27,7 @@ function login($location, accountService, utility) {
         if (form.$valid)
         {
             accountService.validate(vm.model).success(function () {
-                $location.path('/home')
+                $location.path('/')
             });
         }
     }

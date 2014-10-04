@@ -1,4 +1,4 @@
 ﻿'use strict';
-app.controller('patientsearch', ['$scope', function ($scope) {
+app.controller('patientSearch', ['$scope', function ($scope) {
 
 }]);

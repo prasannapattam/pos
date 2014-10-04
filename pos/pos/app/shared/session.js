@@ -1,12 +1,12 @@
 ﻿'use strict'
 
 angular.module('pos').factory('session', session);
-session.$inject = ['$rootScope', '$location', 'toastr', 'profile'];
+session.$inject = ['$rootScope', '$location', '$window', '$route', 'toastr', 'profile', 'navigation'];
 
-function session($rootScope, $location, toastr, profile) {
+function session($rootScope, $location, $window, $route, toastr, profile, navigation) {
 
     var vm = {
-        isLoading: true,
+        navigation: navigation,
         profile: profile,
         initialize: initialize,
         logout: logout
@@ -21,7 +21,7 @@ function session($rootScope, $location, toastr, profile) {
         $rootScope.profile = profile;
 
         $rootScope.$on('$routeChangeStart', function () {
-            vm.isLoading = true;
+            navigation.isLoading = true;
             //checking whether user is authenticated
             if (profile.isAuthenticated === false && $location.path() !== '/login') {
                 $location.path('/login');
@@ -29,7 +29,8 @@ function session($rootScope, $location, toastr, profile) {
         });
 
         $rootScope.$on('$routeChangeSuccess', function () {
-            vm.isLoading = false;
+            navigation.isLoading = false;
+            $window.document.title = $route.current.title + ' | Pediatric Ophthalmology';
         });
     };
 

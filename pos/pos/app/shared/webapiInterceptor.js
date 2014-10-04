@@ -1,9 +1,9 @@
 ﻿'use strict';
 
 angular.module('pos').factory('webapiInterceptor', webapiInterceptor);
-webapiInterceptor.$inject = ['$q', 'session', 'utility'];
+webapiInterceptor.$inject = ['$q', 'navigation', 'utility'];
 
-function webapiInterceptor($q, session, utility) {
+function webapiInterceptor($q, navigation, utility) {
 
     var apiUrl = utility.virtualDirectory + '/api/'
 
@@ -18,7 +18,7 @@ function webapiInterceptor($q, session, utility) {
     function request(config) {
 
         if (config.url.indexOf(apiUrl) === 0)
-            session.isLoading = true;
+            navigation.isLoading = true;
 
         // Return the config or promise.
         return config || $q.when(config);
@@ -27,7 +27,7 @@ function webapiInterceptor($q, session, utility) {
     //request error
     function requestError(rejection) {
         if (rejection.url.indexOf(apiUrl) === 0)
-            session.isLoading = false;
+            navigation.isLoading = false;
         utility.showError(rejection.data.Message);
 
         // Return the promise rejection.
@@ -37,7 +37,7 @@ function webapiInterceptor($q, session, utility) {
     // response success
     function response(response) {
         if (response.config.url.indexOf(apiUrl) === 0)
-            session.isLoading = false;
+            navigation.isLoading = false;
 
         //checking whether we got our AjaxModel
         if (response.data.hasOwnProperty("Success") && response.data.hasOwnProperty("Message") && response.data.hasOwnProperty("Model")) {
@@ -57,8 +57,8 @@ function webapiInterceptor($q, session, utility) {
 
     //response Error
     function responseError(rejection) {
-        if (response.url.indexOf(apiUrl) === 0) {
-            session.isLoading = false;
+        if (rejection.config.url.indexOf(apiUrl) === 0) {
+            navigation.isLoading = false;
             utility.showError(rejection.data.Message);
         }
             

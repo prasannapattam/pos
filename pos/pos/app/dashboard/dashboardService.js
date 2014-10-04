@@ -1,10 +1,10 @@
 ﻿'use strict'
 
-angular.module('pos').factory('homeService', homeService);
+angular.module('pos').factory('dashboardService', dashboardService);
 
-homeService.$inject = ['$http'];
+dashboardService.$inject = ['$http'];
 
-function homeService($http) {
+function dashboardService($http) {
     var model = {};
 
     var service = {

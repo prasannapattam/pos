@@ -9,42 +9,33 @@
     <div class="container" ng-controller="index as vm">
         <div class="top-header" ng-cloak>
             <div class="left-header">
-                <img class="top-header" src="~/content/images/logo.gif" />
+                <a href="/"><img class="top-header" src="~/content/images/logo.gif" /></a>
             </div>
             <div class="right-header" ng-show="vm.profile.isAuthenticated">
-                <ul class="tight top-menu">
-                    <li class="dropdown" style="list-style: none">
-                        <a class="dropdown-toggle" id="photodrop" role="button" href="#" data-toggle="dropdown">
-                            <img class="top-header" ng-src="{{profile.photoUrl}}" />
-                        </a>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="photodrop">
-                            <li role="presentation"><a tabindex="-1" role="menuitem" ng-click="vm.logout()">Logout</a></li>
-                            @*<li class="divider" role="presentation"></li>*@
-                        </ul>
-                    </li>
-                </ul>
+                <img class="top-header" ng-src="{{profile.photoUrl}}" />
             </div>
           
-            <div class="loading" ng-show="session.isLoading">
-                <img class="loading" src="~/content/images/loading.gif" />
+            <div class="menu">
+                <img class="loading" src="~/content/images/loading.gif" ng-style="{'visibility' : session.navigation.isLoading ? 'visible' : 'hidden'}" /> @**@
+                <ul class="menu" kendo-menu k-data-source="vm.menuItems" k-on-select="vm.menuSelect(kendoEvent)" ng-show="vm.profile.isAuthenticated"></ul>   
             </div>
             <div class="content">
                 <div class="row tight header-row">
                     <div class="app-header">e-Pediatric Ophthalmology & Strabismus</div>
-                    @*<div class="small-12 columns tight">
-                            <ul class="tabrow" data-bind="foreach: navigation.tabs">
-                                <li data-bind="css: {selected: active }">
-                                    <a data-bind="click: $root.navigation.activateTab, text: title"></a>
-                                    <a class="tab-close" data-bind="click: $root.navigation.removeTab, css: { display_none: firstTab }">x</a>
-                                </li>
-                            </ul>
-                        </div>*@
+                    <div class="row tight">
+                        <ul class="tabrow">
+                            <li ng-repeat="tab in vm.navigation.tabs" ng-class="{selected: tab.active }">
+                                <a href="#" ng-click="vm.navigation.activateTab(tab)">{{tab.title}}</a>
+                                <a href="#" class="tab-close" ng-class="{hidden: tab.firstTab}" ng-click="vm.navigation.removeTab(tab)">x</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
+            <div class="search-patient">
+                Search Patient: 
+            </div>
         </div>
-        <a href="/home">Home</a> | <a href="/contact">Contact</a> | <a href="/login">Login</a> | <a href="/notes/1/395/53738">Notes 1</a> | <a href="/notes/1/1053/53775">Notes 2</a> | <a href="/patient">patient</a>
-
-
         <div ng-view>
             <div id="splash" class="splash">
                 <br /><br />
