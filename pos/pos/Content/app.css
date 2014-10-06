@@ -1,6 +1,6 @@
 ﻿body.main
 {
-    font-size: 9pt !important;
+    font-size: 1.2em !important;
     font-family: Verdana, Geneva, sans-serif;
     background: url("images/background.jpg") no-repeat 0px 110px rgb(216, 216, 216);
    
@@ -8,7 +8,7 @@
 
 p
 {
-    font-size: 9pt !important;
+    font-size: 1.2em !important;
     font-family: Verdana, Geneva, sans-serif;
 }
 
@@ -35,15 +35,13 @@ img.top-header{
 div.top-header{
     background: url("images/top.jpg") no-repeat center 0px;
     height: 65px;
-    width: 100%;
-    margin: 0 0 0 0; 
-    padding: 0 0 0 0;
 }
 
 div.left-header{
     width: 70px; 
     float: left; 
     padding: 0 0 0 5px;
+    position: relative;
 }
 
 div.right-header{
@@ -52,15 +50,16 @@ div.right-header{
 }
 
 div.menu {
+    float: right;
     display: block;
     width: 70px;
     height: 40px;
-    float: right;
+    position: relative;
     text-align: center;
 }
 ul.menu{
 	list-style: none;
-    height: 24px;
+	line-height: 2em;
 	background: rgb(216, 216, 216) !important;
 	border-top-left-radius: 10px !important;
 	border-top-right-radius: 10px !important; 
@@ -101,8 +100,10 @@ img.loading{
     width: 100% !important;
 }
 
-.content{
-    margin-left: 70px;
+.header-content{
+    float: left;
+    position: relative;
+    width: 970px;
 }
 
 img.photo{
@@ -111,12 +112,12 @@ img.photo{
 }
 
 div.header-row{
-    padding: 6px 100px 0px 0px !important;
+    padding: 6px 0px 0px 0px !important;
 }
 
 .app-header{
     color: #6D6D6D;
-    font-size: 18pt;
+    font-size: 1.9em;
     font-weight: 700;
     text-align: center;
 }
@@ -166,9 +167,8 @@ ul.top-menu{
 /* Tabs */
 .tabrow {
 	list-style: none;
-	line-height: 24px;
+	line-height: 2em;
 	overflow: hidden;
-	font-size: 12px;
 	/*font-family: verdana;*/
     margin: 0 0 0 0;
     padding: 1 0 0 0;
@@ -204,10 +204,9 @@ ul.top-menu{
 .tabrow:before {
 	position: absolute;
 	content: " ";
-	width: 100%;
+	/*width: 100%;*/
 	bottom: 0;
 	left: 0;
-	/*border-bottom: 1px solid #AAA;*/
 	z-index: 1;
 }
 .tabrow li:before,
@@ -246,6 +245,19 @@ ul.top-menu{
 }
 /* Tabs End */
 
+div.search-patient{
+    text-align: center;
+}
+
+div.search-patient > span{
+    width: 100%;
+}
+
+/* Textbox css */
+.search-criteria{
+    width: 40px;
+}
+/* End Textbox css*/
 
 /* Bootstrap overrides */
 ul.top-menu li.dropdown{

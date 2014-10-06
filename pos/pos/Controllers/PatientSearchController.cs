@@ -25,7 +25,7 @@ namespace pos.Controllers
 
             if (result.Count == 0)
             {
-                ajax = new AjaxModel<List<SearchResultModel>>() { Success = false, Message = PosMessage.PatientSearchNoRecords, Model = null };
+                ajax = new AjaxModel<List<SearchResultModel>>() { Success = false, Message = PosMessage.PatientSearchNoRecords, Model = result };
             }
             else
             {

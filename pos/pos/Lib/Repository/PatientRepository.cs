@@ -51,7 +51,7 @@ namespace pos.Lib.Repository
                                 where dbPatient.PatientNumber.StartsWith(patientNumber)
                                 || dbPatient.FirstName.StartsWith(firstName)
                                 || dbPatient.LastName.StartsWith(lastName)
-                                orderby dbPatient.LastExamDate descending
+                                orderby new { dbPatient.FirstName, dbPatient.LastName }
                                 select new SearchResultModel
                                 {
                                     ID = dbPatient.PatientID,
@@ -97,38 +97,7 @@ namespace pos.Lib.Repository
                 return patientModel;
             }
         }
-        public static List<PatientModel> PatientAllGet(string name)
-        {
-            using (var db = new PosEntities())
-            {
 
-                var patientModel = from dbPatient in db.Patients
-                                   where dbPatient.FirstName.StartsWith(name)
-                                   select new PatientModel
-                                {
-                                    PatientID = dbPatient.PatientID,
-                                    PatientNumber = dbPatient.PatientNumber,
-                                    Greeting = dbPatient.Greeting,
-                                    FirstName = dbPatient.FirstName,
-                                    MiddleName = dbPatient.MiddleName,
-                                    LastName = dbPatient.LastName,
-                                    NickName = dbPatient.NickName,
-                                    DateOfBirth = dbPatient.DateOfBirth,
-                                    Sex = dbPatient.Sex,
-                                    Occupation = dbPatient.Occupation,
-                                    HxFrom = dbPatient.HxFrom,
-                                    ReferredFrom = dbPatient.ReferredFrom,
-                                    ReferredDoctor = dbPatient.ReferredDoctor,
-                                    Allergies = dbPatient.Allergies,
-                                    Medications = dbPatient.Medications,
-                                    PrematureBirth = dbPatient.PrematureBirth,
-
-                                };
-
-
-                return patientModel.ToList();
-            }
-        }
         public static bool PatientSave(PatientModel patient)
         {
             if (PosRepository.PatientExists(patient))

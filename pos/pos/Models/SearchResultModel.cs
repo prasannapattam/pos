@@ -14,6 +14,7 @@ namespace pos.Models
         public string PatientName { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public DateTime? LastExamDate { get; set; }
+        public string DOBString { get { return DateOfBirth.HasValue ? DateOfBirth.Value.ToShortDateString() : ""; } }
 
         //user search results
         public string FullName { get; set; }

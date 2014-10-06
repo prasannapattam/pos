@@ -235,6 +235,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\account\accountService.js" />
+    <Content Include="app\account\logout.js" />
     <Content Include="app\app-route.js" />
     <Content Include="app\layout\index.js" />
     <Content Include="app\shared\navigation.js" />

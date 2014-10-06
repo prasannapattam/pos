@@ -7,33 +7,38 @@
 </head>
 <body class="main">
     <div class="container" ng-controller="index as vm">
-        <div class="top-header" ng-cloak>
+        <div class="row top-header" ng-cloak>
             <div class="left-header">
                 <a href="/"><img class="top-header" src="~/content/images/logo.gif" /></a>
+            </div>
+
+            <div class="header-content">
+                <div class="header-row">
+                    <div class="app-header">e-Pediatric Ophthalmology & Strabismus</div>
+                    <div class="row tight">
+                        <div class="col-sm-8 tight">
+                            <ul class="tabrow">
+                                <li ng-repeat="tab in vm.navigation.tabs" ng-class="{selected: tab.active }">
+                                    <a href="#" ng-click="vm.navigation.activateTab(tab)">{{tab.title}}</a>
+                                    <a href="#" class="tab-close" ng-class="{hidden: tab.firstTab}" ng-click="vm.navigation.removeTab(tab)">x</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-4 search-patient">
+                            <input placeholder="Search Patient" kendo-auto-complete ng-model=" vm.searchcriteria" k-options="vm.searchOptions"
+                                   k-on-select="vm.searchSelect(kendoEvent)" ng-show="vm.profile.isAuthenticated"
+                                   k-template="'${ data.PatientName } (Patient \\#: ${ data.PatientNumber })<br />DOB: ${ data.DOBString }<hr class=&quot;tight&quot; />'"
+                                   />
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="right-header" ng-show="vm.profile.isAuthenticated">
                 <img class="top-header" ng-src="{{profile.photoUrl}}" />
             </div>
-          
             <div class="menu">
-                <img class="loading" src="~/content/images/loading.gif" ng-style="{'visibility' : session.navigation.isLoading ? 'visible' : 'hidden'}" /> @**@
-                <ul class="menu" kendo-menu k-data-source="vm.menuItems" k-on-select="vm.menuSelect(kendoEvent)" ng-show="vm.profile.isAuthenticated"></ul>   
-            </div>
-            <div class="content">
-                <div class="row tight header-row">
-                    <div class="app-header">e-Pediatric Ophthalmology & Strabismus</div>
-                    <div class="row tight">
-                        <ul class="tabrow">
-                            <li ng-repeat="tab in vm.navigation.tabs" ng-class="{selected: tab.active }">
-                                <a href="#" ng-click="vm.navigation.activateTab(tab)">{{tab.title}}</a>
-                                <a href="#" class="tab-close" ng-class="{hidden: tab.firstTab}" ng-click="vm.navigation.removeTab(tab)">x</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="search-patient">
-                Search Patient: 
+                <img class="loading" src="~/content/images/loading.gif" ng-style="{'visibility' : session.navigation.isLoading ? 'visible' : 'hidden'}" />
+                <ul id="main-menu" class="menu" kendo-menu k-data-source="vm.menuItems" k-on-select="vm.menuSelect(kendoEvent)" ng-show="vm.profile.isAuthenticated"></ul>
             </div>
         </div>
         <div ng-view>
@@ -53,4 +58,5 @@
     @Scripts.Render("~/scripts/app")
 </body>
 </html>
+
 

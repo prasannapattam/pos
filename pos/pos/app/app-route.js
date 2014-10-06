@@ -7,7 +7,7 @@ function routeConfig($routeProvider, $locationProvider, $provide) {
 
     $routeProvider
         .when("/", {
-            title: "Dashboard",
+            title: "Patients",
             templateUrl: "/app/dashboard/dashboard.html",
             controller: "dashboard",
             controllerAs: "vm",
@@ -16,6 +16,12 @@ function routeConfig($routeProvider, $locationProvider, $provide) {
             title: "Login",
             templateUrl: "/app/account/login.html",
             controller: "login",
+            controllerAs: "vm",
+        })
+        .when("/logout", {
+            title: "Logout",
+            templateUrl: "/app/account/login.html",
+            controller: "logout",
             controllerAs: "vm",
         })
         .when("/patient/:patientid", {

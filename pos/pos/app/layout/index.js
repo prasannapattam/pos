@@ -1,30 +1,53 @@
 ﻿'use strict';
 angular.module('pos').controller('index', index)
-index.$inject = ['$location', 'profile', 'navigation'];
+index.$inject = ['profile', 'navigation', '$http'];
 
-function index($location, profile, navigation) {
+function index(profile, navigation, $http) {
 
     var menuItems = [
                         {
                             text: "Menu", url: "/",
                             items: [
-                                { text: "Dashboard", url: "/" },
+                                { text: "Patients", url: "/" },
                                 { text: "Print Queue", url: "/printqueue" },
                                 { text: "Users", url: "/users" },
                                 { text: "Defaults", url: "/defaults" },
                                 { text: "Auto Correct", url: "/autocorrect" },
                                 { text: "Configuation", url: "/configuration" },
-                                { text: "Logout", url: "/logout" },
+                                { text: "Logout", url: "/login" },
                             ]
                         }
                     ];
+
+    var searchCriteria;
+    var searchOptions = {
+        dataSource: new kendo.data.DataSource({
+            transport: {
+                read: function (options) {
+                    $http.post("/api/patientsearch", "'" + options.data.filter.filters[0].value + "'")
+                        .success(function (data) {
+                            options.success(data)
+                        })
+                        .error(function (data) {
+                            options.success(data.Model);
+                        });
+                }
+            },
+            serverFiltering: true
+        }),
+        dataTextField: "PatientName"
+    };
+
+
 
     var vm = {
         menuItems: menuItems,
         profile: profile,
         navigation: navigation,
-        logout: logout,
-        menuSelect: menuSelect
+        menuSelect: menuSelect,
+        searchCriteria: searchCriteria,
+        searchOptions: searchOptions,
+        searchSelect: searchSelect
     };
 
     init();
@@ -35,13 +58,13 @@ function index($location, profile, navigation) {
 
     }
 
-    function logout() {
-        profile.logout();
-        $location.path('/login');
+    function menuSelect(e) {
+        var menu = $("#main-menu").data("kendoMenu");
+        menu.close("#main-menu");
     }
 
-    function menuSelect(e) {
-        $("ul.menu .k-animation-container").hide();
+    function searchSelect(e) {
+        alert(e.item.text());
     }
 }
 

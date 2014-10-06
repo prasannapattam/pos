@@ -1,9 +1,9 @@
 ﻿'use strict';
 
 angular.module('pos').controller('login', login);
-login.$inject = ['$location', 'accountService', 'utility'];
+login.$inject = ['$location', 'accountService', 'profile'];
 
-function login($location, accountService, utility) {
+function login($location, accountService, profile) {
 
     var vm = {
         model: {},
@@ -19,6 +19,7 @@ function login($location, accountService, utility) {
     return vm;
 
     function init() {
+        profile.logout();
         vm.model = accountService.model;
     }
 
