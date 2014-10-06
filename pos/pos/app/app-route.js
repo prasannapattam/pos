@@ -6,36 +6,36 @@ routeConfig.$inject = ['$routeProvider', '$locationProvider', '$provide'];
 function routeConfig($routeProvider, $locationProvider, $provide) {
 
     $routeProvider
-        .when("/", {
+        .when(window.virtualDirectory + "/", {
             title: "Patients",
-            templateUrl: "/app/dashboard/dashboard.html",
+            templateUrl: window.virtualDirectory + "/app/dashboard/dashboard.html",
             controller: "dashboard",
             controllerAs: "vm",
         })
-        .when("/login", {
+        .when(window.virtualDirectory + "/login", {
             title: "Login",
-            templateUrl: "/app/account/login.html",
+            templateUrl: window.virtualDirectory + "/app/account/login.html",
             controller: "login",
             controllerAs: "vm",
         })
-        .when("/logout", {
+        .when(window.virtualDirectory + "/logout", {
             title: "Logout",
-            templateUrl: "/app/account/login.html",
+            templateUrl: window.virtualDirectory + "/app/account/login.html",
             controller: "logout",
             controllerAs: "vm",
         })
-        .when("/patient/:patientid", {
+        .when(window.virtualDirectory + "/patient/:patientid", {
             title: "Patients",
-            templateUrl: "/app/patient/patient.html",
+            templateUrl: window.virtualDirectory + "/app/patient/patient.html",
             controller: "patient",
             controllerAs: "vm",
             resolve: ['patientService', function (patientService) {
                 return patientService.resolve();
             }]
         })
-        .when("/notes/:notestype/:patientid/:examid?", {
+        .when(window.virtualDirectory + "/notes/:notestype/:patientid/:examid?", {
             title: "Notes",
-            templateUrl: "/app/notes/notestest.html",
+            templateUrl: window.virtualDirectory + "/app/notes/notestest.html",
             controller: "notestest",
             controllerAs: "vm",
             resolve: {
@@ -48,7 +48,7 @@ function routeConfig($routeProvider, $locationProvider, $provide) {
             }
                
         })
-        .otherwise({ redirectTo: "/login" });
+        .otherwise({ redirectTo: window.virtualDirectory + "/login" });
     $locationProvider.html5Mode(true);
 
 }

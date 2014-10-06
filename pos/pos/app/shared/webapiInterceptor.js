@@ -5,7 +5,8 @@ webapiInterceptor.$inject = ['$q', 'navigation', 'utility'];
 
 function webapiInterceptor($q, navigation, utility) {
 
-    var apiUrl = utility.virtualDirectory + '/api/'
+    var rawapiUrl = '/api/';
+    var apiUrl = window.virtualDirectory + '/api/';
 
     return {
         request: request,
@@ -16,6 +17,8 @@ function webapiInterceptor($q, navigation, utility) {
 
     //request success
     function request(config) {
+        if (config.url.indexOf(rawapiUrl) === 0)
+            config.url = window.virtualDirectory + config.url;
 
         if (config.url.indexOf(apiUrl) === 0)
             navigation.isLoading = true;

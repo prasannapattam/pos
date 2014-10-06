@@ -6,15 +6,15 @@ function index(profile, navigation, $http) {
 
     var menuItems = [
                         {
-                            text: "Menu", url: "/",
+                            text: "Menu", url: window.virtualDirectory + "/",
                             items: [
-                                { text: "Patients", url: "/" },
-                                { text: "Print Queue", url: "/printqueue" },
-                                { text: "Users", url: "/users" },
-                                { text: "Defaults", url: "/defaults" },
-                                { text: "Auto Correct", url: "/autocorrect" },
-                                { text: "Configuation", url: "/configuration" },
-                                { text: "Logout", url: "/login" },
+                                { text: "Patients", url: window.virtualDirectory + "/" },
+                                { text: "Print Queue", url: window.virtualDirectory + "/printqueue" },
+                                { text: "Users", url: window.virtualDirectory + "/users" },
+                                { text: "Defaults", url: window.virtualDirectory + "/defaults" },
+                                { text: "Auto Correct", url: window.virtualDirectory + "/autocorrect" },
+                                { text: "Configuation", url: window.virtualDirectory + "/configuration" },
+                                { text: "Logout", url: window.virtualDirectory + "/login" },
                             ]
                         }
                     ];
