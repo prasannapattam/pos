@@ -64,7 +64,9 @@ function index(profile, navigation, $http) {
     }
 
     function searchSelect(e) {
-        alert(e.item.text());
+        var patient = e.sender.dataItems()[e.item.index()];
+        navigation.addTab(patient.PatientName, '/Patient/' + patient.ID);
+        vm.searchCriteria = '';
     }
 }
 

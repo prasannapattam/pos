@@ -25,7 +25,7 @@
                             </ul>
                         </div>
                         <div class="col-sm-4 search-patient">
-                            <input placeholder="Search Patient" kendo-auto-complete ng-model=" vm.searchcriteria" k-options="vm.searchOptions"
+                            <input placeholder="Search Patient" kendo-auto-complete ng-model=" vm.searchCriteria" k-options="vm.searchOptions"
                                    k-on-select="vm.searchSelect(kendoEvent)" ng-show="vm.profile.isAuthenticated"
                                    k-template="'${ data.PatientName } (Patient \\#: ${ data.PatientNumber })<br />DOB: ${ data.DOBString }<hr class=&quot;tight&quot; />'"
                                    />

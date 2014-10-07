@@ -11,12 +11,10 @@ function navigation() {
         self.title = title;
         self.hash = hash;
         self.firstTab = tabs.length == 0;
-        //self.href = location.href;
         self.active = true;
 
-        if (tabs.length > 5) {
-            var item = tabs[1];
-            tabs.remove(item);
+        if (tabs.length > 3) {
+            tabs.splice(1, 1);
         }
     };
 
@@ -38,12 +36,9 @@ function navigation() {
     return vm;
 
     function init() {
-        vm.tabs.push(new tab(tabs, 'Prasanna Pattam', '#home'))
+        //vm.tabs.push(new tab(tabs, 'Prasanna Pattam', '#home'))
 
-        addTab('Prasanna Login', '/login')
-        addTab('Prasanna Dashboard', '/')
-        addTab('Prasanna Patient', '/patient')
-        addTab('Prasanna Dashboard', '/')
+        addTab('Patients', '/dashboard')
     }
 
     function setHomeTab(title, hash, active) {
@@ -51,7 +46,7 @@ function navigation() {
         var homeTab = vm.tabs[0];
 
         homeTab.title = title;
-        homeTab.hash = hash;
+        homeTab.hash = window.virtualDirectory + hash;
         //router.activeInstruction().config.title = title();
 
         if (active) {
@@ -103,6 +98,7 @@ function navigation() {
     function addTab(title, hash) {
         //checking if the tab is already present 
         var tabexists = false;
+        hash = window.virtualDirectory + hash;
         for (index = 0; index < vm.tabs.length; index++) {
             if (vm.tabs[index].hash === hash) {
                 vm.tabs[index].active = true;
