@@ -328,8 +328,7 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Scripts\angular\angular-messages.js" />
-    <Content Include="Scripts\angular\angular-resource.js" />
-    <Content Include="Scripts\angular\angular-route.js" />
+    <Content Include="Scripts\angular\angular-ui-router.js" />
     <Content Include="Scripts\angular\angular.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\jquery.js" />

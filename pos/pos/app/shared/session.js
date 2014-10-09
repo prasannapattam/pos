@@ -1,9 +1,9 @@
 ﻿'use strict'
 
 angular.module('pos').factory('session', session);
-session.$inject = ['$rootScope', '$location', '$window', '$route', 'toastr', 'profile', 'navigation'];
+session.$inject = ['$rootScope', '$location', '$window', 'toastr', 'profile', 'navigation'];
 
-function session($rootScope, $location, $window, $route, toastr, profile, navigation) {
+function session($rootScope, $location, $window, toastr, profile, navigation) {
 
     var vm = {
         navigation: navigation,
@@ -20,7 +20,7 @@ function session($rootScope, $location, $window, $route, toastr, profile, naviga
         $rootScope.session = vm;
         $rootScope.profile = profile;
 
-        $rootScope.$on('$routeChangeStart', function () {
+        $rootScope.$on('$stateChangeStart', function () {
             navigation.isLoading = true;
             //checking whether user is authenticated
             if (profile.isAuthenticated === false && $location.path() !== '/login') {
@@ -28,9 +28,9 @@ function session($rootScope, $location, $window, $route, toastr, profile, naviga
             }
         });
 
-        $rootScope.$on('$routeChangeSuccess', function () {
+        $rootScope.$on('$stateChangeSuccess', function () {
             navigation.isLoading = false;
-            $window.document.title = $route.current.title + ' | Pediatric Ophthalmology';
+            //$window.document.title = $route.current.title + ' | Pediatric Ophthalmology';
         });
     };
 

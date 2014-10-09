@@ -1,9 +1,9 @@
 ﻿'use strict';
 
 angular.module('pos').controller('login', login);
-login.$inject = ['$location', 'accountService', 'profile'];
+login.$inject = ['$state', 'accountService', 'profile'];
 
-function login($location, accountService, profile) {
+function login($state, accountService, profile) {
 
     var vm = {
         model: {},
@@ -28,7 +28,7 @@ function login($location, accountService, profile) {
         if (form.$valid)
         {
             accountService.validate(vm.model).success(function () {
-                $location.path('/')
+                $state.transitionTo('dashboard');
             });
         }
     }
