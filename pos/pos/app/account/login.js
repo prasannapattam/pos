@@ -28,7 +28,7 @@ function login($state, accountService, profile) {
         if (form.$valid)
         {
             accountService.validate(vm.model).success(function () {
-                $state.transitionTo('dashboard');
+                $state.go('dashboard');
             });
         }
     }

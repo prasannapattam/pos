@@ -1,9 +1,9 @@
 ﻿'use strict'
 
 angular.module('pos').factory('session', session);
-session.$inject = ['$rootScope', '$location', '$window', 'toastr', 'profile', 'navigation'];
+session.$inject = ['$rootScope', '$state', '$window', 'toastr', 'profile', 'navigation'];
 
-function session($rootScope, $location, $window, toastr, profile, navigation) {
+function session($rootScope, $state, $window, toastr, profile, navigation) {
 
     var vm = {
         navigation: navigation,
@@ -20,17 +20,18 @@ function session($rootScope, $location, $window, toastr, profile, navigation) {
         $rootScope.session = vm;
         $rootScope.profile = profile;
 
-        $rootScope.$on('$stateChangeStart', function () {
+        $rootScope.$on('$stateChangeStart', function (evt, toState, toParams, fromState, fromParams) {
             navigation.isLoading = true;
             //checking whether user is authenticated
-            if (profile.isAuthenticated === false && $location.path() !== '/login') {
-                $location.path('/login');
+            $window.document.title = toState.title + ' | Pediatric Ophthalmology';
+            if (profile.isAuthenticated === false && toState.name !== 'login') {
+                evt.preventDefault();
+                $state.go('login');
             }
         });
 
-        $rootScope.$on('$stateChangeSuccess', function () {
+        $rootScope.$on('$stateChangeSuccess', function (evt, toState, toParams, fromState, fromParams) {
             navigation.isLoading = false;
-            //$window.document.title = $route.current.title + ' | Pediatric Ophthalmology';
         });
     };
 
