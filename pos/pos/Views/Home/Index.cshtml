@@ -19,7 +19,9 @@
                         <div class="col-sm-8 tight">
                             <ul class="tabrow">
                                 <li ng-repeat="tab in vm.navigation.tabs" ng-class="{selected: tab.active }">
-                                    <a href="#" ng-click="vm.navigation.activateTab(tab)">{{tab.title}}</a>
+                                    <a ui-sref="{{tab.hash}}" ng-click="vm.navigation.activateTab(tab)">
+                                        <img class="nav-icon" ng-src="{{tab.iconUrl}}" />{{tab.title}}
+                                    </a>
                                     <a href="#" class="tab-close" ng-class="{hidden: tab.firstTab}" ng-click="vm.navigation.removeTab(tab)">x</a>
                                 </li>
                             </ul>
@@ -41,7 +43,7 @@
                 <ul id="main-menu" class="menu" kendo-menu k-data-source="vm.menuItems" k-on-select="vm.menuSelect(kendoEvent)" ng-show="vm.profile.isAuthenticated"></ul>
             </div>
         </div>
-        <div ui-view>
+        <div ui-view class="row content">
             <div id="splash" class="splash">
                 <br /><br />
                 <h2 class="splash-header">Welcome to e-Pediatric Ophthalmology & Strabismus</h2>

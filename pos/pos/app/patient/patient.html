@@ -1,3 +1,14 @@
-﻿<div>
-    <h4>Patient Portal</h4>
+﻿<div class="row top-bar">
+    <div class="col-sm-10">
+        {{vm.model.PatientName}}
+    </div>
+    <div class="col-sm-2 text-right">
+        
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-2 patient-left-bar">
+        <ul id="left-menu" class="left-menu" kendo-menu k-data-source="vm.menuItems"></ul>
+    </div>
+    <div class="col-sm-10" ui-view></div>
 </div>

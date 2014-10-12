@@ -12,7 +12,7 @@ namespace pos.Controllers
 {
     public class PatientController : ApiController
     {
-        public AjaxModel<PatientModel> Get(int id)
+        public AjaxModel<PatientModel> Get(int id  = 290)
         {
             AjaxModel<PatientModel> ajax = null;
 

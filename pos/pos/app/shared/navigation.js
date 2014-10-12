@@ -1,10 +1,15 @@
 ﻿'use strict';
 angular.module('pos').factory('navigation', navigation)
-navigation.$inject = [];
+navigation.$inject = ['utility'];
 
-function navigation() {
+function navigation(utility) {
 
-    var tab = function (tabs, title, hash) {
+    var iconTypes = {
+        dashboard: "dashboard.png",
+        patient: "patient.png",
+    }
+
+    var tab = function (tabs, title, hash, icon) {
         var self = this;
 
         self.tabs = tabs;
@@ -12,6 +17,7 @@ function navigation() {
         self.hash = hash;
         self.firstTab = tabs.length == 0;
         self.active = true;
+        self.iconUrl = utility.iconPath(icon);
 
         if (tabs.length > 3) {
             tabs.splice(1, 1);
@@ -23,6 +29,7 @@ function navigation() {
     var vm = {
         isLoading: true,
         tabs: tabs,
+        iconTypes: iconTypes,
         activateTab: activateTab,
         removeTab: removeTab,
         setHomeTab: setHomeTab,
@@ -38,7 +45,7 @@ function navigation() {
     function init() {
         //vm.tabs.push(new tab(tabs, 'Prasanna Pattam', '#home'))
 
-        addTab('Patients', '/dashboard')
+        addTab('Dashboard', 'dashboard', iconTypes.dashboard)
     }
 
     function setHomeTab(title, hash, active) {
@@ -76,7 +83,7 @@ function navigation() {
             tab.active = true;
 
             var hash = tab.hash;
-            //router.navigate(hash);
+            //$state.go(hash);
         }
     };
 
@@ -95,7 +102,7 @@ function navigation() {
         tabs.splice(index, 1);
     };
 
-    function addTab(title, hash) {
+    function addTab(title, hash, icon) {
         //checking if the tab is already present 
         var tabexists = false;
         hash = window.virtualDirectory + hash;
@@ -110,7 +117,7 @@ function navigation() {
         }
 
         if (tabexists === false)
-            vm.tabs.push(new tab(vm.tabs, title, hash))
+            vm.tabs.push(new tab(vm.tabs, title, hash, icon))
     }
 
     function clear() {

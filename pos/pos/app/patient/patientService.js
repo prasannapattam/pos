@@ -16,11 +16,11 @@ function patientService($http) {
     return service;
 
     //this gets called from the routing. Use this to get data from webapi
-    function resolve() {
-        //return $http.get("/api/patient")
-        //    .success(function (data) {
-        //        service.model = data;
-        //    });
+    function resolve(patientId) {
+        return $http.get("/api/patient", { params: { id: patientId } })
+            .success(function (data) {
+                service.model = data;
+            });
     }
 
     function save() {

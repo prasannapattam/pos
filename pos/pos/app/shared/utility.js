@@ -10,7 +10,9 @@ function utility(toastr) {
     var vm = {
         virtualDirectory: virtualDirectory,
         showInfo: showInfo,
-        showError: showError
+        showError: showError,
+        iconPath: iconPath,
+        routePath: routePath
     };
 
     return vm;
@@ -22,5 +24,14 @@ function utility(toastr) {
     function showError(message) {
         toastr.error(message);
     }
+
+    function iconPath(filename) {
+        return window.virtualDirectory + "/content/images/icons/" + filename;
+    }
+
+    function routePath(path) {
+        return window.virtualDirectory + "/" + path;
+    }
+
 };
 

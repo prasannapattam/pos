@@ -8,7 +8,7 @@ function routeConfig($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider
         .state("dashboard", {
             url: window.virtualDirectory + "/",
-            title: "Patients",
+            title: "Dashboard",
             templateUrl: window.virtualDirectory + "/app/dashboard/dashboard.html",
             controller: "dashboard",
             controllerAs: "vm",
@@ -26,11 +26,23 @@ function routeConfig($stateProvider, $urlRouterProvider, $locationProvider) {
             templateUrl: window.virtualDirectory + "/app/patient/patient.html",
             controller: "patient",
             controllerAs: "vm",
-            resolve: ['patientService', function (patientService) {
-                return patientService.resolve();
+            resolve: ['$stateParams', 'patientService', function ($stateParams, patientService) {
+                return patientService.resolve($stateParams.patientid);
             }]
         })
-        //.when(window.virtualDirectory + "/notes/:notestype/:patientid/:examid?", {
+        .state("patient.portal", {
+            url: window.virtualDirectory + "/portal",
+            templateUrl: window.virtualDirectory + "/app/patient/portal.html",
+            controller: "portal",
+            controllerAs: "vm",
+        })
+        .state("patient.demographics", {
+            url: window.virtualDirectory + "/demographics",
+            templateUrl: window.virtualDirectory + "/app/patient/demographics.html",
+            controller: "demographics",
+            controllerAs: "vm",
+        })
+    //.when(window.virtualDirectory + "/notes/:notestype/:patientid/:examid?", {
         //    title: "Notes",
         //    templateUrl: window.virtualDirectory + "/app/notes/notestest.html",
         //    controller: "notestest",
