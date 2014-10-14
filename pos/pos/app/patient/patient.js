@@ -3,7 +3,6 @@ angular.module('pos').controller('patient', patient);
 patient.$inject = ['$state','patientService', 'utility'];
 function patient($state, patientService, utility) {
 
-
     var vm = {
         model: {},
         menuItems: [],
@@ -16,8 +15,10 @@ function patient($state, patientService, utility) {
 
     function init() {
         // initialization
-        vm.model = patientService.model;
+        vm.model = patientService.patientModel;
+        vm.model.header = vm.model.PatientName;
         vm.menuItems = getMenuItems();
+        vm.header = patientService.header;
     }
 
     function getMenuItems() {

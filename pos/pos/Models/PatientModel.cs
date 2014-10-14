@@ -1,4 +1,5 @@
-﻿using System;
+﻿using pos.Lib.Shared;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,6 +17,8 @@ namespace pos.Models
         public string PatientName { get { return FirstName + ' ' + LastName; } }
         public string NickName { get; set; }
         public DateTime? DateOfBirth { get; set; }
+        public string DOBString { get { return DateOfBirth.Value.ToShortDateString(); } }
+        public string Age { get { return PosUtil.GetPatientAge(DateOfBirth); } } 
         public string Sex { get; set; }
         public string Occupation { get; set; }
         public string HxFrom { get; set; }

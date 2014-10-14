@@ -2,13 +2,12 @@
 
 angular.module('pos').factory('patientService', patientService);
 
-patientService.$inject = ['$http'];
+patientService.$inject = ['$http', 'utility'];
 
-function patientService($http) {
-    var model = {};
+function patientService($http, utility) {
 
     var service = {
-        model: model,
+        patientModel: {},
         resolve: resolve,
         save: save
     };
@@ -19,7 +18,8 @@ function patientService($http) {
     function resolve(patientId) {
         return $http.get("/api/patient", { params: { id: patientId } })
             .success(function (data) {
-                service.model = data;
+                service.patientModel = data;
+                service.patientModel.PhotoUrl = utility.getDefaultPatientPhoto(service.patientModel.Sex);
             });
     }
 

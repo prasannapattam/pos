@@ -1,2 +1,15 @@
-﻿This is the portal page
-{{vm.model.PatientName}}
+﻿<div class="row">
+    <div class="col-sm-6">
+        <div class="row  pos-box">
+            <h2>Demographics</h2>
+            <img class="patient-photo" ng-src="{{vm.patientModel.PhotoUrl}}" />
+            <div ng-hide="vm.patientModel.NickName === ''">{{vm.patientModel.NickName}}</div>
+            Patient #: {{vm.patientModel.PatientNumber}}
+            DOB: {{vm.patientModel.DOBString}} ({{vm.patientModel.Age}})
+            Premature Birth: {{vm.patientModel.PrematureBirth}}
+            Sex: {{vm.patientModel.Sex}}
+            Occupation: {{vm.patientModel.Occupation}}
+        </div>
+    </div>
+    <div class="col-sm-6  pos-box">Encounter details</div>
+</div>

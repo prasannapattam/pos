@@ -216,6 +216,7 @@
     <Compile Include="Lib\Shared\PatientPrint.cs" />
     <Compile Include="Lib\Shared\PosConstants.cs" />
     <Compile Include="Lib\Shared\PosMessage.cs" />
+    <Compile Include="Lib\Shared\PosUtil.cs" />
     <Compile Include="Lib\Shared\WebUtil.cs" />
     <Compile Include="Models\AjaxModel.cs" />
     <Compile Include="Models\ExamDefaultModel.cs" />

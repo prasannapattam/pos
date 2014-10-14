@@ -4,7 +4,7 @@ demographics.$inject = ['patientService'];
 function demographics(patientService) {
 
     var vm = {
-        model: {}
+        patientModel: {}
     };
 
     init();
@@ -13,7 +13,7 @@ function demographics(patientService) {
 
     function init() {
         // initialization
-        vm.model = patientService.model;
+        vm.patientModel = patientService.patientModel;
     }
 }
 

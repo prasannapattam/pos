@@ -34,12 +34,26 @@ function constants() {
                         Default: 2
                     };
 
+    var sex = {
+        male: "Male",
+        female: "Female"
+    }
+
+    var iconTypes = {
+        dashboard: "dashboard.png",
+        patient: "patient.png",
+    }
+
+
+
     var service = {
         notesType: notesType,
         module: module,
         colourType: colourType,
         notesSaveType: notesSaveType,
-        fieldType: fieldType
+        fieldType: fieldType,
+        iconTypes: iconTypes,
+        sex: sex
     };
 
     return service;

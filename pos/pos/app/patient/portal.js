@@ -4,7 +4,7 @@ portal.$inject = ['patientService'];
 function portal(patientService) {
 
     var vm = {
-        model: {}
+        patientModel: {}
     };
 
     init();
@@ -13,7 +13,8 @@ function portal(patientService) {
 
     function init() {
         // initialization
-        vm.model = patientService.model;
+        vm.patientModel = patientService.patientModel;
+        vm.patientModel.header = vm.patientModel.PatientName + " - Portal";
     }
 }
 

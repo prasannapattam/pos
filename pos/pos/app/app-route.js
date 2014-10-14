@@ -22,7 +22,7 @@ function routeConfig($stateProvider, $urlRouterProvider, $locationProvider) {
         })
         .state("patient", {
             url: window.virtualDirectory + "/patient/:patientid",
-            title: "Patients",
+            title: "Patient",
             templateUrl: window.virtualDirectory + "/app/patient/patient.html",
             controller: "patient",
             controllerAs: "vm",
@@ -32,12 +32,14 @@ function routeConfig($stateProvider, $urlRouterProvider, $locationProvider) {
         })
         .state("patient.portal", {
             url: window.virtualDirectory + "/portal",
+            title: "Patient",
             templateUrl: window.virtualDirectory + "/app/patient/portal.html",
             controller: "portal",
             controllerAs: "vm",
         })
         .state("patient.demographics", {
             url: window.virtualDirectory + "/demographics",
+            title: "Patient",
             templateUrl: window.virtualDirectory + "/app/patient/demographics.html",
             controller: "demographics",
             controllerAs: "vm",

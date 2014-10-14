@@ -320,7 +320,7 @@ namespace pos.Lib.Domain
                 examText = examText.Replace("[PatientName]", patient.PatientName);
                 examText = examText.Replace("[FirstName]", patient.FirstName);
                 examText = examText.Replace("[LastName]", patient.LastName);
-                examText = examText.Replace("[Age]", GetPatientAge(patient.DateOfBirth.Value));
+                examText = examText.Replace("[Age]", PosUtil.GetPatientAge(patient.DateOfBirth));
                 examText = examText.Replace("[Sex]", GetSex(patient.DateOfBirth.Value, patient.Sex));
             }
             return examText;
@@ -345,28 +345,6 @@ namespace pos.Lib.Domain
             }
 
             return history;
-        }
-
-        private string GetPatientAge(DateTime dob)
-        {
-                TimeSpan ts = DateTime.Now.Subtract(dob);
-                int totalDays = (int) ts.TotalDays;
-                int totalWeeks = totalDays / 7;
-                int totalMonths = totalDays / 30;
-                int totalYears = totalMonths / 12;
-                int months = totalMonths - (totalYears * 12);
-
-                string age = string.Empty;
-                if (totalMonths <= 6)
-                    age = totalWeeks.ToString() + " weeks";
-                else if (totalMonths < 12)
-                    age = totalMonths.ToString() + " month-old";
-                else if (totalYears <= 10)
-                    age = totalYears.ToString() + '.' + months.ToString() + " year-old";
-                else
-                    age = totalYears.ToString() + " year-old";
-
-                return age;
         }
 
         private string GetSex(DateTime dob, string sex)

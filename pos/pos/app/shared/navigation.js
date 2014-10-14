@@ -1,13 +1,8 @@
 ﻿'use strict';
 angular.module('pos').factory('navigation', navigation)
-navigation.$inject = ['utility'];
+navigation.$inject = ['utility', 'constants'];
 
-function navigation(utility) {
-
-    var iconTypes = {
-        dashboard: "dashboard.png",
-        patient: "patient.png",
-    }
+function navigation(utility, constants) {
 
     var tab = function (tabs, title, hash, icon) {
         var self = this;
@@ -29,7 +24,7 @@ function navigation(utility) {
     var vm = {
         isLoading: true,
         tabs: tabs,
-        iconTypes: iconTypes,
+        iconTypes: constants.iconTypes,
         activateTab: activateTab,
         removeTab: removeTab,
         setHomeTab: setHomeTab,
@@ -45,7 +40,7 @@ function navigation(utility) {
     function init() {
         //vm.tabs.push(new tab(tabs, 'Prasanna Pattam', '#home'))
 
-        addTab('Dashboard', 'dashboard', iconTypes.dashboard)
+        addTab('Dashboard', 'dashboard', constants.iconTypes.dashboard)
     }
 
     function setHomeTab(title, hash, active) {
