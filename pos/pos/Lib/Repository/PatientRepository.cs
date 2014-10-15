@@ -29,7 +29,7 @@ namespace pos.Lib.Repository
                     var query = from dbPatient in db.Patients
                                 where dbPatient.FirstName.StartsWith(firstName)
                                 && dbPatient.LastName.StartsWith(lastName)
-                                orderby dbPatient.LastExamDate descending
+                                orderby new { dbPatient.FirstName, dbPatient.LastName }
                                 select new SearchResultModel
                                 {
                                     ID = dbPatient.PatientID,
@@ -63,6 +63,25 @@ namespace pos.Lib.Repository
 
                     return query.Take(20).ToList();
                 }
+            }
+        }
+
+        public static List<SearchResultModel> MyPatients()
+        {
+            using (var db = new PosEntities())
+            {
+                var query = from dbPatient in db.Patients
+                            orderby dbPatient.LastExamDate descending
+                            select new SearchResultModel
+                            {
+                                ID = dbPatient.PatientID,
+                                PatientNumber = dbPatient.PatientNumber,
+                                PatientName = dbPatient.FirstName + " " + dbPatient.LastName,
+                                DateOfBirth = dbPatient.DateOfBirth,
+                                LastExamDate = dbPatient.LastExamDate
+                            };
+
+                return query.Take(20).ToList();
             }
         }
 

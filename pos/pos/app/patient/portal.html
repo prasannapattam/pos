@@ -1,8 +1,9 @@
 ﻿<div class="row">
-    <div class="col-sm-6">
-        <div class="row  pos-box">
-            <h2>Demographics</h2>
-            <img class="patient-photo" ng-src="{{vm.patientModel.PhotoUrl}}" />
+    <div class="col-sm-4">
+        <div class="pos-box">
+            <h4>Demographics</h4>
+            <img class="patient-photo ng-src="{{vm.patientModel.PhotoUrl}}" />
+            <br />
             <div ng-hide="vm.patientModel.NickName === ''">{{vm.patientModel.NickName}}</div>
             Patient #: {{vm.patientModel.PatientNumber}}
             DOB: {{vm.patientModel.DOBString}} ({{vm.patientModel.Age}})

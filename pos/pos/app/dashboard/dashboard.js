@@ -5,7 +5,7 @@ dashboard.$inject = ['dashboardService'];
 function dashboard(dashboardService) {
 
     var vm = {
-        model: {},
+        patientList: {},
     };
 
     init();
@@ -13,7 +13,7 @@ function dashboard(dashboardService) {
     return vm;
 
     function init() {
-
+        vm.patientList = dashboardService.patientList;
     }
 
 

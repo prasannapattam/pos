@@ -5,18 +5,20 @@ angular.module('pos').factory('dashboardService', dashboardService);
 dashboardService.$inject = ['$http'];
 
 function dashboardService($http) {
-    var model = {};
 
     var service = {
-        model: model,
-        fetch: fetch,
+        patientList: [],
+        resolve: resolve,
         save: save
     };
 
     return service;
 
-    function fetch() {
-
+    function resolve() {
+        return $http.get("/api/dashboard")
+            .success(function (data) {
+                service.patientList = data
+            })
     }
 
     function save() {

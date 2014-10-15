@@ -12,6 +12,9 @@ function routeConfig($stateProvider, $urlRouterProvider, $locationProvider) {
             templateUrl: window.virtualDirectory + "/app/dashboard/dashboard.html",
             controller: "dashboard",
             controllerAs: "vm",
+            resolve: ['dashboardService', function (dashboardService) {
+                return dashboardService.resolve();
+            }]
         })
         .state("login", {
             url: window.virtualDirectory + "/login",

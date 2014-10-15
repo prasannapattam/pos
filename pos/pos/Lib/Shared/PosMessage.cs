@@ -42,6 +42,9 @@ namespace pos.Lib.Shared
 
         //compat
         public const string LastVisitDateUpdateSuccess = "Successfully updated Last Visit Date";
+
+        //dashboard
+        public const string DashboardNoPatients = "No patients for today";
      
     }
 }
