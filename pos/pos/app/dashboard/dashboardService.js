@@ -9,7 +9,6 @@ function dashboardService($http) {
     var service = {
         patientList: [],
         resolve: resolve,
-        save: save
     };
 
     return service;
@@ -19,10 +18,6 @@ function dashboardService($http) {
             .success(function (data) {
                 service.patientList = data
             })
-    }
-
-    function save() {
-
     }
 
 }

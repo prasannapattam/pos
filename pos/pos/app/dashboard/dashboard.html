@@ -1,5 +1,4 @@
 ﻿<div>
-    <ul>
-        <li ng-repeat="patient in vm.patientList">{{patient.PatientName}}</li>
-    </ul>
+    <h3>Today's Patients</h3>
+    <div ui-grid="vm.gridOptions" external-scopes="vm" class="grid"></div>
 </div>

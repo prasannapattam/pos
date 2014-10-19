@@ -21,6 +21,7 @@ namespace pos
                     .IncludeDirectory("~/scripts/angular", "*.js", true)
                     .Include("~/scripts/bootstrap.js")
                     .Include("~/scripts/kendo/kendo.all.min.js")
+                    .Include("~/scripts/ui-grid.js")
                     .Include("~/scripts/toastr.js")
                 );
 
@@ -29,8 +30,9 @@ namespace pos
                 new StyleBundle("~/content/css")
                     .Include("~/content/bootstrap/bootstrap.css")
                     .Include("~/content/bootstrap/bootstrap-theme.css")
-                    .Include("~/content/kendo.common.core.css")
-                    .Include("~/content/kendo.uniform.css")
+                    .Include("~/content/kendo/kendo.common.core.css")
+                    .Include("~/content/kendo/kendo.uniform.css")
+                    .Include("~/content/ui-grid/ui-grid.css")
                     .Include("~/content/toastr.css")
                     .Include("~/content/app.css")
                 );

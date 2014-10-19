@@ -1,9 +1,9 @@
 ﻿'use strict';
 
 angular.module('pos').factory('webapiInterceptor', webapiInterceptor);
-webapiInterceptor.$inject = ['$q', 'navigation', 'utility'];
+webapiInterceptor.$inject = ['$q', 'utility'];
 
-function webapiInterceptor($q, navigation, utility) {
+function webapiInterceptor($q, utility) {
 
     var rawapiUrl = '/api/';
     var apiUrl = window.virtualDirectory + '/api/';

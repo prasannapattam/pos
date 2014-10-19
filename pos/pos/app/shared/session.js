@@ -19,6 +19,7 @@ function session($rootScope, $state, $window, toastr, profile, navigation) {
         toastr.options.backgroundpositionClass = 'toast-bottom-right';
         $rootScope.session = vm;
         $rootScope.profile = profile;
+        $rootScope.navigation = navigation;
 
         $rootScope.$on('$stateChangeStart', function (evt, toState, toParams, fromState, fromParams) {
             navigation.isLoading = true;

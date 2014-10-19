@@ -281,16 +281,16 @@
     <Content Include="app\user\usersearch.js" />
     <Content Include="app\user\user-service.js" />
     <Content Include="Content\app.css" />
-    <Content Include="Content\BlueOpal\editor.png" />
-    <Content Include="Content\BlueOpal\imagebrowser.png" />
-    <Content Include="Content\BlueOpal\indeterminate.gif" />
-    <Content Include="Content\BlueOpal\loading-image.gif" />
-    <Content Include="Content\BlueOpal\loading.gif" />
-    <Content Include="Content\BlueOpal\loading_2x.gif" />
-    <Content Include="Content\BlueOpal\slider-h.gif" />
-    <Content Include="Content\BlueOpal\slider-v.gif" />
-    <Content Include="Content\BlueOpal\sprite.png" />
-    <Content Include="Content\BlueOpal\sprite_2x.png" />
+    <Content Include="Content\kendo\BlueOpal\editor.png" />
+    <Content Include="Content\kendo\BlueOpal\imagebrowser.png" />
+    <Content Include="Content\kendo\BlueOpal\indeterminate.gif" />
+    <Content Include="Content\kendo\BlueOpal\loading-image.gif" />
+    <Content Include="Content\kendo\BlueOpal\loading.gif" />
+    <Content Include="Content\kendo\BlueOpal\loading_2x.gif" />
+    <Content Include="Content\kendo\BlueOpal\slider-h.gif" />
+    <Content Include="Content\kendo\BlueOpal\slider-v.gif" />
+    <Content Include="Content\kendo\BlueOpal\sprite.png" />
+    <Content Include="Content\kendo\BlueOpal\sprite_2x.png" />
     <Content Include="Content\bootstrap\bootstrap-theme.css" />
     <Content Include="Content\bootstrap\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap\bootstrap.css" />
@@ -320,24 +320,27 @@
     <Content Include="Content\Images\top.jpg" />
     <Content Include="Content\Images\WordImage.jpg" />
     <Content Include="Content\jquery.textcomplete.css" />
-    <Content Include="Content\kendo.blueopal.css" />
-    <Content Include="Content\kendo.blueopal.min.css" />
-    <Content Include="Content\kendo.common.core.css" />
-    <Content Include="Content\kendo.common.core.min.css" />
-    <Content Include="Content\kendo.common.min.css" />
-    <Content Include="Content\kendo.uniform.css" />
-    <Content Include="Content\kendo.uniform.min.css" />
+    <Content Include="Content\kendo\kendo.blueopal.css" />
+    <Content Include="Content\kendo\kendo.blueopal.min.css" />
+    <Content Include="Content\kendo\kendo.common.core.css" />
+    <Content Include="Content\kendo\kendo.common.core.min.css" />
+    <Content Include="Content\kendo\kendo.common.min.css" />
+    <Content Include="Content\kendo\kendo.uniform.css" />
+    <Content Include="Content\kendo\kendo.uniform.min.css" />
     <Content Include="Content\toastr.css" />
-    <Content Include="Content\Uniform\editor.png" />
-    <Content Include="Content\Uniform\imagebrowser.png" />
-    <Content Include="Content\Uniform\indeterminate.gif" />
-    <Content Include="Content\Uniform\loading-image.gif" />
-    <Content Include="Content\Uniform\loading.gif" />
-    <Content Include="Content\Uniform\loading_2x.gif" />
-    <Content Include="Content\Uniform\slider-h.gif" />
-    <Content Include="Content\Uniform\slider-v.gif" />
-    <Content Include="Content\Uniform\sprite.png" />
-    <Content Include="Content\Uniform\sprite_2x.png" />
+    <Content Include="Content\ui-grid\ui-grid.css" />
+    <Content Include="Content\ui-grid\ui-grid.min.css" />
+    <Content Include="Content\ui-grid\ui-grid.svg" />
+    <Content Include="Content\kendo\Uniform\editor.png" />
+    <Content Include="Content\kendo\Uniform\imagebrowser.png" />
+    <Content Include="Content\kendo\Uniform\indeterminate.gif" />
+    <Content Include="Content\kendo\Uniform\loading-image.gif" />
+    <Content Include="Content\kendo\Uniform\loading.gif" />
+    <Content Include="Content\kendo\Uniform\loading_2x.gif" />
+    <Content Include="Content\kendo\Uniform\slider-h.gif" />
+    <Content Include="Content\kendo\Uniform\slider-v.gif" />
+    <Content Include="Content\kendo\Uniform\sprite.png" />
+    <Content Include="Content\kendo\Uniform\sprite_2x.png" />
     <Content Include="Data\NoPhoto.jpg" />
     <Content Include="Data\prasanna.jpg" />
     <Content Include="Global.asax" />
@@ -415,6 +418,8 @@
     <Content Include="Scripts\kendo\kendo.view.js" />
     <Content Include="Scripts\kendo\kendo.window.js" />
     <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\ui-grid.js" />
+    <Content Include="Scripts\ui-grid.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -466,7 +471,12 @@
     <Content Include="Content\bootstrap\bootstrap.css.map" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Uniform\Thumbs.db" />
+    <Content Include="Content\kendo\Uniform\Thumbs.db" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\ui-grid\ui-grid.eot" />
+    <Content Include="Content\ui-grid\ui-grid.ttf" />
+    <Content Include="Content\ui-grid\ui-grid.woff" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

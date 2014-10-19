@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('pos').controller('index', index)
-index.$inject = ['$http', '$state', 'profile', 'navigation', 'utility'];
+index.$inject = ['$http', 'profile', 'navigation', 'utility'];
 
-function index($http, $state, profile, navigation, utility) {
+function index($http, profile, navigation, utility) {
 
     var menuItems = [
                         {
@@ -64,9 +64,9 @@ function index($http, $state, profile, navigation, utility) {
 
     function searchSelect(e) {
         var patient = e.sender.dataItems()[e.item.index()];
-        navigation.addTab(patient.PatientName, 'patient.portal ({ patientid: ' + patient.ID + '})', navigation.iconTypes.patient);
         vm.searchCriteria = '';
-        $state.go("patient.portal", { patientid: patient.ID })
+
+        navigation.gotoPatient(patient.ID, patient.PatientName);
     }
 }
 

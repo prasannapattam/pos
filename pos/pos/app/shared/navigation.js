@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('pos').factory('navigation', navigation)
-navigation.$inject = ['utility', 'constants'];
+navigation.$inject = ['utility', 'constants', '$state'];
 
-function navigation(utility, constants) {
+function navigation(utility, constants, $state) {
 
     var tab = function (tabs, title, hash, icon) {
         var self = this;
@@ -30,7 +30,8 @@ function navigation(utility, constants) {
         setHomeTab: setHomeTab,
         addTab: addTab,
         setCurrentTitle: setCurrentTitle,
-        clear: clear
+        clear: clear,
+        gotoPatient: gotoPatient
     };
 
     init();
@@ -119,6 +120,11 @@ function navigation(utility, constants) {
         vm.tabs.remove(function (item) {
             return item.firstTab !== true;
         })
+    }
+
+    function gotoPatient(patientId, patientName) {
+        vm.addTab(patientName, 'patient.portal ({ patientid: ' + patientId + '})', constants.iconTypes.patient);
+        $state.go("patient.portal", { patientid: patientId })
     }
 }
 

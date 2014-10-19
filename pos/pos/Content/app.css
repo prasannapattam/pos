@@ -52,7 +52,7 @@ div.right-header{
 div.menu {
     float: right;
     display: block;
-    width: 80px;
+    width: 81px;
     height: 40px;
     position: relative;
     text-align: center;
@@ -110,7 +110,7 @@ img.loading{
 .header-content{
     float: left;
     position: relative;
-    width: 930px;
+    width: 929px;
 }
 
 img.photo{
@@ -329,3 +329,18 @@ ul.dropdown-menu{
     height: 10px;
 }
 /* End Kendo overrides */
+
+
+/* UI Grid overrides*/
+.ui-grid-header {
+    height: 30px;
+}
+
+.ui-grid-row:hover {
+    background-color: #d4d4d4;
+}
+
+.ui-grid-row:hover .ui-grid-cell{
+    background-color: inherit;
+}
+/* UI Grid overrides Ends*/
