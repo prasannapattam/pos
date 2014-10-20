@@ -6,10 +6,10 @@ function dashboard(dashboardService, navigation) {
 
     var gridOptions = {
         enableColumnResizing: true,
-    columnDefs: [
+        columnDefs: [
                     { name: 'PatientName', field: 'PatientName', displayName: 'Name', cellTemplate: "<a href=\"#'\" ng-click=\"getExternalScopes().navigateToPatient(row)\">{{grid.getCellValue(row, col)}}&nbsp;</a>" },
                     { name: 'PatientNumber', field: 'PatientNumber', displayName: 'Number' },
-                    { name: 'DOBString', field: 'DOBString', displayName: 'Date of Birth' },
+                    { name: 'DateOfBirth', field: 'DateOfBirth', displayName: 'Date of Birth', cellFilter: 'date:"MM/dd/yyyy"' },
                 ]
         };
 

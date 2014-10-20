@@ -12,5 +12,8 @@
             Occupation: {{vm.patientModel.Occupation}}
         </div>
     </div>
-    <div class="col-sm-6  pos-box">Encounter details</div>
+    <div class="col-sm-6  pos-box">
+        Encounter details
+        <div ui-grid="vm.encounterGridOptions" external-scopes="vm" class="grid"></div>
+    </div>
 </div>
