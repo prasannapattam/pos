@@ -1,6 +1,16 @@
-﻿<div class="row">
-    <div class="col-sm-4">
+﻿<script type="text/ng-template" id="person.html">
+    This is person
+</script>
+<div class="row">
+    <div class="col-sm-6">
         <div class="pos-box">
+            <div class="ui-grid" style="height: 300px">
+                <div class="ui-grid-header ui-grid-top-panel">
+                    <div class="ui-grid-header-viewport ui-grid-header-canvas">
+                        <div class="ui-grid-header-cell ui-grid-cell-contents header-overflow">Demographics</div>
+                    </div>
+                </div>
+            </div>
             <h4>Demographics</h4>
             <img class="patient-photo ng-src="{{vm.patientModel.PhotoUrl}}" />
             <br />
@@ -13,7 +23,7 @@
         </div>
     </div>
     <div class="col-sm-6  pos-box">
-        Encounter details
         <div ui-grid="vm.encounterGridOptions" external-scopes="vm" class="grid"></div>
     </div>
+
 </div>
