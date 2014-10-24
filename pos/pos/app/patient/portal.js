@@ -36,18 +36,14 @@ function portal($filter, patientService, utility) {
             text += '(Saved on ' + $filter('date')(row.entity.LastUpdatedDate, 'MM/dd/yyyy h:mm a') + ')';
         }
         return text;
-        //<span data-bind="text: moment(ExamDate).format('L')"></span>
-        //<span data-bind="css: {display_none : CorrectExamID === null}, text: '(Corrected on ' + moment(ExamCorrectDate).format('L') + ')'"></span>
-        //<span data-bind="css: {display_none : SavedInd != 1}, text: '(Saved on ' + moment(LastUpdatedDate).format('L h:mm a') + ')'"></span>
-
     }
 
     function encounterCellTemplate() {
         return "<div class='pull-left'>{{getExternalScopes().getHistoryText(row)}}</div>" 
             + "<div class='encounter-right'>"
-            + "<img src='" + utility.virtualDirectory + "/content/images/icons/note-edit.png' title='Correct Notes' class='grid-icon' />&nbsp;&nbsp;"
-            + "<img src='" + utility.virtualDirectory + "/content/images/icons/mail.png' class='grid-icon' title='Print Letter' />&nbsp;&nbsp;"
-            + "<img src='" + utility.virtualDirectory + "/content/images/icons/printer.png' class='grid-icon' title='Print Notes' />&nbsp;&nbsp;"
+            + "<a href='#'><img src='" + utility.virtualDirectory + "/content/images/icons/note-edit.png' title='Correct Notes' class='grid-icon' /></a>&nbsp;&nbsp;"
+            + "<a target='_self' href='" + utility.virtualDirectory + "/api/print/{{row.entity.ExamID}}/1'><img src='" + utility.virtualDirectory + "/content/images/icons/mail.png' class='grid-icon' title='Print Letter' /></a>&nbsp;&nbsp;"
+            + "<a target='_self' href='" + utility.virtualDirectory + "/api/print/{{row.entity.ExamID}}/2'><img src='" + utility.virtualDirectory + "/content/images/icons/printer.png' class='grid-icon' title='Print Notes' /></a>&nbsp;&nbsp;"
             + "</div>";
     }
 }

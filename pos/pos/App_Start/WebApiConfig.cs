@@ -9,13 +9,20 @@ namespace pos
     {
         public static void Register(HttpConfiguration config)
         {
-           
+            config.MapHttpAttributeRoutes();
+
+            config.Routes.MapHttpRoute(
+                name: "PrintApi",
+                routeTemplate: "api/{controller}/{id}/{type}"
+            );
+
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
 
+            config.EnsureInitialized();
         }
     }
 }

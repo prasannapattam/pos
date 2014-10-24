@@ -308,6 +308,23 @@ div.encounter-right{
     width: 24px;
 }
 
+.col-row-header{
+    background-color: #f3f3f3;
+    height: 30px;
+    border: 1px solid;
+    border-color: #d4d4d4;
+    box-sizing: border-box;
+    font-weight: bold;
+}
+
+.col-row-content{
+    background-color: #fff;
+    height: 30px;
+    border: 1px solid;
+    border-color: #d4d4d4;
+    box-sizing: border-box;
+}
+
 .header-overflow{
     overflow: initial;
 }

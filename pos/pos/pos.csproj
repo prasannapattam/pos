@@ -243,6 +243,7 @@
     <Content Include="app\patient\demographics.js" />
     <Content Include="app\patient\portal.html" />
     <Content Include="app\patient\portal.js" />
+    <Content Include="app\shared\boolText.js" />
     <Content Include="app\shared\navigation.js" />
     <Content Include="app\shared\webapiInterceptor.js" />
     <Content Include="app\app-config.js" />

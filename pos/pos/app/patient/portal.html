@@ -4,22 +4,38 @@
 <div class="row">
     <div class="col-sm-6">
         <div class="pos-box">
-            <div class="ui-grid" style="height: 300px">
+            <div class="ui-grid">
                 <div class="ui-grid-header ui-grid-top-panel">
                     <div class="ui-grid-header-viewport ui-grid-header-canvas">
                         <div class="ui-grid-header-cell ui-grid-cell-contents header-overflow">Demographics</div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <img class="patient-photo" ng-src="{{vm.patientModel.PhotoUrl}}" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 col-row-header">Patient #</div>
+                    <div class="col-sm-9 col-row-content">{{vm.patientModel.PatientNumber}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 col-row-header">Date Of Birth</div>
+                    <div class="col-sm-9 col-row-content">{{vm.patientModel.DateOfBirth | date:'MM/dd/yyyy' }} ({{vm.patientModel.Age}})</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 col-row-header">Premature Birth</div>
+                    <div class="col-sm-9 col-row-content">{{vm.patientModel.PrematureBirth | boolText }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 col-row-header">Sex</div>
+                    <div class="col-sm-9 col-row-content">{{vm.patientModel.Sex}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 col-row-header">Occupation</div>
+                    <div class="col-sm-9 col-row-content">{{vm.patientModel.Occupation}}</div>
+                </div>
             </div>
-            <h4>Demographics</h4>
-            <img class="patient-photo ng-src="{{vm.patientModel.PhotoUrl}}" />
-            <br />
-            <div ng-hide="vm.patientModel.NickName === ''">{{vm.patientModel.NickName}}</div>
-            Patient #: {{vm.patientModel.PatientNumber}}
-            DOB: {{vm.patientModel.DOBString}} ({{vm.patientModel.Age}})
-            Premature Birth: {{vm.patientModel.PrematureBirth}}
-            Sex: {{vm.patientModel.Sex}}
-            Occupation: {{vm.patientModel.Occupation}}
         </div>
     </div>
     <div class="col-sm-6  pos-box">

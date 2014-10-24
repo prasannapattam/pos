@@ -8,8 +8,7 @@ function patientService($http, utility) {
 
     var service = {
         patientModel: {},
-        resolve: resolve,
-        save: save
+        resolve: resolve
     };
 
     return service;
@@ -22,9 +21,4 @@ function patientService($http, utility) {
                 service.patientModel.PhotoUrl = utility.getDefaultPatientPhoto(service.patientModel.Sex);
             });
     }
-
-    function save() {
-
-    }
-
 }
