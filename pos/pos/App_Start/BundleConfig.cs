@@ -23,6 +23,7 @@ namespace pos
                     .Include("~/scripts/kendo/kendo.all.min.js")
                     .Include("~/scripts/ui-grid.js")
                     .Include("~/scripts/toastr.js")
+                    .Include("~/scripts/xeditable.js")
                 );
 
             //including all the css used in our app
@@ -34,6 +35,7 @@ namespace pos
                     .Include("~/content/kendo/kendo.uniform.css")
                     .Include("~/content/ui-grid/ui-grid.css")
                     .Include("~/content/toastr.css")
+                    .Include("~/content/xeditable.css")
                     .Include("~/content/app.css")
                 );
 
