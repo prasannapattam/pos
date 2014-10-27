@@ -61,11 +61,24 @@ angular.module('xeditable', [])
 Angular-ui bootstrap datepicker
 http://angular-ui.github.io/bootstrap/#/datepicker
 */
-angular.module('xeditable').directive('editableBsdate', ['editableDirectiveFactory',
-  function(editableDirectiveFactory) {
+angular.module('xeditable').directive('editableBsdate', ['editableDirectiveFactory', '$timeout', 
+  function (editableDirectiveFactory, $timeout) {
     return editableDirectiveFactory({
       directiveName: 'editableBsdate',
-      inputTpl: '<input type="text">'
+      inputTpl: '<input type="text" datepicker-popup is-open="pickerOpened">',
+      render: function(){
+          var self = this;
+          this.parent.render.call(this);
+          self.scope.pickerOpened = false;
+          $timeout(function () {
+                self.scope.pickerOpened = true;
+          });
+          this.inputEl.click(function () {
+              $timeout(function () {
+                  self.scope.pickerOpened = true;
+              });
+          });
+      }
     });
 }]);
 /*

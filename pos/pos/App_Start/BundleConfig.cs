@@ -23,6 +23,8 @@ namespace pos
                     .Include("~/scripts/kendo/kendo.all.min.js")
                     .Include("~/scripts/ui-grid.js")
                     .Include("~/scripts/toastr.js")
+                    .Include("~/scripts/moment.js")
+                    .Include("~/scripts/ui-bootstrap-tpls-0.11.2.js")
                     .Include("~/scripts/xeditable.js")
                 );
 

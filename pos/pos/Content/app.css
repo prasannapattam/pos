@@ -315,6 +315,7 @@ div.encounter-right{
     border-color: #d4d4d4;
     box-sizing: border-box;
     font-weight: bold;
+    padding-top: 6px;
 }
 
 .col-row-content{
@@ -323,6 +324,7 @@ div.encounter-right{
     border: 1px solid;
     border-color: #d4d4d4;
     box-sizing: border-box;
+    padding-top: 6px;
 }
 
 .header-overflow{
@@ -354,6 +356,9 @@ ul.dropdown-menu{
     padding-right: 5px;
     padding-left: 5px;
 }
+.form-control{
+    padding: 0;
+}
 /* End Bootstrap overrides */
 /* Kendo overrides */
 .k-item .k-image{
@@ -380,3 +385,30 @@ ul.dropdown-menu{
     background-color: inherit;
 }
 /* UI Grid overrides Ends*/
+/*Editable text*/
+element.style {
+width: 100%;
+}
+.editable-click:hover, a.editable-click:hover {
+/* text-decoration: none; */
+/* color: #2a6496; */
+/* border-bottom-color: #2a6496; */
+}
+.editable-click:hover, a.editable-click:hover {
+/* text-decoration: none; */
+/* color: #2a6496; */
+/* border-bottom-color: #2a6496; */
+}
+.editable-click, a.editable-click {
+    text-decoration: none;
+    color: #6D6D6D;
+    border-bottom: none;
+}
+.editable-wrap {
+    margin-top: -5px;
+}
+
+.editable-input{
+    height: 26px;
+}
+/*End Edit text*/

@@ -27,6 +27,7 @@ function portal($filter, patientService, utility) {
         vm.patientModel.header = vm.patientModel.PatientName + " - Portal";
     }
 
+
     function getHistoryText(row) {
         var text = $filter('date')(row.entity.ExamDate, 'MM/dd/yyyy');
         if(row.entity.CorrectExamID !== null){

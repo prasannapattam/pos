@@ -16,24 +16,38 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-3 col-row-header">Patient #</div>
-                    <div class="col-sm-9 col-row-content">{{vm.patientModel.PatientNumber}}</div>
+                    <div class="col-sm-4 col-row-header">Patient #</div>
+                    <div class="col-sm-8 col-row-content">
+                        <a href="#" title="Click to edit" editable-text="vm.patientModel.PatientNumber">{{ vm.patientModel.PatientNumber | blankValue  }}</a>
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-3 col-row-header">Date Of Birth</div>
-                    <div class="col-sm-9 col-row-content">{{vm.patientModel.DateOfBirth | date:'MM/dd/yyyy' }} ({{vm.patientModel.Age}})</div>
+                    <div class="col-sm-4 col-row-header">Date Of Birth</div>
+                    <div class="col-sm-8 col-row-content">
+                        <a href="#" title="Click to edit" editable-bsdate="vm.patientModel.DateOfBirth">
+                            {{vm.patientModel.DateOfBirth | date:'MM/dd/yyyy' }} ({{vm.patientModel.DateOfBirth | patientAge}})
+                        </a>
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-3 col-row-header">Premature Birth</div>
-                    <div class="col-sm-9 col-row-content">{{vm.patientModel.PrematureBirth | boolText }}</div>
+                    <div class="col-sm-4 col-row-header">Premature Birth</div>
+                    <div class="col-sm-8 col-row-content">
+                        {{vm.patientModel.PrematureBirth | boolText }}
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-3 col-row-header">Sex</div>
-                    <div class="col-sm-9 col-row-content">{{vm.patientModel.Sex}}</div>
+                    <div class="col-sm-4 col-row-header">Sex</div>
+                    <div class="col-sm-8 col-row-content">
+                        <a href="#" editable-select="vm.patientModel.Sex" e-ng-options="sex.FieldValue as sex.FieldDescription for sex in session.lookups.Sex">
+                            {{vm.patientModel.Sex}}
+                        </a>
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-3 col-row-header">Occupation</div>
-                    <div class="col-sm-9 col-row-content">{{vm.patientModel.Occupation}}</div>
+                    <div class="col-sm-4 col-row-header">Occupation</div>
+                    <div class="col-sm-8 col-row-content">
+                        <a href="#" title="Click to edit" editable-text="vm.patientModel.Occupation">{{ vm.patientModel.Occupation | blankValue  }}</a>
+                    </div>
                 </div>
             </div>
         </div>

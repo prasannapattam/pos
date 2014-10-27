@@ -1,3 +1,3 @@
 ﻿'use strict';
 
-var app = angular.module('pos', ['ui.router', 'kendo.directives', 'ngMessages', 'ui.grid', 'ui.grid.resizeColumns']);
+var app = angular.module('pos', ['ui.router', 'kendo.directives', 'ngMessages', 'ui.grid', 'ui.grid.resizeColumns', 'xeditable', 'ui.bootstrap']);

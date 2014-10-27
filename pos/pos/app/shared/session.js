@@ -1,15 +1,16 @@
 ﻿'use strict'
 
 angular.module('pos').factory('session', session);
-session.$inject = ['$rootScope', '$state', '$window', 'toastr', 'profile', 'navigation'];
+session.$inject = ['$rootScope', '$state', '$window', '$http', 'toastr', 'profile', 'navigation'];
 
-function session($rootScope, $state, $window, toastr, profile, navigation) {
+function session($rootScope, $state, $window, $http, toastr, profile, navigation) {
 
     var vm = {
         navigation: navigation,
         profile: profile,
         initialize: initialize,
-        logout: logout
+        logout: logout,
+        lookups: []
     };
 
     return vm;
@@ -34,9 +35,20 @@ function session($rootScope, $state, $window, toastr, profile, navigation) {
         $rootScope.$on('$stateChangeSuccess', function (evt, toState, toParams, fromState, fromParams) {
             navigation.isLoading = false;
         });
+
+        populateLookups();
     };
 
     function logout() {
         profile.logout();
     }
+
+    function populateLookups() {
+        return $http.get("/api/lookup")
+            .success(function (data) {
+                vm.lookups = data
+            });
+    }
+
 };
+

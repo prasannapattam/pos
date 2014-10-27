@@ -241,8 +241,10 @@
     <Content Include="app\layout\index.js" />
     <Content Include="app\patient\demographics.html" />
     <Content Include="app\patient\demographics.js" />
+    <Content Include="app\patient\patientAge.js" />
     <Content Include="app\patient\portal.html" />
     <Content Include="app\patient\portal.js" />
+    <Content Include="app\shared\blankValue.js" />
     <Content Include="app\shared\boolText.js" />
     <Content Include="app\shared\navigation.js" />
     <Content Include="app\shared\webapiInterceptor.js" />
@@ -419,7 +421,9 @@
     <Content Include="Scripts\kendo\kendo.validator.js" />
     <Content Include="Scripts\kendo\kendo.view.js" />
     <Content Include="Scripts\kendo\kendo.window.js" />
+    <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\ui-bootstrap-tpls-0.11.2.js" />
     <Content Include="Scripts\ui-grid.js" />
     <Content Include="Scripts\ui-grid.min.js" />
     <Content Include="Scripts\xeditable.js" />
