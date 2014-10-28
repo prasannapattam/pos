@@ -1,7 +1,7 @@
 ﻿'use strict';
 angular.module('pos').controller('portal', portal);
-portal.$inject = ['$filter', 'patientService', 'utility'];
-function portal($filter, patientService, utility) {
+portal.$inject = ['$scope', '$filter', 'patientService', 'utility'];
+function portal($scope, $filter, patientService, utility) {
 
     var encounterGridOptions = {
         enableColumnResizing: true,
@@ -14,6 +14,7 @@ function portal($filter, patientService, utility) {
         patientModel: {},
         encounterGridOptions: encounterGridOptions,
         getHistoryText: getHistoryText,
+        savePatient: savePatient
     };
 
     init();
@@ -27,6 +28,9 @@ function portal($filter, patientService, utility) {
         vm.patientModel.header = vm.patientModel.PatientName + " - Portal";
     }
 
+    function savePatient() {
+        return patientService.savePatient();
+    }
 
     function getHistoryText(row) {
         var text = $filter('date')(row.entity.ExamDate, 'MM/dd/yyyy');

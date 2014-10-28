@@ -312,6 +312,7 @@ div.encounter-right{
     background-color: #f3f3f3;
     height: 30px;
     border: 1px solid;
+    border-bottom: 0;
     border-color: #d4d4d4;
     box-sizing: border-box;
     font-weight: bold;
@@ -320,8 +321,9 @@ div.encounter-right{
 
 .col-row-content{
     background-color: #fff;
-    height: 30px;
+    min-height: 30px;
     border: 1px solid;
+    border-bottom: 0;
     border-color: #d4d4d4;
     box-sizing: border-box;
     padding-top: 6px;

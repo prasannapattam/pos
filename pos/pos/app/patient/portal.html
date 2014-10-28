@@ -18,7 +18,7 @@
                 <div class="row">
                     <div class="col-sm-4 col-row-header">Patient #</div>
                     <div class="col-sm-8 col-row-content">
-                        <a href="#" title="Click to edit" editable-text="vm.patientModel.PatientNumber">{{ vm.patientModel.PatientNumber | blankValue  }}</a>
+                        <a href="#" title="Click to edit" editable-text="vm.patientModel.PatientNumber" onaftersave="vm.savePatient()">{{ vm.patientModel.PatientNumber | blankValue  }}</a>
                     </div>
                 </div>
                 <div class="row">
@@ -46,7 +46,7 @@
                 <div class="row">
                     <div class="col-sm-4 col-row-header">Occupation</div>
                     <div class="col-sm-8 col-row-content">
-                        <a href="#" title="Click to edit" editable-text="vm.patientModel.Occupation">{{ vm.patientModel.Occupation | blankValue  }}</a>
+                        <a href="#" title="Click to edit" editable-textarea="vm.patientModel.Occupation">{{ vm.patientModel.Occupation | blankValue  }}</a>
                     </div>
                 </div>
             </div>

@@ -8,7 +8,8 @@ function patientService($http, utility) {
 
     var service = {
         patientModel: {},
-        resolve: resolve
+        resolve: resolve,
+        savePatient: savePatient
     };
 
     return service;
@@ -19,6 +20,13 @@ function patientService($http, utility) {
             .success(function (data) {
                 service.patientModel = data;
                 service.patientModel.PhotoUrl = utility.getDefaultPatientPhoto(service.patientModel.Sex);
+            });
+    }
+
+    function savePatient() {
+        return $http.post("/api/patient", service.patientModel)
+            .success(function (data) {
+                alert(data);
             });
     }
 }
