@@ -284,6 +284,8 @@
     <Content Include="app\user\usersearch.js" />
     <Content Include="app\user\user-service.js" />
     <Content Include="Content\app.css" />
+    <Content Include="Content\Images\icons\mail.png" />
+    <Content Include="Content\Images\icons\note-edit.png" />
     <Content Include="Content\kendo\BlueOpal\editor.png" />
     <Content Include="Content\kendo\BlueOpal\imagebrowser.png" />
     <Content Include="Content\kendo\BlueOpal\indeterminate.gif" />

@@ -50,6 +50,7 @@ function webapiInterceptor($q, utility) {
                 return $q.reject(response);
             }
             else {
+                utility.showInfo(response.data.Message);
                 response.data = response.data.Model;
             }
         }

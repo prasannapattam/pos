@@ -13,13 +13,15 @@ function utility(toastr, constants) {
         showError: showError,
         iconPath: iconPath,
         routePath: routePath,
-        getDefaultPatientPhoto: getDefaultPatientPhoto
+        getDefaultPatientPhoto: getDefaultPatientPhoto,
+        getBoolSelect: getBoolSelect
     };
 
     return vm;
 
     function showInfo(message) {
-        toastr.info(message);
+        if (message !== null && message !== "")
+            toastr.info(message);
     }
 
     function showError(message) {
@@ -39,7 +41,13 @@ function utility(toastr, constants) {
             return window.virtualDirectory + "/content/images/icons/patient-male.png";
         else
             return window.virtualDirectory + "/content/images/icons/patient-female.png";
+    }
 
+    function getBoolSelect() {
+        return [
+            { value: true, text: 'Yes' },
+            { value: false, text: 'No' }
+        ];
     }
 };
 

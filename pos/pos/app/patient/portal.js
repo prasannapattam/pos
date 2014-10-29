@@ -14,7 +14,8 @@ function portal($scope, $filter, patientService, utility) {
         patientModel: {},
         encounterGridOptions: encounterGridOptions,
         getHistoryText: getHistoryText,
-        savePatient: savePatient
+        savePatient: savePatient,
+        boolSelectList: utility.getBoolSelect()
     };
 
     init();
@@ -26,9 +27,29 @@ function portal($scope, $filter, patientService, utility) {
         vm.patientModel = patientService.patientModel;
         vm.encounterGridOptions.data = patientService.patientModel.History;
         vm.patientModel.header = vm.patientModel.PatientName + " - Portal";
+
+        $scope.$watch('vm.patientModel.Sex', function () {
+            vm.patientModel.PhotoUrl = utility.getDefaultPatientPhoto(vm.patientModel.Sex);
+        });
     }
 
     function savePatient() {
+        //splitting and saving the patient name
+        var names = vm.patientModel.FullName.split(" ");
+        names = names.filter(String);
+        if(names.length > 3)
+            return 'Please enter name as "First Middle Last"';
+        else {
+            vm.patientModel.FirstName = names[0];
+            if (names.length == 2) {
+                vm.patientModel.MiddleName = "";
+                vm.patientModel.LastName = names[1];
+            }
+            else {
+                vm.patientModel.MiddleName = names[1];
+                vm.patientModel.LastName = names[2];
+            }
+        }
         return patientService.savePatient();
     }
 

@@ -14,7 +14,8 @@ namespace pos.Models
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
-        public string PatientName { get { return FirstName + ' ' + LastName; } }
+        public string PatientName { get { return FirstName + " " + LastName; } }
+        public string FullName { get { return FirstName + " " + (String.IsNullOrEmpty(MiddleName) ? "" : MiddleName + " ") + LastName; } }
         public string NickName { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public string Age { get { return PosUtil.GetPatientAge(DateOfBirth); } } 

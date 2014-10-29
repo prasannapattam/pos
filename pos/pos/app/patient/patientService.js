@@ -19,14 +19,13 @@ function patientService($http, utility) {
         return $http.get("/api/patient", { params: { id: patientId } })
             .success(function (data) {
                 service.patientModel = data;
-                service.patientModel.PhotoUrl = utility.getDefaultPatientPhoto(service.patientModel.Sex);
             });
     }
 
     function savePatient() {
         return $http.post("/api/patient", service.patientModel)
             .success(function (data) {
-                alert(data);
+                return data;
             });
     }
 }
