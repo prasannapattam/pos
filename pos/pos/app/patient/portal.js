@@ -26,7 +26,7 @@ function portal($scope, $filter, patientService, utility) {
         // initialization
         vm.patientModel = patientService.patientModel;
         vm.encounterGridOptions.data = patientService.patientModel.History;
-        vm.patientModel.header = vm.patientModel.PatientName + " - Portal";
+        //vm.patientModel.header = vm.patientModel.PatientName + " - Portal";
 
         $scope.$watch('vm.patientModel.Sex', function () {
             vm.patientModel.PhotoUrl = utility.getDefaultPatientPhoto(vm.patientModel.Sex);

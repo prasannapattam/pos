@@ -7,6 +7,7 @@ function patient($state, patientService, utility) {
         model: {},
         menuItems: [],
         save: save,
+        menuSelect: menuSelect
     };
 
     init();
@@ -23,7 +24,7 @@ function patient($state, patientService, utility) {
 
     function getMenuItems() {
         return [
-                            { text: "Portal", url: utility.routePath("patient/" + vm.model.PatientID + "/portal"), imageUrl: utility.iconPath("portal.png") },
+                            { text: "Portal", url: utility.routePath("patient/" + vm.model.PatientID + "/portal"), imageUrl: utility.iconPath("portal.png"), cssClass: "k-state-highlight" },
                             { text: "Demographics", url: utility.routePath("patient/" + vm.model.PatientID + "/demographics"), imageUrl: utility.iconPath("user.png") },
                             { text: "History", url: utility.routePath("users"), imageUrl: utility.iconPath("history.png") },
                             { text: "Documents", url: utility.routePath("defaults"), imageUrl: utility.iconPath("documents.png") },
@@ -36,5 +37,13 @@ function patient($state, patientService, utility) {
             alert('Saved');
         });
     }
+
+    function menuSelect(ev) {
+        //alert($(ev.item.firstChild).text());
+        //vm.menuItems[0].cssClass = "k-state-highlight";
+        $(ev.item).siblings().removeClass("k-state-highlight");
+        $(ev.item).addClass("k-state-highlight");
+    };
+
 }
 
