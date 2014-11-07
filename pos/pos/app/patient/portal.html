@@ -11,7 +11,7 @@
                 <div class="row">
                     <div class="col-sm-4 col-row-header">Patient Name</div>
                     <div class="col-sm-8 col-row-content">
-                        <a href="#" title="Click to edit" editable-text="vm.patientModel.FullName" onaftersave="vm.savePatient()">{{ vm.patientModel.FullName | blankValue  }}</a>
+                        <a href="#" title="Click to edit" editable-text="vm.patientModel.FullName" onaftersave="vm.savePatient()" onbeforesave="vm.validatePatientName($data)">{{ vm.patientModel.FullName | blankValue  }}</a>
                     </div>
                 </div>
                 <div class="row">

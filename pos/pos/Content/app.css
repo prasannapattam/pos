@@ -335,7 +335,11 @@ div.encounter-right{
 }
 
 .float-left{
+    float: left;
+}
 
+.float-right{
+    float: right;
 }
 
 /* Textbox css */

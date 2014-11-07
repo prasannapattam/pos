@@ -15,6 +15,7 @@ function portal($scope, $filter, patientService, utility) {
         encounterGridOptions: encounterGridOptions,
         getHistoryText: getHistoryText,
         savePatient: savePatient,
+        validatePatientName: validatePatientName,
         boolSelectList: utility.getBoolSelect()
     };
 
@@ -31,6 +32,15 @@ function portal($scope, $filter, patientService, utility) {
         $scope.$watch('vm.patientModel.Sex', function () {
             vm.patientModel.PhotoUrl = utility.getDefaultPatientPhoto(vm.patientModel.Sex);
         });
+    }
+
+    function validatePatientName(patientName) {
+        var names = patientName.split(" ");
+        names = names.filter(String);
+        if (names.length > 3 || names.length < 2)
+            return 'Please enter name as "First Middle Last"';
+        else
+            return true;
     }
 
     function savePatient() {
