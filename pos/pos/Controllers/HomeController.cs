@@ -10,7 +10,7 @@ namespace pos.Controllers
     {
         public ActionResult Index()
         {
-            //ViewBag.AppTitle = "e-Pediatric Ophthalmology & Strabismus";
+            ViewBag.AppTitle = "e-Pediatric Ophthalmology & Strabismus";
 
             string virtualDirectory = Url.Content("~");
             if (virtualDirectory.Substring(virtualDirectory.Length - 1) == "/") //removing the last slash

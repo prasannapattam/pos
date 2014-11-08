@@ -16,6 +16,7 @@ function portal($scope, $filter, patientService, utility) {
         getHistoryText: getHistoryText,
         savePatient: savePatient,
         validatePatientName: validatePatientName,
+        validatePatientNumberAndSave: validatePatientNumberAndSave,
         boolSelectList: utility.getBoolSelect()
     };
 
@@ -41,6 +42,16 @@ function portal($scope, $filter, patientService, utility) {
             return 'Please enter name as "First Middle Last"';
         else
             return true;
+    }
+
+    function validatePatientNumberAndSave(patientNumber) {
+        var originalPatientNumber = vm.patientModel.PatientNumber;
+        vm.patientModel.PatientNumber = patientNumber;
+        vm.patientModel.supressToastr = true; //this is used for showing the error message and supress toastr
+        return patientService.savePatient()
+                .error(function () {
+                    vm.patientModel.PatientNumber = originalPatientNumber;
+                });
     }
 
     function savePatient() {

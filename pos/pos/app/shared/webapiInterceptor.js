@@ -46,8 +46,14 @@ function webapiInterceptor($q, utility) {
         if (response.data.hasOwnProperty("Success") && response.data.hasOwnProperty("Message") && response.data.hasOwnProperty("Model")) {
             if (response.data.Success === false) {
                 //alert(response.data.Message);
-                utility.showError(response.data.Message);
-                return $q.reject(response);
+                if (response.config.data.supressToastr === true) {
+                    response.config.data.supressToastr = false;
+                    return $q.reject(response.data.Message);
+                }
+                else {
+                    utility.showError(response.data.Message);
+                    return $q.reject(response);
+                }
             }
             else {
                 utility.showInfo(response.data.Message);
