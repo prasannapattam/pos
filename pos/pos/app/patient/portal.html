@@ -39,7 +39,7 @@
                 <div class="row">
                     <div class="col-sm-4 col-row-header">Sex</div>
                     <div class="col-sm-8 col-row-content">
-                        <a href="#" editable-select="vm.patientModel.Sex" e-ng-options="sex.FieldValue as sex.FieldDescription for sex in session.lookups.Sex" onaftersave="vm.savePatient()">
+                        <a href="#" editable-select="vm.patientModel.Sex" e-ng-options="sex.FieldValue as sex.FieldDescription for sex in session.lookups.Sex" onaftersave="vm.savePatient()" onbeforesave="vm.patientPhotoUrl($data)">
                             {{vm.patientModel.Sex}}
                         </a>
                     </div>

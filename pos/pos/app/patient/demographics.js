@@ -4,7 +4,8 @@ demographics.$inject = ['$scope', 'patientService', 'utility'];
 function demographics($scope, patientService, utility) {
 
     var vm = {
-        patientModel: {}
+        patientModel: {},
+        boolSelectList: utility.getBoolSelect(),
     };
 
     init();
@@ -14,11 +15,8 @@ function demographics($scope, patientService, utility) {
     function init() {
         // initialization
         vm.patientModel = patientService.patientModel;
+        vm.patientModel.PhotoUrl = utility.getDefaultPatientPhoto(sex);
         //vm.patientModel.header = vm.patientModel.PatientName + " - Demographics";
-
-        $scope.$watch('vm.patientModel.Sex', function () {
-            vm.patientModel.PhotoUrl = utility.getDefaultPatientPhoto(vm.patientModel.Sex);
-        });
     }
 }
 

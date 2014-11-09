@@ -17,6 +17,7 @@ function portal($scope, $filter, patientService, utility) {
         savePatient: savePatient,
         validatePatientName: validatePatientName,
         validatePatientNumberAndSave: validatePatientNumberAndSave,
+        patientPhotoUrl: patientPhotoUrl,
         boolSelectList: utility.getBoolSelect()
     };
 
@@ -28,11 +29,8 @@ function portal($scope, $filter, patientService, utility) {
         // initialization
         vm.patientModel = patientService.patientModel;
         vm.encounterGridOptions.data = patientService.patientModel.History;
+        vm.patientModel.PhotoUrl = utility.getDefaultPatientPhoto(vm.patientModel.Sex);
         //vm.patientModel.header = vm.patientModel.PatientName + " - Portal";
-
-        $scope.$watch('vm.patientModel.Sex', function () {
-            vm.patientModel.PhotoUrl = utility.getDefaultPatientPhoto(vm.patientModel.Sex);
-        });
     }
 
     function validatePatientName(patientName) {
@@ -52,6 +50,10 @@ function portal($scope, $filter, patientService, utility) {
                 .error(function () {
                     vm.patientModel.PatientNumber = originalPatientNumber;
                 });
+    }
+
+    function patientPhotoUrl(sex) {
+        vm.patientModel.PhotoUrl = utility.getDefaultPatientPhoto(sex);
     }
 
     function savePatient() {
