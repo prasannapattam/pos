@@ -71,7 +71,7 @@ angular.module('xeditable').directive('editableBsdate', ['editableDirectiveFacto
           this.parent.render.call(this);
           self.scope.pickerOpened = false;
           $timeout(function () {
-                self.scope.pickerOpened = true;
+              self.scope.pickerOpened = self.attrs.isOpen !== "false";
           });
           this.inputEl.click(function () {
               $timeout(function () {

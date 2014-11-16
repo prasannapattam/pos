@@ -171,6 +171,30 @@ ul.top-menu{
     padding: 0;
 }
 
+input.tiny{
+    width: 20px;
+}
+
+input.mini{
+    width: 55px;
+}
+
+input.small{
+    width: 80px;
+}
+
+input.medium{
+    width: 130px;
+}
+
+input.large{
+    width: 185px;
+}
+
+input.xlarge{
+    width: 393px;
+}
+
 /* Tabs */
 .tabrow {
 	list-style: none;
@@ -369,6 +393,10 @@ ul.dropdown-menu{
 }
 .form-control{
     padding: 0;
+}
+
+.btn{
+    line-height: 0.5;
 }
 /* End Bootstrap overrides */
 /* Kendo overrides */

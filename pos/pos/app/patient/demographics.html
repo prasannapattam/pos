@@ -1,7 +1,7 @@
 ﻿<div class="row">
     <div class="col-sm-12">
         <div class="pos-box">
-            <form editable-form name="demographicsForm">
+            <form editable-form name="demographicsForm" onbeforesave="vm.savePatient($data)">
                 <div class="ui-grid">
                     <div class="ui-grid-header ui-grid-top-panel ui-grid-cell-contents">
                         <div class="float-left">Demographics</div>
@@ -27,45 +27,66 @@
                         </div>
                         <div class="col-sm-9">
                             <div class="row">
-                                <div class="col-sm-4 col-row-header">Patient Name</div>
-                                <div class="col-sm-8 col-row-content">
-                                    <span editable-text="vm.patientModel.FullName">{{ vm.patientModel.FullName | blankValue  }}</span>
+                                <div class="col-sm-3 col-row-header">Name</div>
+                                <div class="col-sm-9 col-row-content">
+                                    <span editable-select="vm.patientModel.Greeting" e-name="Greeting" e-ng-options="greet.FieldValue as greet.FieldDescription for greet in session.lookups.Greet"></span>
+                                    <span editable-text="vm.patientModel.FirstName" e-name="FirstName" e-class="medium" e-maxlength="20" onbeforesave="vm.validateFirstName($data)">{{ vm.patientModel.FullName }}</span>
+                                    <span editable-text="vm.patientModel.MiddleName" e-name="MiddleName" e-class="small" e-maxlength="20"></span>
+                                    <span editable-text="vm.patientModel.LastName" e-name="LastName" e-class="medium" e-maxlength="20" onbeforesave="vm.validateLastName($data)"></span>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-4 col-row-header">Patient #</div>
-                                <div class="col-sm-8 col-row-content">
-                                    <span editable-text="vm.patientModel.PatientNumber">{{ vm.patientModel.PatientNumber | blankValue  }}</span>
+                                <div class="col-sm-3 col-row-header">Patient #</div>
+                                <div class="col-sm-9 col-row-content">
+                                    <span editable-text="vm.patientModel.PatientNumber" e-name="PatientNumber" e-class="medium" e-maxlength="20" onbeforesave="vm.validatePatientNumber($data)">{{ vm.patientModel.PatientNumber }}</span>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-4 col-row-header">Date Of Birth</div>
-                                <div class="col-sm-8 col-row-content">
-                                    <span editable-bsdate="vm.patientModel.DateOfBirth">
+                                <div class="col-sm-3 col-row-header">Nick Name</div>
+                                <div class="col-sm-9 col-row-content">
+                                    <span editable-text="vm.patientModel.NickName" e-name="NickName" e-class="medium" e-maxlength="20">{{ vm.patientModel.NickName }}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 col-row-header">Date Of Birth</div>
+                                <div class="col-sm-9 col-row-content">
+                                    <span editable-bsdate="vm.patientModel.DateOfBirth" e-name="DateOfBirth" is-open="false">
                                         {{vm.patientModel.DateOfBirth | date:'MM/dd/yyyy' }} ({{vm.patientModel.DateOfBirth | patientAge}})
                                     </span>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-4 col-row-header">Premature Birth</div>
-                                <div class="col-sm-8 col-row-content">
-                                    <span href="#" editable-select="vm.patientModel.PrematureBirth" e-ng-options="s.value as s.text for s in vm.boolSelectList">
+                                <div class="col-sm-3 col-row-header">Premature Birth</div>
+                                <div class="col-sm-9 col-row-content">
+                                    <span editable-select="vm.patientModel.PrematureBirth" e-name="PrematureBirth" e-ng-options="s.value as s.text for s in vm.boolSelectList">
                                         {{vm.patientModel.PrematureBirth | boolText }}
                                     </span>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-4 col-row-header">Sex</div>
-                                <div class="col-sm-8 col-row-content">
-                                    <span href="#" editable-select="vm.patientModel.Sex" e-ng-options="sex.FieldValue as sex.FieldDescription for sex in session.lookups.Sex">
+                                <div class="col-sm-3 col-row-header">Sex</div>
+                                <div class="col-sm-9 col-row-content">
+                                    <span editable-select="vm.patientModel.Sex" e-name="Sex" e-ng-options="sex.FieldValue as sex.FieldDescription for sex in session.lookups.Sex">
                                         {{vm.patientModel.Sex}}
                                     </span>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-4 col-row-header">Occupation</div>
-                                <div class="col-sm-8 col-row-content">
-                                    <span editable-textarea="vm.patientModel.Occupation" e-rows="3">{{ vm.patientModel.Occupation | blankValue  }}</span>
+                                <div class="col-sm-3 col-row-header">Grade / Occupation</div>
+                                <div class="col-sm-9 col-row-content">
+                                    <span editable-text="vm.patientModel.Occupation" e-name="Occupation" e-class="large" e-maxlength="50">{{ vm.patientModel.Occupation }}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 col-row-header">Allergies</div>
+                                <div class="col-sm-9 col-row-content">
+                                    <span editable-text="vm.patientModel.Allergies" e-name="Allergies" e-class="xlarge" e-maxlength="50">{{ vm.patientModel.Allergies }}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 col-row-header">Medications</div>
+                                <div class="col-sm-9 col-row-content">
+                                    <span editable-text="vm.patientModel.Medications" e-name="Medications" e-class="xlarge" e-maxlength="50">{{ vm.patientModel.Medications }}</span>
                                 </div>
                             </div>
                         </div>

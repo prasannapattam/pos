@@ -22,10 +22,7 @@ function patientService($http, utility) {
             });
     }
 
-    function savePatient() {
-        return $http.post("/api/patient", service.patientModel)
-            .success(function (data) {
-                return data;
-            });
+    function savePatient(patient) {
+        return $http.post("/api/patient", patient);
     }
 }

@@ -43,13 +43,8 @@ function portal($scope, $filter, patientService, utility) {
     }
 
     function validatePatientNumberAndSave(patientNumber) {
-        var originalPatientNumber = vm.patientModel.PatientNumber;
-        vm.patientModel.PatientNumber = patientNumber;
-        vm.patientModel.supressToastr = true; //this is used for showing the error message and supress toastr
-        return patientService.savePatient()
-                .error(function () {
-                    vm.patientModel.PatientNumber = originalPatientNumber;
-                });
+        var patient = angular.extend({}, vm.patientModel, { PatientNumber: patientNumber, supressToastr: true });
+        return patientService.savePatient(patient);
     }
 
     function patientPhotoUrl(sex) {
@@ -73,7 +68,7 @@ function portal($scope, $filter, patientService, utility) {
                 vm.patientModel.LastName = names[2];
             }
         }
-        return patientService.savePatient();
+        return patientService.savePatient(vm.patientModel);
     }
 
     function getHistoryText(row) {
