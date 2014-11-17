@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 /* Kendo base CSS */
 .fake {
   color: red;
@@ -187,19 +188,18 @@ body .k-split-button-arrow {
   /*+1*/
 }
 .k-button-icontext {
-  padding-right: .8em;
   overflow: visible;
   /*IE9*/
 }
+.k-toolbar .k-button-icontext {
+  padding-right: .8em;
+}
 .k-button-icontext .k-icon,
 .k-button-icontext .k-image {
-  margin-right: .3rem;
-  margin-left: -0.3rem;
-}
-.k-ie8 .k-button-icontext .k-icon,
-.k-ie8 .k-button-icontext .k-image {
   margin-right: 3px;
+  margin-right: .3rem;
   margin-left: -3px;
+  margin-left: -0.3rem;
 }
 .k-button.k-button-icontext .k-icon,
 .k-button.k-button-icontext .k-image {
@@ -260,7 +260,8 @@ html body .k-button-bare.k-upload-button:hover {
   -ms-high-contrast-adjust: none;
 }
 .k-icon.k-i-none {
-  background-image: none;
+  background-image: none !important;
+  /* should never be a background on these */
 }
 /* In IE7 vertical align: middle can't be overridden */
 .k-ie8 .k-icon,
@@ -1203,6 +1204,116 @@ html body .k-button-bare.k-upload-button:hover {
 .k-button:active .k-i-sum {
   background-position: -80px -64px;
 }
+.k-i-pdf {
+  background-position: -64px -80px;
+}
+.k-link:not(.k-state-disabled):hover > .k-i-pdf,
+.k-state-hover > .k-i-pdf,
+.k-state-hover > * > .k-i-pdf,
+.k-button:hover .k-i-pdf,
+.k-textbox:hover .k-i-pdf,
+.k-button:active .k-i-pdf {
+  background-position: -80px -80px;
+}
+.k-i-excel {
+  background-position: -64px -96px;
+}
+.k-link:not(.k-state-disabled):hover > .k-i-excel,
+.k-state-hover > .k-i-excel,
+.k-state-hover > * > .k-i-excel,
+.k-button:hover .k-i-excel,
+.k-textbox:hover .k-i-excel,
+.k-button:active .k-i-excel {
+  background-position: -80px -96px;
+}
+.k-i-rotatecw {
+  background-position: -64px -112px;
+}
+.k-link:not(.k-state-disabled):hover > .k-i-rotatecw,
+.k-state-hover > .k-i-rotatecw,
+.k-state-hover > * > .k-i-rotatecw,
+.k-button:hover .k-i-rotatecw,
+.k-textbox:hover .k-i-rotatecw,
+.k-button:active .k-i-rotatecw {
+  background-position: -80px -112px;
+}
+.k-i-rotateccw {
+  background-position: -64px -128px;
+}
+.k-link:not(.k-state-disabled):hover > .k-i-rotateccw,
+.k-state-hover > .k-i-rotateccw,
+.k-state-hover > * > .k-i-rotateccw,
+.k-button:hover .k-i-rotateccw,
+.k-textbox:hover .k-i-rotateccw,
+.k-button:active .k-i-rotateccw {
+  background-position: -80px -128px;
+}
+.k-i-undo {
+  background-position: -64px -160px;
+}
+.k-link:not(.k-state-disabled):hover > .k-i-undo,
+.k-state-hover > .k-i-undo,
+.k-state-hover > * > .k-i-undo,
+.k-button:hover .k-i-undo,
+.k-textbox:hover .k-i-undo,
+.k-button:active .k-i-undo {
+  background-position: -80px -160px;
+}
+.k-i-redo {
+  background-position: -64px -144px;
+}
+.k-link:not(.k-state-disabled):hover > .k-i-redo,
+.k-state-hover > .k-i-redo,
+.k-state-hover > * > .k-i-redo,
+.k-button:hover .k-i-redo,
+.k-textbox:hover .k-i-redo,
+.k-button:active .k-i-redo {
+  background-position: -80px -144px;
+}
+.k-i-shape {
+  background-position: -64px -176px;
+}
+.k-link:not(.k-state-disabled):hover > .k-i-shape,
+.k-state-hover > .k-i-shape,
+.k-state-hover > * > .k-i-shape,
+.k-button:hover .k-i-shape,
+.k-textbox:hover .k-i-shape,
+.k-button:active .k-i-shape {
+  background-position: -80px -176px;
+}
+.k-i-connector {
+  background-position: -64px -192px;
+}
+.k-link:not(.k-state-disabled):hover > .k-i-connector,
+.k-state-hover > .k-i-connector,
+.k-state-hover > * > .k-i-connector,
+.k-button:hover .k-i-connector,
+.k-textbox:hover .k-i-connector,
+.k-button:active .k-i-connector {
+  background-position: -80px -192px;
+}
+.k-i-kpi {
+  background-position: -64px -208px;
+}
+.k-link:not(.k-state-disabled):hover > .k-i-kpi,
+.k-state-hover > .k-i-kpi,
+.k-state-hover > * > .k-i-kpi,
+.k-button:hover .k-i-kpi,
+.k-textbox:hover .k-i-kpi,
+.k-button:active .k-i-kpi {
+  background-position: -80px -208px;
+}
+.k-i-dimension {
+  background-position: -64px -224px;
+}
+.k-link:not(.k-state-disabled):hover > .k-i-dimension,
+.k-state-hover > .k-i-dimension,
+.k-state-hover > * > .k-i-dimension,
+.k-button:hover .k-i-dimension,
+.k-textbox:hover .k-i-dimension,
+.k-button:active .k-i-dimension {
+  background-position: -80px -224px;
+}
 .k-file {
   background-position: 0px 0px;
 }
@@ -1266,6 +1377,12 @@ html body .k-button-bare.k-upload-button:hover {
 }
 .k-image {
   border: 0;
+}
+.k-breadcrumbs:hover .k-i-arrow-n {
+  background-position: 0 0;
+}
+.k-breadcrumbs:hover .k-i-arrow-e {
+  background-position: 0 -16px;
 }
 /* Colors */
 html .k-success-colored {
@@ -1429,6 +1546,9 @@ div.k-window-content,
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+.form-control.k-widget {
+  padding: 0;
+}
 a.k-button:hover {
   text-decoration: none;
 }
@@ -1438,6 +1558,78 @@ a.k-button:hover {
   -moz-background-clip: border-box;
   -webkit-background-clip: border-box;
   background-clip: border-box;
+}
+.k-checkbox,
+.k-radio {
+  display: none;
+}
+.k-checkbox-label {
+  position: relative;
+  padding-left: 1.5em;
+  vertical-align: middle;
+  line-height: 0.875em;
+  cursor: pointer;
+}
+.k-checkbox-label:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1em;
+  height: 1em;
+  border-width: 1px;
+  border-style: solid;
+}
+.k-checkbox-label:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1em;
+  height: 1em;
+  border-width: 1px;
+  border-style: solid;
+}
+.k-checkbox:checked + .k-checkbox-label:after {
+  content: "\2713";
+  width: 1em;
+  height: 1em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-width: 1px;
+  border-style: solid;
+  text-align: center;
+}
+.k-checkbox:disabled + .k-checkbox-label {
+  cursor: auto;
+}
+.k-radio-label {
+  position: relative;
+  padding-left: 1.5em;
+  vertical-align: middle;
+  line-height: 0.875em;
+  cursor: pointer;
+}
+.k-radio-label:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  border-style: solid;
+}
+.k-radio:checked + .k-radio-label:after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+}
+.k-radio:disabled + .k-radio-label {
+  cursor: auto;
 }
 .k-edit-form {
   margin: 0;
@@ -1552,6 +1744,9 @@ div.k-window-iframecontent {
 /* Compensate for content padding in IE7 */
 .k-ie7 .k-window {
   padding-bottom: 1.16em;
+}
+.k-ie7 .k-window-titleless {
+  padding-bottom: 0;
 }
 .k-window-titlebar .k-window-actions {
   position: absolute;
@@ -1972,6 +2167,7 @@ ul.k-menu-vertical > .k-item {
   position: absolute;
   top: 50%;
   margin-top: -8px;
+  right: 2px;
   right: .2rem;
 }
 .k-menu .k-animation-container {
@@ -2382,6 +2578,12 @@ span.k-datetimepicker .k-select + .k-select {
   width: 0;
   height: 1.65em;
   padding-bottom: 0.4em;
+}
+/* above style breaks NumericTextBox layout due display:block style applied to the input */
+.km.root .k-combobox .k-dropdown-wrap:before,
+.km.root .k-picker-wrap:before,
+.km.root .k-numeric-wrap:before {
+  content: none;
 }
 .k-combobox .k-input,
 .k-picker-wrap .k-input,
@@ -3440,6 +3642,14 @@ span.k-tooltip {
   padding-top: 2px;
   padding-bottom: 2px;
 }
+.k-toolbar .k-input:before {
+  content: "\a0";
+  display: inline-block;
+  width: 0;
+}
+.k-ie .k-toolbar .k-input {
+  height: 1.65em;
+}
 .k-toolbar .k-combobox .k-dropdown-wrap:before,
 .k-toolbar .k-picker-wrap:before,
 .k-toolbar .k-numeric-wrap:before {
@@ -3774,13 +3984,23 @@ span.k-tooltip {
 .k-ie7 .k-grid-content-locked,
 .k-ie7 .k-grid-header-locked + .k-grid-header-wrap,
 .k-ie7 .k-grid-content-locked + .k-grid-content,
-.k-ie7 .k-grid-footer-locked {
+.k-ie7 .k-grid-footer-locked,
+.k-ie7 .k-gantt-layout,
+.k-ie7 .k-gantt-toolbar > ul > li,
+.k-ie7 .k-gantt-toolbar .k-link,
+.k-ie7 .k-task-summary,
+.k-ie7 .k-task-actions:first-child > .k-link,
+.k-ie7 .k-task-wrap:hover .k-task-delete,
+.k-ie7 .k-task-wrap-active .k-task-delete {
   display: inline;
   zoom: 1;
 }
 .k-ie7 .k-treeview .k-item,
 .k-ie7 .k-treeview .k-group {
   zoom: 1;
+}
+.k-ie7 .k-edit-field > .k-textbox {
+  text-indent: 0;
 }
 /* animation classes */
 .k-fx-end .k-fx-next,

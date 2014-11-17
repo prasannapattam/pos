@@ -1,20 +1,22 @@
+/**
+ * Copyright 2014 Telerik AD
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 (function(f, define){
     define([ "./kendo.list", "./kendo.mobile.scroller" ], f);
 })(function(){
-
-var __meta__ = {
-    id: "autocomplete",
-    name: "AutoComplete",
-    category: "web",
-    description: "The AutoComplete widget provides suggestions depending on the typed text.It also allows multiple value entries.",
-    depends: [ "list" ],
-    features: [ {
-        id: "mobile-scroller",
-        name: "Mobile scroller",
-        description: "Support for kinetic scrolling in mobile device",
-        depends: [ "mobile.scroller" ]
-    } ]
-};
 
 (function ($, undefined) {
     var kendo = window.kendo,
@@ -166,6 +168,7 @@ var __meta__ = {
             "close",
             "change",
             "select",
+            "filtering",
             "dataBinding",
             "dataBound"
         ],
@@ -235,6 +238,7 @@ var __meta__ = {
             options = that.options,
             data = that._data(),
             length = data.length,
+            isActive = that.element[0] === activeElement(),
             action;
 
             that._angularItems("cleanup");
@@ -253,7 +257,7 @@ var __meta__ = {
                     that.current($(ul.firstChild));
                 }
 
-                if (options.suggest) {
+                if (options.suggest && isActive) {
                     that.suggest($(ul.firstChild));
                 }
             }
@@ -262,7 +266,7 @@ var __meta__ = {
                 that._open = false;
                 action = length ? "open" : "close";
 
-                if (that._typing && that.element[0] !== activeElement()) {
+                if (that._typing && !isActive) {
                     action = "close";
                 }
 
@@ -304,9 +308,7 @@ var __meta__ = {
 
             length = word.length;
 
-            if (!length) {
-                that.popup.close();
-            } else if (length >= that.options.minLength) {
+            if (!length || length >= options.minLength) {
                 that._open = true;
 
                 that._filterSource({

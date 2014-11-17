@@ -14,7 +14,8 @@ function utility(toastr, constants) {
         iconPath: iconPath,
         routePath: routePath,
         getDefaultPatientPhoto: getDefaultPatientPhoto,
-        getBoolSelect: getBoolSelect
+        getBoolSelect: getBoolSelect,
+        lookupExists: lookupExists
     };
 
     return vm;
@@ -48,6 +49,17 @@ function utility(toastr, constants) {
             { value: true, text: 'Yes' },
             { value: false, text: 'No' }
         ];
+    }
+
+    function lookupExists(list, value) {
+
+        for(var counter = 0; counter < list.length; counter ++){
+            if (list[counter].FieldValue === value) {
+                return true;
+            }
+        }
+
+        return false;
     }
 };
 

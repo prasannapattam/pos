@@ -1,14 +1,22 @@
+/**
+ * Copyright 2014 Telerik AD
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 (function(f, define){
     define([ "./kendo.popup" ], f);
 })(function(){
-
-var __meta__ = {
-    id: "menu",
-    name: "Menu",
-    category: "web",
-    description: "The Menu widget displays hierarchical data as a multi-level menu.",
-    depends: [ "popup" ]
-};
 
 (function ($, undefined) {
     var kendo = window.kendo,
@@ -66,7 +74,7 @@ var __meta__ = {
 
         templates = {
             content: template(
-                "<div class='k-content' tabindex='-1'>#= content(item) #</div>"
+                "<div class='k-content #= groupCssClass() #' tabindex='-1'>#= content(item) #</div>"
             ),
             group: template(
                 "<ul class='#= groupCssClass(group) #'#= groupAttributes(group) # role='menu' aria-hidden='true'>" +
@@ -588,7 +596,12 @@ var __meta__ = {
                         if (!popup) {
                             popup = ul.kendoPopup({
                                 activate: function() { that._triggerEvent({ item: this.wrapper.parent(), type: ACTIVATE }); },
-                                deactivate: function() { that._triggerEvent({ item: this.wrapper.parent(), type: DEACTIVATE }); },
+                                deactivate: function(e) {
+                                    e.sender.element // Restore opacity after fade.
+                                        .removeData("targetTransform")
+                                        .css({ opacity: "" });
+                                    that._triggerEvent({ item: this.wrapper.parent(), type: DEACTIVATE });
+                                },
                                 origin: directions.origin,
                                 position: directions.position,
                                 collision: options.popupCollision !== undefined ? options.popupCollision : (parentHorizontal ? "fit" : "fit flip"),
@@ -715,11 +728,11 @@ var __meta__ = {
 
         _updateClasses: function() {
             var element = this.element,
-                nonContentGroupsSelector = menuSelector + " div ul",
+                nonContentGroupsSelector = ".k-menu-init div ul",
                 items;
 
             element.removeClass("k-menu-horizontal k-menu-vertical");
-            element.addClass("k-widget k-reset k-header " + MENU).addClass(MENU + "-" + this.options.orientation);
+            element.addClass("k-widget k-reset k-header k-menu-init " + MENU).addClass(MENU + "-" + this.options.orientation);
 
             element.find("li > ul")
                    .filter(function() {
@@ -734,6 +747,8 @@ var __meta__ = {
                    .attr("tabindex", "-1"); // Capture the focus before the Menu
 
             items = element.find("> li,.k-menu-group > li");
+
+            element.removeClass("k-menu-init");
 
             items.each(function () {
                 updateItemClasses(this);
@@ -793,7 +808,9 @@ var __meta__ = {
                 targetHref = target.attr("href"),
                 sampleHref = $("<a href='#' />").attr("href"),
                 isLink = (!!href && href !== sampleHref),
-                isTargetLink = (!!targetHref && targetHref !== sampleHref);
+                isLocalLink = isLink && !!href.match(/^#/),
+                isTargetLink = (!!targetHref && targetHref !== sampleHref),
+                shouldCloseTheRootItem = (options.openOnClick && childGroupVisible && that._isRootItem(element));
 
             if (!options.openOnClick && element.children(templateSelector)[0]) {
                 return;
@@ -813,7 +830,7 @@ var __meta__ = {
             childGroup = element.children(popupSelector);
             childGroupVisible = childGroup.is(":visible");
 
-            if (options.closeOnClick && !isLink && (!childGroup.length || (options.openOnClick && childGroupVisible && that._isRootItem(element)))) {
+            if (options.closeOnClick && (!isLink || isLocalLink) && (!childGroup.length || shouldCloseTheRootItem)) {
                 element.removeClass(HOVERSTATE).css("height"); // Force refresh for Chrome
                 that._oldHoverItem = that._findRootParent(element);
                 that.close(link.parentsUntil(that.element, allItemsSelector));
@@ -828,7 +845,7 @@ var __meta__ = {
                 link[0].click();
             }
 
-            if ((!element.parent().hasClass(MENU) || !options.openOnClick) && !kendo.support.touch) {
+            if ((!that._isRootItem(element) || !options.openOnClick) && !kendo.support.touch && !((pointers || msPointers) && that._isRootItem(element.closest(allItemsSelector)))) {
                 return;
             }
 
@@ -1251,7 +1268,7 @@ var __meta__ = {
                         that.popup.open();
                     }
 
-                    DOCUMENT_ELEMENT.off(MOUSEDOWN, that.popup._mousedownProxy);
+                    DOCUMENT_ELEMENT.off(that.popup.downEvent, that.popup._mousedownProxy);
                     DOCUMENT_ELEMENT
                         .on(kendo.support.mousedown + NS, that._closeProxy);
                 }
@@ -1302,6 +1319,8 @@ var __meta__ = {
                 if (options.alignToAnchor) {
                     that.open(ev.currentTarget);
                 } else {
+                    that.popup.options.anchor = ev.currentTarget;
+
                     if (that._targetChild) {
                         offset = that.target.offset();
                         that.open(ev.pageX - offset.left, ev.pageY - offset.top);
@@ -1314,13 +1333,15 @@ var __meta__ = {
 
         _closeHandler: function (e) {
             var that = this,
-                target = e.relatedTarget || e.target,
-                children = $(target).closest(itemSelector).children(popupSelector),
-                containment = contains(that.element[0], target);
+				options = that.options,
+                target = $(e.relatedTarget || e.target),
+				sameTarget = target.closest(that.target.selector)[0] == that.target[0],
+                children = target.closest(itemSelector).children(popupSelector),
+                containment = contains(that.element[0], target[0]);
 
             that._eventOrigin = e;
 
-            if (that.popup.visible() && e.which !== 3 && ((that.options.closeOnClick && !touch &&
+            if (that.popup.visible() && ((e.which !== 3 && sameTarget) || !sameTarget) && ((that.options.closeOnClick && !touch &&
                 !((pointers || msPointers) && e.originalEvent.pointerType in touchPointerTypes) &&
                 !children[0] && containment) || !containment)) {
                     if (containment) {
@@ -1379,6 +1400,7 @@ var __meta__ = {
                             .addClass("k-context-menu")
                             .kendoPopup({
                                 anchor: that.target || "body",
+                                copyAnchorStyles: that.options.copyAnchorStyles,
                                 collision: that.options.popupCollision || "fit",
                                 animation: that.options.animation,
                                 activate: that._triggerProxy,

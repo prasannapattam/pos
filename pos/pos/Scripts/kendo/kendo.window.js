@@ -1,14 +1,22 @@
+/**
+ * Copyright 2014 Telerik AD
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 (function(f, define){
     define([ "./kendo.draganddrop" ], f);
 })(function(){
-
-var __meta__ = {
-    id: "window",
-    name: "Window",
-    category: "web",
-    description: "The Window widget displays content in a modal or non-modal HTML window.",
-    depends: [ "draganddrop" ]
-};
 
 (function($, undefined) {
     var kendo = window.kendo,
@@ -46,6 +54,7 @@ var __meta__ = {
         CLOSE = "close",
         REFRESH = "refresh",
         RESIZE = "resize",
+        RESIZEEND = "resizeEnd",
         DRAGSTART = "dragstart",
         DRAGEND = "dragend",
         ERROR = "error",
@@ -228,7 +237,9 @@ var __meta__ = {
 
             that._resizeHandler = proxy(that._onDocumentResize, that);
 
-            $(window).on("resize", that._resizeHandler);
+            that._marker = kendo.guid().substring(0, 8);
+
+            $(window).on("resize" + NS + that._marker, that._resizeHandler);
 
             if (options.visible) {
                 that.trigger(OPEN);
@@ -368,6 +379,18 @@ var __meta__ = {
             }
         },
 
+        _actions: function() {
+            var actions = this.options.actions;
+            var titlebar = this.wrapper.children(KWINDOWTITLEBAR);
+            var container = titlebar.find(".k-window-actions");
+
+            actions = $.map(actions, function(action) {
+                return { name: action };
+            });
+
+            container.html(kendo.render(templates.action, actions));
+        },
+
         setOptions: function(options) {
             Widget.fn.setOptions.call(this, options);
             this._animations();
@@ -375,6 +398,7 @@ var __meta__ = {
             this._position();
             this._resizable();
             this._draggable();
+            this._actions();
         },
 
         events:[
@@ -384,6 +408,7 @@ var __meta__ = {
             CLOSE,
             REFRESH,
             RESIZE,
+            RESIZEEND,
             DRAGSTART,
             DRAGEND,
             ERROR
@@ -602,7 +627,7 @@ var __meta__ = {
                 options = that.options,
                 titleBar = wrapper.children(KWINDOWTITLEBAR),
                 title = titleBar.children(KWINDOWTITLE),
-                titleBarHeight = titleBar.outerHeight();
+                titleBarHeight;
 
             if (!arguments.length) {
                 return title.text();
@@ -613,14 +638,19 @@ var __meta__ = {
                 titleBar.remove();
             } else {
                 if (!titleBar.length) {
-                    wrapper.prepend(templates.titlebar(extend(templates, options)));
+                    wrapper.prepend(templates.titlebar(options));
+                    that._actions();
+                    titleBar = wrapper.children(KWINDOWTITLEBAR);
+                } else {
+                    title.html(text);
                 }
+
+                titleBarHeight = titleBar.outerHeight();
 
                 wrapper.css("padding-top", titleBarHeight);
                 titleBar.css("margin-top", -titleBarHeight);
             }
 
-            title.text(text);
             that.options.title = text;
 
             return that;
@@ -753,6 +783,10 @@ var __meta__ = {
                 hideOptions = options.animation.close;
 
             if (wrapper.is(VISIBLE) && !that.trigger(CLOSE, { userTriggered: !systemTriggered })) {
+                if (that._closing) {
+                    return;
+                }
+
                 that._closing = true;
                 options.visible = false;
 
@@ -1102,33 +1136,35 @@ var __meta__ = {
         },
 
         destroy: function () {
-            if (this.resizing) {
-                this.resizing.destroy();
+            var that = this;
+
+            if (that.resizing) {
+                that.resizing.destroy();
             }
 
-            if (this.dragging) {
-                this.dragging.destroy();
+            if (that.dragging) {
+                that.dragging.destroy();
             }
 
-            this.wrapper.off(NS)
+            that.wrapper.off(NS)
                 .children(KWINDOWCONTENT).off(NS).end()
                 .find(".k-resize-handle,.k-window-titlebar").off(NS);
 
-            $(window).off("resize", this._resizeHandler);
+            $(window).off("resize" + NS + that._marker);
 
-            clearTimeout(this._loadingIconTimeout);
+            clearTimeout(that._loadingIconTimeout);
 
-            Widget.fn.destroy.call(this);
+            Widget.fn.destroy.call(that);
 
-            this.unbind(undefined);
+            that.unbind(undefined);
 
-            kendo.destroy(this.wrapper);
+            kendo.destroy(that.wrapper);
 
-            this._removeOverlay(true);
+            that._removeOverlay(true);
 
-            this.wrapper.empty().remove();
+            that.wrapper.empty().remove();
 
-            this.wrapper = this.appendTo = this.element = $();
+            that.wrapper = that.appendTo = that.element = $();
         },
 
         _createWindow: function() {
@@ -1143,10 +1179,6 @@ var __meta__ = {
             }
 
             wrapper = $(templates.wrapper(options));
-
-            if (options.title !== false) {
-                wrapper.append(templates.titlebar(extend(templates, options)));
-            }
 
             // Collect the src attributes of all iframes and then set them to empty string.
             // This seems to fix this IE9 "feature": http://msdn.microsoft.com/en-us/library/gg622929%28v=VS.85%29.aspx?ppud=4
@@ -1169,7 +1201,7 @@ var __meta__ = {
             wrapper.find(".k-window-title")
                 .css(isRtl ? "left" : "right", wrapper.find(".k-window-actions").outerWidth() + 10);
 
-            contentHtml.show();
+            contentHtml.css("visibility", "").show();
 
             contentHtml.find("[data-role=editor]").each(function() {
                 var editor = $(this).data("kendoEditor");
@@ -1193,11 +1225,7 @@ var __meta__ = {
         titlebar: template(
             "<div class='k-window-titlebar k-header'>&nbsp;" +
                 "<span class='k-window-title'>#= title #</span>" +
-                "<div class='k-window-actions'>" +
-                "# for (var i = 0; i < actions.length; i++) { #" +
-                    "#= action({ name: actions[i] }) #" +
-                "# } #" +
-                "</div>" +
+                "<div class='k-window-actions' />" +
             "</div>"
         ),
         overlay: "<div class='k-overlay' />",
@@ -1215,7 +1243,7 @@ var __meta__ = {
         var that = this;
         that.owner = wnd;
         that._draggable = new Draggable(wnd.wrapper, {
-            filter: KWINDOWRESIZEHANDLES,
+            filter: ">" + KWINDOWRESIZEHANDLES,
             group: wnd.wrapper.id + "-resizing",
             dragstart: proxy(that.dragstart, that),
             drag: proxy(that.drag, that),
@@ -1319,10 +1347,13 @@ var __meta__ = {
             if (wnd.touchScroller) {
                wnd.touchScroller.reset();
             }
+
             if (e.keyCode == 27) {
                 wrapper.css(that.initialPosition)
                     .css(that.initialSize);
             }
+
+            wnd.trigger(RESIZEEND);
 
             return false;
         },

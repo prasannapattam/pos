@@ -6,6 +6,9 @@
                     <div class="ui-grid-header ui-grid-top-panel ui-grid-cell-contents">
                         <div class="float-left">Demographics</div>
                         <div class="float-right">
+                            <div kendo-window="win1" k-title="'Please Confirm'" k-visible="false">
+                                Do you want to cancel and loose your changes
+                            </div>
                             <!-- button to show form -->
                             <button type="button" class="btn btn-default" ng-click="demographicsForm.$show()" ng-show="!demographicsForm.$visible">
                                 Edit
@@ -15,7 +18,7 @@
                                 <button type="submit" class="btn btn-primary" ng-disabled="demographicsForm.$waiting">
                                     Save
                                 </button>
-                                <button type="button" class="btn btn-default" ng-disabled="demographicsForm.$waiting" ng-click="demographicsForm.$cancel()">
+                                <button type="button" class="btn btn-default" ng-disabled="demographicsForm.$waiting" ng-click="vm.cancel()">
                                     Cancel
                                 </button>
                             </span>
@@ -75,6 +78,21 @@
                                 <div class="col-sm-3 col-row-header">Grade / Occupation</div>
                                 <div class="col-sm-9 col-row-content">
                                     <span editable-text="vm.patientModel.Occupation" e-name="Occupation" e-class="large" e-maxlength="50">{{ vm.patientModel.Occupation }}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 col-row-header">Hx From</div>
+                                <div class="col-sm-9 col-row-content">
+                                    <span editable-select="vm.patientModel.HxFromList" e-name="HxFromList" e-ng-options="hx.FieldValue as hx.FieldDescription for hx in session.lookups.HxFrom">{{ vm.patientModel.HxFrom }}</span>
+                                    <span editable-text="vm.patientModel.HxFromOther" e-name="HxFromOther" e-class="medium" e-maxlength="20" e-ng-show="demographicsForm.$data.HxFromList === ''"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 col-row-header">Ref'd By</div>
+                                <div class="col-sm-9 col-row-content">
+                                    <span editable-text="vm.patientModel.ReferredFrom" e-name="ReferredFrom" e-class="large" e-maxlength="20">{{ vm.patientModel.ReferredFrom }}</span>
+                                    (PCP:<span editable-text="vm.patientModel.ReferredDoctor" e-name="ReferredDoctor" e-id="ReferredDoctor" e-class="large" e-maxlength="20">{{ vm.patientModel.ReferredDoctor }}</span>)
+                                    &nbsp;&nbsp;<span editable-checkbox="vm.patientModel.RefSame" e-name="RefSame" e-title="Same" e-ng-click="vm.copyRef($data)"></span>
                                 </div>
                             </div>
                             <div class="row">

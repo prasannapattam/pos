@@ -2,11 +2,12 @@
 <html data-ng-app="pos">
 <head>
     <meta name="viewport" content="width=device-width" />
+    <base href="/" target="_blank">
     <title>Pediatric Ophthalmology</title>
     @Styles.Render("~/Content/css")
 </head>
 <body class="main">
-    <div class="container" ng-controller="index as vm">
+    <div class="container" ng-controller="index">
         <div class="row top-header" ng-cloak>
             <div class="left-header">
                 <a href="/"><img class="top-header" src="~/content/images/logo.gif" /></a>
@@ -27,7 +28,7 @@
                             </ul>
                         </div>
                         <div class="col-sm-4 search-patient">
-                            <input placeholder="Search Patient" kendo-auto-complete ng-model=" vm.searchCriteria" k-options="vm.searchOptions"
+                            <input placeholder="'Search Patient'" kendo-auto-complete ng-model=" vm.searchCriteria" k-options="vm.searchOptions"
                                    k-on-select="vm.searchSelect(kendoEvent)" ng-show="vm.profile.isAuthenticated"
                                    k-template="'${ data.PatientName } (Patient \\#: ${ data.PatientNumber })<br />DOB: ${ data.DOBString }<hr class=&quot;tight&quot; />'"
                                    />

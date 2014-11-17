@@ -1,7 +1,7 @@
 ﻿'use strict';
 angular.module('pos').controller('demographics', demographics);
-demographics.$inject = ['$scope', 'patientService', 'utility'];
-function demographics($scope, patientService, utility) {
+demographics.$inject = ['$scope', 'patientService', 'utility', 'session', '$timeout'];
+function demographics($scope, patientService, utility, session, $timeout) {
 
     var vm = {
         patientModel: {},
@@ -9,7 +9,9 @@ function demographics($scope, patientService, utility) {
         savePatient: savePatient,
         validatePatientNumber: validatePatientNumber,
         validateFirstName: validateFirstName,
-        validateLastName: validateLastName
+        validateLastName: validateLastName,
+        copyRef: copyRef,
+        cancel: cancel
     };
 
     init();
@@ -20,32 +22,39 @@ function demographics($scope, patientService, utility) {
         // initialization
         vm.patientModel = patientService.patientModel;
         vm.patientModel.PhotoUrl = utility.getDefaultPatientPhoto(vm.patientModel.Sex);
+
+        //HxFrom
+        if(!utility.lookupExists(session.lookups.HxFrom, "")){
+            session.lookups.HxFrom.push({FieldDescription: "Other", FieldName: "HxFrom", FieldValue: ""});
+        }
+        if (utility.lookupExists(session.lookups.HxFrom, vm.patientModel.HxFrom)) {
+            vm.patientModel.HxFromList = vm.patientModel.HxFrom;
+            vm.patientModel.HxFromOther = '';
+        }
+        else {
+            vm.patientModel.HxFromList = '';
+            vm.patientModel.HxFromOther = vm.patientModel.HxFrom;
+        }
+
+        //adding refsame for showing the checkbox
+        vm.patientModel.RefSame = false;
+
+
         //vm.patientModel.header = vm.patientModel.PatientName + " - Demographics";
     }
 
     function savePatient(data) {
 
         var patient = angular.extend({}, vm.patientModel, data, {supressToastr: true});
-
-        //splitting and saving the patient name
-        var names = patient.FullName.split(" ");
-        names = names.filter(String);
-        if (names.length > 3)
-            return 'Please enter name as "First Middle Last"';
-        else {
-            patient.FirstName = names[0];
-            if (names.length == 2) {
-                patient.MiddleName = "";
-                patient.LastName = names[1];
-            }
-            else {
-                patient.MiddleName = names[1];
-                patient.LastName = names[2];
-            }
-        }
+        patient.HxFrom = patient.HxFromList !== '' ? patient.HxFromList : patient.HxFromOther;
 
         return patientService.savePatient(patient)
-                .catch(function (message) {
+                .then(function (result) {
+                    vm.patientModel.FullName = patient.FirstName + ' ' + (patient.MiddleName === '' ? '' : patient.MiddleName + ' ') + patient.LastName;
+                    vm.patientModel.HxFrom = patient.HxFrom;
+                    return result;
+                },
+                function (message) {
                     $scope.demographicsForm.$setError('PatientNumber', message);
                     return message;
                 });
@@ -69,6 +78,25 @@ function demographics($scope, patientService, utility) {
         }
 
         return true;
+    }
+
+    function copyRef(checked) {
+        
+        //getting the ReferredDoctor control and setting the value
+        if (checked) {
+            var editables = $scope.demographicsForm.$editables;
+            for (var counter = 0; counter < editables.length; counter++) {
+                if (editables[counter].name === "ReferredDoctor") {
+                    $scope.demographicsForm.$editables[counter].scope.$data = $scope.demographicsForm.$data.ReferredFrom;
+                    break;
+                }
+            }
+        }
+    }
+
+    function cancel() {
+        $scope.win1.open();
+        $scope.demographicsForm.$cancel()
     }
 }
 

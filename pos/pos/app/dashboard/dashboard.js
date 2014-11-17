@@ -7,7 +7,7 @@ function dashboard(dashboardService, navigation) {
     var gridOptions = {
         enableColumnResizing: true,
         columnDefs: [
-                    { name: 'PatientName', field: 'PatientName', displayName: 'Name', cellTemplate: "<a href=\"#'\" ng-click=\"getExternalScopes().navigateToPatient(row)\">{{grid.getCellValue(row, col)}}&nbsp;</a>" },
+                    { name: 'PatientName', field: 'PatientName', displayName: 'Name', cellTemplate: "<a href=\"#\" ng-click=\"getExternalScopes().navigateToPatient(row)\">{{grid.getCellValue(row, col)}}&nbsp;</a>" },
                     { name: 'PatientNumber', field: 'PatientNumber', displayName: 'Number' },
                     { name: 'DateOfBirth', field: 'DateOfBirth', displayName: 'Date of Birth', cellFilter: 'date:"MM/dd/yyyy"' },
                 ]

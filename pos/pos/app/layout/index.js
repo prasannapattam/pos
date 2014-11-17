@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('pos').controller('index', index)
-index.$inject = ['$http', 'profile', 'navigation', 'utility'];
+index.$inject = ['$http', 'profile', 'navigation', 'utility', '$scope'];
 
-function index($http, profile, navigation, utility) {
+function index($http, profile, navigation, utility, $scope) {
 
     var menuItems = [
                         {
@@ -37,7 +37,7 @@ function index($http, profile, navigation, utility) {
         dataTextField: "PatientName"
     };
 
-
+    this.abc = 1234;
 
     var vm = {
         menuItems: menuItems,
@@ -54,7 +54,7 @@ function index($http, profile, navigation, utility) {
     return vm;
 
     function init() {
-
+        $scope.vm = vm;
     }
 
     function menuSelect(e) {
