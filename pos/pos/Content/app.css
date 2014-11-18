@@ -398,6 +398,14 @@ ul.dropdown-menu{
 .btn{
     line-height: 0.5;
 }
+
+.modal-footer {
+    padding: 10px 10px 0px 0px;
+    text-align: right;
+    border-top: 1px solid #e5e5e5;
+    margin-top: 10px;
+}
+
 /* End Bootstrap overrides */
 /* Kendo overrides */
 .k-item .k-image{

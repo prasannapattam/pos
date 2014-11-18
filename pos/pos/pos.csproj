@@ -239,6 +239,7 @@
     <Content Include="app\account\accountService.js" />
     <Content Include="app\app-route.js" />
     <Content Include="app\layout\index.js" />
+    <Content Include="app\layout\test.js" />
     <Content Include="app\patient\demographics.html" />
     <Content Include="app\patient\demographics.js" />
     <Content Include="app\patient\patientAge.js" />
@@ -247,6 +248,7 @@
     <Content Include="app\shared\blankValue.js" />
     <Content Include="app\shared\boolText.js" />
     <Content Include="app\shared\navigation.js" />
+    <Content Include="app\shared\posModaldialog.js" />
     <Content Include="app\shared\webapiInterceptor.js" />
     <Content Include="app\app-config.js" />
     <Content Include="app\app.js" />
@@ -418,6 +420,9 @@
     <Content Include="Content\ui-grid\ui-grid.eot" />
     <Content Include="Content\ui-grid\ui-grid.ttf" />
     <Content Include="Content\ui-grid\ui-grid.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Test.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

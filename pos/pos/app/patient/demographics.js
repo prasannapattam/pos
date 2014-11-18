@@ -95,7 +95,7 @@ function demographics($scope, patientService, utility, session, $timeout) {
     }
 
     function cancel() {
-        $scope.win1.open();
+        $scope.confirmDialog.open().center();
         $scope.demographicsForm.$cancel()
     }
 }

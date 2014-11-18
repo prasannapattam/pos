@@ -37,8 +37,6 @@ function index($http, profile, navigation, utility, $scope) {
         dataTextField: "PatientName"
     };
 
-    this.abc = 1234;
-
     var vm = {
         menuItems: menuItems,
         profile: profile,
@@ -51,10 +49,10 @@ function index($http, profile, navigation, utility, $scope) {
 
     init();
 
-    return vm;
+    angular.extend(this, vm);
 
     function init() {
-        $scope.vm = vm;
+
     }
 
     function menuSelect(e) {
