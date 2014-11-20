@@ -286,6 +286,7 @@
     <Content Include="app\user\usersearch.js" />
     <Content Include="app\user\user-service.js" />
     <Content Include="Content\app.css" />
+    <Content Include="Content\angular-material.grey-theme.css" />
     <Content Include="Content\Images\icons\mail.png" />
     <Content Include="Content\Images\icons\note-edit.png" />
     <Content Include="Content\bootstrap\bootstrap-theme.css" />
@@ -317,6 +318,7 @@
     <Content Include="Content\Images\top.jpg" />
     <Content Include="Content\Images\WordImage.jpg" />
     <Content Include="Content\jquery.textcomplete.css" />
+    <Content Include="Content\angular-material.css" />
     <Content Include="Content\kendo\kendo.common.core.css" />
     <Content Include="Content\kendo\kendo.common.core.min.css" />
     <Content Include="Content\kendo\kendo.uniform.css" />
@@ -345,6 +347,9 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Scripts\angular\angular-animate.js" />
+    <Content Include="Scripts\angular\angular-aria.js" />
+    <Content Include="Scripts\angular\angular-material.js" />
     <Content Include="Scripts\angular\angular-messages.js" />
     <Content Include="Scripts\angular\angular-ui-router.js" />
     <Content Include="Scripts\angular\angular.js" />
