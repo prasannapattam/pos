@@ -11,14 +11,15 @@
         <div class="row top-header" ng-cloak>
             {{vm.message}}
         </div>
+        <button ng-click="vm.kendoOpen()">Click me</button>
         <form editable-form name="edform">
-            <div class="ui-grid">
+            <div class="ui-grid" id="divedform">
                 <div class="ui-grid-header ui-grid-top-panel ui-grid-cell-contents">
                     <div class="float-left">Message Test</div>
                     <div class="float-right">
                         <div kendo-window="confirmDialog" k-title="'Please Confirm'" k-visible="false" k-modal="true">
                             Do you want to cancel and loose your changes
-                            <div class="modal-footer"><button type="button" class="btn btn-primary" ng-click="vm.cancelYes()">Yes</button><button type="button" class="btn btn-default" ng-click="vm.cancelNo()">No</button></div>                        
+                            <div class="modal-footer"><button type="button" class="btn btn-primary" ng-click="vm.cancelYes()">Yes</button><button type="button" class="btn btn-default" ng-click="vm.cancelNo()">No</button></div>
                         </div>
                         <!-- button to show form -->
                         <button type="button" class="btn btn-default" ng-click="edform.$show()" ng-show="!edform.$visible">
@@ -29,7 +30,7 @@
                             <button type="submit" class="btn btn-primary" ng-disabled="edform.$waiting">
                                 Save
                             </button>
-                            <button type="button" class="btn btn-default" ng-disabled="edform.$waiting" ng-click="vm.cancel()">
+                            <button type="button" class="btn btn-default" ng-disabled="edform.$waiting" ng-click="vm.cancel($event)">
                                 Cancel
                             </button>
                         </span>
@@ -38,7 +39,7 @@
                 <div class="row">
                     <div class="col-sm-3 col-row-header">Header</div>
                     <div class="col-sm-9 col-row-content">
-                        <span editable-text="vm.message" e-name="message" e-class="medium" e-maxlength="20" >{{ vm.message }}</span>
+                        <span editable-text="vm.message" e-name="message" e-class="medium" e-maxlength="20">{{ vm.message }}</span>
                     </div>
                 </div>
             </div>

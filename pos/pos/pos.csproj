@@ -353,6 +353,7 @@
     <Content Include="Scripts\angular\angular-messages.js" />
     <Content Include="Scripts\angular\angular-ui-router.js" />
     <Content Include="Scripts\angular\angular.js" />
+    <Content Include="Scripts\angular\hammer.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\kendo\kendo.angular.js" />

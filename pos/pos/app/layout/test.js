@@ -1,14 +1,15 @@
 ﻿'use strict';
 angular.module('pos').controller('test', test)
-test.$inject = ['$scope'];
+test.$inject = ['$scope', '$mdDialog'];
 
-function test($scope) {
+function test($scope, $mdDialog) {
 
     var vm = {
         message: "This is testing",
         cancel: cancel,
         cancelYes: cancelYes,
-        cancelNo: cancelNo
+        cancelNo: cancelNo,
+        kendoOpen: kendoOpen
     };
 
 
@@ -19,7 +20,24 @@ function test($scope) {
     function init() {
     }
 
-    function cancel() {
+    function cancel(ev) {
+        //$scope.confirmDialog.open().center();
+        var confirm = $mdDialog.confirm()
+          .title('Do you want to cancel and loose your changes?')
+          .content('Clicking yes will loose your changes')
+          .ariaLabel('Lucky day')
+          .ok('Yes')
+          .cancel('No')
+          .targetEvent(ev)
+
+        $mdDialog.show(confirm).then(function () {
+            $scope.edform.$cancel()
+        }, function () {
+            //do nothing
+        });
+    }
+
+    function kendoOpen() {
         $scope.confirmDialog.open().center();
     }
 
