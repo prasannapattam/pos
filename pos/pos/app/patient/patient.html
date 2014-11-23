@@ -1,17 +1,5 @@
-﻿<div class="row">
-    <div class="ui-grid">
-        <div class="ui-grid-header ui-grid-top-panel">
-            <div class="ui-grid-header-viewport ui-grid-header-canvas">
-                <div class="ui-grid-header-cell ui-grid-cell-contents section-header text-center">
-                    {{vm.model.FullName}}
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-2 patient-left-bar pos-box">
-        <ul id="left-menu" class="left-menu" kendo-menu k-data-source="vm.menuItems" k-on-select="vm.menuSelect(kendoEvent)"></ul>
-    </div>
-    <div class="col-sm-10 tight" ui-view></div>
+﻿<div section-header text="{{vm.model.FullName}}" css-class="text-center"></div>
+<div layout="row">
+    <ul flex="20" id="left-menu" class="left-menu portal" kendo-menu k-data-source="vm.menuItems" k-on-select="vm.menuSelect(kendoEvent)"></ul>
+    <div flex ui-view></div>
 </div>

@@ -3,51 +3,49 @@ angular.module('pos').controller('test', test)
 test.$inject = ['$scope', '$mdDialog'];
 
 function test($scope, $mdDialog) {
+        $scope.alert = '';
 
-    var vm = {
-        message: "This is testing",
-        cancel: cancel,
-        cancelYes: cancelYes,
-        cancelNo: cancelNo,
-        kendoOpen: kendoOpen
+        $scope.showAlert = function(ev) {
+            $mdDialog.show(
+              $mdDialog.alert()
+                .title('This is an alert title')
+                .content('You can specify some description text in here.')
+                .ariaLabel('Password notification')
+                .ok('Got it!')
+                .targetEvent(ev)
+            );
+        };
+
+        $scope.showConfirm = function(ev) {
+            var confirm = $mdDialog.confirm()
+              .title('Would you like to delete your debt?')
+              .content('All of the banks have agreed to forgive you your debts.')
+              .ariaLabel('Lucky day')
+              .ok('Please do it!')
+              .cancel('Sounds like a scam')
+              .targetEvent(ev);
+
+            $mdDialog.show(confirm).then(function() {
+                $scope.alert = 'You decided to get rid of your debt.';
+            }, function() {
+                $scope.alert = 'You decided to keep your debt.';
+            });
+        };
+
     };
 
+    function DialogController($scope, $mdDialog) {
+        $scope.hide = function() {
+            $mdDialog.hide();
+        };
 
-    init();
+        $scope.cancel = function() {
+            $mdDialog.cancel();
+        };
 
-    angular.extend(this, vm);
-
-    function init() {
+        $scope.answer = function(answer) {
+            $mdDialog.hide(answer);
+        };
     }
-
-    function cancel(ev) {
-        //$scope.confirmDialog.open().center();
-        var confirm = $mdDialog.confirm()
-          .title('Do you want to cancel and loose your changes?')
-          .content('Clicking yes will loose your changes')
-          .ariaLabel('Lucky day')
-          .ok('Yes')
-          .cancel('No')
-          .targetEvent(ev)
-
-        $mdDialog.show(confirm).then(function () {
-            $scope.edform.$cancel()
-        }, function () {
-            //do nothing
-        });
-    }
-
-    function kendoOpen() {
-        $scope.confirmDialog.open().center();
-    }
-
-    function cancelYes(){
-        $scope.confirmDialog.close();
-        $scope.edform.$cancel()
-    }
-    function cancelNo(){
-        $scope.confirmDialog.close();
-    }
-}
 
 

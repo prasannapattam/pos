@@ -1,4 +1,5 @@
-﻿<div>
-    <h3>Today's Patients</h3>
-    <div ui-grid="vm.gridOptions" external-scopes="vm" class="grid"></div>
+﻿<div layout="column">
+    <div section-header text="Today's Patients" css-class="text-left"></div>
+    <div ui-grid="vm.gridOptions" external-scopes="vm" ui-grid-auto-resize class="patient-grid" ng-style="{'height' : vm.gridHeight }"></div>
 </div>
+

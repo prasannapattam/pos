@@ -1,5 +1,5 @@
 ﻿@using System.Web.Optimization
-<html data-ng-app="pos">
+<html ng-app="pos">
 <head>
     <meta name="viewport" content="width=device-width" />
     <base href="/" target="_blank">
@@ -7,17 +7,17 @@
     @Styles.Render("~/Content/css")
 </head>
 <body class="main">
-    <div class="container" ng-controller="index as vm">
-        <div class="row top-header" ng-cloak>
-            <div class="left-header">
-                <a href="/"><img class="top-header" src="~/content/images/logo.gif" /></a>
-            </div>
+    <div class="container" layout="column" md-theme="grey" ng-controller="index as vm">
+        <header>
+            <div layout="row" class="top-header" ng-cloak>
+                <div>
+                    <a href="/"><img class="top-header" src="~/content/images/logo.gif" /></a>
+                </div>
 
-            <div class="header-content">
-                <div class="header-row">
+                <div flex layout="column" layout-align="end">
                     <div class="app-header">@ViewBag.AppTitle</div>
-                    <div class="row tight">
-                        <div class="col-sm-8 tight">
+                    <div layout="row">
+                        <div flex>
                             <ul class="tabrow">
                                 <li ng-repeat="tab in vm.navigation.tabs" ng-class="{selected: tab.active }">
                                     <a ui-sref="{{tab.hash}}" ng-click="vm.navigation.activateTab(tab)">
@@ -27,31 +27,44 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-sm-4 search-patient">
+                        <div flex="20" class="search-patient">
                             <input placeholder="'Search Patient'" kendo-auto-complete ng-model=" vm.searchCriteria" k-options="vm.searchOptions"
                                    k-on-select="vm.searchSelect(kendoEvent)" ng-show="vm.profile.isAuthenticated"
-                                   k-template="'${ data.PatientName } (Patient \\#: ${ data.PatientNumber })<br />DOB: ${ data.DOBString }<hr class=&quot;tight&quot; />'"
-                                   />
+                                   k-template="'${ data.PatientName } (Patient \\#: ${ data.PatientNumber })><br />DOB: ${ data.DOBString }<hr class=&quot;tight&quot; />'"
+                            />
                         </div>
                     </div>
                 </div>
+                <div layout="column">
+                    <img class="loading" src="~/content/images/loading.gif" ng-style="{'visibility' : session.navigation.isLoading ? 'visible' : 'hidden'}" />
+                    <ul id="main-menu" class="menu" kendo-menu k-data-source="vm.menuItems" k-on-select="vm.menuSelect(kendoEvent)" ng-show="vm.profile.isAuthenticated"></ul>
+                </div>
+                <div ng-show="vm.profile.isAuthenticated">
+                    <img class="top-header" ng-src="{{profile.photoUrl}}" />
+                </div>
             </div>
-            <div class="right-header" ng-show="vm.profile.isAuthenticated">
-                <img class="top-header" ng-src="{{profile.photoUrl}}" />
-            </div>
-            <div class="menu">
-                <img class="loading" src="~/content/images/loading.gif" ng-style="{'visibility' : session.navigation.isLoading ? 'visible' : 'hidden'}" />
-                <ul id="main-menu" class="menu" kendo-menu k-data-source="vm.menuItems" k-on-select="vm.menuSelect(kendoEvent)" ng-show="vm.profile.isAuthenticated"></ul>
-            </div>
+        </header>
+        <div flex layout="row">
+            @*<aside flex="10">
+                Menu<br>
+                [flex-sm="33"][flex-md="20"]
+            </aside>*@
+            <main flex class="main-content">
+                <div ui-view class="row content">
+                    <div id="splash" class="splash">
+                        <br /><br />
+                        <h2 class="splash-header">Welcome to @ViewBag.AppTitle</h2>
+                        <br />
+                        <img class="splash-loading" src="~/content/images/loading.gif" />
+                    </div>
+                </div>
+            </main>
+
         </div>
-        <div ui-view class="row content">
-            <div id="splash" class="splash">
-                <br /><br />
-                <h2 class="splash-header">Welcome to @ViewBag.AppTitle</h2>
-                <br />
-                <img class="splash-loading" src="~/content/images/loading.gif" />
-            </div>
-        </div>
+
+        @*<footer>
+            Footer
+        </footer>*@
     </div>
     <script>
         window.virtualDirectory = '@ViewBag.VirtualDirectory';

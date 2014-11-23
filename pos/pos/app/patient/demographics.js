@@ -1,7 +1,7 @@
 ﻿'use strict';
 angular.module('pos').controller('demographics', demographics);
-demographics.$inject = ['$scope', 'patientService', 'utility', 'session', '$timeout'];
-function demographics($scope, patientService, utility, session, $timeout) {
+demographics.$inject = ['$scope', 'patientService', 'utility', 'session', '$mdDialog'];
+function demographics($scope, patientService, utility, session, $mdDialog) {
 
     var vm = {
         patientModel: {},
@@ -94,9 +94,21 @@ function demographics($scope, patientService, utility, session, $timeout) {
         }
     }
 
-    function cancel() {
-        $scope.confirmDialog.open().center();
-        $scope.demographicsForm.$cancel()
+    function cancel(ev) {
+        //$scope.confirmDialog.open().center();
+        var confirm = $mdDialog.confirm()
+          .title('Do you want to cancel and loose your changes?')
+          .content('Clicking yes will loose your changes')
+          .ariaLabel('Cancel modal window')
+          .ok('Yes')
+          .cancel('No')
+          .targetEvent(ev)
+
+        $mdDialog.show(confirm).then(function () {
+            $scope.demographicsForm.$cancel()
+        }, function () {
+            //do nothing
+        });
     }
 }
 

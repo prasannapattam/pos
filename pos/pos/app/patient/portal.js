@@ -1,12 +1,15 @@
 ﻿'use strict';
 angular.module('pos').controller('portal', portal);
-portal.$inject = ['$scope', '$filter', 'patientService', 'utility'];
-function portal($scope, $filter, patientService, utility) {
+portal.$inject = ['$scope', '$filter', 'patientService', 'utility', 'uiGridConstants'];
+function portal($scope, $filter, patientService, utility, uiGridConstants) {
 
     var encounterGridOptions = {
-        enableColumnResizing: true,
+        enableColumnMenus: false,
+        enableSorting: false,
+        enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
+        enableVerticalScrollbar: uiGridConstants.scrollbars.WHEN_NEEDED,
         columnDefs: [
-                { name: 'ExamDate', field: 'ExamDate', displayName: 'Encounter History', enableSorting: false, disableColumnMenu: true, cellTemplate: encounterCellTemplate() },
+                { name: 'ExamDate', field: 'ExamDate', displayName: 'Encounter History', cellTemplate: encounterCellTemplate() },
         ]
     };
 
@@ -83,7 +86,7 @@ function portal($scope, $filter, patientService, utility) {
     }
 
     function encounterCellTemplate() {
-        return "<div class='pull-left'>{{getExternalScopes().getHistoryText(row)}}</div>" 
+        return "<div class='pull-left text-nowrap'>{{getExternalScopes().getHistoryText(row)}}</div>"
             + "<div class='encounter-right'>"
             + "<a href='#'><img src='" + utility.virtualDirectory + "/content/images/icons/note-edit.png' title='Correct Notes' class='grid-icon' /></a>&nbsp;&nbsp;"
             + "<a target='_self' href='" + utility.virtualDirectory + "/api/print/{{row.entity.ExamID}}/1'><img src='" + utility.virtualDirectory + "/content/images/icons/mail.png' class='grid-icon' title='Print Letter' /></a>&nbsp;&nbsp;"

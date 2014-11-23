@@ -1,60 +1,56 @@
-﻿<div class="row">
-    <div class="col-sm-6">
-        <div class="pos-box">
-            <div class="ui-grid">
-                <div class="ui-grid-header ui-grid-top-panel ui-grid-cell-contents">Demographics</div>
-                <div class="row">
-                    <div class="col-sm-12 text-center">
-                        <img class="patient-photo" ng-src="{{vm.patientModel.PhotoUrl}}" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4 col-row-header">Patient Name</div>
-                    <div class="col-sm-8 col-row-content">
-                        <a href="#" title="Click to edit" editable-text="vm.patientModel.FullName" onaftersave="vm.savePatient()" onbeforesave="vm.validatePatientName($data)">{{ vm.patientModel.FullName | blankValue  }}</a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4 col-row-header">Patient #</div>
-                    <div class="col-sm-8 col-row-content">
-                        <a href="#" title="Click to edit" editable-text="vm.patientModel.PatientNumber" onbeforesave="vm.validatePatientNumberAndSave($data)">{{ vm.patientModel.PatientNumber | blankValue  }}</a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4 col-row-header">Date Of Birth</div>
-                    <div class="col-sm-8 col-row-content">
-                        <a href="#" title="Click to edit" editable-bsdate="vm.patientModel.DateOfBirth" onaftersave="vm.savePatient()">
-                            {{vm.patientModel.DateOfBirth | date:'MM/dd/yyyy' }} ({{vm.patientModel.DateOfBirth | patientAge}})
-                        </a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4 col-row-header">Premature Birth</div>
-                    <div class="col-sm-8 col-row-content">
-                        <a href="#" editable-select="vm.patientModel.PrematureBirth" e-ng-options="s.value as s.text for s in vm.boolSelectList" onaftersave="vm.savePatient()">
-                            {{vm.patientModel.PrematureBirth | boolText }}
-                        </a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4 col-row-header">Sex</div>
-                    <div class="col-sm-8 col-row-content">
-                        <a href="#" editable-select="vm.patientModel.Sex" e-ng-options="sex.FieldValue as sex.FieldDescription for sex in session.lookups.Sex" onaftersave="vm.savePatient()" onbeforesave="vm.patientPhotoUrl($data)">
-                            {{vm.patientModel.Sex}}
-                        </a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4 col-row-header">Occupation</div>
-                    <div class="col-sm-8 col-row-content">
-                        <a href="#" title="Click to edit" editable-textarea="vm.patientModel.Occupation" e-rows="3" onaftersave="vm.savePatient()">{{ vm.patientModel.Occupation | blankValue  }}</a>
-                    </div>
+﻿<div layout="row">
+    <div layout="column" flex class="pos-box">
+        <div section-header text="Demographics" css-class=""></div>
+        <div layout="column" class="ui-grid">
+            <div class="text-center">
+                <img class="patient-photo" ng-src="{{vm.patientModel.PhotoUrl}}" />
+            </div>
+            <div layout="row">
+                <div flex="25" class="col-row-header">Patient Name</div>
+                <div flex class="col-row-content">
+                    <a href="#" title="Click to edit" editable-text="vm.patientModel.FullName" onaftersave="vm.savePatient()" onbeforesave="vm.validatePatientName($data)">{{ vm.patientModel.FullName | blankValue  }}</a>
                 </div>
             </div>
+            <div layout="row">
+                <div flex="25" class="col-row-header">Patient #</div>
+                <div flex class="col-row-content">
+                    <a href="#" title="Click to edit" editable-text="vm.patientModel.PatientNumber" onbeforesave="vm.validatePatientNumberAndSave($data)">{{ vm.patientModel.PatientNumber | blankValue  }}</a>
+                </div>
+            </div>
+            <div layout="row">
+                <div flex="25" class="col-row-header">Date Of Birth</div>
+                <div flex class="col-row-content">
+                    <a href="#" title="Click to edit" editable-bsdate="vm.patientModel.DateOfBirth" onaftersave="vm.savePatient()">
+                        {{vm.patientModel.DateOfBirth | date:'MM/dd/yyyy' }} ({{vm.patientModel.DateOfBirth | patientAge}})
+                    </a>
+                </div>
+            </div>
+            <div layout="row">
+                <div flex="25" class="col-row-header">Premature Birth</div>
+                <div flex class="col-row-content">
+                    <a href="#" editable-select="vm.patientModel.PrematureBirth" e-ng-options="s.value as s.text for s in vm.boolSelectList" onaftersave="vm.savePatient()">
+                        {{vm.patientModel.PrematureBirth | boolText }}
+                    </a>
+                </div>
+            </div>
+            <div layout="row">
+                <div flex="25" class="col-row-header">Sex</div>
+                <div flex class="col-row-content">
+                    <a href="#" editable-select="vm.patientModel.Sex" e-ng-options="sex.FieldValue as sex.FieldDescription for sex in session.lookups.Sex" onaftersave="vm.savePatient()" onbeforesave="vm.patientPhotoUrl($data)">
+                        {{vm.patientModel.Sex}}
+                    </a>
+                </div>
+            </div>
+            <div layout="row">
+                <div flex="25" class="col-row-header">Occupation</div>
+                <div flex class="col-row-content">
+                    <a href="#" title="Click to edit" editable-textarea="vm.patientModel.Occupation" e-rows="3" onaftersave="vm.savePatient()">{{ vm.patientModel.Occupation | blankValue  }}</a>
+                </div>
+            </div>
+
         </div>
     </div>
-    <div class="col-sm-6  pos-box">
+    <div flex class="pos-box">
         <div ui-grid="vm.encounterGridOptions" external-scopes="vm" class="grid"></div>
     </div>
-
 </div>

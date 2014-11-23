@@ -248,7 +248,7 @@
     <Content Include="app\shared\blankValue.js" />
     <Content Include="app\shared\boolText.js" />
     <Content Include="app\shared\navigation.js" />
-    <Content Include="app\shared\posModaldialog.js" />
+    <Content Include="app\shared\sectionHeader.js" />
     <Content Include="app\shared\webapiInterceptor.js" />
     <Content Include="app\app-config.js" />
     <Content Include="app\app.js" />

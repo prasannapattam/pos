@@ -1,56 +1,71 @@
 ﻿@using System.Web.Optimization
 <html data-ng-app="pos">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <base href="/" target="_blank">
     <title>Testing</title>
-    @Styles.Render("~/Content/css")
+
+    <link href="/content/angular-material.css" rel="stylesheet" />
+    <link href="/content/angular-material.grey-theme.css" rel="stylesheet" />
+
+    <style>
+.dialogdemoBasicUsage .full {
+  width: 100%;
+  height: 100%; }
+.dialogdemoBasicUsage .gap {
+  width: 50px; }
+.dialogdemoBasicUsage .md-subheader {
+  background-color: #dcedc8;
+  margin: 0px; }
+.dialogdemoBasicUsage h2.md-subheader {
+  margin: 0px;
+  margin-left: -24px;
+  margin-right: -24px;
+  margin-top: -24px; }
+.dialogdemoBasicUsage h2.md-subheader.md-sticky-clone {
+  margin-right: 0px;
+  margin-top: 0px;
+  box-shadow: 0px 2px 4px 0 rgba(0, 0, 0, 0.16); }
+.dialogdemoBasicUsage h2 .md-subheader-content {
+  padding-left: 10px; }
+        </style>
 </head>
 <body class="main">
-    <div class="container" ng-controller="test as vm">
-        <div class="row top-header" ng-cloak>
-            {{vm.message}}
+
+    <div ng-controller="test" class="full" layout="column" layout-padding>
+        <p class="inset">
+            Open a dialog over the app's content. Press escape or click outside to close the dialog.
+        </p>
+
+        <div layout="column" layout-align="center">
+            <md-button class="md-primary" ng-click="showAlert($event)">
+                Alert Dialog
+            </md-button>
+            <div class="gap"></div>
+            <md-button class="md-primary" ng-click="showConfirm($event)">
+                Confirm Dialog
+            </md-button>
+            <div class="gap"></div>
         </div>
-        <button ng-click="vm.kendoOpen()">Click me</button>
-        <form editable-form name="edform">
-            <div class="ui-grid" id="divedform">
-                <div class="ui-grid-header ui-grid-top-panel ui-grid-cell-contents">
-                    <div class="float-left">Message Test</div>
-                    <div class="float-right">
-                        <div kendo-window="confirmDialog" k-title="'Please Confirm'" k-visible="false" k-modal="true">
-                            Do you want to cancel and loose your changes
-                            <div class="modal-footer"><button type="button" class="btn btn-primary" ng-click="vm.cancelYes()">Yes</button><button type="button" class="btn btn-default" ng-click="vm.cancelNo()">No</button></div>
-                        </div>
-                        <!-- button to show form -->
-                        <button type="button" class="btn btn-default" ng-click="edform.$show()" ng-show="!edform.$visible">
-                            Edit
-                        </button>
-                        <!-- buttons to submit / cancel form -->
-                        <span ng-show="edform.$visible">
-                            <button type="submit" class="btn btn-primary" ng-disabled="edform.$waiting">
-                                Save
-                            </button>
-                            <button type="button" class="btn btn-default" ng-disabled="edform.$waiting" ng-click="vm.cancel($event)">
-                                Cancel
-                            </button>
-                        </span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3 col-row-header">Header</div>
-                    <div class="col-sm-9 col-row-content">
-                        <span editable-text="vm.message" e-name="message" e-class="medium" e-maxlength="20">{{ vm.message }}</span>
-                    </div>
-                </div>
-            </div>
-        </form>
-        </div>
+
+        <br />
+        <b layout="row" layout-align="center center" layout-padding>
+            {{alert}}
+        </b>
+    </div>
+
     <script>
         window.virtualDirectory = '@ViewBag.VirtualDirectory';
         window.userAuthenticated = @ViewBag.UserAuthenticated;
     </script>
-    @Scripts.Render("~/scripts/libraries")
-    @Scripts.Render("~/scripts/app")
+
+    <script src="/scripts/angular/angular.js"></script>
+    <script src="/scripts/angular/angular-animate.js"></script>
+    <script src="/scripts/angular/angular-aria.js"></script>
+    <script src="/scripts/angular/hammer.js"></script>
+    <script src="/scripts/angular/angular-material.js"></script>
+
+    <script src="/app/app.js"></script>
+    <script src="/app/layout/test.js"></script>
+
 </body>
 </html>
 
