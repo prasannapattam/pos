@@ -1,121 +1,106 @@
 ﻿<div class="pos-box">
-
-    How is this going on 
-</div>
-
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="pos-box">
-                <form editable-form name="demographicsForm" onbeforesave="vm.savePatient($data)">
-                    <div class="ui-grid">
-                        <div class="ui-grid-header ui-grid-top-panel ui-grid-cell-contents">
-                            <div class="float-left">Demographics</div>
-                            <div class="float-right">
-                                <div kendo-window="confirmDialog" k-title="'Please Confirm'" k-visible="false" k-modal="true">
-                                    Do you want to cancel and loose your changes
-                                </div>
-                                <!-- button to show form -->
-                                <button type="button" class="btn btn-default" ng-click="demographicsForm.$show()" ng-show="!demographicsForm.$visible">
-                                    Edit
-                                </button>
-                                <!-- buttons to submit / cancel form -->
-                                <span ng-show="demographicsForm.$visible">
-                                    <button type="submit" class="btn btn-primary" ng-disabled="demographicsForm.$waiting">
-                                        Save
-                                    </button>
-                                    <button type="button" class="btn btn-default" ng-disabled="demographicsForm.$waiting" ng-click="vm.cancel($event)">
-                                        Cancel
-                                    </button>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-3 text-center">
-                                <img class="patient-photo" ng-src="{{vm.patientModel.PhotoUrl}}" />
-                            </div>
-                            <div class="col-sm-9">
-                                <div class="row">
-                                    <div class="col-sm-3 col-row-header">Name</div>
-                                    <div class="col-sm-9 col-row-content">
-                                        <span editable-select="vm.patientModel.Greeting" e-name="Greeting" e-ng-options="greet.FieldValue as greet.FieldDescription for greet in session.lookups.Greet"></span>
-                                        <span editable-text="vm.patientModel.FirstName" e-name="FirstName" e-class="medium" e-maxlength="20" onbeforesave="vm.validateFirstName($data)">{{ vm.patientModel.FullName }}</span>
-                                        <span editable-text="vm.patientModel.MiddleName" e-name="MiddleName" e-class="small" e-maxlength="20"></span>
-                                        <span editable-text="vm.patientModel.LastName" e-name="LastName" e-class="medium" e-maxlength="20" onbeforesave="vm.validateLastName($data)"></span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-3 col-row-header">Patient #</div>
-                                    <div class="col-sm-9 col-row-content">
-                                        <span editable-text="vm.patientModel.PatientNumber" e-name="PatientNumber" e-class="medium" e-maxlength="20" onbeforesave="vm.validatePatientNumber($data)">{{ vm.patientModel.PatientNumber }}</span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-3 col-row-header">Nick Name</div>
-                                    <div class="col-sm-9 col-row-content">
-                                        <span editable-text="vm.patientModel.NickName" e-name="NickName" e-class="medium" e-maxlength="20">{{ vm.patientModel.NickName }}</span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-3 col-row-header">Date Of Birth</div>
-                                    <div class="col-sm-9 col-row-content">
-                                        <span editable-bsdate="vm.patientModel.DateOfBirth" e-name="DateOfBirth" is-open="false">
-                                            {{vm.patientModel.DateOfBirth | date:'MM/dd/yyyy' }} ({{vm.patientModel.DateOfBirth | patientAge}})
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-3 col-row-header">Premature Birth</div>
-                                    <div class="col-sm-9 col-row-content">
-                                        <span editable-select="vm.patientModel.PrematureBirth" e-name="PrematureBirth" e-ng-options="s.value as s.text for s in vm.boolSelectList">
-                                            {{vm.patientModel.PrematureBirth | boolText }}
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-3 col-row-header">Sex</div>
-                                    <div class="col-sm-9 col-row-content">
-                                        <span editable-select="vm.patientModel.Sex" e-name="Sex" e-ng-options="sex.FieldValue as sex.FieldDescription for sex in session.lookups.Sex">
-                                            {{vm.patientModel.Sex}}
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-3 col-row-header">Grade / Occupation</div>
-                                    <div class="col-sm-9 col-row-content">
-                                        <span editable-text="vm.patientModel.Occupation" e-name="Occupation" e-class="large" e-maxlength="50">{{ vm.patientModel.Occupation }}</span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-3 col-row-header">Hx From</div>
-                                    <div class="col-sm-9 col-row-content">
-                                        <span editable-select="vm.patientModel.HxFromList" e-name="HxFromList" e-ng-options="hx.FieldValue as hx.FieldDescription for hx in session.lookups.HxFrom">{{ vm.patientModel.HxFrom }}</span>
-                                        <span editable-text="vm.patientModel.HxFromOther" e-name="HxFromOther" e-class="medium" e-maxlength="20" e-ng-show="demographicsForm.$data.HxFromList === ''"></span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-3 col-row-header">Ref'd By</div>
-                                    <div class="col-sm-9 col-row-content">
-                                        <span editable-text="vm.patientModel.ReferredFrom" e-name="ReferredFrom" e-class="large" e-maxlength="20">{{ vm.patientModel.ReferredFrom }}</span>
-                                        (PCP:<span editable-text="vm.patientModel.ReferredDoctor" e-name="ReferredDoctor" e-id="ReferredDoctor" e-class="large" e-maxlength="20">{{ vm.patientModel.ReferredDoctor }}</span>)
-                                        &nbsp;&nbsp;<span editable-checkbox="vm.patientModel.RefSame" e-name="RefSame" e-title="Same" e-ng-click="vm.copyRef($data)"></span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-3 col-row-header">Allergies</div>
-                                    <div class="col-sm-9 col-row-content">
-                                        <span editable-text="vm.patientModel.Allergies" e-name="Allergies" e-class="xlarge" e-maxlength="50">{{ vm.patientModel.Allergies }}</span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-3 col-row-header">Medications</div>
-                                    <div class="col-sm-9 col-row-content">
-                                        <span editable-text="vm.patientModel.Medications" e-name="Medications" e-class="xlarge" e-maxlength="50">{{ vm.patientModel.Medications }}</span>
-                                    </div>
-                                </div>
-                            </div>
+    <form editable-form name="demographicsForm" onbeforesave="vm.savePatient($data)">
+        <div class="ui-grid">
+            <div layout="row" class="ui-grid-header ui-grid-top-panel ui-grid-cell-contents">
+                <span flex>Demographics</span>
+                <md-button type="button" class="btn btn-default md-raised" ng-click="demographicsForm.$show()" ng-show="!demographicsForm.$visible">
+                    Edit
+                </md-button>
+                <!-- buttons to submit / cancel form -->
+                <span ng-show="demographicsForm.$visible">
+                    <md-button type="submit" class="btn md-primary md-raised" ng-disabled="demographicsForm.$waiting">
+                        Save
+                    </md-button>
+                    <md-button type="button" class="btn btn-default md-raised" ng-disabled="demographicsForm.$waiting" ng-click="vm.cancel($event)">
+                        Cancel
+                    </md-button>
+                </span>
+            </div>
+            <div layout="row" layout-align="start center">
+                <div flex="25" class="text-center">
+                    <img class="patient-photo" ng-src="{{vm.patientModel.PhotoUrl}}" />
+                </div>
+                <div flex>
+                    <div layout="row">
+                        <div flex="25" class="col-row-header">Name</div>
+                        <div flex class="col-row-content">
+                            <span editable-select="vm.patientModel.Greeting" e-name="Greeting" e-ng-options="greet.FieldValue as greet.FieldDescription for greet in session.lookups.Greet"></span>
+                            <span editable-text="vm.patientModel.FirstName" e-name="FirstName" e-class="medium" e-maxlength="20" onbeforesave="vm.validateFirstName($data)">{{ vm.patientModel.FullName }}</span>
+                            <span editable-text="vm.patientModel.MiddleName" e-name="MiddleName" e-class="small" e-maxlength="20"></span>
+                            <span editable-text="vm.patientModel.LastName" e-name="LastName" e-class="medium" e-maxlength="20" onbeforesave="vm.validateLastName($data)"></span>
                         </div>
                     </div>
-                </form>
+                    <div layout="row">
+                        <div flex="25" class="col-row-header">Patient #</div>
+                        <div flex class="col-row-content">
+                            <span editable-text="vm.patientModel.PatientNumber" e-name="PatientNumber" e-class="medium" e-maxlength="20" onbeforesave="vm.validatePatientNumber($data)">{{ vm.patientModel.PatientNumber }}</span>
+                        </div>
+                    </div>
+                    <div layout="row">
+                        <div flex="25" class="col-row-header">Nick Name</div>
+                        <div flex class="col-row-content">
+                            <span editable-text="vm.patientModel.NickName" e-name="NickName" e-class="medium" e-maxlength="20">{{ vm.patientModel.NickName }}</span>
+                        </div>
+                    </div>
+                    <div layout="row">
+                        <div flex="25" class="col-row-header">Date Of Birth</div>
+                        <div flex class="col-row-content">
+                            <span editable-bsdate="vm.patientModel.DateOfBirth" e-name="DateOfBirth" is-open="false">
+                                {{vm.patientModel.DateOfBirth | date:'MM/dd/yyyy' }} ({{vm.patientModel.DateOfBirth | patientAge}})
+                            </span>
+                        </div>
+                    </div>
+                    <div layout="row">
+                        <div flex="25" class="col-row-header">Premature Birth</div>
+                        <div flex class="col-row-content">
+                            <span editable-select="vm.patientModel.PrematureBirth" e-name="PrematureBirth" e-ng-options="s.value as s.text for s in vm.boolSelectList">
+                                {{vm.patientModel.PrematureBirth | boolText }}
+                            </span>
+                        </div>
+                    </div>
+                    <div layout="row">
+                        <div flex="25" class="col-row-header">Sex</div>
+                        <div flex class="col-row-content">
+                            <span editable-select="vm.patientModel.Sex" e-name="Sex" e-ng-options="sex.FieldValue as sex.FieldDescription for sex in session.lookups.Sex">
+                                {{vm.patientModel.Sex}}
+                            </span>
+                        </div>
+                    </div>
+                    <div layout="row">
+                        <div flex="25" class="col-row-header">Grade / Occupation</div>
+                        <div flex class="col-row-content">
+                            <span editable-text="vm.patientModel.Occupation" e-name="Occupation" e-class="large" e-maxlength="50">{{ vm.patientModel.Occupation }}</span>
+                        </div>
+                    </div>
+                    <div layout="row">
+                        <div flex="25" class="col-row-header">Hx From</div>
+                        <div flex class="col-row-content">
+                            <span editable-select="vm.patientModel.HxFromList" e-name="HxFromList" e-ng-options="hx.FieldValue as hx.FieldDescription for hx in session.lookups.HxFrom">{{ vm.patientModel.HxFrom }}</span>
+                            <span editable-text="vm.patientModel.HxFromOther" e-name="HxFromOther" e-class="medium" e-maxlength="20" e-ng-show="demographicsForm.$data.HxFromList === ''"></span>
+                        </div>
+                    </div>
+                    <div layout="row">
+                        <div flex="25" class="col-row-header">Ref'd By</div>
+                        <div flex class="col-row-content">
+                            <span editable-text="vm.patientModel.ReferredFrom" e-name="ReferredFrom" e-class="large" e-maxlength="20">{{ vm.patientModel.ReferredFrom }}</span>
+                            (PCP:<span editable-text="vm.patientModel.ReferredDoctor" e-name="ReferredDoctor" e-id="ReferredDoctor" e-class="large" e-maxlength="20">{{ vm.patientModel.ReferredDoctor }}</span>)
+                            &nbsp;&nbsp;<span editable-checkbox="vm.patientModel.RefSame" e-name="RefSame" e-title="Same" e-ng-click="vm.copyRef($data)"></span>
+                        </div>
+                    </div>
+                    <div layout="row">
+                        <div flex="25" class="col-row-header">Allergies</div>
+                        <div flex class="col-row-content">
+                            <span editable-text="vm.patientModel.Allergies" e-name="Allergies" e-class="xlarge" e-maxlength="50">{{ vm.patientModel.Allergies }}</span>
+                        </div>
+                    </div>
+                    <div layout="row">
+                        <div flex="25" class="col-row-header">Medications</div>
+                        <div flex class="col-row-content">
+                            <span editable-text="vm.patientModel.Medications" e-name="Medications" e-class="xlarge" e-maxlength="50">{{ vm.patientModel.Medications }}</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </form>
+</div>

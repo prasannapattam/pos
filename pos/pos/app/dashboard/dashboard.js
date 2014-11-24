@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('pos').controller('dashboard', dashboard)
-dashboard.$inject = ['$window', 'dashboardService', 'navigation', 'uiGridConstants'];
+dashboard.$inject = ['$window', '$scope', 'dashboardService', 'navigation', 'uiGridConstants'];
 
-function dashboard($window, dashboardService, navigation, uiGridConstants) {
+function dashboard($window, $scope, dashboardService, navigation, uiGridConstants) {
 
     var gridOptions = {
         enableColumnResizing: true,
@@ -32,14 +32,19 @@ function dashboard($window, dashboardService, navigation, uiGridConstants) {
         angular.element($window).bind('resize', function () {
             resizeGrid();
         });
+        $scope.$on('$destroy', function (e) {
+            angular.element($window).unbind('resize');
+        });
     }
 
     function resizeGrid() {
         var contentOffset = angular.element(document.getElementsByClassName('main-content')).offset();
         var contentHeight = angular.element(document.getElementsByClassName('main-content')[0]).height();
         var gridOffset = angular.element(document.getElementsByClassName('patient-grid')).offset();
-        var gridHeight = contentHeight - (gridOffset.top - contentOffset.top) - 10;
-        vm.gridHeight = gridHeight + 'px';
+        if (gridOffset !== undefined) {
+            var gridHeight = contentHeight - (gridOffset.top - contentOffset.top) - 10;
+            vm.gridHeight = gridHeight + 'px';
+        }
     }
 
     function navigateToPatient(row) {
