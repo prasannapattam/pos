@@ -1,4 +1,7 @@
 ﻿'use strict';
-app.controller('printqueue', ['$scope', function ($scope) {
+angular.module('pos').controller('printqueue', dashboard)
+printqueue.$inject = [];
 
-}]);
+function printqueue() {
+
+}

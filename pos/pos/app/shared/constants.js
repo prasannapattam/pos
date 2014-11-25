@@ -42,6 +42,7 @@ function constants() {
     var iconTypes = {
         dashboard: "dashboard.png",
         patient: "patient.png",
+        printQueue: "printer.png"
     }
 
 

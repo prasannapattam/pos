@@ -47,6 +47,17 @@ function routeConfig($stateProvider, $urlRouterProvider, $locationProvider) {
             controller: "demographics",
             controllerAs: "vm",
         })
+        .state("printqueue", {
+            url: window.virtualDirectory + "/printqueue",
+            title: "Print Queue",
+            templateUrl: window.virtualDirectory + "/app/print/printqueue.html",
+            controller: "printqueue",
+            controllerAs: "vm",
+            resolve: ['printService', function (printService) {
+                return printService.fetchQueue();
+            }]
+        })
+
     //.when(window.virtualDirectory + "/notes/:notestype/:patientid/:examid?", {
         //    title: "Notes",
         //    templateUrl: window.virtualDirectory + "/app/notes/notestest.html",

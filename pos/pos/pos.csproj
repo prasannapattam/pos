@@ -274,7 +274,7 @@
     <Content Include="app\print\print.js" />
     <Content Include="app\print\printqueue.html" />
     <Content Include="app\print\printqueue.js" />
-    <Content Include="app\print\print-service.js" />
+    <Content Include="app\print\printService.js" />
     <Content Include="app\shared\constants.js" />
     <Content Include="app\shared\messages.html" />
     <Content Include="app\shared\profile.js" />

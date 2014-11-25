@@ -1,18 +1,20 @@
 ﻿'use strict';
 angular.module('pos').factory('navigation', navigation)
-navigation.$inject = ['utility', 'constants', '$state'];
+navigation.$inject = ['$state', 'utility', 'constants'];
 
-function navigation(utility, constants, $state) {
+function navigation($state, utility, constants) {
 
-    var tab = function (tabs, title, hash, icon) {
+    var tab = function (tabs, title, icon, stateName, params) {
         var self = this;
 
         self.tabs = tabs;
         self.title = title;
-        self.hash = hash;
         self.firstTab = tabs.length == 0;
         self.active = true;
         self.iconUrl = utility.iconPath(icon);
+        self.stateName = stateName;
+        self.params = params;
+        self.hash = $state.href(stateName, params);
 
         if (tabs.length > 3) {
             tabs.splice(1, 1);
@@ -27,11 +29,10 @@ function navigation(utility, constants, $state) {
         iconTypes: constants.iconTypes,
         activateTab: activateTab,
         removeTab: removeTab,
-        setHomeTab: setHomeTab,
         addTab: addTab,
-        setCurrentTitle: setCurrentTitle,
-        clear: clear,
-        gotoPatient: gotoPatient
+        gotoPatient: gotoPatient,
+        addMenuTab: addMenuTab,
+        setCurrent: setCurrent
     };
 
     init();
@@ -39,35 +40,7 @@ function navigation(utility, constants, $state) {
     return vm;
 
     function init() {
-        //vm.tabs.push(new tab(tabs, 'Prasanna Pattam', '#home'))
-
-        addTab('Dashboard', 'dashboard', constants.iconTypes.dashboard)
-    }
-
-    function setHomeTab(title, hash, active) {
-
-        var homeTab = vm.tabs[0];
-
-        homeTab.title = title;
-        homeTab.hash = window.virtualDirectory + hash;
-        //router.activeInstruction().config.title = title();
-
-        if (active) {
-            homeTab.active = true;
-            var tabs = vm.tabs;
-            for (index = 1; index < tabs.length; index++) {
-                tabs[index].active = false;
-            }
-        }
-
-    }
-
-    function setCurrentTitle(title) {
-        var tabs = vm.tabs;
-        for (index = 1; index < tabs.length; index++) {
-            if (tabs[index].active === true)
-                tabs[index].title = title;
-        }
+        addTab('Dashboard', constants.iconTypes.dashboard, 'dashboard', {})
     }
 
     function activateTab(tab) {
@@ -78,8 +51,7 @@ function navigation(utility, constants, $state) {
             }
             tab.active = true;
 
-            var hash = tab.hash;
-            //$state.go(hash);
+            $state.go(tab.stateName, tab.params);
         }
     };
 
@@ -98,10 +70,40 @@ function navigation(utility, constants, $state) {
         tabs.splice(index, 1);
     };
 
-    function addTab(title, hash, icon) {
+    function addTab(title, icon, stateName, params) {
         //checking if the tab is already present 
+        if (!checkAndActivateTab(stateName, params))
+            vm.tabs.push(new tab(vm.tabs, title, icon, stateName, params))
+    }
+
+    function gotoPatient(patientId, patientName) {
+        vm.addTab(patientName, constants.iconTypes.patient, 'patient.portal', { patientid: patientId });
+        $state.go("patient.portal", { patientid: patientId })
+    }
+
+    function addMenuTab(title) {
+        var icon;
+        var stateName;
+        switch (title) {
+            case "Print Queue":
+                icon = constants.iconTypes.printQueue;
+                stateName = "printqueue";
+                params = {};
+                break;
+            default:
+                return;
+        }
+
+        vm.addTab(title, icon, stateName, params);
+    }
+
+    function setCurrent(state, params) {
+        checkAndActivateTab(state.name, params);
+    }
+
+    function checkAndActivateTab(stateName, params){
         var tabexists = false;
-        hash = window.virtualDirectory + hash;
+        var hash = $state.href(stateName, params);
         for (index = 0; index < vm.tabs.length; index++) {
             if (vm.tabs[index].hash === hash) {
                 vm.tabs[index].active = true;
@@ -112,19 +114,7 @@ function navigation(utility, constants, $state) {
             }
         }
 
-        if (tabexists === false)
-            vm.tabs.push(new tab(vm.tabs, title, hash, icon))
-    }
-
-    function clear() {
-        vm.tabs.remove(function (item) {
-            return item.firstTab !== true;
-        })
-    }
-
-    function gotoPatient(patientId, patientName) {
-        vm.addTab(patientName, 'patient.portal ({ patientid: ' + patientId + '})', constants.iconTypes.patient);
-        $state.go("patient.portal", { patientid: patientId })
+        return tabexists;
     }
 }
 

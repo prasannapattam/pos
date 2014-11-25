@@ -3,16 +3,16 @@
         <div class="ui-grid">
             <div layout="row" class="ui-grid-header ui-grid-top-panel ui-grid-cell-contents">
                 <span flex>Demographics</span>
-                <md-button type="button" class="btn btn-default md-raised" ng-click="demographicsForm.$show()" ng-show="!demographicsForm.$visible">
+                <md-button type="button" class="md-raised" ng-click="demographicsForm.$show()" ng-show="!demographicsForm.$visible">
                     Edit
                 </md-button>
                 <!-- buttons to submit / cancel form -->
                 <span ng-show="demographicsForm.$visible">
-                    <md-button type="submit" class="btn md-primary md-raised" ng-disabled="demographicsForm.$waiting">
-                        Save
-                    </md-button>
-                    <md-button type="button" class="btn btn-default md-raised" ng-disabled="demographicsForm.$waiting" ng-click="vm.cancel($event)">
+                    <md-button type="button" class="md-raised" ng-disabled="demographicsForm.$waiting" ng-click="vm.cancel($event)">
                         Cancel
+                    </md-button>
+                    <md-button type="submit" class="md-primary md-raised" ng-disabled="demographicsForm.$waiting">
+                        Save
                     </md-button>
                 </span>
             </div>

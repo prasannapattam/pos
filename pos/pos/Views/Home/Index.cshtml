@@ -6,8 +6,8 @@
     <title>Pediatric Ophthalmology</title>
     @Styles.Render("~/Content/css")
 </head>
-<body class="main">
-    <div class="container" layout="column" md-theme="grey" ng-controller="index as vm">
+<body class="main" md-theme="grey">
+    <div class="container" layout="column" ng-controller="index as vm">
         <header>
             <div layout="row" class="top-header" ng-cloak>
                 <div>
@@ -20,17 +20,17 @@
                         <div flex>
                             <ul class="tabrow">
                                 <li ng-repeat="tab in vm.navigation.tabs" ng-class="{selected: tab.active }">
-                                    <a ui-sref="{{tab.hash}}" ng-click="vm.navigation.activateTab(tab)">
+                                    <a href="#" ng-click="vm.navigation.activateTab(tab)">
                                         <img class="nav-icon" ng-src="{{tab.iconUrl}}" />{{tab.title}}
                                     </a>
                                     <a href="#" class="tab-close" ng-class="{hidden: tab.firstTab}" ng-click="vm.navigation.removeTab(tab)">x</a>
                                 </li>
                             </ul>
                         </div>
-                        <div flex="20" class="search-patient">
+                        <div flex="30" class="search-patient">
                             <input placeholder="'Search Patient'" kendo-auto-complete ng-model=" vm.searchCriteria" k-options="vm.searchOptions"
                                    k-on-select="vm.searchSelect(kendoEvent)" ng-show="vm.profile.isAuthenticated"
-                                   k-template="'${ data.PatientName } (Patient \\#: ${ data.PatientNumber })><br />DOB: ${ data.DOBString }<hr class=&quot;tight&quot; />'"
+                                   k-template="'${ data.PatientName } (Patient \\#: ${ data.PatientNumber })<br />DOB: ${ data.DOBString }<hr class=&quot;tight&quot; />'"
                             />
                         </div>
                     </div>
@@ -45,10 +45,6 @@
             </div>
         </header>
         <div flex layout="row">
-            @*<aside flex="10">
-                Menu<br>
-                [flex-sm="33"][flex-md="20"]
-            </aside>*@
             <main flex class="main-content">
                 <div ui-view class="row content">
                     <div id="splash" class="splash">
@@ -63,8 +59,8 @@
         </div>
 
         @*<footer>
-            Footer
-        </footer>*@
+                Footer
+            </footer>*@
     </div>
     <script>
         window.virtualDirectory = '@ViewBag.VirtualDirectory';
@@ -74,5 +70,4 @@
     @Scripts.Render("~/scripts/app")
 </body>
 </html>
-
 

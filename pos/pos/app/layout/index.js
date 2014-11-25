@@ -6,7 +6,7 @@ function index($http, profile, navigation, utility, $scope) {
 
     var menuItems = [
                         {
-                            text: "Menu", url: window.virtualDirectory + "/", imageUrl: utility.iconPath("menu.png"),
+                            text: "Menu", url: "#", imageUrl: utility.iconPath("menu.png"),
                             items: [
                                 { text: "Dashboard", url: utility.routePath(""), imageUrl: utility.iconPath("dashboard.png") },
                                 { text: "Print Queue", url: utility.routePath("printqueue"), imageUrl: utility.iconPath("printer.png") },
@@ -58,6 +58,8 @@ function index($http, profile, navigation, utility, $scope) {
     function menuSelect(e) {
         var menu = $("#main-menu").data("kendoMenu");
         menu.close("#main-menu");
+
+        navigation.addMenuTab(e.item.textContent, e.item.firstChild.href);
     }
 
     function searchSelect(e) {

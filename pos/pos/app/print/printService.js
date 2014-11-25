@@ -9,21 +9,16 @@ function printService($http) {
 
     var service = {
         model: model,
-        fetch: fetch,
-        save: save
+        fetchQueue: fetchQueue
     };
 
     return service;
 
-    function fetch() {
-        return $http.get("/api/print")
+    function fetchQueue() {
+        return $http.get("/api/PrintQueue")
             .success(function (data) {
                 angular.extend(model, data);
             });
-    }
-
-    function save() {
-
     }
 
 }
