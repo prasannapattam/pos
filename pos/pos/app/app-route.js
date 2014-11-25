@@ -7,7 +7,7 @@ function routeConfig($stateProvider, $urlRouterProvider, $locationProvider, cons
 
     $stateProvider
         .state("dashboard", {
-            url: window.virtualDirectory + "/",
+            url: window.virtualDirectory,
             title: "Dashboard",
             icon: constants.iconTypes.dashboard,
             templateUrl: window.virtualDirectory + "/app/dashboard/dashboard.html",
@@ -37,7 +37,7 @@ function routeConfig($stateProvider, $urlRouterProvider, $locationProvider, cons
             }]
         })
         .state("patient.portal", {
-            url: window.virtualDirectory + "/portal",
+            url: "/portal",
             title: "Patient",
             icon: constants.iconTypes.patient,
             parentStateName: "patient",
@@ -46,7 +46,7 @@ function routeConfig($stateProvider, $urlRouterProvider, $locationProvider, cons
             controllerAs: "vm",
         })
         .state("patient.demographics", {
-            url: window.virtualDirectory + "/demographics",
+            url: "/demographics",
             title: "Patient",
             icon: constants.iconTypes.patient,
             parentStateName: "patient",
@@ -66,27 +66,8 @@ function routeConfig($stateProvider, $urlRouterProvider, $locationProvider, cons
             }]
         })
 
-    //.when(window.virtualDirectory + "/notes/:notestype/:patientid/:examid?", {
-        //    title: "Notes",
-        //    templateUrl: window.virtualDirectory + "/app/notes/notestest.html",
-        //    controller: "notestest",
-        //    controllerAs: "vm",
-        //    resolve: {
-        //        lookupsresolve: ['lookupService', function (lookupService) {
-        //                            return lookupService.resolve();
-        //                        }],
-        //        notesresolve:  ['notestestService', function (notestestService) {
-        //                            return notestestService.resolve();
-        //                        }]
-        //    }
-               
-        //})
-        //.otherwise({ redirectTo: window.virtualDirectory + "/login" });
-
     $locationProvider.html5Mode(true);
 
     $urlRouterProvider.when('', '/')
 
 }
-
-//http://www.ng-newsletter.com/posts/angular-ui-router.html
