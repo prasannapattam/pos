@@ -18,19 +18,28 @@ function patient($state, patientService, utility) {
         // initialization
         vm.model = patientService.patientModel;
         vm.model.header = vm.model.PatientName;
-        vm.menuItems = getMenuItems();
+        vm.menuItems = getMenu();
         vm.header = patientService.header;
     }
 
-    function getMenuItems() {
+    function getMenu() {
         return [
-                            { text: "Portal", url: utility.routePath("patient/" + vm.model.PatientID + "/portal"), imageUrl: utility.iconPath("portal.png"), cssClass: "k-state-highlight" },
-                            { text: "Demographics", url: utility.routePath("patient/" + vm.model.PatientID + "/demographics"), imageUrl: utility.iconPath("user.png") },
-                            { text: "History", url: utility.routePath("users"), imageUrl: utility.iconPath("history.png") },
-                            { text: "Documents", url: utility.routePath("defaults"), imageUrl: utility.iconPath("documents.png") },
-        ];
+                    getMenuItem("Portal", "portal", "portal.png"),
+                    getMenuItem("Demographics", "demographics", "user.png"),
+                    getMenuItem("History", "history", "history.png"),
+                    getMenuItem("Documents", "documents", "documents.png")
+            ];
     }
    
+    function getMenuItem(text, url, iconPath) {
+        var cssClass = "";
+        var hash = utility.routePath("patient/" + vm.model.PatientID + "/" + url);
+        var currentHash = $state.href($state.current.name, $state.params);
+        if (hash === currentHash) {
+            cssClass = "k-state-highlight";
+        }
+        return { text: text, url: hash, imageUrl: utility.iconPath(iconPath), cssClass: cssClass };
+    }
   
     function save() {
         patientService.save().success(function () {
@@ -39,10 +48,9 @@ function patient($state, patientService, utility) {
     }
 
     function menuSelect(ev) {
-        //alert($(ev.item.firstChild).text());
-        //vm.menuItems[0].cssClass = "k-state-highlight";
-        $(ev.item).siblings().removeClass("k-state-highlight");
-        $(ev.item).addClass("k-state-highlight");
+        alert('activate')
+        //$(ev.item).siblings().removeClass("k-state-highlight");
+        //$(ev.item).addClass("k-state-highlight");
     };
 
 }

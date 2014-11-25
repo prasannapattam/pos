@@ -1,5 +1,5 @@
 ﻿<div section-header text="{{vm.model.FullName}}" css-class="text-center"></div>
 <div layout="row">
-    <ul flex="20" id="left-menu" class="left-menu portal" kendo-menu k-data-source="vm.menuItems" k-on-select="vm.menuSelect(kendoEvent)"></ul>
+    <ul flex="20" id="left-menu" class="left-menu portal" kendo-menu k-data-source="vm.menuItems" k-on-open="vm.menuSelect(kendoEvent)"></ul>
     <div flex ui-view></div>
 </div>

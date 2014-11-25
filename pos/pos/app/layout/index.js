@@ -58,8 +58,6 @@ function index($http, profile, navigation, utility, $scope) {
     function menuSelect(e) {
         var menu = $("#main-menu").data("kendoMenu");
         menu.close("#main-menu");
-
-        navigation.addMenuTab(e.item.textContent, e.item.firstChild.href);
     }
 
     function searchSelect(e) {

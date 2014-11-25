@@ -1,14 +1,15 @@
 ﻿'use strict';
 
 angular.module('pos').config(routeConfig);
-routeConfig.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
+routeConfig.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider', 'constants'];
 
-function routeConfig($stateProvider, $urlRouterProvider, $locationProvider) {
+function routeConfig($stateProvider, $urlRouterProvider, $locationProvider, constants) {
 
     $stateProvider
         .state("dashboard", {
             url: window.virtualDirectory + "/",
             title: "Dashboard",
+            icon: constants.iconTypes.dashboard,
             templateUrl: window.virtualDirectory + "/app/dashboard/dashboard.html",
             controller: "dashboard",
             controllerAs: "vm",
@@ -19,6 +20,7 @@ function routeConfig($stateProvider, $urlRouterProvider, $locationProvider) {
         .state("login", {
             url: window.virtualDirectory + "/login",
             title: "Login",
+            icon: "",
             templateUrl: window.virtualDirectory + "/app/account/login.html",
             controller: "login",
             controllerAs: "vm",
@@ -26,6 +28,7 @@ function routeConfig($stateProvider, $urlRouterProvider, $locationProvider) {
         .state("patient", {
             url: window.virtualDirectory + "/patient/:patientid",
             title: "Patient",
+            icon: constants.iconTypes.patient,
             templateUrl: window.virtualDirectory + "/app/patient/patient.html",
             controller: "patient",
             controllerAs: "vm",
@@ -36,6 +39,8 @@ function routeConfig($stateProvider, $urlRouterProvider, $locationProvider) {
         .state("patient.portal", {
             url: window.virtualDirectory + "/portal",
             title: "Patient",
+            icon: constants.iconTypes.patient,
+            parentStateName: "patient",
             templateUrl: window.virtualDirectory + "/app/patient/portal.html",
             controller: "portal",
             controllerAs: "vm",
@@ -43,6 +48,8 @@ function routeConfig($stateProvider, $urlRouterProvider, $locationProvider) {
         .state("patient.demographics", {
             url: window.virtualDirectory + "/demographics",
             title: "Patient",
+            icon: constants.iconTypes.patient,
+            parentStateName: "patient",
             templateUrl: window.virtualDirectory + "/app/patient/demographics.html",
             controller: "demographics",
             controllerAs: "vm",
@@ -50,6 +57,7 @@ function routeConfig($stateProvider, $urlRouterProvider, $locationProvider) {
         .state("printqueue", {
             url: window.virtualDirectory + "/printqueue",
             title: "Print Queue",
+            icon: constants.iconTypes.printQueue,
             templateUrl: window.virtualDirectory + "/app/print/printqueue.html",
             controller: "printqueue",
             controllerAs: "vm",

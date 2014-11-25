@@ -34,9 +34,12 @@ function session($rootScope, $state, $window, $http, toastr, profile, navigation
 
         $rootScope.$on('$stateChangeSuccess', function (evt, toState, toParams, fromState, fromParams) {
             navigation.isLoading = false;
-            navigation.setCurrent(toState, toParams);
+            navigation.addOrActivateTab(toState, toParams);
         });
 
+        $rootScope.$on('$viewContentLoaded', function () {
+            navigation.setLeftMenu();
+        });
         populateLookups();
     };
 

@@ -4,7 +4,7 @@ navigation.$inject = ['$state', 'utility', 'constants'];
 
 function navigation($state, utility, constants) {
 
-    var tab = function (tabs, title, icon, stateName, params) {
+    var tab = function (tabs, title, icon, stateName, params, parentStateName) {
         var self = this;
 
         self.tabs = tabs;
@@ -13,6 +13,7 @@ function navigation($state, utility, constants) {
         self.active = true;
         self.iconUrl = utility.iconPath(icon);
         self.stateName = stateName;
+        self.parentStateName = parentStateName;
         self.params = params;
         self.hash = $state.href(stateName, params);
 
@@ -31,8 +32,8 @@ function navigation($state, utility, constants) {
         removeTab: removeTab,
         addTab: addTab,
         gotoPatient: gotoPatient,
-        addMenuTab: addMenuTab,
-        setCurrent: setCurrent
+        addOrActivateTab: addOrActivateTab,
+        setLeftMenu: setLeftMenu
     };
 
     init();
@@ -70,43 +71,32 @@ function navigation($state, utility, constants) {
         tabs.splice(index, 1);
     };
 
-    function addTab(title, icon, stateName, params) {
+    function addTab(title, icon, stateName, params, parentStateName) {
         //checking if the tab is already present 
         if (!checkAndActivateTab(stateName, params))
-            vm.tabs.push(new tab(vm.tabs, title, icon, stateName, params))
+            vm.tabs.push(new tab(vm.tabs, title, icon, stateName, params, parentStateName))
     }
 
     function gotoPatient(patientId, patientName) {
-        vm.addTab(patientName, constants.iconTypes.patient, 'patient.portal', { patientid: patientId });
-        $state.go("patient.portal", { patientid: patientId })
+        vm.addTab(patientName, constants.iconTypes.patient, 'patient.portal', { patientid: patientId }, 'patient');
+        $state.go("patient.portal", { patientid: patientId, patientName: patientName })
     }
 
-    function addMenuTab(title) {
-        var icon;
-        var stateName;
-        switch (title) {
-            case "Print Queue":
-                icon = constants.iconTypes.printQueue;
-                stateName = "printqueue";
-                params = {};
-                break;
-            default:
-                return;
+    function addOrActivateTab(state, params) {
+        if (!checkAndActivateTab(state.name, params)) {
+            vm.tabs.push(new tab(vm.tabs, state.title, state.icon, state.name, params, state.parentStateName))
         }
-
-        vm.addTab(title, icon, stateName, params);
-    }
-
-    function setCurrent(state, params) {
-        checkAndActivateTab(state.name, params);
     }
 
     function checkAndActivateTab(stateName, params){
         var tabexists = false;
         var hash = $state.href(stateName, params);
         for (index = 0; index < vm.tabs.length; index++) {
-            if (vm.tabs[index].hash === hash) {
+            if (vm.tabs[index].hash === hash || $state.includes(vm.tabs[index].parentStateName, vm.tabs[index].params)) {
                 vm.tabs[index].active = true;
+                vm.tabs[index].stateName = stateName;
+                vm.tabs[index].params = params;
+                vm.tabs[index].hash = hash;
                 tabexists = true;
             }
             else {
@@ -115,6 +105,17 @@ function navigation($state, utility, constants) {
         }
 
         return tabexists;
+    }
+
+    function setLeftMenu() {
+        //setting the left-menu, if it exists
+        var leftmenu = document.getElementById('left-menu');
+        if (leftmenu !== null && leftmenu !== undefined) {
+            var hash = $state.href($state.current.name, $state.params);
+            var menuItem = $("a[href$='" + hash + "']", leftmenu).parent();
+            $(menuItem).siblings().removeClass("k-state-highlight");
+            $(menuItem).addClass("k-state-highlight");
+        }
     }
 }
 
