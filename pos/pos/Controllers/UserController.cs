@@ -34,6 +34,24 @@ namespace pos.Controllers
             return ajax;
         }
 
+        public AjaxModel<List<UserModel>> Get()
+        {
+            AjaxModel<List<UserModel>> ajax = null;
+
+            List<UserModel> result = PosRepository.UserGetAll();
+
+            if (result == null)
+            {
+                ajax = new AjaxModel<List<UserModel>>() { Success = false, Message = PosMessage.UserInvalid, Model = null };
+            }
+            else
+            {
+                ajax = new AjaxModel<List<UserModel>>() { Success = true, Message = "", Model = result };
+            }
+
+            return ajax;
+        }
+
 
         public async Task<HttpResponseMessage> Post()
         {

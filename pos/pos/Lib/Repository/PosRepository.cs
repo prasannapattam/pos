@@ -226,6 +226,24 @@ namespace pos.Lib.Repository
             }
         }
 
+        public static List<UserModel> UserGetAll()
+        {
+            using (var db = new PosEntities())
+            {
+                var query = from dbUser in db.Users
+                            orderby dbUser.FirstName, dbUser.LastName
+                            select new UserModel
+                            {
+                                UserID = dbUser.UserID,
+                                FirstName = dbUser.FirstName,
+                                LastName = dbUser.LastName,
+                                PhotoUrl = dbUser.PhotoUrl
+                            };
+
+                return query.ToList();
+            }
+        }
+
         public static bool UserSave(UserModel user)
         {
             using (var db = new PosEntities())

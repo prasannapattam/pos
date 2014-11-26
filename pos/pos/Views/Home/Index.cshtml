@@ -16,7 +16,7 @@
 
                 <div flex layout="column" layout-align="end">
                     <div class="app-header">@ViewBag.AppTitle</div>
-                    <div layout="row">
+                    <div layout="row" ng-show="vm.profile.isAuthenticated">
                         <div flex>
                             <ul class="tabrow">
                                 <li ng-repeat="tab in vm.navigation.tabs" ng-class="{selected: tab.active }">
@@ -29,8 +29,8 @@
                         </div>
                         <div flex="30" class="search-patient">
                             <input placeholder="'Search Patient'" kendo-auto-complete ng-model=" vm.searchCriteria" k-options="vm.searchOptions"
-                                   k-on-select="vm.searchSelect(kendoEvent)" ng-show="vm.profile.isAuthenticated"
-                                   k-template="'${ data.PatientName } (Patient \\#: ${ data.PatientNumber })<br />DOB: ${ data.DOBString }<hr class=&quot;tight&quot; />'"
+                                   k-on-select="vm.searchSelect(kendoEvent)"
+                                   k-template="'${ data.PatientName } (Patient \\#: ${ data.PatientNumber })><br />DOB: ${ data.DOBString }<hr class=&quot;tight&quot; />'"
                             />
                         </div>
                     </div>

@@ -83,7 +83,7 @@ function navigation($state, utility, constants) {
     }
 
     function addOrActivateTab(state, params) {
-        if (!checkAndActivateTab(state.name, params)) {
+        if (!checkAndActivateTab(state.name, params) && state.icon !== "") {
             vm.tabs.push(new tab(vm.tabs, state.title, state.icon, state.name, params, state.parentStateName))
         }
     }
