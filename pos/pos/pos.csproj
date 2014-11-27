@@ -237,7 +237,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\account\accountService.js" />
-    <Content Include="app\app-route.js" />
+    <Content Include="app\appRoute.js" />
     <Content Include="app\layout\index.js" />
     <Content Include="app\layout\test.js" />
     <Content Include="app\patient\demographics.html" />
@@ -250,7 +250,7 @@
     <Content Include="app\shared\navigation.js" />
     <Content Include="app\shared\sectionHeader.js" />
     <Content Include="app\shared\webapiInterceptor.js" />
-    <Content Include="app\app-config.js" />
+    <Content Include="app\appConfig.js" />
     <Content Include="app\app.js" />
     <Content Include="app\dashboard\dashboardService.js" />
     <Content Include="app\dashboard\dashboard.html" />
@@ -270,8 +270,6 @@
     <Content Include="app\patient\patient.html" />
     <Content Include="app\patient\patient.js" />
     <Content Include="app\patient\patientService.js" />
-    <Content Include="app\print\print.html" />
-    <Content Include="app\print\print.js" />
     <Content Include="app\print\printqueue.html" />
     <Content Include="app\print\printqueue.js" />
     <Content Include="app\print\printService.js" />
@@ -282,9 +280,7 @@
     <Content Include="app\shared\utility.js" />
     <Content Include="app\user\user.html" />
     <Content Include="app\user\user.js" />
-    <Content Include="app\user\usersearch.html" />
-    <Content Include="app\user\usersearch.js" />
-    <Content Include="app\user\user-service.js" />
+    <Content Include="app\user\userService.js" />
     <Content Include="Content\app.css" />
     <Content Include="Content\angular-material.grey-theme.css" />
     <Content Include="Content\Images\icons\mail.png" />

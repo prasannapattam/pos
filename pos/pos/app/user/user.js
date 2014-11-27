@@ -1,4 +1,7 @@
 ﻿'use strict';
-app.controller('user', ['$scope', function ($scope) {
+angular.module('pos').controller('user', user)
+user.$inject = [];
 
-}]);
+function user() {
+
+}

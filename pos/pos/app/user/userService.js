@@ -5,10 +5,9 @@ angular.module('pos').factory('userService', userService);
 userService.$inject = ['$http'];
 
 function userService($http) {
-    var model = {};
 
     var service = {
-        model: model,
+        model: {},
         fetch: fetch,
         save: save
     };
@@ -18,7 +17,7 @@ function userService($http) {
     function fetch() {
         return $http.get("/api/user")
             .success(function (data) {
-                angular.extend(model, data);
+                angular.extend(service.model, data);
             });
     }
 
