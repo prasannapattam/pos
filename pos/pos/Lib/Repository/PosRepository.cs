@@ -237,6 +237,7 @@ namespace pos.Lib.Repository
                                 UserID = dbUser.UserID,
                                 FirstName = dbUser.FirstName,
                                 LastName = dbUser.LastName,
+                                UserName = dbUser.UserName,
                                 PhotoUrl = dbUser.PhotoUrl
                             };
 

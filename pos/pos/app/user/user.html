@@ -1,1 +1,25 @@
-﻿This is user page
+﻿<div section-header text="Today's Patients" css-class="main-header"></div>
+
+<div layout="row">
+    <div>
+        <md-content class="user-list" ng-style="{'height' : vm.listHeight }">
+            <md-list>
+                <md-item ng-repeat="item in vm.model">
+                    <md-item-content class="user-list-item">
+                        <div class="md-tile-left">
+                            <img class="top-header" ng-src="{{vm.getPhotoUrl(item.PhotoUrl)}}" class="face" alt="{{item.FullName}}">
+                        </div>
+                        <div class="md-tile-content">
+                            <h3>{{item.FullName}}</h3>
+                            <h4>({{item.UserName}})</h4>
+                        </div>
+                    </md-item-content>
+                    <md-divider ng-if="!$last"></md-divider>
+                </md-item>
+            </md-list>
+        </md-content>
+    </div>
+    <div flex>
+        This is rest of the page
+    </div>
+</div>

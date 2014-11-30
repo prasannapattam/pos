@@ -30,12 +30,7 @@ function profile(utility) {
         vm.firstName = data.FirstName;
         vm.lastName = data.LastName;
         vm.userName = data.UserName;
-        if (data.PhotoUrl === null) {
-            vm.photoUrl = utility.virtualDirectory + '/Data/NoPhoto.jpg';
-        }
-        else {
-            vm.photoUrl = utility.virtualDirectory + '/Data/' + data.PhotoUrl + '.jpg';
-        }
+        vm.photoUrl = utility.getPhotoUrl(data.PhotoUrl);
         vm.isAuthenticated = true;
     };
 

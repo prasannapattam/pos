@@ -14,8 +14,10 @@ function utility(toastr, constants) {
         iconPath: iconPath,
         routePath: routePath,
         getDefaultPatientPhoto: getDefaultPatientPhoto,
+        getPhotoUrl: getPhotoUrl,
         getBoolSelect: getBoolSelect,
-        lookupExists: lookupExists
+        lookupExists: lookupExists,
+        getGridHeight: getGridHeight
     };
 
     return vm;
@@ -35,6 +37,16 @@ function utility(toastr, constants) {
 
     function routePath(path) {
         return window.virtualDirectory + "/" + path;
+    }
+
+    function getPhotoUrl(photoUrl) {
+        if (photoUrl === null || photoUrl === "") {
+            return window.virtualDirectory + "/Data/NoPhoto.jpg";
+        }
+        else {
+            return window.virtualDirectory + "/Data/" + photoUrl + ".jpg";
+        }
+
     }
 
     function getDefaultPatientPhoto(sex) {
@@ -60,6 +72,16 @@ function utility(toastr, constants) {
         }
 
         return false;
+    }
+
+    function getGridHeight(gridClass) {
+        var contentOffset = angular.element(document.getElementsByClassName('main-content')).offset();
+        var contentHeight = angular.element(document.getElementsByClassName('main-content')[0]).height();
+        var gridOffset = angular.element(document.getElementsByClassName(gridClass)).offset();
+        if (gridOffset !== undefined) {
+            var gridHeight = contentHeight - (gridOffset.top - contentOffset.top) - 10;
+            return gridHeight + 'px';
+        }
     }
 };
 
