@@ -7,7 +7,7 @@ userService.$inject = ['$http'];
 function userService($http) {
 
     var service = {
-        model: {},
+        model: [],
         fetch: fetch,
         save: save
     };

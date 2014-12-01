@@ -4,8 +4,8 @@
     <div>
         <md-content class="user-list" ng-style="{'height' : vm.listHeight }">
             <md-list>
-                <md-item ng-repeat="item in vm.model">
-                    <md-item-content class="user-list-item">
+                <md-item ng-repeat="item in vm.model" class="user-list-item" ng-click="vm.selectUser(item)" ng-class="{'user-list-item-selected': item.selected }">
+                    <md-item-content class="md-item-content">
                         <div class="md-tile-left">
                             <img class="top-header" ng-src="{{vm.getPhotoUrl(item.PhotoUrl)}}" class="face" alt="{{item.FullName}}">
                         </div>
@@ -21,5 +21,6 @@
     </div>
     <div flex>
         This is rest of the page
+        <button ng-click="vm.resizeUserList()">Click</button>
     </div>
 </div>

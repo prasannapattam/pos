@@ -383,9 +383,19 @@ div.encounter-right{
     float: right;
 }
 
-.user-list-item:hover {
+.user-list-item .md-item-content:hover, .user-list-item:nth-child(even) .md-item-content:hover {
     background-color: #d4d4d4;
 }
+
+.user-list-item:nth-child(even) .md-item-content {
+    background-color: #f3f3f3;
+}
+
+.user-list-item-selected .md-item-content {
+    background-color: darkgrey !important;
+}
+
+
 /* Textbox css */
 .search-criteria{
     width: 40px;
