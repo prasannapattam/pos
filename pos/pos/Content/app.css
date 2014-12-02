@@ -395,6 +395,9 @@ div.encounter-right{
     background-color: darkgrey !important;
 }
 
+.border-bottom-none{
+    border-bottom: none;
+}
 
 /* Textbox css */
 .search-criteria{

@@ -5,10 +5,9 @@ angular.module('pos').factory('printService', printService);
 printService.$inject = ['$http'];
 
 function printService($http) {
-    var model = {};
 
     var service = {
-        model: model,
+        model: {},
         fetchQueue: fetchQueue
     };
 
@@ -17,7 +16,7 @@ function printService($http) {
     function fetchQueue() {
         return $http.get("/api/PrintQueue")
             .success(function (data) {
-                angular.extend(model, data);
+                service.model = data;
             });
     }
 

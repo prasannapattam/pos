@@ -17,7 +17,7 @@ function userService($http) {
     function fetch() {
         return $http.get("/api/user")
             .success(function (data) {
-                angular.extend(service.model, data);
+                service.model = data;
             });
     }
 

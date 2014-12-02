@@ -5,10 +5,9 @@ angular.module('pos').factory('notesService', notesService);
 notesService.$inject = ['$http'];
 
 function notesService($http) {
-    var model = {};
 
     var service = {
-        model: model,
+        model: {},
         fetch: fetch,
         save: save
     };
@@ -18,7 +17,7 @@ function notesService($http) {
     function fetch() {
         return $http.get("/api/notes")
             .success(function (data) {
-                angular.extend(model, data);
+                service.model = data;
             });
     }
 
