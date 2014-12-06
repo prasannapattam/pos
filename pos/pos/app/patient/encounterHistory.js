@@ -1,7 +1,7 @@
 ﻿'use strict';
-angular.module('pos').controller('portal', portal);
-portal.$inject = ['$scope', '$filter', 'patientService', 'utility', 'uiGridConstants'];
-function portal($scope, $filter, patientService, utility, uiGridConstants) {
+angular.module('pos').controller('encounterHistory', encounterHistory);
+encounterHistory.$inject = ['$scope', '$filter', '$window', 'patientService', 'utility', 'uiGridConstants'];
+function encounterHistory($scope, $filter, $window, patientService, utility, uiGridConstants) {
 
     var encounterGridOptions = {
         enableColumnMenus: false,
@@ -17,12 +17,8 @@ function portal($scope, $filter, patientService, utility, uiGridConstants) {
         patientModel: {},
         encounterGridOptions: encounterGridOptions,
         getHistoryText: getHistoryText,
-        savePatient: savePatient,
-        validatePatientName: validatePatientName,
-        validatePatientNumberAndSave: validatePatientNumberAndSave,
-        patientPhotoUrl: patientPhotoUrl,
-        boolSelectList: utility.getBoolSelect()
-    };
+        gridHeight: '0px'
+};
 
     init();
 
@@ -32,53 +28,23 @@ function portal($scope, $filter, patientService, utility, uiGridConstants) {
         // initialization
         vm.patientModel = patientService.patientModel;
         vm.encounterGridOptions.data = patientService.patientModel.History;
-        vm.patientModel.PhotoUrl = utility.getDefaultPatientPhoto(vm.patientModel.Sex);
+        resizeGrid();
+
+        angular.element($window).bind('resize', function () {
+            resizeGrid();
+        });
+        $scope.$on('$destroy', function (e) {
+            angular.element($window).unbind('resize');
+        });
     }
 
-    function validatePatientName(patientName) {
-        var names = patientName.split(" ");
-        names = names.filter(String);
-        if (names.length > 3 || names.length < 2)
-            return 'Please enter name as "First Middle Last"';
-        else
-            return true;
-    }
-
-    function validatePatientNumberAndSave(patientNumber) {
-        var patient = angular.extend({}, vm.patientModel, { PatientNumber: patientNumber, supressToastr: true });
-        return patientService.savePatient(patient);
-    }
-
-    function patientPhotoUrl(sex) {
-        vm.patientModel.PhotoUrl = utility.getDefaultPatientPhoto(sex);
-    }
-
-    function savePatient() {
-        //splitting and saving the patient name
-        var names = vm.patientModel.FullName.split(" ");
-        names = names.filter(String);
-        if(names.length > 3)
-            return 'Please enter name as "First Middle Last"';
-        else {
-            vm.patientModel.FirstName = names[0];
-            if (names.length == 2) {
-                vm.patientModel.MiddleName = "";
-                vm.patientModel.LastName = names[1];
-            }
-            else {
-                vm.patientModel.MiddleName = names[1];
-                vm.patientModel.LastName = names[2];
-            }
-        }
-        return patientService.savePatient(vm.patientModel);
-    }
 
     function getHistoryText(row) {
         var text = $filter('date')(row.entity.ExamDate, 'MM/dd/yyyy');
-        if(row.entity.CorrectExamID !== null){
+        if (row.entity.CorrectExamID !== null) {
             text += '(Corrected on ' + $filter('date')(row.entity.ExamCorrectDate, 'MM/dd/yyyy') + ')';
         }
-        else if(row.entity.SavedInd === 1){
+        else if (row.entity.SavedInd === 1) {
             text += '(Saved on ' + $filter('date')(row.entity.LastUpdatedDate, 'MM/dd/yyyy h:mm a') + ')';
         }
         return text;
@@ -91,6 +57,12 @@ function portal($scope, $filter, patientService, utility, uiGridConstants) {
             + "<a target='_self' href='" + utility.virtualDirectory + "/api/print/{{row.entity.ExamID}}/2'><img src='" + utility.virtualDirectory + "/content/images/icons/printer.png' class='grid-icon' title='Print Notes' /></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
             + "</div>";
     }
+
+    function resizeGrid() {
+        vm.gridHeight = utility.getGridHeight('encounter-grid');
+    }
+
+
 
 }
 

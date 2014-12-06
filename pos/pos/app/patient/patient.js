@@ -26,7 +26,7 @@ function patient($state, patientService, utility) {
         return [
                     getMenuItem("Portal", "portal", "portal.png"),
                     getMenuItem("Demographics", "demographics", "user.png"),
-                    getMenuItem("History", "history", "history.png"),
+                    getMenuItem("History", "encounterhistory", "history.png"),
                     getMenuItem("Documents", "documents", "documents.png")
             ];
     }

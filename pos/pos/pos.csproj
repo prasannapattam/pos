@@ -242,6 +242,8 @@
     <Content Include="app\layout\test.js" />
     <Content Include="app\patient\demographics.html" />
     <Content Include="app\patient\demographics.js" />
+    <Content Include="app\patient\encounterHistory.html" />
+    <Content Include="app\patient\encounterHistory.js" />
     <Content Include="app\patient\patientAge.js" />
     <Content Include="app\patient\portal.html" />
     <Content Include="app\patient\portal.js" />

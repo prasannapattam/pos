@@ -54,6 +54,15 @@ function routeConfig($stateProvider, $urlRouterProvider, $locationProvider, cons
             controller: "demographics",
             controllerAs: "vm",
         })
+        .state("patient.history", {
+            url: "/encounterhistory",
+            title: "Patient",
+            icon: constants.iconTypes.patient,
+            parentStateName: "patient",
+            templateUrl: window.virtualDirectory + "/app/patient/encounterHistory.html",
+            controller: "encounterHistory",
+            controllerAs: "vm",
+        })
         .state("printqueue", {
             url: window.virtualDirectory + "/printqueue",
             title: "Print Queue",

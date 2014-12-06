@@ -18,7 +18,7 @@ function dashboard($window, $scope, dashboardService, navigation, uiGridConstant
     var vm = {
         gridOptions: gridOptions,
         navigateToPatient: navigateToPatient,
-        gridHeight: '415px'
+        gridHeight: '0px'
     };
 
     init();
