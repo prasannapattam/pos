@@ -9,7 +9,9 @@ function encounterHistory($scope, $filter, $window, patientService, utility, uiG
         enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
         enableVerticalScrollbar: uiGridConstants.scrollbars.WHEN_NEEDED,
         columnDefs: [
-                { name: 'ExamDate', field: 'ExamDate', displayName: 'Encounter History', cellTemplate: encounterCellTemplate(), width: '100%' },
+                { name: 'ExamDate', field: 'ExamDate', displayName: 'Exam Date', cellTemplate: encounterDateTemplate()},
+                { name: 'Doctor', field: 'Doctor', displayName: 'Doctor', width: '300' },
+                { name: 'ExamID', field: 'ExamID', displayName: '', cellTemplate: encounterButtonTemplate(), width: '140' },
         ]
     };
 
@@ -50,12 +52,14 @@ function encounterHistory($scope, $filter, $window, patientService, utility, uiG
         return text;
     }
 
-    function encounterCellTemplate() {
-        return '<div layout="row"><span flex class="text-nowrap">{{getExternalScopes().getHistoryText(row)}}</span>'
-            + "<a href='#'><img src='" + utility.virtualDirectory + "/content/images/icons/note-edit.png' title='Correct Notes' class='grid-icon' /></a>&nbsp;&nbsp;&nbsp;&nbsp;"
+    function encounterDateTemplate() {
+        return '<div layout="row"><span flex class="text-nowrap">{{getExternalScopes().getHistoryText(row)}}</span>';
+    }
+
+    function encounterButtonTemplate() {
+        return "<a href='#'><img src='" + utility.virtualDirectory + "/content/images/icons/note-edit.png' title='Correct Notes' class='grid-icon' /></a>&nbsp;&nbsp;&nbsp;&nbsp;"
             + "<a target='_self' href='" + utility.virtualDirectory + "/api/print/{{row.entity.ExamID}}/1'><img src='" + utility.virtualDirectory + "/content/images/icons/mail.png' class='grid-icon' title='Print Letter' /></a>&nbsp;&nbsp;&nbsp;&nbsp;"
-            + "<a target='_self' href='" + utility.virtualDirectory + "/api/print/{{row.entity.ExamID}}/2'><img src='" + utility.virtualDirectory + "/content/images/icons/printer.png' class='grid-icon' title='Print Notes' /></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-            + "</div>";
+            + "<a target='_self' href='" + utility.virtualDirectory + "/api/print/{{row.entity.ExamID}}/2'><img src='" + utility.virtualDirectory + "/content/images/icons/printer.png' class='grid-icon' title='Print Notes' /></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
     }
 
     function resizeGrid() {

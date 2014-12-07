@@ -2,7 +2,7 @@
  * Angular Material Design
  * https://github.com/angular/material
  * @license MIT
- * v0.5.1-master-6a026ea
+ * v0.6.0-rc3
  */
 angular.module('ngMaterial', ["ng","ngAnimate","ngAria","material.core","material.components.backdrop","material.components.bottomSheet","material.components.button","material.components.card","material.components.checkbox","material.components.content","material.components.dialog","material.components.divider","material.components.icon","material.components.list","material.components.progressCircular","material.components.progressLinear","material.components.radioButton","material.components.sidenav","material.components.slider","material.components.sticky","material.components.subheader","material.components.swipe","material.components.switch","material.components.tabs","material.components.textField","material.components.toast","material.components.toolbar","material.components.tooltip","material.components.whiteframe"]);
 (function() {
@@ -516,7 +516,7 @@ angular.element.prototype.blur = angular.element.prototype.blur || function() {
 angular.module('material.core')
   .service('$mdAria', AriaService);
 
-function AriaService($$rAF, $log) {
+function AriaService($$rAF, $log, $window) {
 
   return {
     expect: expect,
@@ -525,14 +525,15 @@ function AriaService($$rAF, $log) {
   };
 
   /**
-   * Check if expected attribute has been specified on the target element
+   * Check if expected attribute has been specified on the target element or child
    * @param element
    * @param attrName
    * @param {optional} defaultValue What to set the attr to if no value is found
    */
   function expect(element, attrName, defaultValue) {
     var node = element[0];
-    if (!node.hasAttribute(attrName)) {
+
+    if (!node.hasAttribute(attrName) && !childHasAttribute(node, attrName)) {
 
       defaultValue = angular.isString(defaultValue) && defaultValue.trim() || '';
       if (defaultValue.length) {
@@ -559,8 +560,30 @@ function AriaService($$rAF, $log) {
     });
   }
 
+  function childHasAttribute(node, attrName) {
+    var hasChildren = node.hasChildNodes(),
+        hasAttr = false;
+
+    function isHidden(el) {
+      var style = el.currentStyle ? el.currentStyle : $window.getComputedStyle(el);
+      return (style.display === 'none');
+    }
+
+    if(hasChildren) {
+      var children = node.childNodes;
+      for(var i=0; i<children.length; i++){
+        var child = children[i];
+        if(child.nodeType === 1 && child.hasAttribute(attrName)) {
+          if(!isHidden(child)){
+            hasAttr = true;
+          }
+        }
+      }
+    }
+    return hasAttr;
+  }
 }
-AriaService.$inject = ["$$rAF", "$log"];
+AriaService.$inject = ["$$rAF", "$log", "$window"];
 })();
 
 (function() {
@@ -1043,11 +1066,14 @@ angular.module('material.core')
   .directive('mdNoStretch', attrNoDirective());
 
 function InkRippleDirective($mdInkRipple) {
-  return function(scope, element, attr) {
-    if (attr.mdInkRipple == 'checkbox') {
-      $mdInkRipple.attachCheckboxBehavior(element);
-    } else {
-      $mdInkRipple.attachButtonBehavior(element);
+  return {
+    controller: angular.noop,
+    link: function (scope, element, attr) {
+      if (attr.hasOwnProperty('mdInkRippleCheckbox')) {
+        $mdInkRipple.attachCheckboxBehavior(scope, element);
+      } else {
+        $mdInkRipple.attachButtonBehavior(scope, element);
+      }
     }
   };
 }
@@ -1058,42 +1084,77 @@ function InkRippleService($window, $timeout) {
   return {
     attachButtonBehavior: attachButtonBehavior,
     attachCheckboxBehavior: attachCheckboxBehavior,
+    attachTabBehavior: attachTabBehavior,
     attach: attach
   };
 
-  function attachButtonBehavior(element) {
-    return attach(element, {
-      center: element.hasClass('md-fab'),
+  function attachButtonBehavior(scope, element, options) {
+    return attach(scope, element, angular.extend({
+      isFAB: element.hasClass('md-fab'),
+      isMenuItem: element.hasClass('md-menu-item'),
+      center: false,
       dimBackground: true
-    });
+    }, options));
   }
 
-  function attachCheckboxBehavior(element) {
-    return attach(element, {
+  function attachCheckboxBehavior(scope, element, options) {
+    return attach(scope, element, angular.extend({
       center: true,
       dimBackground: false
-    });
+    }, options));
   }
 
-  function attach(element, options) {
+  function attachTabBehavior(scope, element, options) {
+    return attach(scope, element, angular.extend({
+      center: false,
+      dimBackground: true,
+      outline: true
+    }, options));
+  }
 
+  function attach(scope, element, options) {
     if (element.controller('mdNoInk')) return angular.noop;
 
-    var rippleContainer, rippleEl,
-        node = element[0],
-        hammertime = new Hammer(node),
-        contentParent = element.controller('mdContent');
-
     options = angular.extend({
+      colorElement: element,
       mousedown: true,
       hover: true,
       focus: true,
       center: false,
       mousedownPauseTime: 150,
-      dimBackground: false
-    }, options || {});
+      dimBackground: false,
+      outline: false,
+      isFAB: false,
+      isMenuItem: false
+    }, options);
+
+    var rippleContainer, rippleSize,
+        controller = element.controller('mdInkRipple') || {},
+        counter = 0,
+        ripples = [],
+        states = [],
+        isActiveExpr = element.attr('md-highlight'),
+        isActive = false,
+        isHeld = false,
+        node = element[0],
+        hammertime = new Hammer(node),
+        color = parseColor(element.attr('md-ink-ripple')) || parseColor($window.getComputedStyle(options.colorElement[0]).color || 'rgb(0, 0, 0)');
 
     options.mousedown && hammertime.on('hammer.input', onInput);
+
+    controller.createRipple = createRipple;
+
+    if (isActiveExpr) {
+      scope.$watch(isActiveExpr, function watchActive(newValue) {
+        isActive = newValue;
+        if (isActive && !ripples.length) {
+          $timeout(function () {
+            createRipple(0, 0);
+          }, 0, false);
+        }
+        angular.forEach(ripples, updateElement);
+      });
+    }
 
     // Publish self-detach method if desired...
     return function detach() {
@@ -1101,97 +1162,248 @@ function InkRippleService($window, $timeout) {
       rippleContainer && rippleContainer.remove();
     };
 
-    function rippleIsAllowed() {
-      var parent;
-      return !element[0].hasAttribute('disabled') &&
-          !((parent = element[0].parentNode) && parent.hasAttribute('disabled'));
+    function parseColor(color) {
+      if (!color) return;
+      if (color.indexOf('rgba') === 0) return color;
+      if (color.indexOf('rgb')  === 0) return rgbToRGBA(color);
+      if (color.indexOf('#')    === 0) return hexToRGBA(color);
+
+      /**
+       * Converts a hex value to an rgba string
+       *
+       * @param {string} hex value (3 or 6 digits) to be converted
+       *
+       * @returns {string} rgba color with 0.1 alpha
+       */
+      function hexToRGBA(color) {
+        var hex = color.charAt(0) === '#' ? color.substr(1) : color,
+          dig = hex.length / 3,
+          red = hex.substr(0, dig),
+          grn = hex.substr(dig, dig),
+          blu = hex.substr(dig * 2);
+        if (dig === 1) {
+          red += red;
+          grn += grn;
+          blu += blu;
+        }
+        return 'rgba(' + parseInt(red, 16) + ',' + parseInt(grn, 16) + ',' + parseInt(blu, 16) + ',0.1)';
+      }
+
+      /**
+       * Converts rgb value to rgba string
+       *
+       * @param {string} rgb color string
+       *
+       * @returns {string} rgba color with 0.1 alpha
+       */
+      function rgbToRGBA(color) {
+        return color.replace(')', ', 0.1)').replace('(', 'a(')
+      }
+
     }
 
-    function removeElement(element, wait) {
-      $timeout(function () {
-        element.remove();
-      }, wait, false);
+    function removeElement(elem, wait) {
+      ripples.splice(ripples.indexOf(elem), 1);
+      if (ripples.length === 0) {
+        rippleContainer && rippleContainer.css({ backgroundColor: '' });
+      }
+      $timeout(function () { elem.remove(); }, wait, false);
     }
 
-    function createRipple(left, top, positionsAreAbsolute) {
-
-      var rippleEl = angular.element('<div class="md-ripple">');
-
-      if (!rippleContainer) {
-        rippleContainer = angular.element('<div class="md-ripple-container">');
-        element.append(rippleContainer);
+    function updateElement(elem) {
+      var index = ripples.indexOf(elem),
+          state = states[index] || {},
+          elemIsActive = ripples.length > 1 ? false : isActive,
+          elemIsHeld   = ripples.length > 1 ? false : isHeld;
+      if (elemIsActive || state.animating || elemIsHeld) {
+        elem.addClass('md-ripple-visible');
+      } else {
+        elem.removeClass('md-ripple-visible');
+        if (options.outline) {
+          elem.css({
+            width: rippleSize + 'px',
+            height: rippleSize + 'px',
+            marginLeft: (rippleSize * -1) + 'px',
+            marginTop: (rippleSize * -1) + 'px'
+          });
+        }
+        removeElement(elem, options.outline ? 450 : 650);
       }
-      rippleContainer.append(rippleEl);
+    }
 
-      var containerWidth = rippleContainer.prop('offsetWidth'),
-          containerHeight = rippleContainer.prop('offsetHeight'),
-          multiplier = element.hasClass('md-fab') ? 1.1 : 0.8,
-          diagonalWidth = Math.max(containerWidth, containerHeight) * multiplier;
+    /**
+     * Creates a ripple at the provided coordinates
+     *
+     * @param {number} left cursor position
+     * @param {number} top cursor position
+     *
+     * @returns {angular.element} the generated ripple element
+     */
+    function createRipple(left, top) {
 
-      if (contentParent) {
-        top += contentParent.$element.prop('scrollTop');
-      }
+      var container = getRippleContainer(),
+          size = getRippleSize(left, top),
+          css = getRippleCss(size, left, top),
+          elem = getRippleElement(css),
+          index = ripples.indexOf(elem),
+          state = states[index] || {};
 
-      var css = {
-        backgroundColor: $window.getComputedStyle(rippleEl[0]).color ||  $window.getComputedStyle(node).color,
-        width: diagonalWidth + 'px',
-        height: diagonalWidth + 'px',
-        marginLeft: (diagonalWidth * -0.5) + 'px',
-        marginTop: (diagonalWidth * -0.5) + 'px'
-      };
+      rippleSize = size;
 
-      if (options.center) {
-        css.left = '50%';
-        css.top = '50%';
-      } else if (positionsAreAbsolute) {
-        var elementRect = node.getBoundingClientRect();
-        left -= elementRect.left;
-        top -= elementRect.top;
-        css.left = Math.round(left / containerWidth * 100) + '%';
-        css.top = Math.round(top / containerHeight * 100) + '%';
-      }
+      state.animating = true;
 
-      rippleEl.css(css);
-
-      //-- Use minimum timeout to trigger CSS animation
       $timeout(function () {
         if (options.dimBackground) {
-          rippleContainer.addClass('md-ripple-full md-ripple-visible');
-          rippleContainer.css({ backgroundColor: css.backgroundColor.replace(')', ', 0.1').replace('(', 'a(') });
+          container.css({ backgroundColor: color });
         }
-        rippleEl.addClass('md-ripple-placed md-ripple-visible md-ripple-scaled md-ripple-full');
-        rippleEl.css({ left: '50%', top: '50%' });
+        elem.addClass('md-ripple-placed md-ripple-scaled');
+        if (options.outline) {
+          elem.css({
+            borderWidth: (size * 0.5) + 'px',
+            marginLeft: (size * -0.5) + 'px',
+            marginTop: (size * -0.5) + 'px'
+          });
+        } else {
+          elem.css({ left: '50%', top: '50%' });
+        }
+        updateElement(elem);
         $timeout(function () {
-          if (rippleEl) {
-            rippleEl.removeClass('md-ripple-full');
-            if (!rippleEl.hasClass('md-ripple-visible')) {
-              removeElement(rippleEl, 650);
-              rippleEl = null;
-            }
-          }
-          rippleEl && rippleEl.removeClass('md-ripple-full');
-          if (rippleContainer && options.dimBackground) {
-            rippleContainer.removeClass('md-ripple-full');
-            if (!rippleContainer.hasClass('md-ripple-visible')) rippleContainer.css({ backgroundColor: '' });
-          }
-        }, 225, false);
+          state.animating = false;
+          updateElement(elem);
+        }, (options.outline ? 450 : 225), false);
       }, 0, false);
-      return rippleEl;
+
+      return elem;
+
+      /**
+       * Creates the ripple element with the provided css
+       *
+       * @param {object} css properties to be applied
+       *
+       * @returns {angular.element} the generated ripple element
+       */
+      function getRippleElement(css) {
+        var elem = angular.element('<div class="md-ripple" data-counter="' + counter++ + '">');
+        ripples.unshift(elem);
+        states.unshift({ animating: true });
+        container.append(elem);
+        css && elem.css(css);
+        return elem;
+      }
+
+      /**
+       * Calculate the ripple size
+       *
+       * @returns {number} calculated ripple diameter
+       */
+      function getRippleSize(left, top) {
+        var width = container.prop('offsetWidth'),
+            height = container.prop('offsetHeight'),
+            multiplier, size, rect;
+        if (options.isMenuItem) {
+          size = Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2));
+        } else if (options.outline) {
+          rect = node.getBoundingClientRect();
+          left -= rect.left;
+          top -= rect.top;
+          width = Math.max(left, width - left);
+          height = Math.max(top, height - top);
+          size = 2 * Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2));
+        } else {
+          multiplier = options.isFAB ? 1.1 : 0.8;
+          size = Math.max(width, height) * multiplier;
+        }
+        return size;
+      }
+
+      /**
+       * Generates the ripple css
+       *
+       * @param {number} the diameter of the ripple
+       * @param {number} the left cursor offset
+       * @param {number} the top cursor offset
+       *
+       * @returns {{backgroundColor: *, width: string, height: string, marginLeft: string, marginTop: string}}
+       */
+      function getRippleCss(size, left, top) {
+        var rect,
+            css = {
+              backgroundColor: rgbaToRGB(color),
+              borderColor: rgbaToRGB(color),
+              width: size + 'px',
+              height: size + 'px'
+            };
+
+        if (options.outline) {
+          css.width = 0;
+          css.height = 0;
+        } else {
+          css.marginLeft = css.marginTop = (size * -0.5) + 'px';
+        }
+
+        if (options.center) {
+          css.left = css.top = '50%';
+        } else {
+          rect = node.getBoundingClientRect();
+          css.left = Math.round((left - rect.left) / container.prop('offsetWidth') * 100) + '%';
+          css.top = Math.round((top - rect.top) / container.prop('offsetHeight') * 100) + '%';
+        }
+
+        return css;
+
+        /**
+         * Converts rgba string to rgb, removing the alpha value
+         *
+         * @param {string} rgba color
+         *
+         * @returns {string} rgb color
+         */
+        function rgbaToRGB(color) {
+          return color.replace('rgba', 'rgb').replace(/,[^\)\,]+\)/, ')');
+        }
+      }
+
+      /**
+       * Gets the current ripple container
+       * If there is no ripple container, it creates one and returns it
+       *
+       * @returns {angular.element} ripple container element
+       */
+      function getRippleContainer() {
+        if (rippleContainer) return rippleContainer;
+        var container = rippleContainer = angular.element('<div class="md-ripple-container">');
+        element.append(container);
+        return container;
+      }
     }
 
+    /**
+     * Handles user input start and stop events
+     *
+     * @param {event} event fired by hammer.js
+     */
     function onInput(ev) {
-      if (ev.eventType === Hammer.INPUT_START && ev.isFirst && rippleIsAllowed()) {
-        rippleEl = createRipple(ev.center.x, ev.center.y, true);
+      var ripple, index;
+      if (ev.eventType === Hammer.INPUT_START && ev.isFirst && isRippleAllowed()) {
+        ripple = createRipple(ev.center.x, ev.center.y);
+        isHeld = true;
       } else if (ev.eventType === Hammer.INPUT_END && ev.isFinal) {
-        if (rippleEl) {
-          rippleEl.removeClass('md-ripple-visible');
-          removeElement(rippleEl, 650);
-          rippleEl = null;
-        }
-        if (rippleContainer && options.dimBackground) {
-          rippleContainer.removeClass('md-ripple-visible');
-          if (!rippleContainer.hasClass('md-ripple-full')) rippleContainer.css({ backgroundColor: '' });
-        }
+        isHeld = false;
+        index = ripples.length - 1;
+        ripple = ripples[index];
+        $timeout(function () {
+          updateElement(ripple);
+        }, 0, false);
+      }
+
+      /**
+       * Determines if the ripple is allowed
+       *
+       * @returns {boolean} true if the ripple is allowed, false if not
+       */
+      function isRippleAllowed() {
+        var parent = node.parentNode;
+        return !node.hasAttribute('disabled') && !(parent && parent.hasAttribute('disabled'));
       }
     }
   }
@@ -1339,8 +1551,6 @@ function ThemingProvider() {
     }
   }
 }
-
-
 
 function ThemingDirective($interpolate) {
   return {
@@ -1512,7 +1722,7 @@ function MdBottomSheetDirective() {
 
 function MdBottomSheetProvider($$interimElementProvider) {
 
-  bottomSheetDefaults.$inject = ["$animate", "$mdConstant", "$timeout", "$$rAF", "$compile", "$mdTheming", "$mdBottomSheet"];
+  bottomSheetDefaults.$inject = ["$animate", "$mdConstant", "$timeout", "$$rAF", "$compile", "$mdTheming", "$mdBottomSheet", "$rootElement"];
   return $$interimElementProvider('$mdBottomSheet')
     .setDefaults({
       options: bottomSheetDefaults
@@ -1520,7 +1730,7 @@ function MdBottomSheetProvider($$interimElementProvider) {
 
   /* @ngInject */
   function bottomSheetDefaults($animate, $mdConstant, $timeout, $$rAF, $compile, $mdTheming,
-                               $mdBottomSheet) {
+                               $mdBottomSheet, $rootElement) {
     var backdrop;
 
     return {
@@ -1528,6 +1738,7 @@ function MdBottomSheetProvider($$interimElementProvider) {
       targetEvent: null,
       onShow: onShow,
       onRemove: onRemove,
+      escapeToClose: true
     };
 
     function onShow(scope, element, options) {
@@ -1556,6 +1767,15 @@ function MdBottomSheetProvider($$interimElementProvider) {
             element[0].querySelector('[ng-click]')
           );
           focusableItems.eq(0).focus();
+
+          if (options.escapeToClose) {
+            options.rootElementKeyupCallback = function(e) {
+              if (e.keyCode === $mdConstant.KEY_CODE.ESCAPE) {
+                $timeout($mdBottomSheet.cancel);
+              }
+            };
+            $rootElement.on('keyup', options.rootElementKeyupCallback);
+          }
         });
 
     }
@@ -1747,7 +1967,7 @@ function MdButtonDirective($mdInkRipple, $mdTheming, $mdAria) {
   function postLink(scope, element, attr) {
     var node = element[0];
     $mdTheming(element);
-    $mdInkRipple.attachButtonBehavior(element);
+    $mdInkRipple.attachButtonBehavior(scope, element);
 
     var elementHasText = node.textContent.trim();
     if (!elementHasText) {
@@ -1800,7 +2020,7 @@ angular.module('material.components.card', [
  * @usage
  * <hljs lang="html">
  * <md-card>
- *  <img src="/img/washedout.png" class="md-card-image">
+ *  <img src="img/washedout.png" class="md-card-image">
  *  <h2>Paracosm</h2>
  *  <p>
  *    The titles of Washed Out's breakthrough song and the first single from Paracosm share the * two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
@@ -1877,7 +2097,7 @@ function MdCheckboxDirective(inputDirective, $mdInkRipple, $mdAria, $mdConstant,
     transclude: true,
     require: '?ngModel',
     template: 
-      '<div class="md-container" md-ink-ripple="checkbox">' +
+      '<div class="md-container" md-ink-ripple md-ink-ripple-checkbox>' +
         '<div class="md-icon"></div>' +
       '</div>' +
       '<div ng-transclude class="md-label"></div>',
@@ -2288,10 +2508,10 @@ function MdDialogProvider($$interimElementProvider) {
             '<p>{{ dialog.content }}</p>',
           '</md-content>',
           '<div class="md-actions">',
-            '<md-button ng-if="dialog.$type == \'confirm\'" class="md-raised" ng-click="dialog.abort()">',
+            '<md-button ng-if="dialog.$type == \'confirm\'" ng-click="dialog.abort()">',
               '{{ dialog.cancel }}',
             '</md-button>',
-            '<md-button ng-click="dialog.hide()" class="md-raised md-primary">',
+            '<md-button ng-click="dialog.hide()" class="md-primary">',
               '{{ dialog.ok }}',
             '</md-button>',
           '</div>',
@@ -2430,16 +2650,16 @@ function MdDialogProvider($$interimElementProvider) {
       if (clickElement) {
         var clickRect = clickElement[0].getBoundingClientRect();
         startPos = 'translate3d(' +
-          (clickRect.left - element[0].offsetWidth) + 'px,' +
-          (clickRect.top - element[0].offsetHeight) + 'px,' +
+          (clickRect.left - element[0].offsetWidth / 2) + 'px,' +
+          (clickRect.top - element[0].offsetHeight / 2) + 'px,' +
           '0) scale(0.2)';
       } else {
         startPos = 'translate3d(0,100%,0) scale(0.5)';
       }
 
       element
-      .css($mdConstant.CSS.TRANSFORM, startPos)
-      .css('opacity', 0);
+        .css($mdConstant.CSS.TRANSFORM, startPos)
+        .css('opacity', 0);
 
       $$rAF(function() {
         $$rAF(function() {
@@ -2915,6 +3135,11 @@ angular.module('material.components.radioButton', [
  * container for the 1..n grouped radio buttons; specified using nested
  * `<md-radio-button>` tags.
  *
+ * Note: `<md-radio-group>` and `<md-radio-button>` handle tabindex differently
+ * than the native `<input type='radio'>` controls. Whereas the native controls
+ * force the user to tab through all the radio buttons, `<md-radio-group>`
+ * is focusable, and by default the `<md-radio-button>`s are not.
+ *
  * @param {string} ngModel Assignable angular expression to data-bind to.
  * @param {boolean=} mdNoInk Use of attribute indicates flag to disable ink ripple effects.
  *
@@ -2965,10 +3190,11 @@ function mdRadioGroupDirective($mdUtil, $mdConstant, $mdTheming) {
     rgCtrl.init(ngModelCtrl);
 
     element.attr({
-      'role': 'radiogroup',
-      'tabIndex': '0'
-    })
-    .on('keydown', keydownListener);
+              'role': 'radiogroup',
+              'tabIndex': element.attr('tabindex') || '0'
+            })
+            .on('keydown', keydownListener);
+
   }
 
   function RadioGroupController($element) {
@@ -3082,7 +3308,7 @@ function mdRadioButtonDirective($mdAria, $mdUtil, $mdTheming) {
     restrict: 'E',
     require: '^mdRadioGroup',
     transclude: true,
-    template: '<div class="md-container" md-ink-ripple="checkbox">' +
+    template: '<div class="md-container" md-ink-ripple md-ink-ripple-checkbox>' +
                 '<div class="md-off"></div>' +
                 '<div class="md-on"></div>' +
               '</div>' +
@@ -4213,6 +4439,18 @@ MdSticky.$inject = ["$document", "$mdConstant", "$compile", "$$rAF", "$mdUtil"];
  * @name material.components.subheader
  * @description
  * SubHeader module
+ *
+ *  Subheaders are special list tiles that delineate distinct sections of a
+ *  list or grid list and are typically related to the current filtering or
+ *  sorting criteria. Subheader tiles are either displayed inline with tiles or
+ *  can be associated with content, for example, in an adjacent column.
+ *
+ *  Upon scrolling, subheaders remain pinned to the top of the screen and remain
+ *  pinned until pushed on or off screen by the next subheader. @see [Material
+ *  Design Specifications](https://www.google.com/design/spec/components/subheaders.html)
+ *
+ *  > To improve the visual grouping of content, use the system color for your subheaders.
+ *
  */
 angular.module('material.components.subheader', [
   'material.core',
@@ -4568,7 +4806,20 @@ MdSwitch.$inject = ["mdCheckboxDirective", "mdRadioButtonDirective", "$mdTheming
  * @name material.components.tabs
  * @description
  *
- * Tabs
+ *  Tabs, created with the `<md-tabs>` directive provide *tabbed* navigation with different styles.
+ *  The Tabs component consists of clickable tabs that are aligned horizontally side-by-side.
+ *
+ *  Features include support for:
+ *
+ *  - static or dynamic tabs,
+ *  - responsive designs,
+ *  - accessibility support (ARIA),
+ *  - tab pagination,
+ *  - external or internal tab content,
+ *  - focus indicators and arrow-key navigations,
+ *  - programmatic lookup and access to tab controllers, and
+ *  - dynamic transitions through different tab contents.
+ *
  */
 /*
  * @see js folder for tabs implementation
@@ -5355,44 +5606,36 @@ function MdTabInkDirective($mdConstant, $window, $$rAF, $timeout) {
   };
 
   function postLink(scope, element, attr, ctrls) {
-    var nobar = ctrls[0];
-    var tabsCtrl = ctrls[1];
+    var nobar = ctrls[0],
+        tabsCtrl = ctrls[1],
+        timeout;
 
     if (nobar) return;
 
-    var debouncedUpdateBar = $$rAF.debounce(updateBar);
+    tabsCtrl.inkBarElement = element;
 
     scope.$watch(tabsCtrl.selected, updateBar);
-    scope.$on('$mdTabsChanged', debouncedUpdateBar);
-    scope.$on('$mdTabsPaginationChanged', debouncedUpdateBar);
-    angular.element($window).on('resize', onWindowResize);
-
-    function onWindowResize() {
-      debouncedUpdateBar();
-      $timeout(debouncedUpdateBar, 100, false);
-    }
-
-    scope.$on('$destroy', function() {
-      angular.element($window).off('resize', onWindowResize);
-    });
+    scope.$on('$mdTabsChanged', updateBar);
 
     function updateBar() {
-      var selectedElement = tabsCtrl.selected() && tabsCtrl.selected().element;
+      var selected = tabsCtrl.selected();
 
-      if (!selectedElement || tabsCtrl.count() < 2) {
-        element.css({
-          display : 'none',
-          width : '0px'
-        });
-      } else {
-        var width = selectedElement.prop('offsetWidth');
-        var left = selectedElement.prop('offsetLeft') + (tabsCtrl.$$pagingOffset || 0);
+      var hideInkBar = !selected || tabsCtrl.count() < 2 ||
+        (scope.pagination || {}).itemsPerPage === 1;
+      element.css('display', hideInkBar ? 'none' : 'block');
 
-        element.css({
-          display : width > 0 ? 'block' : 'none',
-          width: width + 'px'
-        });
-        element.css($mdConstant.CSS.TRANSFORM, 'translate3d(' + left + 'px,0,0)');
+      if (!hideInkBar) {
+        var count = tabsCtrl.count();
+        var scale = 1 / count;
+        var left = tabsCtrl.indexOf(selected);
+        element.css($mdConstant.CSS.TRANSFORM, 'scaleX(' + scale + ') ' +
+                    'translate3d(' + left * 100 + '%,0,0)');
+        element.addClass('md-ink-bar-grow');
+        if (timeout) $timeout.cancel(timeout);
+        timeout = $timeout(function () {
+          element.removeClass('md-ink-bar-grow');
+        }, 250, false);
+
       }
     }
 
@@ -5774,7 +6017,9 @@ function MdTabDirective($mdInkRipple, $compile, $mdAria, $mdUtil, $mdConstant) {
       transcludeTabContent();
       configureAria();
 
-      var detachRippleFn = $mdInkRipple.attachButtonBehavior(element);
+      var detachRippleFn = $mdInkRipple.attachTabBehavior(scope, element, {
+        colorElement: tabsCtrl.inkBarElement
+      });
       tabsCtrl.add(tabItemCtrl);
       scope.$on('$destroy', function() {
         detachRippleFn();
@@ -5851,7 +6096,7 @@ function MdTabDirective($mdInkRipple, $compile, $mdAria, $mdUtil, $mdConstant) {
       function watchActiveAttribute() {
         var unwatch = scope.$parent.$watch('!!(' + attr.mdActive + ')', activeWatchAction);
         scope.$on('$destroy', unwatch);
-        
+
         function activeWatchAction(isActive) {
           var isSelected = tabsCtrl.selected() === tabItemCtrl;
 
@@ -5865,7 +6110,7 @@ function MdTabDirective($mdInkRipple, $compile, $mdAria, $mdUtil, $mdConstant) {
 
       function watchDisabled() {
         scope.$watch(tabItemCtrl.isDisabled, disabledWatchAction);
-        
+
         function disabledWatchAction(isDisabled) {
           element.attr('aria-disabled', isDisabled);
 
@@ -6091,7 +6336,7 @@ angular.module('material.components.tabs')
  * @usage
  * <hljs lang="html">
  * <md-tabs md-selected="selectedIndex" >
- *   <img ng-src="/img/angular.png" class="centered">
+ *   <img ng-src="img/angular.png" class="centered">
  *
  *   <md-tab
  *      ng-repeat="tab in tabs | orderBy:predicate:reversed"
@@ -6101,7 +6346,7 @@ angular.module('material.components.tabs')
  *
  *       <md-tab-label>
  *           {{tab.title}}
- *           <img src="/img/removeTab.png"
+ *           <img src="img/removeTab.png"
  *                ng-click="removeTab(tab)"
  *                class="delete" >
  *       </md-tab-label>
@@ -6136,8 +6381,10 @@ function TabsDirective($parse, $mdTheming) {
         // overflow: hidden container when paginating
         '<div class="md-header-items-container" md-tabs-pagination>' +
           // flex container for <md-tab> elements
-          '<div class="md-header-items" ng-transclude></div>' +
-          '<md-tabs-ink-bar></md-tabs-ink-bar>' +
+          '<div class="md-header-items">' +
+            '<md-tabs-ink-bar></md-tabs-ink-bar>' +
+            '<md-tabs-ink-bar class="md-ink-bar-delayed"></md-tabs-ink-bar>' +
+          '</div>' +
         '</div>' +
 
         '<button class="md-paginator md-next" ' +
@@ -6151,10 +6398,14 @@ function TabsDirective($parse, $mdTheming) {
     link: postLink
   };
 
-  function postLink(scope, element, attr, tabsCtrl) {
+  function postLink(scope, element, attr, tabsCtrl, transclude) {
     $mdTheming(element);
     configureAria();
     watchSelected();
+
+    transclude(scope.$parent, function(clone) {
+      angular.element(element[0].querySelector('.md-header-items')).append(clone);
+    });
 
     function configureAria() {
       element.attr({

@@ -2,9 +2,9 @@
 <html data-ng-app="pos">
 <head>
     <title>Testing</title>
-
+    <base href="/pos" target="_blank">
     <link href="/content/angular-material.css" rel="stylesheet" />
-    <link href="/content/angular-material.grey-theme.css" rel="stylesheet" />
+    <link href="/content/angular-material-grey-theme.css" rel="stylesheet" />
 
     <style>
 .dialogdemoBasicUsage .full {
@@ -53,18 +53,12 @@
     </div>
 
     <script>
-        window.virtualDirectory = '@ViewBag.VirtualDirectory';
-        window.userAuthenticated = @ViewBag.UserAuthenticated;
+    window.virtualDirectory = '@ViewBag.VirtualDirectory';
+    window.userAuthenticated = @ViewBag.UserAuthenticated;
     </script>
+    @Scripts.Render("~/scripts/libraries")
+    @Scripts.Render("~/scripts/app")
 
-    <script src="/scripts/angular/angular.js"></script>
-    <script src="/scripts/angular/angular-animate.js"></script>
-    <script src="/scripts/angular/angular-aria.js"></script>
-    <script src="/scripts/angular/hammer.js"></script>
-    <script src="/scripts/angular/angular-material.js"></script>
-
-    <script src="/app/app.js"></script>
-    <script src="/app/layout/test.js"></script>
 
 </body>
 </html>

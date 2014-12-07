@@ -13,5 +13,6 @@ namespace pos.Models
         public int? CorrectExamID { get; set; }
         public int? SavedInd { get; set; }
         public DateTime? LastUpdatedDate { get; set; }
+        public string Doctor { get; set; }
     }
 }

@@ -104,6 +104,13 @@ function demographics($scope, patientService, utility, session, $mdDialog) {
           .cancel('No')
           .targetEvent(ev)
 
+        $mdDialog.show({
+            template: "<md-dialog><md-content>Woot</md-content></md-dialog>",
+            clickOutsideToClose: true,
+            targetEvent: ev 
+        });
+
+        return;
         $mdDialog.show(confirm).then(function () {
             $scope.demographicsForm.$cancel()
         }, function () {

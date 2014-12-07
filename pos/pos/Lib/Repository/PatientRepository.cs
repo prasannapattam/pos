@@ -98,6 +98,7 @@ namespace pos.Lib.Repository
                 if (includeHistory)
                 {
                     var historyQuery = from dbExam in db.Exams
+                                       join dbUser in db.Users on dbExam.UserName equals dbUser.UserName
                                        where dbExam.PatientID == patientID
                                        orderby dbExam.ExamDate descending, dbExam.ExamID descending
                                        select new PatientHistoryModel
@@ -107,7 +108,8 @@ namespace pos.Lib.Repository
                                            ExamCorrectDate = dbExam.ExamCorrectDate,
                                            CorrectExamID = dbExam.CorrectExamID,
                                            SavedInd = dbExam.SavedInd,
-                                           LastUpdatedDate = dbExam.LastUpdatedDate
+                                           LastUpdatedDate = dbExam.LastUpdatedDate,
+                                           Doctor = dbUser.FirstName + " " + dbUser.LastName
                                        };
 
                     patientModel.History = historyQuery.ToList();

@@ -47,7 +47,7 @@ namespace pos
                     .Include("~/content/ui-grid/ui-grid.css")
                     .Include("~/content/toastr.css")
                     .Include("~/content/angular-material.css")
-                    .Include("~/content/angular-material.grey-theme.css")
+                    .Include("~/content/angular-material-grey-theme.css")
                     .Include("~/content/xeditable.css")
                     .Include("~/content/app.css")
                 );
