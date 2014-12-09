@@ -249,6 +249,7 @@
     <Content Include="app\patient\portal.js" />
     <Content Include="app\shared\blankValue.js" />
     <Content Include="app\shared\boolText.js" />
+    <Content Include="app\shared\formUtility.js" />
     <Content Include="app\shared\navigation.js" />
     <Content Include="app\shared\sectionHeader.js" />
     <Content Include="app\shared\webapiInterceptor.js" />
@@ -276,7 +277,6 @@
     <Content Include="app\print\printqueue.js" />
     <Content Include="app\print\printService.js" />
     <Content Include="app\shared\constants.js" />
-    <Content Include="app\shared\messages.html" />
     <Content Include="app\shared\profile.js" />
     <Content Include="app\shared\session.js" />
     <Content Include="app\shared\utility.js" />

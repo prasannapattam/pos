@@ -166,7 +166,7 @@ Input types: text|email|tel|number|url|search|color|date|datetime|time|month|wee
 
 (function() {
 
-  var types = 'text|email|tel|number|url|search|color|date|datetime|time|month|week'.split('|');
+  var types = 'text|password|email|tel|number|url|search|color|date|datetime|time|month|week'.split('|');
 
   //todo: datalist
   
@@ -1565,6 +1565,7 @@ angular.module('xeditable').factory('editableThemes', function() {
         //apply `form-control` class to std inputs
         switch(this.directiveName) {
           case 'editableText':
+          case 'editablePassword':
           case 'editableSelect':
           case 'editableTextarea':
           case 'editableEmail':

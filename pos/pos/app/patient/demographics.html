@@ -25,15 +25,15 @@
                         <div flex="25" class="col-row-header">Name</div>
                         <div flex class="col-row-content">
                             <span editable-select="vm.patientModel.Greeting" e-name="Greeting" e-ng-options="greet.FieldValue as greet.FieldDescription for greet in session.lookups.Greet"></span>
-                            <span editable-text="vm.patientModel.FirstName" e-name="FirstName" e-class="medium" e-maxlength="20" onbeforesave="vm.validateFirstName($data)">{{ vm.patientModel.FullName }}</span>
+                            <span editable-text="vm.patientModel.FirstName" e-name="FirstName" e-class="medium" e-maxlength="20" onbeforesave="vm.validateRequiedField($data, 'First Name')">{{ vm.patientModel.FullName }}</span>
                             <span editable-text="vm.patientModel.MiddleName" e-name="MiddleName" e-class="small" e-maxlength="20"></span>
-                            <span editable-text="vm.patientModel.LastName" e-name="LastName" e-class="medium" e-maxlength="20" onbeforesave="vm.validateLastName($data)"></span>
+                            <span editable-text="vm.patientModel.LastName" e-name="LastName" e-class="medium" e-maxlength="20" onbeforesave="vm.validateRequiedField($data, 'Last Name')"></span>
                         </div>
                     </div>
                     <div layout="row">
                         <div flex="25" class="col-row-header">Patient #</div>
                         <div flex class="col-row-content">
-                            <span editable-text="vm.patientModel.PatientNumber" e-name="PatientNumber" e-class="medium" e-maxlength="20" onbeforesave="vm.validatePatientNumber($data)">{{ vm.patientModel.PatientNumber }}</span>
+                            <span editable-text="vm.patientModel.PatientNumber" e-name="PatientNumber" e-class="medium" e-maxlength="20" onbeforesave="vm.validateRequiedField($data, 'Patient #')">{{ vm.patientModel.PatientNumber }}</span>
                         </div>
                     </div>
                     <div layout="row">

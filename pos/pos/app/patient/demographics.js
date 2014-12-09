@@ -1,15 +1,13 @@
 ﻿'use strict';
 angular.module('pos').controller('demographics', demographics);
-demographics.$inject = ['$scope', 'patientService', 'utility', 'session', '$mdDialog'];
-function demographics($scope, patientService, utility, session, $mdDialog) {
+demographics.$inject = ['$scope', 'patientService', 'session', 'utility', 'formUtility'];
+function demographics($scope, patientService, session, utility, formUtility) {
 
     var vm = {
         patientModel: {},
         boolSelectList: utility.getBoolSelect(),
         savePatient: savePatient,
-        validatePatientNumber: validatePatientNumber,
-        validateFirstName: validateFirstName,
-        validateLastName: validateLastName,
+        validateRequiedField: validateRequiedField,
         copyRef: copyRef,
         cancel: cancel
     };
@@ -60,24 +58,8 @@ function demographics($scope, patientService, utility, session, $mdDialog) {
                 });
     }
 
-    function validatePatientNumber(patientNumber) {
-        return requiredValidation(patientNumber, "Patient # is required")
-    }
-
-    function validateFirstName(firstName) {
-        return requiredValidation(firstName, "First Name is required")
-    }
-
-    function validateLastName(lastName) {
-        return requiredValidation(lastName, "Last Name is required")
-    }
-
-    function requiredValidation(attr, message) {
-        if (attr.trim() === '') {
-            return message;
-        }
-
-        return true;
+    function validateRequiedField(fieldValue, fieldName) {
+        return formUtility.requiredValidation(fieldValue, fieldName + " is required")
     }
 
     function copyRef(checked) {
@@ -94,28 +76,8 @@ function demographics($scope, patientService, utility, session, $mdDialog) {
         }
     }
 
-    function cancel(ev) {
-        //$scope.confirmDialog.open().center();
-        var confirm = $mdDialog.confirm()
-          .title('Do you want to cancel and loose your changes?')
-          .content('Clicking yes will loose your changes')
-          .ariaLabel('Cancel modal window')
-          .ok('Yes')
-          .cancel('No')
-          .targetEvent(ev)
-
-        $mdDialog.show({
-            template: "<md-dialog><md-content>Woot</md-content></md-dialog>",
-            clickOutsideToClose: true,
-            targetEvent: ev 
-        });
-
-        return;
-        $mdDialog.show(confirm).then(function () {
-            $scope.demographicsForm.$cancel()
-        }, function () {
-            //do nothing
-        });
+    function cancel(evt) {
+        formUtility.cancelForm($scope.demographicsForm, evt);
     }
 }
 

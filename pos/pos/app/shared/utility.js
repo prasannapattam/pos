@@ -83,5 +83,6 @@ function utility(toastr, constants) {
             return gridHeight + 'px';
         }
     }
+
 };
 

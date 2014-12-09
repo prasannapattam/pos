@@ -1,16 +1,20 @@
 ﻿'use strict';
 angular.module('pos').controller('user', user)
-user.$inject = ['$window', '$scope', 'userService', 'utility'];
+user.$inject = ['$window', '$scope', 'userService', 'utility', 'formUtility'];
 
-function user($window, $scope, userService, utility) {
+function user($window, $scope, userService, utility, formUtility) {
 
     var vm = {
         model: [],
         selectedUser: {},
-        getPhotoUrl: utility.getPhotoUrl,
         listHeight: '0px',
-        selectUser: selectUser
-    }
+        getPhotoUrl: utility.getPhotoUrl,
+        selectUser: selectUser,
+        validateRequiedField: validateRequiedField,
+        saveUser: saveUser,
+        cancel: cancel,
+        changeFile: changeFile
+}
 
     init();
 
@@ -28,6 +32,15 @@ function user($window, $scope, userService, utility) {
         $scope.$on('$destroy', function (e) {
             angular.element($window).unbind('resize');
         });
+
+
+    }
+
+    function changeFile(element) {
+        if (element.files.length > 0)
+            vm.selectedUser.photo = element.files[0];
+        else
+            vm.selectedUser.photo = undefined;
     }
 
     function resizeUserList() {
@@ -44,5 +57,40 @@ function user($window, $scope, userService, utility) {
         resetUserSelection();
         item.selected = true;
         vm.selectedUser = item;
+        vm.selectedUser.FullPhotoUrl = utility.getPhotoUrl(item.PhotoUrl);
+        vm.selectedUser.Password = 'abc';
+        vm.selectedUser.ConfirmPassword = vm.selectedUser.Password;
+        vm.selectedUser.photo = undefined;
     }
+
+    function validateRequiedField(fieldValue, fieldName) {
+        return formUtility.requiredValidation(fieldValue, fieldName + " is required")
+    }
+
+
+    function saveUser(data) {
+        var user = angular.extend({}, vm.selectedUser, data, { supressToastr: true });
+
+        //verifying password
+        if (data.Password !== data.ConfirmPassword) {
+            $scope.userForm.$setError('ConfirmPassword', 'Password and Confirm Password didn\'t match');
+            return "Error";
+        }
+
+        return userService.save(user)
+                .then(function (result) {
+                    vm.selectedUser.FullName = user.FirstName + ' ' + user.LastName;
+                    vm.selectedUser.FullPhotoUrl = utility.getPhotoUrl(user.UserName);
+                    return result;
+                },
+                function (message) {
+                    $scope.userForm.$setError('UserName', message);
+                    return message;
+                });
+    }
+
+    function cancel(evt) {
+        formUtility.cancelForm($scope.userForm, evt);
+    }
+
 }

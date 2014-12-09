@@ -71,7 +71,7 @@ namespace pos.Controllers
                 model.UserName = provider.FormData["UserName"];
                 model.Password = provider.FormData["Password"];
                 model.PhotoUrl = provider.FormData["PhotoUrl"];
-                model.PhotoUrl = model.PhotoUrl == "" ? null : model.PhotoUrl;
+                model.PhotoUrl = model.PhotoUrl == "" || model.PhotoUrl == "null" ? null : model.PhotoUrl;
 
                 //checking whether the user exists
                 if (PosRepository.UserExists(model))
