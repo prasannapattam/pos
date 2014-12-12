@@ -40,7 +40,7 @@
                     </div>
                     <div layout="row" layout-align="start center">
                         <div flex="25" class="text-center" layout="column">
-                            <img class="top-header" ng-src="{{vm.selectedUser.FullPhotoUrl}}" />
+                            <img id="userPhoto" class="top-header" ng-src="{{vm.selectedUser.FullPhotoUrl}}" />
                             <input type="file" accept="file_extension|audio/*|video/*|image/*|media_type" ng-model="file" onchange="angular.element(this).scope().vm.changeFile(this)" />
                         </div>
                         <div flex>

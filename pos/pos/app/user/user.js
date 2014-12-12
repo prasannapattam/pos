@@ -37,8 +37,25 @@ function user($window, $scope, userService, utility, formUtility) {
     }
 
     function changeFile(element) {
-        if (element.files.length > 0)
+        if (element.files.length > 0){
             vm.selectedUser.photo = element.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function (event) {
+                var img = angular.element(document.getElementById("userPhoto"));
+                //img.onload = onLoadImage;
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(vm.selectedUser.photo);
+
+
+            //function onLoadImage() {
+            //    var width = params.width || this.width / this.height * params.height;
+            //    var height = params.height || this.height / this.width * params.width;
+            //    canvas.attr({ width: width, height: height });
+            //    canvas[0].getContext('2d').drawImage(this, 0, 0, width, height);
+            //}
+        }
         else
             vm.selectedUser.photo = undefined;
     }
@@ -80,7 +97,10 @@ function user($window, $scope, userService, utility, formUtility) {
         return userService.save(user)
                 .then(function (result) {
                     vm.selectedUser.FullName = user.FirstName + ' ' + user.LastName;
-                    vm.selectedUser.FullPhotoUrl = utility.getPhotoUrl(user.UserName);
+                    if (user.photo !== undefined) {
+                        vm.selectedUser.PhotoUrl = user.UserName;
+                        vm.selectedUser.FullPhotoUrl = utility.getPhotoUrl(user.UserName);
+                    }
                     return result;
                 },
                 function (message) {

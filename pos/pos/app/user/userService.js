@@ -56,7 +56,7 @@ function userService($http) {
 
 
 //-------- Preview -------------
-//https://angular-file-upload.appspot.com/\
+//https://angular-file-upload.appspot.com/
 
 
 //directive ng-file-select
