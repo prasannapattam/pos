@@ -19,7 +19,7 @@ function formUtility($mdDialog) {
         return true;
     }
 
-    function cancelForm(form, evt) {
+    function cancelForm(evt, form) {
         var confirm = $mdDialog.confirm()
           .title('Do you want to cancel and loose your changes?')
           .content('Clicking yes will loose your changes')
@@ -28,11 +28,16 @@ function formUtility($mdDialog) {
           .cancel('No')
           .targetEvent(evt)
 
-        $mdDialog.show(confirm).then(function () {
-            form.$cancel()
-        }, function () {
-            //do nothing
-        });
+        if (form !== undefined) {
+            $mdDialog.show(confirm).then(function () {
+                form.$cancel()
+            }, function () {
+                //do nothing
+            });
+        }
+        else {
+            return $mdDialog.show(confirm);
+        }
     }
 
 

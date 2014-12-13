@@ -7,7 +7,7 @@
                 <md-item ng-repeat="item in vm.model" class="user-list-item" ng-click="vm.selectUser(item)" ng-class="{'user-list-item-selected': item.selected }">
                     <md-item-content class="md-item-content">
                         <div class="md-tile-left">
-                            <img class="top-header" ng-src="{{vm.getPhotoUrl(item.PhotoUrl)}}" class="face" alt="{{item.FullName}}">
+                            <img class="top-header" ng-src="{{item.FullPhotoUrl}}" class="face" class="face" alt="{{item.FullName}}">
                         </div>
                         <div class="md-tile-content">
                             <h3>{{item.FullName}}</h3>
@@ -20,8 +20,8 @@
         </md-content>
     </div>
     <div flex>
-        <div class="pos-box">
-            <form editable-form name="userForm" onbeforesave="vm.saveUser($data)">
+        <div class="pos-box" ng-show="vm.showDetail">
+            <form editable-form name="userForm" onbeforesave="vm.saveUser($data)" onaftersave="vm.hidePasswords()">
                 <div class="ui-grid">
                     <div layout="row" class="ui-grid-header ui-grid-top-panel ui-grid-cell-contents">
                         <span flex>{{vm.selectedUser.FullName}}</span>
@@ -39,9 +39,9 @@
                         </span>
                     </div>
                     <div layout="row" layout-align="start center">
-                        <div flex="25" class="text-center" layout="column">
-                            <img id="userPhoto" class="top-header" ng-src="{{vm.selectedUser.FullPhotoUrl}}" />
-                            <input type="file" accept="file_extension|audio/*|video/*|image/*|media_type" ng-model="file" onchange="angular.element(this).scope().vm.changeFile(this)" />
+                        <div flex="30" layout="column" layout-align="space-between center">
+                            <img id="userPhoto" class="top-header" ng-src="{{vm.selectedUser.FullPhotoUrl}}" layout-padding />
+                            <input type="file" id="userPhotoInput" accept="file_extension|audio/*|video/*|image/*|media_type" ng-model="file" onchange="angular.element(this).scope().vm.changeFile(this)" ng-show="userForm.$visible" />
                         </div>
                         <div flex>
                             <div layout="row">

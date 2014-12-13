@@ -7,11 +7,13 @@ function user($window, $scope, userService, utility, formUtility) {
     var vm = {
         model: [],
         selectedUser: {},
+        showDetail: false,
         listHeight: '0px',
         getPhotoUrl: utility.getPhotoUrl,
         selectUser: selectUser,
         validateRequiedField: validateRequiedField,
         saveUser: saveUser,
+        hidePasswords: hidePasswords,
         cancel: cancel,
         changeFile: changeFile
 }
@@ -24,6 +26,7 @@ function user($window, $scope, userService, utility, formUtility) {
         vm.model = userService.model;
         resetUserSelection();
         resizeUserList();
+        vm.showDetail = false;
 
         angular.element($window).bind('resize', function () {
             resizeUserList();
@@ -41,20 +44,10 @@ function user($window, $scope, userService, utility, formUtility) {
             vm.selectedUser.photo = element.files[0];
             var reader = new FileReader();
 
-            reader.onload = function (event) {
-                var img = angular.element(document.getElementById("userPhoto"));
-                //img.onload = onLoadImage;
-                img.src = event.target.result;
+            reader.onload = function (evt) {
+                $('#userPhoto').attr('src', evt.target.result);
             };
             reader.readAsDataURL(vm.selectedUser.photo);
-
-
-            //function onLoadImage() {
-            //    var width = params.width || this.width / this.height * params.height;
-            //    var height = params.height || this.height / this.width * params.width;
-            //    canvas.attr({ width: width, height: height });
-            //    canvas[0].getContext('2d').drawImage(this, 0, 0, width, height);
-            //}
         }
         else
             vm.selectedUser.photo = undefined;
@@ -74,10 +67,8 @@ function user($window, $scope, userService, utility, formUtility) {
         resetUserSelection();
         item.selected = true;
         vm.selectedUser = item;
-        vm.selectedUser.FullPhotoUrl = utility.getPhotoUrl(item.PhotoUrl);
-        vm.selectedUser.Password = 'abc';
-        vm.selectedUser.ConfirmPassword = vm.selectedUser.Password;
         vm.selectedUser.photo = undefined;
+        vm.showDetail = true;
     }
 
     function validateRequiedField(fieldValue, fieldName) {
@@ -99,7 +90,9 @@ function user($window, $scope, userService, utility, formUtility) {
                     vm.selectedUser.FullName = user.FirstName + ' ' + user.LastName;
                     if (user.photo !== undefined) {
                         vm.selectedUser.PhotoUrl = user.UserName;
-                        vm.selectedUser.FullPhotoUrl = utility.getPhotoUrl(user.UserName);
+                        vm.selectedUser.FullPhotoUrl = utility.getPhotoUrl(vm.selectedUser.PhotoUrl);
+                        vm.selectedUser.FullPhotoUrl = vm.selectedUser.FullPhotoUrl + '?' + new Date().getTime();
+                        $('#userPhotoInput').val(null);
                     }
                     return result;
                 },
@@ -109,8 +102,17 @@ function user($window, $scope, userService, utility, formUtility) {
                 });
     }
 
+    function hidePasswords() {
+        vm.selectedUser.Password = '';
+        vm.selectedUser.ConfirmPassword = '';
+    }
+
     function cancel(evt) {
-        formUtility.cancelForm($scope.userForm, evt);
+        formUtility.cancelForm(evt).then(function () {
+            $scope.userForm.$cancel()
+            $('#userPhotoInput').val(null);
+            vm.selectedUser.FullPhotoUrl = vm.selectedUser.FullPhotoUrl + '?' + new Date().getTime();
+        });
     }
 
 }

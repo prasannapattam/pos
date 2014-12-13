@@ -77,7 +77,7 @@ function demographics($scope, patientService, session, utility, formUtility) {
     }
 
     function cancel(evt) {
-        formUtility.cancelForm($scope.demographicsForm, evt);
+        formUtility.cancelForm(evt, $scope.demographicsForm);
     }
 }
 

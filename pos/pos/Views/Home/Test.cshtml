@@ -5,51 +5,13 @@
     <base href="/pos" target="_blank">
     <link href="/content/angular-material.css" rel="stylesheet" />
     <link href="/content/angular-material-grey-theme.css" rel="stylesheet" />
-
-    <style>
-.dialogdemoBasicUsage .full {
-  width: 100%;
-  height: 100%; }
-.dialogdemoBasicUsage .gap {
-  width: 50px; }
-.dialogdemoBasicUsage .md-subheader {
-  background-color: #dcedc8;
-  margin: 0px; }
-.dialogdemoBasicUsage h2.md-subheader {
-  margin: 0px;
-  margin-left: -24px;
-  margin-right: -24px;
-  margin-top: -24px; }
-.dialogdemoBasicUsage h2.md-subheader.md-sticky-clone {
-  margin-right: 0px;
-  margin-top: 0px;
-  box-shadow: 0px 2px 4px 0 rgba(0, 0, 0, 0.16); }
-.dialogdemoBasicUsage h2 .md-subheader-content {
-  padding-left: 10px; }
-        </style>
 </head>
 <body class="main">
 
-    <div ng-controller="test" class="full" layout="column" layout-padding>
-        <p class="inset">
-            Open a dialog over the app's content. Press escape or click outside to close the dialog.
-        </p>
-
-        <div layout="column" layout-align="center">
-            <md-button class="md-primary" ng-click="showAlert($event)">
-                Alert Dialog
-            </md-button>
-            <div class="gap"></div>
-            <md-button class="md-primary" ng-click="showConfirm($event)">
-                Confirm Dialog
-            </md-button>
-            <div class="gap"></div>
-        </div>
-
+    <div ng-controller="fileUploader">
+        <input type="file" onchange="angular.element(this).scope().setFile(this)">
         <br />
-        <b layout="row" layout-align="center center" layout-padding>
-            {{alert}}
-        </b>
+        <button ng-click="UploadFile()">Upload</button>
     </div>
 
     <script>

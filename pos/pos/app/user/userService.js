@@ -2,9 +2,9 @@
 
 angular.module('pos').factory('userService', userService);
 
-userService.$inject = ['$http'];
+userService.$inject = ['$http', 'utility'];
 
-function userService($http) {
+function userService($http, utility) {
 
     var service = {
         model: [],
@@ -18,14 +18,18 @@ function userService($http) {
         return $http.get("/api/user")
             .success(function (data) {
                 service.model = data;
+                //setting the photo url
+                angular.forEach(data, function (item, index) {
+                    item.FullPhotoUrl = utility.getPhotoUrl(item.PhotoUrl);
+                });
             });
     }
 
     function save(user) {
-        return $http.post("/api/user", user, { headers: { 'Content-Type': undefined }, transformRequest: transformPost });
+        return $http.post("/api/user", getPostData(user), { headers: { 'Content-Type': undefined }, transformRequest: angular.identity });
     }
 
-    function transformPost(data) {
+    function getPostData(data) {
         var formData = new FormData();
         angular.forEach(data, function (value, key) {
             if (key !== "photo") {
@@ -40,24 +44,4 @@ function userService($http) {
 
 }
 
-
-//http://stackoverflow.com/questions/21576590/how-to-access-files-from-child-scope-with-angularjs
-
-//This has lot of features that can be used
-//https://github.com/danialfarid/angular-file-upload
-//https://github.com/nervgh/angular-file-upload (has canvas preview)
-
-
-//seems easiest
-//http://csharp-online.blogspot.in/2014/08/angularjs-file-upload.html
-
-//simple with webapi code. Also has directive
-//http://cgeers.com/2013/05/03/angularjs-file-upload/
-
-
-//-------- Preview -------------
-//https://angular-file-upload.appspot.com/
-
-
-//directive ng-file-select
-//http://stackoverflow.com/questions/21576590/how-to-access-files-from-child-scope-with-angularjs
+//$scope.image_url = url + '#' + new Date().getTime();
