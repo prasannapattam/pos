@@ -63,6 +63,18 @@ function routeConfig($stateProvider, $urlRouterProvider, $locationProvider, cons
             controller: "encounterHistory",
             controllerAs: "vm",
         })
+        .state("patient.notes", {
+            url: "/notes/:notesid",
+            title: "Patient",
+            icon: constants.iconTypes.patient,
+            parentStateName: "patient",
+            templateUrl: window.virtualDirectory + "/app/notes/notes.html",
+            controller: "notes",
+            controllerAs: "vm",
+            resolve: ['$stateParams', 'notesService', function ($stateParams, notesService ) {
+                return notesService.resolve($stateParams.patientid, $stateParams.notesid);
+            }]
+        })
         .state("printqueue", {
             url: window.virtualDirectory + "/printqueue",
             title: "Print Queue",

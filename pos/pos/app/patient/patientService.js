@@ -9,7 +9,8 @@ function patientService($http, utility) {
     var service = {
         patientModel: {},
         resolve: resolve,
-        savePatient: savePatient
+        savePatient: savePatient,
+        encounterButtonTemplate: encounterButtonTemplate
     };
 
     return service;
@@ -25,4 +26,11 @@ function patientService($http, utility) {
     function savePatient(patient) {
         return $http.post("/api/patient", patient);
     }
+
+    function encounterButtonTemplate() {
+        return "<a href='" + utility.routePath("patient/" + service.patientModel.PatientID + "/notes/{{row.entity.ExamID}}") + "'><img src='" + utility.iconPath("note-edit.png") + "' title='Correct Notes' class='grid-icon' /></a>&nbsp;&nbsp;&nbsp;&nbsp;"
+            + "<a target='_self' href='" + utility.routePath("api/print/{{row.entity.ExamID}}/1") + "'><img src='" + utility.iconPath("mail.png") + "' class='grid-icon' title='Print Letter' /></a>&nbsp;&nbsp;&nbsp;&nbsp;"
+            + "<a target='_self' href='" + utility.routePath("api/print/{{row.entity.ExamID}}/2") + "'><img src='" + utility.iconPath("printer.png") + "' class='grid-icon' title='Print Notes' /></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+    }
+
 }

@@ -260,11 +260,8 @@
     <Content Include="app\dashboard\dashboard.js" />
     <Content Include="app\account\login.html" />
     <Content Include="app\account\login.js" />
-    <Content Include="app\notes\lookupService.js" />
     <Content Include="app\notes\notes.html" />
     <Content Include="app\notes\notes.js" />
-    <Content Include="app\notes\notesautocomplete.html" />
-    <Content Include="app\notes\notesautocomplete.js" />
     <Content Include="app\notes\notesDirectives.js" />
     <Content Include="app\notes\notesService.js" />
     <Content Include="app\notes\notestest.html" />
