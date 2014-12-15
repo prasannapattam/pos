@@ -65,7 +65,7 @@ angular.module('xeditable').directive('editableBsdate', ['editableDirectiveFacto
   function (editableDirectiveFactory, $timeout) {
     return editableDirectiveFactory({
       directiveName: 'editableBsdate',
-      inputTpl: '<input type="text" datepicker-popup is-open="pickerOpened">',
+      inputTpl: '<input type="text" kendo-date-picker is-open="pickerOpened">',
       render: function(){
           var self = this;
           this.parent.render.call(this);

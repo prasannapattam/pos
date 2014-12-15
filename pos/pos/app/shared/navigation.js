@@ -16,6 +16,7 @@ function navigation($state, utility, constants) {
         self.parentStateName = parentStateName;
         self.params = params;
         self.hash = $state.href(stateName, params);
+        self.parentHash = $state.href(parentStateName, params);
 
         if (tabs.length > 3) {
             tabs.splice(1, 1);
@@ -73,7 +74,7 @@ function navigation($state, utility, constants) {
 
     function addTab(title, icon, stateName, params, parentStateName) {
         //checking if the tab is already present 
-        if (!checkAndActivateTab(stateName, params))
+        if (!checkAndActivateTab(stateName, params, parentStateName))
             vm.tabs.push(new tab(vm.tabs, title, icon, stateName, params, parentStateName))
     }
 
@@ -83,16 +84,17 @@ function navigation($state, utility, constants) {
     }
 
     function addOrActivateTab(state, params) {
-        if (!checkAndActivateTab(state.name, params) && state.icon !== "") {
+        if (!checkAndActivateTab(state.name, params, state.parentStateName) && state.icon !== "") {
             vm.tabs.push(new tab(vm.tabs, state.title, state.icon, state.name, params, state.parentStateName))
         }
     }
 
-    function checkAndActivateTab(stateName, params){
+    function checkAndActivateTab(stateName, params, parentStateName) {
         var tabexists = false;
         var hash = $state.href(stateName, params);
+        var parentHash = $state.href(parentStateName, params)
         for (index = 0; index < vm.tabs.length; index++) {
-            if (vm.tabs[index].hash === hash || $state.includes(vm.tabs[index].parentStateName, vm.tabs[index].params)) {
+            if (vm.tabs[index].hash === hash || vm.tabs[index].parentHash === parentHash) {
                 vm.tabs[index].active = true;
                 vm.tabs[index].stateName = stateName;
                 vm.tabs[index].params = params;

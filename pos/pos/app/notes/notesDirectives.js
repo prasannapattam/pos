@@ -65,8 +65,8 @@ function notesTextarea(constants) {
     }
 }
 
-notesSelect.$inject = ['constants', 'lookupService'];
-function notesSelect(constants, lookupService) {
+notesSelect.$inject = ['constants', 'session'];
+function notesSelect(constants, session) {
 
     var directive = {
         restrict: 'E',
@@ -86,7 +86,7 @@ function notesSelect(constants, lookupService) {
         scope.ngModel.focusctrl = scope.ngModel.ColourType === constants.colourType.New;
         scope.ngModel.correctctrl = scope.ngModel.ColourType === constants.colourType.Correct;
 
-        scope.ngModel.selectoptions = lookupService.model[scope.ngModel.LookUpFieldName]
+        scope.ngModel.selectoptions = session.lookups[scope.ngModel.LookUpFieldName]
 
         scope.setImage = function () {
             if (scope.ngModel.ColourType === 1) {
