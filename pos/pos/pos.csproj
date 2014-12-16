@@ -240,6 +240,7 @@
     <Content Include="app\appRoute.js" />
     <Content Include="app\layout\index.js" />
     <Content Include="app\layout\test.js" />
+    <Content Include="app\notes\notesUtility.js" />
     <Content Include="app\patient\demographics.html" />
     <Content Include="app\patient\demographics.js" />
     <Content Include="app\patient\encounterHistory.html" />

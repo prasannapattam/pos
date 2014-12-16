@@ -4,39 +4,34 @@ angular.module('pos').directive('notesText', notesText);
 angular.module('pos').directive('notesTextarea', notesTextarea);
 angular.module('pos').directive('notesSelect', notesSelect);
 angular.module('pos').directive('notesDatepicker', notesDatepicker);
+angular.module('pos').factory('notesDatepicker', notesDatepicker);
 
-notesText.$inject = ['constants'];
-function notesText(constants) {
+notesText.$inject = ['notesUtility'];
+function notesText(notesUtility) {
 
     var directive = {
         restrict: 'E',
         require: '^ngModel',
-        //transclude:'element',
-        //replace:true,
+        transclude: true,
         scope: {
-            ngModel: '='
+            ngModel: '=',
         },
         link: link,
-        template: '<input ng-model="ngModel.Value" ng-class="{focusctrl: ngModel.focusctrl, correctctrl: ngModel.correctctrl}" ng-focus="clearColourType()" />'
-    }
+        template: '<span editable-text="ngModel.Value" e-name="{{name}}" e-class="medium" e-ng-class="{focusctrl: ngModel.focusctrl, correctctrl: ngModel.correctctrl}" e-ng-focus="clearColourType()" ng-transclude></span>'
+}
+
+//        template: '<input ng-model="ngModel.Value" ng-class="{focusctrl: ngModel.focusctrl, correctctrl: ngModel.correctctrl}" ng-focus="clearColourType()" />'
+//            <span editable-text="vm.model.SpcWr1OD.Value" e-name="SpcWr1OD" e-class="medium" e-maxlength="20">{{ vm.model.SpcWr1OD.Value }}</span>
 
     return directive;
 
     function link(scope, element, attrs) {
-        scope.ngModel.focusctrl = scope.ngModel.ColourType === constants.colourType.New;
-        scope.ngModel.correctctrl = scope.ngModel.ColourType === constants.colourType.Correct;
-
-        scope.clearColourType = function () {
-            if (scope.ngModel.ColourType === 1) {
-                scope.ngModel.ColourType = 0;
-            }
-        }
-
+        notesUtility.notesDirectivesLink(scope, attrs.ngModel);
     }
 }
 
-notesTextarea.$inject = ['constants'];
-function notesTextarea(constants) {
+notesTextarea.$inject = ['notesUtility'];
+function notesTextarea(notesUtility) {
 
     var directive = {
         restrict: 'E',
@@ -53,20 +48,12 @@ function notesTextarea(constants) {
     return directive;
 
     function link(scope, element, attrs) {
-        scope.ngModel.focusctrl = scope.ngModel.ColourType === constants.colourType.New;
-        scope.ngModel.correctctrl = scope.ngModel.ColourType === constants.colourType.Correct;
-
-        scope.clearColourType = function () {
-            if (scope.ngModel.ColourType === 1) {
-                scope.ngModel.ColourType = 0;
-            }
-        }
-
+        notesUtility.notesDirectivesLink(scope, attrs.ngModel);
     }
 }
 
-notesSelect.$inject = ['constants', 'session'];
-function notesSelect(constants, session) {
+notesSelect.$inject = ['notesUtility', 'session'];
+function notesSelect(notesUtility, session) {
 
     var directive = {
         restrict: 'E',
@@ -83,22 +70,13 @@ function notesSelect(constants, session) {
     return directive;
 
     function link(scope, element, attrs) {
-        scope.ngModel.focusctrl = scope.ngModel.ColourType === constants.colourType.New;
-        scope.ngModel.correctctrl = scope.ngModel.ColourType === constants.colourType.Correct;
-
         scope.ngModel.selectoptions = session.lookups[scope.ngModel.LookUpFieldName]
-
-        scope.setImage = function () {
-            if (scope.ngModel.ColourType === 1) {
-                scope.ngModel.ColourType = 0;
-            }
-        }
-
+        notesUtility.notesDirectivesLink(scope, attrs.ngModel);
     }
 }
 
-notesDatepicker.$inject = ['constants'];
-function notesDatepicker(constants) {
+notesDatepicker.$inject = ['notesUtility'];
+function notesDatepicker(notesUtility) {
 
     var directive = {
         restrict: 'E',
@@ -115,15 +93,7 @@ function notesDatepicker(constants) {
     return directive;
 
     function link(scope, element, attrs) {
-        scope.ngModel.focusctrl = scope.ngModel.ColourType === constants.colourType.New;
-        scope.ngModel.correctctrl = scope.ngModel.ColourType === constants.colourType.Correct;
-
-        scope.clearColourType = function () {
-            if (scope.ngModel.ColourType === 1) {
-                scope.ngModel.ColourType = 0;
-            }
-        }
-
+        notesUtility.notesDirectivesLink(scope, attrs.ngModel);
     }
 }
 

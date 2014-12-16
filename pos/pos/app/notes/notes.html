@@ -1,8 +1,30 @@
-﻿
-<notes-text ng-model="vm.model.SpcWr1OD"></notes-text>
-<br />
-<notes-select ng-model="vm.model.Mentation1"></notes-select>
-<br />
-<notes-textarea ng-model="vm.model.Compliant"></notes-textarea>
-<br />
-<notes-datepicker ng-model="vm.model.ExamDate"></notes-datepicker>
+﻿<form editable-form name="notesForm" onbeforesave="vm.saveNotes($data)">
+    <div class="ui-grid">
+        <div layout="row" class="ui-grid-header ui-grid-top-panel ui-grid-cell-contents">
+            <span flex>Demographics</span>
+            <md-button type="button" class="md-raised" ng-click="notesForm.$show()" ng-show="!notesForm.$visible">
+                Edit
+            </md-button>
+            <!-- buttons to submit / cancel form -->
+            <span ng-show="notesForm.$visible">
+                <md-button type="button" class="md-raised" ng-disabled="notesForm.$waiting" ng-click="vm.cancelNotes($event)">
+                    Cancel
+                </md-button>
+                <md-button type="submit" class="md-primary md-raised" ng-disabled="notesForm.$waiting">
+                    Save
+                </md-button>
+            </span>
+        </div>
+        <div layout="row" layout-align="start center">
+
+            <br /><br /><br />
+            <br />
+            <notes-select ng-model="vm.model.Mentation1"></notes-select>
+            <br />
+            <notes-textarea ng-model="vm.model.Compliant"></notes-textarea>
+            <br />
+            <notes-datepicker ng-model="vm.model.ExamDate"></notes-datepicker>
+            <notes-text ng-model="vm.model.SpcWr1OD">{{vm.model.SpcWr1OD.Value}}</notes-text>
+        </div>
+    </div>
+</form>
