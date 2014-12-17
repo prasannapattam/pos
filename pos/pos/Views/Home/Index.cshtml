@@ -8,7 +8,7 @@
 </head>
 <body class="main" md-theme="grey">
     <div class="container" layout="column" ng-controller="index as vm">
-        <header>
+        <header ng-hide="session.navigation.hideHeader">
             <div layout="row" class="top-header" ng-cloak>
                 <div>
                     <a href="/"><img class="top-header" src="~/content/images/logo.gif" /></a>
@@ -47,7 +47,7 @@
         <div flex layout="row">
             <main flex class="main-content">
                 <div ui-view class="row content">
-                    <div id="splash" class="splash">
+                    <div id="splash" class="splash" ng-hide="session.navigation.hideHeader" ng-cloak>
                         <br /><br />
                         <h2 class="splash-header">Welcome to @ViewBag.AppTitle</h2>
                         <br />

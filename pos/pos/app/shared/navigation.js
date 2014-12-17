@@ -26,6 +26,7 @@ function navigation($state, utility, constants) {
     var tabs = [];
 
     var vm = {
+        hideHeader: true,
         isLoading: true,
         tabs: tabs,
         iconTypes: constants.iconTypes,
