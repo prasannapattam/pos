@@ -1,4 +1,4 @@
-﻿<form editable-form name="notesForm" onbeforesave="vm.saveNotes($data)">
+﻿<form editable-form name="notesForm" onbeforesave="vm.saveNotes($data)" onaftersave="vm.aftersavenotes()">
     <div class="ui-grid">
         <div layout="row" class="ui-grid-header ui-grid-top-panel ui-grid-cell-contents">
             <span flex>Demographics</span>
@@ -15,16 +15,15 @@
                 </md-button>
             </span>
         </div>
-        <div layout="row" layout-align="start center">
+    </div>
 
-            <br /><br /><br />
-            <br />
-            <notes-select ng-model="vm.model.Mentation1"></notes-select>
-            <br />
-            <notes-textarea ng-model="vm.model.Compliant"></notes-textarea>
-            <br />
-            <notes-datepicker ng-model="vm.model.ExamDate"></notes-datepicker>
-            <notes-text ng-model="vm.model.SpcWr1OD">{{vm.model.SpcWr1OD.Value}}</notes-text>
-        </div>
+    <p>new list</p>
+    <div>
+        <notes-input input-list="{ 'text-1': vm.model.SpcWr1OD, 'text-2': vm.model.Compliant, 'text-3': vm.model.ExamDate }">{{vm.model.SpcWr1OD.Value}}</notes-input>
     </div>
 </form>
+
+<br />
+check this example, which passes an array
+http://stackoverflow.com/questions/16138658/angularjs-create-directive-pass-in-array-of-key-value-pairs-for-buttons-that-r
+<br />

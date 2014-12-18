@@ -8,7 +8,9 @@ function notes($scope, notesService, formUtility) {
         model: {},
         init: init,
         saveNotes: saveNotes,
-        cancelNotes: cancelNotes
+        cancelNotes: cancelNotes,
+        buttons: {},
+        aftersavenotes: aftersavenotes
     };
 
     init();
@@ -21,6 +23,8 @@ function notes($scope, notesService, formUtility) {
         vm.model.Mentation1.ColourType = 1;
         vm.model.Compliant.ColourType = 1;
         vm.model.ExamDate.ColourType = 1;
+
+        vm.buttons = { 'SpcWr1OD': vm.model.SpcWr1OD, 'Compliant': vm.model.Compliant }
     }
 
     function saveNotes(data) {
@@ -29,6 +33,10 @@ function notes($scope, notesService, formUtility) {
 
     function cancelNotes(evt) {
         formUtility.cancelForm(evt, $scope.notesForm);
+    }
+
+    function aftersavenotes() {
+        alert(vm.model.SpcWr1OD.Value);
     }
 }
 
