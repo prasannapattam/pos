@@ -28,7 +28,7 @@ function notes($scope, notesService, formUtility) {
     }
 
     function saveNotes(data) {
-        alert('saved');
+        //alert('saved');
     }
 
     function cancelNotes(evt) {
@@ -36,7 +36,7 @@ function notes($scope, notesService, formUtility) {
     }
 
     function aftersavenotes() {
-        alert(vm.model.SpcWr1OD.Value);
+        //alert(vm.model.SpcWr1OD.Value);
     }
 }
 
