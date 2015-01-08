@@ -282,6 +282,10 @@
     <Content Include="app\user\user.html" />
     <Content Include="app\user\user.js" />
     <Content Include="app\user\userService.js" />
+    <Content Include="App_Data\pos.mdf" />
+    <Content Include="App_Data\pos_log.ldf">
+      <DependentUpon>pos.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\angular-material-grey-theme.css" />
     <Content Include="Content\angular-material.min.css" />
     <Content Include="Content\app.css" />

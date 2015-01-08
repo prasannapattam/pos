@@ -27,6 +27,7 @@ function navigation($state, utility, constants) {
 
     var vm = {
         hideHeader: true,
+        appTitle: 'Prasanna Kumar',
         isLoading: true,
         tabs: tabs,
         iconTypes: constants.iconTypes,

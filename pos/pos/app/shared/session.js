@@ -25,7 +25,7 @@ function session($rootScope, $state, $window, $http, toastr, profile, navigation
         $rootScope.$on('$stateChangeStart', function (evt, toState, toParams, fromState, fromParams) {
             navigation.isLoading = true;
             //checking whether user is authenticated
-            $window.document.title = toState.title + ' | Pediatric Ophthalmology';
+            $window.document.title = toState.title + ' | ' + navigation.appTitle;
             if (profile.isAuthenticated === false && toState.name !== 'login') {
                 evt.preventDefault();
                 $state.go('login');

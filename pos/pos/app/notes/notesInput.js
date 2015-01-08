@@ -4,7 +4,7 @@ angular.module('pos').directive('notesInput', notesInput);
 notesInput.$inject = [];
 
 angular.module('pos').directive('notesInputItem', notesInputItem);
-notesInputItem.$inject = ['$compile'];
+notesInputItem.$inject = ['$compile', 'session'];
 
 function notesInput() {
     return {
@@ -18,49 +18,47 @@ function notesInput() {
                 + '<span ng-if="$first" ng-transclude></span>'
                 + '</notes-input-item>'
     }
-
-    function link(scope, element, attrs) {
-        
-        //notesUtility.notesDirectivesLink(scope, attrs.ngModel);
-        //template: '<input type="text" ng-repeat="(name, val) in inputList" ng-model="val.Value">'
-    }
 }
 
-function notesInputItem($compile) {
+function notesInputItem($compile, session) {
     return {
         restrict: 'E',
         transclude: true,
+        replace: true,
         scope: {
             item: '=',
         },
-        link: link,
-        template: getTemplate()
+        link: link
     }
 
-    function getTemplate() {
-        var item = { type: 'hello' };
+    function getTemplate(item) {
         var editableSpan = '<span'
 
         switch (item.type) {
             case "textarea":
                 editableSpan += ' editable-textarea="item.model.Value" e-rows="3"'
                 break;
+            case "dropdown":
+                item.model.selectoptions = session.lookups[item.model.LookUpFieldName]
+                editableSpan += ' editable-select="item.model.Value" e-ng-options="lookup.FieldDescription as lookup.FieldValue for lookup in item.model.selectoptions"'
+                break;
             default:
                 editableSpan += ' editable-text="item.model.Value"'
         }
 
-        //                    <a href="#" title="Click to edit" editable-textarea="vm.patientModel.Occupation" e-rows="3" onaftersave="vm.savePatient()">{{ vm.patientModel.Occupation | blankValue  }}</a>
-        editableSpan += ' e-name="{{item.model.Name}}" e-ng-class="{focusctrl:item.model.focusctrl, correctctrl: item.model.correctctrl}" ng-transclude></span>'
+        editableSpan += ' e-name="{{item.model.Name}}" e-ng-class="{focusctrl:item.model.focusctrl, correctctrl: item.model.correctctrl}"></span>'
         return editableSpan;
     }
 
-    function link(scope, element, attrs, linker) {
+    function link(scope, element, attrs, nullController, transclude) {
 
-        //element.append(getTemplate(scope.item));
-        //$compile(element.contents())(scope);
+        var elementHtml = getTemplate(scope.item);
+        element.html(elementHtml); 
+        $compile(element.contents())(scope);
+        transclude(scope.$parent, function (clone, scope) {
+            element.children().append(clone);
+        });
 
-        //notesUtility.notesDirectivesLink(scope, attrs.ngModel);
-        //template: '<input type="text" ng-repeat="(name, val) in inputList" ng-model="val.Value">'
     }
 }
 
