@@ -19,7 +19,12 @@
 
     <p>new list</p>
     <div>
-        <notes-input input-list="[{model: vm.model.Mentation1, type:'dropdown'}, {model: vm.model.Compliant, type: 'textarea'}]">{{vm.model.Mentation1.Value}}</notes-input>
+        <notes-input input-list="[{model: vm.model.Compliant, type: 'text'}
+                                    , {model: vm.model.DOB, type: 'date'}
+                                    , {model: vm.model.Mentation1, type:'dropdown'}
+                                    , {model: vm.model.Summary, type: 'textarea'}]">
+            {{vm.model.Mentation1.Value}}
+        </notes-input>
     </div>
 </form>
 

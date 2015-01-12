@@ -101,5 +101,6 @@ function routeConfig($stateProvider, $urlRouterProvider, $locationProvider, cons
     $locationProvider.html5Mode(true);
 
     $urlRouterProvider.when('', '/')
+    $urlRouterProvider.when(window.virtualDirectory + '/', window.virtualDirectory);
 
 }
