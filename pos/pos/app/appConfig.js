@@ -1,10 +1,10 @@
 ﻿'use strict';
 
 angular.module('pos').config(appConfig);
-appConfig.$inject = ['$httpProvider', 'sessionProvider'];
+appConfig.$inject = ['$httpProvider'];
 
 
-function appConfig($httpProvider, sessionProvider) {
+function appConfig($httpProvider) {
 
     // Add the interceptor to the $httpProvider.
     $httpProvider.interceptors.push('webapiInterceptor');
@@ -12,18 +12,15 @@ function appConfig($httpProvider, sessionProvider) {
 }
 
 angular.module('pos').run(appRun);
-appRun.$inject = ['session', 'editableOptions', 'datepickerConfig', 'datepickerPopupConfig'];
-function appRun(session, editableOptions, datepickerConfig, datepickerPopupConfig) {
+appRun.$inject = ['session', 'editableOptions'];
+function appRun(session, editableOptions) {
     session.initialize();
     editableOptions.theme = 'bs3';
-    datepickerConfig.showWeeks = false;
-    datepickerPopupConfig.datepickerPopup = 'MM/dd/yyyy';
-    datepickerPopupConfig.showButtonBar = false;
 }
 
 
 //global variables
-app.value('toastr', toastr)
-app.value('moment', moment)
+angular.module('pos').value('toastr', toastr)
+angular.module('pos').value('moment', moment)
 
 
