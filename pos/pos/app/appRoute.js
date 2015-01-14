@@ -1,9 +1,9 @@
 ﻿'use strict';
 
-angular.module('pos').config(routeConfig);
-routeConfig.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider', 'constants'];
+angular.module('pos').config(appRoute);
+appRoute.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider', 'constants'];
 
-function routeConfig($stateProvider, $urlRouterProvider, $locationProvider, constants) {
+function appRoute($stateProvider, $urlRouterProvider, $locationProvider, constants) {
 
     $stateProvider
         .state("dashboard", {
