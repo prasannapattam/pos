@@ -1,7 +1,7 @@
-﻿angular.module('pos').directive('notesTitle', notesTitle);
-notesTitle.$inject = ['formUtility'];
+﻿angular.module('pos').directive('notesSectionTitle', notesSectionTitle);
+notesSectionTitle.$inject = ['formUtility'];
 
-function notesTitle(formUtility) {
+function notesSectionTitle(formUtility) {
     return {
         restrict: 'E',
         scope: {
@@ -15,7 +15,7 @@ function notesTitle(formUtility) {
         + '        Edit'
         + '    </md-button>'
         + '    <span ng-show="sectionForm.$visible">'
-        + '        <md-button type="button" class="md-raised" ng-disabled="sectionForm.$waiting" ng-click="cancelForm($event, sectionForm)">'
+        + '        <md-button type="button" class="md-raised" ng-disabled="sectionForm.$waiting" ng-click="cancelForm($event)">'
         + '            Cancel'
         + '        </md-button>'
         + '       <md-button type="submit" class="md-primary md-raised" ng-disabled="sectionForm.$waiting">'
@@ -28,8 +28,12 @@ function notesTitle(formUtility) {
     }
 
     function link(scope, element, attrs, nullController, transclude) {
-        scope.cancelForm = function cancelNotes(evt, form) {
-            formUtility.cancelForm(evt, form);
+        scope.cancelForm = function cancelNotes(evt) {
+            formUtility.cancelForm(evt, scope.sectionForm);
+        }
+
+        scope.sectionForm.$onshow = function () {
+            alert('shown');
         }
 
     }

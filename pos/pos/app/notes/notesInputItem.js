@@ -1,7 +1,7 @@
 ﻿angular.module('pos').directive('notesInputItem', notesInputItem);
-notesInputItem.$inject = ['$compile', 'session', 'constants', 'notesUtility'];
+notesInputItem.$inject = ['$compile', 'session', 'constants', 'notesUtility', 'notesService'];
 
-function notesInputItem($compile, session, constants, notesUtility) {
+function notesInputItem($compile, session, constants, notesUtility, notesService) {
     return {
         restrict: 'E',
         transclude: true,
@@ -49,6 +49,28 @@ function notesInputItem($compile, session, constants, notesUtility) {
         transclude(scope.$parent, function (clone, scope) {
             element.children().append(clone);
         });
+
+        //attaching autocomplete
+        if (scope.item.type === "text" || scope.item.type === "textarea") {
+            $("#" + scope.item.model.Name).textcomplete([
+                { // tech companies
+                    match: /([^:\., ]+)$/,
+                    search: function (term, callback) {
+                        callback($.map(notesService.autoComplete, function (word) {
+                            return word.indexOf(term) === 0 ? word : null;
+                        }));
+                    },
+                    index: 1,
+                    replace: function (word, delimiter) {
+                        if (delimiter === undefined)
+                            delimiter = ' ';
+                        return word.slice(word.indexOf(':') + 1).trim() + delimiter;
+                    }
+                }
+            ]);
+
+        }
+
     }
 }
 

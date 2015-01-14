@@ -7,7 +7,7 @@ function profile(utility) {
     var userID = 1;
     var firstName = 'Prasanna';
     var lastName = 'Pattam';
-    var userName = 'prasanna';
+    var userName = 'koty';
     var photoUrl = window.virtualDirectory + '/data/prasanna.jpg';
     var isAuthenticated = window.userAuthenticated;
 

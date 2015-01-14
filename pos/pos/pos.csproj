@@ -242,7 +242,7 @@
     <Content Include="app\layout\test.js" />
     <Content Include="app\notes\notesInput.js" />
     <Content Include="app\notes\notesInputItem.js" />
-    <Content Include="app\notes\notesTitle.js" />
+    <Content Include="app\notes\notesSectionTitle.js" />
     <Content Include="app\notes\notesUtility.js" />
     <Content Include="app\notes\notesValue.js" />
     <Content Include="app\patient\demographics.html" />
@@ -365,6 +365,7 @@
     <Content Include="Scripts\angular\hammer.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\jquery.js" />
+    <Content Include="Scripts\jquery.textcomplete.js" />
     <Content Include="Scripts\kendo\kendo.angular.js" />
     <Content Include="Scripts\kendo\kendo.angular.min.js" />
     <Content Include="Scripts\kendo\kendo.autocomplete.js" />

@@ -7,7 +7,9 @@ notesService.$inject = ['$http', 'session'];
 function notesService($http, session) {
 
     var service = {
-        model: {},
+        model: undefined,
+        doctors: undefined,
+        autoComplete: undefined,
         resolve: resolve,
         save: save
     };
@@ -50,7 +52,7 @@ function notesService($http, session) {
             }
 
             service.doctors = data.Doctors;
-            //window.autoComplete = data.Model.AutoComplete;
+            service.autoComplete = data.AutoComplete;
             //addComputedProperties();
             //setOverrides();
 
