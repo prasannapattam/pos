@@ -241,7 +241,10 @@
     <Content Include="app\layout\index.js" />
     <Content Include="app\layout\test.js" />
     <Content Include="app\notes\notesInput.js" />
+    <Content Include="app\notes\notesInputItem.js" />
+    <Content Include="app\notes\notesTitle.js" />
     <Content Include="app\notes\notesUtility.js" />
+    <Content Include="app\notes\notesValue.js" />
     <Content Include="app\patient\demographics.html" />
     <Content Include="app\patient\demographics.js" />
     <Content Include="app\patient\encounterHistory.html" />
@@ -264,7 +267,6 @@
     <Content Include="app\account\login.js" />
     <Content Include="app\notes\notes.html" />
     <Content Include="app\notes\notes.js" />
-    <Content Include="app\notes\notesDirectives.js" />
     <Content Include="app\notes\notesService.js" />
     <Content Include="app\notes\notestest.html" />
     <Content Include="app\notes\notestest.js" />

@@ -1,21 +1,5 @@
-﻿<form editable-form name="notesForm" onbeforesave="vm.saveNotes($data)" onaftersave="vm.aftersavenotes()">
-    <div class="ui-grid">
-        <div layout="row" class="ui-grid-header ui-grid-top-panel ui-grid-cell-contents">
-            <span flex>Testing</span>
-            <md-button type="button" class="md-raised" ng-click="notesForm.$show()" ng-show="!notesForm.$visible">
-                Edit
-            </md-button>
-            <!-- buttons to submit / cancel form -->
-            <span ng-show="notesForm.$visible">
-                <md-button type="button" class="md-raised" ng-disabled="notesForm.$waiting" ng-click="vm.cancelNotes($event)">
-                    Cancel
-                </md-button>
-                <md-button type="submit" class="md-primary md-raised" ng-disabled="notesForm.$waiting">
-                    Save
-                </md-button>
-            </span>
-        </div>
-    </div>
+﻿<form editable-form name="testForm" onbeforesave="vm.saveNotes($data)" onaftersave="vm.aftersavenotes()">
+    <notes-title section-form="testForm">Testing Now</notes-title>
 
     <p>new list</p>
     <div>
@@ -23,12 +7,12 @@
                                     , {model: vm.model.DOB, type: 'date'}
                                     , {model: vm.model.Mentation1, type:'dropdown'}
                                     , {model: vm.model.Summary, type: 'textarea'}]">
-            {{vm.model.Mentation1.Value}}
+            <notes-value ng-model="vm.model.Mentation1" />
         </notes-input>
     </div>
 </form>
 
 <br />
-http://onehungrymind.com/angularjs-dynamic-templates/
+
 
 <br />

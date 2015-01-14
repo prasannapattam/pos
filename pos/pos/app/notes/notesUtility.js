@@ -6,25 +6,22 @@ notesUtility.$inject = ['constants'];
 function notesUtility(constants) {
 
     var vm = {
-        notesDirectivesLink: notesDirectivesLink
+        clearColourType: clearColourType,
+        setInputColours: setInputColours
     };
 
     return vm;
 
-    function notesDirectivesLink(scope, ctrlname) {
-        scope.name = ctrlname.substring(ctrlname.lastIndexOf(".") + 1, ctrlname.length);
-        setInputColours(scope);
-
-        scope.clearColourType = function () {
-            if (scope.ngModel.ColourType === 1) {
-                scope.ngModel.ColourType = 0;
-                setInputColours(scope);
-            }
+    function clearColourType(model) {
+        if (model.ColourType === 1) {
+            model.ColourType = 0;
+            setInputColours(model);
         }
     }
-    function setInputColours(scope) {
-        scope.ngModel.focusctrl = scope.ngModel.ColourType === constants.colourType.New;
-        scope.ngModel.correctctrl = scope.ngModel.ColourType === constants.colourType.Correct;
+
+    function setInputColours(model) {
+        model.focusctrl = model.ColourType === constants.colourType.New;
+        model.correctctrl = model.ColourType === constants.colourType.Correct;
     }
 
 };

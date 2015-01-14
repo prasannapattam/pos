@@ -1,9 +1,9 @@
 ﻿'use strict';
 
 angular.module('pos').controller('notes', notes);
-notes.$inject = ['$scope', 'notesService', 'formUtility'];
+notes.$inject = ['notesService', 'formUtility'];
 
-function notes($scope, notesService, formUtility) {
+function notes(notesService, formUtility) {
     var vm = {
         model: {},
         init: init,
@@ -31,8 +31,8 @@ function notes($scope, notesService, formUtility) {
         //alert('saved');
     }
 
-    function cancelNotes(evt) {
-        formUtility.cancelForm(evt, $scope.notesForm);
+    function cancelNotes(evt, form) {
+        formUtility.cancelForm(evt, form);
     }
 
     function aftersavenotes() {
