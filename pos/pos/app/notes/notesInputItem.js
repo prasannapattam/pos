@@ -30,14 +30,37 @@ function notesInputItem($compile, session, constants, notesUtility, notesService
                 editableSpan += ' editable-text="item.model.Value"'
         }
 
-        editableSpan += ' e-id="{{item.model.Name}}" e-name="{{item.model.Name}}" e-ng-class="{focusctrl:item.model.focusctrl, correctctrl: item.model.correctctrl}" e-ng-focus="clearColourType()"></span>'
+        editableSpan += ' e-id="{{item.model.Name}}" e-name="{{item.model.Name}}" e-ng-class="{focusctrl:item.model.focusctrl, correctctrl: item.model.correctctrl}" e-ng-focus="itemfocus()"></span>'
         return editableSpan;
     }
 
     function link(scope, element, attrs, nullController, transclude) {
 
-        scope.clearColourType = function () {
+        scope.itemfocus = function () {
+            //clearing the colours
             notesUtility.clearColourType(scope.item.model);
+
+            //attaching autocomplete
+            if (scope.item.type === "text" || scope.item.type === "textarea") {
+                $('#' + scope.item.model.Name).textcomplete([
+                    { // tech companies
+                        match: /([^:\., ]+)$/,
+                        search: function (term, callback) {
+                            callback($.map(notesService.autoComplete, function (word) {
+                                return word.indexOf(term) === 0 ? word : null;
+                            }));
+                        },
+                        index: 1,
+                        replace: function (word, delimiter) {
+                            if (delimiter === undefined)
+                                delimiter = ' ';
+                            return word.slice(word.indexOf(':') + 1).trim() + delimiter;
+                        }
+                    }
+                ]);
+            }
+
+
         }
 
         //setting the colours
@@ -49,28 +72,6 @@ function notesInputItem($compile, session, constants, notesUtility, notesService
         transclude(scope.$parent, function (clone, scope) {
             element.children().append(clone);
         });
-
-        //attaching autocomplete
-        if (scope.item.type === "text" || scope.item.type === "textarea") {
-            $("#" + scope.item.model.Name).textcomplete([
-                { // tech companies
-                    match: /([^:\., ]+)$/,
-                    search: function (term, callback) {
-                        callback($.map(notesService.autoComplete, function (word) {
-                            return word.indexOf(term) === 0 ? word : null;
-                        }));
-                    },
-                    index: 1,
-                    replace: function (word, delimiter) {
-                        if (delimiter === undefined)
-                            delimiter = ' ';
-                        return word.slice(word.indexOf(':') + 1).trim() + delimiter;
-                    }
-                }
-            ]);
-
-        }
-
     }
 }
 
