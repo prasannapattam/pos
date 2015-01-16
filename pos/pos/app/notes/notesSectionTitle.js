@@ -32,36 +32,5 @@ function notesSectionTitle(formUtility) {
         scope.cancelForm = function cancelNotes(evt) {
             formUtility.cancelForm(evt, scope.sectionForm);
         }
-
-        scope.sectionForm.$onshow = function () {
-            //alert('shown');
-            var form = angular.element(scope.sectionForm);
-            $("input[type='text'], textarea", form).each(function () {
-                console.log(this.name);
-            });
-            //attaching autocomplete
-            //if (scope.item.type === "text" || scope.item.type === "textarea") {
-            //    $("#" + scope.item.model.Name).textcomplete([
-            //        { // tech companies
-            //            match: /([^:\., ]+)$/,
-            //            search: function (term, callback) {
-            //                callback($.map(notesService.autoComplete, function (word) {
-            //                    return word.indexOf(term) === 0 ? word : null;
-            //                }));
-            //            },
-            //            index: 1,
-            //            replace: function (word, delimiter) {
-            //                if (delimiter === undefined)
-            //                    delimiter = ' ';
-            //                return word.slice(word.indexOf(':') + 1).trim() + delimiter;
-            //            }
-            //        }
-            //    ]);
-
-            //}
-
-
-        }
-
     }
 }

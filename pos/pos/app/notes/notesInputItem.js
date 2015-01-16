@@ -30,6 +30,10 @@ function notesInputItem($compile, session, constants, notesUtility, notesService
                 editableSpan += ' editable-text="item.model.Value"'
         }
 
+        if (item.cssClass !== undefined) {
+            editableSpan += ' e-class="{{item.cssClass}}"';
+        }
+
         editableSpan += ' e-id="{{item.model.Name}}" e-name="{{item.model.Name}}" e-ng-class="{focusctrl:item.model.focusctrl, correctctrl: item.model.correctctrl}" e-ng-focus="itemfocus()"></span>'
         return editableSpan;
     }
@@ -42,7 +46,10 @@ function notesInputItem($compile, session, constants, notesUtility, notesService
 
             //attaching autocomplete
             if (scope.item.type === "text" || scope.item.type === "textarea") {
-                $('#' + scope.item.model.Name).textcomplete([
+                var textelement = $('#' + scope.item.model.Name);
+                //attaching the textcomplete only one time using the textcomplete-attached attribute
+                if (textelement.attr("textcomplete-attached") === undefined) { 
+                    textelement.textcomplete([
                     { // tech companies
                         match: /([^:\., ]+)$/,
                         search: function (term, callback) {
@@ -57,7 +64,9 @@ function notesInputItem($compile, session, constants, notesUtility, notesService
                             return word.slice(word.indexOf(':') + 1).trim() + delimiter;
                         }
                     }
-                ]);
+                    ]);
+                    textelement.attr("textcomplete-attached", "true");
+                }
             }
 
 
