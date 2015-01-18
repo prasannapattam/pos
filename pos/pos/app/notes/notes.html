@@ -1,15 +1,110 @@
-﻿<form editable-form name="testForm" onbeforesave="vm.saveNotes($data)" onaftersave="vm.aftersavenotes()">
-    <notes-section-title section-form="testForm">Testing Now</notes-section-title>
-
-    <p>new list</p>
-    <div>
-        <notes-input input-list="[{model: vm.model.Compliant, type: 'text', cssClass:'xlarge'}
-                                    , {model: vm.model.DOB, type: 'date'}
-                                    , {model: vm.model.Mentation1, type:'dropdown'}
-                                    , {model: vm.model.Summary, type: 'textarea'}]">
-            <notes-value ng-model="vm.model.Mentation1" />
-        </notes-input>
+﻿<form editable-form name="patientForm" notes-section-form>
+    <notes-section-title section-form="patientForm">Patient Info</notes-section-title>
+    <div layout="row">
+        <div flex="33" layout="column">
+            <div layout="row">
+                <div flex="25" class="col-row-header">Patient Name</div>
+                <div flex class="col-row-content">
+                    <notes-input input-list="[{model: vm.model.Greeting, type: 'dropdown'}
+                                    , {model: vm.model.FirstName, type: 'text', cssClass:'small'}
+                                    , {model: vm.model.MiddleName, type:'text', cssClass:'mini'}
+                                    , {model: vm.model.LastName, type: 'text', cssClass:'small'}]">
+                        <notes-value ng-model="vm.model.Greeting"></notes-value>
+                        <notes-value ng-model="vm.model.FirstName"></notes-value>
+                        <notes-value ng-model="vm.model.MiddleName"></notes-value>
+                        <notes-value ng-model="vm.model.LastName"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+            <div layout="row">
+                <div flex="25" class="col-row-header">DOB</div>
+                <div flex class="col-row-content">
+                    <notes-input input-list="[{model: vm.model.DOB, type: 'date'}]"><notes-value ng-model="vm.model.DOB"></notes-value> (<notes-value ng-model="vm.model.tbAge"></notes-value>)</notes-input>
+                </div>
+            </div>
+            <div layout="row">
+                <div flex="25" class="col-row-header">Sex</div>
+                <div flex class="col-row-content">
+                    <notes-input input-list="[{model: vm.model.Sex, type: 'dropdown'}]"><notes-value ng-model="vm.model.Sex"></notes-value></notes-input>
+                </div>
+            </div>
+            <div layout="row">
+                <div flex="25" class="col-row-header">Premature</div>
+                <div flex class="col-row-content">
+                    <notes-input input-list="[{model: vm.model.Premature, type: 'dropdown'}]">{{vm.model.Premature.Value | boolText }}</notes-input>
+                </div>
+            </div>
+        </div>
+        <div flex="33" layout="column">
+            <div layout="row">
+                <div flex="25" class="col-row-header">Hx From</div>
+                <div flex class="col-row-content">
+                    <notes-input input-list="[{model: vm.model.HxFromList, type: 'dropdown'}
+                                    , {model: vm.model.HxFromOther, type: 'text', cssClass:'small'}]">
+                        <notes-value ng-model="vm.model.HxFromList"></notes-value>
+                        <notes-value ng-model="vm.model.HxFromOther"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+            <div layout="row">
+                <div flex="25" class="col-row-header">Ref'd By</div>
+                <div flex class="col-row-content">
+                    <notes-input input-list="[{model: vm.model.Refd, type: 'text', cssClass:'small'}
+                                    , {model: vm.model.RefDoctor, type: 'text', cssClass:'small'}]">
+                        <notes-value ng-model="vm.model.Refd"></notes-value>
+                        (Dr. <notes-value ng-model="vm.model.RefDoctor"></notes-value>)
+                    </notes-input>
+                </div>
+            </div>
+            <div layout="row">
+                <div flex="25" class="col-row-header">Allergies</div>
+                <div flex class="col-row-content">
+                    <notes-input input-list="[{model: vm.model.Allergies, type: 'text', cssClass: 'xlarge'}]"><notes-value ng-model="vm.model.Allergies"></notes-value></notes-input>
+                </div>
+            </div>
+            <div layout="row">
+                <div flex="25" class="col-row-header">Grade/Occup.</div>
+                <div flex class="col-row-content">
+                    <notes-input input-list="[{model: vm.model.Occupation, type: 'text', cssClass: 'xlarge'}]"><notes-value ng-model="vm.model.Occupation"></notes-value></notes-input>
+                </div>
+            </div>
+        </div>
+        <div flex="33" layout="column">
+            <div layout="row">
+                <div flex="25" class="col-row-header">Patient Name</div>
+                <div flex class="col-row-content">
+                    <notes-input input-list="[{model: vm.model.Greeting, type: 'dropdown'}
+                                    , {model: vm.model.FirstName, type: 'text', cssClass:'small'}
+                                    , {model: vm.model.MiddleName, type:'text', cssClass:'mini'}
+                                    , {model: vm.model.LastName, type: 'text', cssClass:'small'}]">
+                        <notes-value ng-model="vm.model.Greeting"></notes-value>
+                        <notes-value ng-model="vm.model.FirstName"></notes-value>
+                        <notes-value ng-model="vm.model.MiddleName"></notes-value>
+                        <notes-value ng-model="vm.model.LastName"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+            <div layout="row">
+                <div flex="25" class="col-row-header">DOB</div>
+                <div flex class="col-row-content">
+                    <notes-input input-list="[{model: vm.model.DOB, type: 'date'}]"><notes-value ng-model="vm.model.DOB"></notes-value> (<notes-value ng-model="vm.model.tbAge"></notes-value>)</notes-input>
+                </div>
+            </div>
+            <div layout="row">
+                <div flex="25" class="col-row-header">Sex</div>
+                <div flex class="col-row-content">
+                    <notes-input input-list="[{model: vm.model.Sex, type: 'dropdown'}]"><notes-value ng-model="vm.model.Sex"></notes-value></notes-input>
+                </div>
+            </div>
+            <div layout="row">
+                <div flex="25" class="col-row-header">Premature</div>
+                <div flex class="col-row-content">
+                    <notes-input input-list="[{model: vm.model.Premature, type: 'dropdown'}]">{{vm.model.Premature.Value | boolText }}</notes-input>
+                </div>
+            </div>
+        </div>
     </div>
 </form>
 
-<br />
+
+

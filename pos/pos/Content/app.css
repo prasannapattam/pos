@@ -202,6 +202,10 @@ input.large{
 }
 
 input.xlarge{
+    width: 275px;
+}
+
+input.xxlarge{
     width: 393px;
 }
 

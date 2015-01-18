@@ -1,7 +1,7 @@
 ﻿'use strict';
 angular.module('pos').controller('portal', portal);
-portal.$inject = ['$scope', '$filter', 'patientService', 'utility', 'uiGridConstants'];
-function portal($scope, $filter, patientService, utility, uiGridConstants) {
+portal.$inject = ['$scope', '$filter', 'patientService', 'session', 'utility', 'uiGridConstants'];
+function portal($scope, $filter, patientService, session, utility, uiGridConstants) {
 
     var encounterGridOptions = {
         enableColumnMenus: false,
@@ -21,7 +21,7 @@ function portal($scope, $filter, patientService, utility, uiGridConstants) {
         validatePatientName: validatePatientName,
         validatePatientNumberAndSave: validatePatientNumberAndSave,
         patientPhotoUrl: patientPhotoUrl,
-        boolSelectList: utility.getBoolSelect()
+        boolSelectList: session.lookups.BOOL
     };
 
     init();

@@ -2,21 +2,25 @@
 
 angular.module('pos').factory('notesService', notesService);
 
-notesService.$inject = ['$http', 'session'];
+notesService.$inject = ['$http', 'session', 'patientService'];
 
-function notesService($http, session) {
+function notesService($http, session, patientService) {
 
     var service = {
         model: undefined,
         doctors: undefined,
         autoComplete: undefined,
         resolve: resolve,
-        save: save
+        save: save,
     };
 
     return service;
 
     function resolve(patientid, notesid) {
+
+        //hiding the patient menu
+        patientService.hideMenu = true;
+
         var getdata = { params: { "userName": session.profile.userName, "patientid": patientid, "examid": notesid || '' } };
         return $http.get('/api/notes', getdata).success(function (data) {
             var model = data.Notes;

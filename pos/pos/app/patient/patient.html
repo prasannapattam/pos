@@ -1,5 +1,6 @@
 ﻿<div section-header text="{{vm.model.FullName}}" css-class="main-header" ng-hide="session.navigation.hideHeader"></div>
 <div layout="row">
-    <ul flex="20" id="left-menu" class="left-menu portal" kendo-menu k-data-source="vm.menuItems" k-on-open="vm.menuSelect(kendoEvent)" ng-hide="session.navigation.hideHeader"></ul>
+    {{vm.hideMenu}}
+    <ul flex="20" id="left-menu" class="left-menu portal" kendo-menu k-data-source="vm.menuItems" ng-hide="vm.service.hideMenu || session.navigation.hideHeader"></ul>
     <div flex ui-view></div>
 </div>

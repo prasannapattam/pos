@@ -10,8 +10,9 @@ function patientService($http, utility) {
         patientModel: {},
         resolve: resolve,
         savePatient: savePatient,
-        encounterButtonTemplate: encounterButtonTemplate
-    };
+        encounterButtonTemplate: encounterButtonTemplate,
+        hideMenu: false
+};
 
     return service;
 

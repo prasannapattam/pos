@@ -7,7 +7,7 @@ function patient($state, patientService, utility) {
         model: {},
         menuItems: [],
         save: save,
-        menuSelect: menuSelect
+        service: patientService
     };
 
     init();
@@ -46,12 +46,6 @@ function patient($state, patientService, utility) {
             alert('Saved');
         });
     }
-
-    function menuSelect(ev) {
-        alert('activate')
-        //$(ev.item).siblings().removeClass("k-state-highlight");
-        //$(ev.item).addClass("k-state-highlight");
-    };
 
 }
 

@@ -19,12 +19,30 @@ function notes(notesService, formUtility) {
 
     function init() {
         vm.model = notesService.model;
-        vm.model.SpcWr1OD.ColourType = 1;
-        vm.model.Mentation1.ColourType = 1;
-        vm.model.Compliant.ColourType = 1;
-        vm.model.ExamDate.ColourType = 1;
 
-        vm.buttons = { 'SpcWr1OD': vm.model.SpcWr1OD, 'Compliant': vm.model.Compliant }
+        vm.model.HxFromList = {
+            Name: 'HxFromList',
+            Value: vm.model.HxFrom.Value,
+            LookUpFieldName: vm.model.HxFrom.LookUpFieldName,
+            ColourType: vm.model.HxFrom.ColourType
+        };
+
+        vm.model.HxFromOther = {
+            Name: 'HxFromOther',
+            Value: vm.model.HxFrom.Value,
+            LookUpFieldName: vm.model.HxFrom.LookUpFieldName,
+            ColourType: vm.model.HxFrom.ColourType
+        }
+
+        //removing the weeks (fix for old data)
+        if (vm.model.GA.Value === "weeks") {
+            vm.model.GA.Value = "";
+            vm.model.GA.ColourType = 0;
+        }
+        if (vm.model.PCA.Value === "weeks") {
+            vm.model.PCA.Value = "";
+            vm.model.PCA.ColourType = 0;
+        }
     }
 
     function saveNotes(data) {

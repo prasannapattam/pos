@@ -5,7 +5,7 @@ function demographics($scope, patientService, session, utility, formUtility) {
 
     var vm = {
         patientModel: {},
-        boolSelectList: utility.getBoolSelect(),
+        boolSelectList: session.lookups.BOOL,
         savePatient: savePatient,
         validateRequiedField: validateRequiedField,
         copyRef: copyRef,

@@ -240,11 +240,12 @@
     <Content Include="app\appRoute.js" />
     <Content Include="app\layout\index.js" />
     <Content Include="app\layout\test.js" />
-    <Content Include="app\notes\notesInput.js" />
-    <Content Include="app\notes\notesInputItem.js" />
-    <Content Include="app\notes\notesSectionTitle.js" />
+    <Content Include="app\notes\directives\notesInput.js" />
+    <Content Include="app\notes\directives\notesInputItem.js" />
+    <Content Include="app\notes\directives\notesSectionForm.js" />
+    <Content Include="app\notes\directives\notesSectionTitle.js" />
     <Content Include="app\notes\notesUtility.js" />
-    <Content Include="app\notes\notesValue.js" />
+    <Content Include="app\notes\directives\notesValue.js" />
     <Content Include="app\patient\demographics.html" />
     <Content Include="app\patient\demographics.js" />
     <Content Include="app\patient\encounterHistory.html" />
@@ -347,7 +348,6 @@
     <Content Include="Data\NoPhoto.jpg" />
     <Content Include="Data\prasanna.jpg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />

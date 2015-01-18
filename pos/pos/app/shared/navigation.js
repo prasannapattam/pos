@@ -26,7 +26,7 @@ function navigation($state, utility, constants) {
     var tabs = [];
 
     var vm = {
-        hideHeader: true,
+        hideHeader: false,
         appTitle: 'Prasanna Kumar',
         isLoading: true,
         tabs: tabs,

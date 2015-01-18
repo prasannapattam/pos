@@ -56,13 +56,6 @@ function utility(toastr, constants) {
             return window.virtualDirectory + "/content/images/icons/patient-female.png";
     }
 
-    function getBoolSelect() {
-        return [
-            { value: true, text: 'Yes' },
-            { value: false, text: 'No' }
-        ];
-    }
-
     function lookupExists(list, value) {
 
         for(var counter = 0; counter < list.length; counter ++){
