@@ -156,7 +156,7 @@ namespace pos.Lib.Domain
             SetPatientField(notes.PatientName, patient.FirstName + " " + patient.LastName);
             SetPatientField(notes.DOB, patient.DateOfBirth.Value.ToShortDateString());
             SetPatientField(notes.Sex, patient.Sex);
-            SetPatientField(notes.PrematureBirth, patient.PrematureBirth == null ? false.ToString() : patient.PrematureBirth.Value.ToString());
+            SetPatientField(notes.Premature, patient.PrematureBirth == null ? false.ToString() : patient.PrematureBirth.Value.ToString());
             SetPatientField(notes.HxFrom, patient.HxFrom);
             SetPatientField(notes.RefDoctor, patient.ReferredDoctor);
             SetPatientField(notes.Refd, patient.ReferredFrom);

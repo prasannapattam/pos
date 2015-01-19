@@ -22,9 +22,6 @@ function demographics($scope, patientService, session, utility, formUtility) {
         vm.patientModel.PhotoUrl = utility.getDefaultPatientPhoto(vm.patientModel.Sex);
 
         //HxFrom
-        if(!utility.lookupExists(session.lookups.HxFrom, "")){
-            session.lookups.HxFrom.push({FieldDescription: "Other", FieldName: "HxFrom", FieldValue: ""});
-        }
         if (utility.lookupExists(session.lookups.HxFrom, vm.patientModel.HxFrom)) {
             vm.patientModel.HxFromList = vm.patientModel.HxFrom;
             vm.patientModel.HxFromOther = '';

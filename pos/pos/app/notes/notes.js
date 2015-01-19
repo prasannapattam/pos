@@ -1,15 +1,15 @@
 ﻿'use strict';
 
 angular.module('pos').controller('notes', notes);
-notes.$inject = ['notesService', 'formUtility'];
+notes.$inject = ['notesService', 'session', 'formUtility', 'utility'];
 
-function notes(notesService, formUtility) {
+function notes(notesService, session, formUtility, utility) {
     var vm = {
         model: {},
+        doctors: [],
         init: init,
         saveNotes: saveNotes,
         cancelNotes: cancelNotes,
-        buttons: {},
         aftersavenotes: aftersavenotes
     };
 
@@ -19,6 +19,10 @@ function notes(notesService, formUtility) {
 
     function init() {
         vm.model = notesService.model;
+        vm.doctors = notesService.doctors;
+
+        //UI related changes to the model
+        //vm.model.Premature.LookUpFieldName = "BOOL";
 
         vm.model.HxFromList = {
             Name: 'HxFromList',
@@ -33,6 +37,17 @@ function notes(notesService, formUtility) {
             LookUpFieldName: vm.model.HxFrom.LookUpFieldName,
             ColourType: vm.model.HxFrom.ColourType
         }
+
+        //HxFrom
+        if (utility.lookupExists(session.lookups.HxFrom, vm.model.HxFrom.Value)) {
+            vm.model.HxFromList.Value = vm.model.HxFrom.Value;
+            vm.model.HxFromOther.Value = '';
+        }
+        else {
+            vm.model.HxFromList.Value = '';
+            vm.model.HxFromOther.Value = vm.model.HxFrom.Value;
+        }
+
 
         //removing the weeks (fix for old data)
         if (vm.model.GA.Value === "weeks") {

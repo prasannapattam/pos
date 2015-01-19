@@ -28,7 +28,7 @@
             <div layout="row">
                 <div flex="25" class="col-row-header">Premature Birth</div>
                 <div flex class="col-row-content">
-                    <a href="#" editable-select="vm.patientModel.PrematureBirth" e-ng-options="s.FieldValue as s.FieldDescription for s in vm.boolSelectList" onaftersave="vm.savePatient()">
+                    <a href="#" editable-select="vm.patientModel.PrematureBirth" e-ng-options="s.FieldDescription as s.FieldValue for s in vm.boolSelectList" onaftersave="vm.savePatient()">
                         {{vm.patientModel.PrematureBirth | boolText }}
                     </a>
                 </div>
@@ -36,7 +36,7 @@
             <div layout="row">
                 <div flex="25" class="col-row-header">Sex</div>
                 <div flex class="col-row-content">
-                    <a href="#" editable-select="vm.patientModel.Sex" e-ng-options="sex.FieldValue as sex.FieldDescription for sex in session.lookups.Sex" onaftersave="vm.savePatient()" onbeforesave="vm.patientPhotoUrl($data)">
+                    <a href="#" editable-select="vm.patientModel.Sex" e-ng-options="sex.FieldDescription as sex.FieldValue for sex in session.lookups.Sex" onaftersave="vm.savePatient()" onbeforesave="vm.patientPhotoUrl($data)">
                         {{vm.patientModel.Sex}}
                     </a>
                 </div>

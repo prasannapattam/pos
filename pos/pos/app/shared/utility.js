@@ -15,7 +15,6 @@ function utility(toastr, constants) {
         routePath: routePath,
         getDefaultPatientPhoto: getDefaultPatientPhoto,
         getPhotoUrl: getPhotoUrl,
-        getBoolSelect: getBoolSelect,
         lookupExists: lookupExists,
         getGridHeight: getGridHeight
     };

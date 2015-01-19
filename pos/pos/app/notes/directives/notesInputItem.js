@@ -8,6 +8,7 @@ function notesInputItem($compile, session, constants, notesUtility, notesService
         replace: true,
         scope: {
             item: '=',
+            formName: '@'
         },
         link: link
     }
@@ -34,7 +35,7 @@ function notesInputItem($compile, session, constants, notesUtility, notesService
             editableSpan += ' e-class="{{item.cssClass}}"';
         }
 
-        editableSpan += ' e-id="{{item.model.Name}}" e-name="{{item.model.Name}}" e-ng-class="{focusctrl:item.model.focusctrl, correctctrl: item.model.correctctrl}" e-ng-focus="itemfocus()"></span>'
+        editableSpan += ' e-id="{{item.model.Name}}" e-name="{{item.model.Name}}" e-form="{{formName}}" e-ng-class="{focusctrl:item.model.focusctrl, correctctrl: item.model.correctctrl}" e-ng-focus="itemfocus()"></span>'
         return editableSpan;
     }
 

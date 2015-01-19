@@ -54,9 +54,10 @@ function session($rootScope, $state, $window, $http, toastr, profile, navigation
         return $http.get("/api/lookup")
             .success(function (data) {
                 vm.lookups = data
+                vm.lookups.HxFrom.push({ FieldDescription: "", FieldName: "HxFrom", FieldValue: "Other" });
                 //adding the boolean options
-                vm.lookups.BOOL = [{ FieldName: "BOOL", FieldDescription: "Yes", FieldValue: true },
-                                    { FieldName: "BOOL", FieldDescription: "No", FieldValue: false }];
+                vm.lookups.BOOL = [{ FieldName: "BOOL", FieldDescription: true, FieldValue: "Yes" },
+                                    { FieldName: "BOOL", FieldDescription: false, FieldValue: "No" }];
             });
     }
 
