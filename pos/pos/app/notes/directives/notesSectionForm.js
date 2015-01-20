@@ -19,7 +19,7 @@ function notesSectionForm($document) {
         $document.on("click", function (event) {
             var isChild = $(element).find(event.target).length > 0;
 
-            if (!isChild) {
+            if (!isChild && scope.sectionForm.$visible) {
                 scope.sectionForm.$submit();
             }
 

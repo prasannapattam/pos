@@ -1,41 +1,4 @@
-﻿{{vm.model.Compliant.Value}}
-<form editable-form name="compliantForm" notes-section-form>
-    <notes-section-title section-form="compliantForm">Compliant</notes-section-title>
-    <div layout="row">
-        <div flex="50" layout="column">
-            <div layout="row">
-                <div flex="20" class="col-row-header">Chief Complaint</div>
-                <div flex class="col-row-content">
-                    <notes-input form-name="compliantForm" input-list="[{model: vm.model.Compliant, type: 'textarea', cssClass:'xxlarge'}]">
-                        <notes-value ng-model="vm.model.Compliant"></notes-value>
-                    </notes-input>
-                    
-                </div>
-            </div>
-            <div layout="row">
-                <div flex="20" class="col-row-header">Mentation</div>
-                <div flex class="col-row-content">
-                    <notes-input form-name="compliantForm" input-list="[{model: vm.model.Mentation1, type: 'dropdown'}, {model: vm.model.Mentation2, type: 'text', cssClass:'small'}]">
-                        <notes-value ng-model="vm.model.Mentation1"></notes-value>
-                    </notes-input>
-                </div>
-            </div>
-        </div>
-        <div flex="50" layout="column">
-            <div layout="row">
-                <div flex="20" class="col-row-header">History</div>
-                <div flex class="col-row-content">
-                    <notes-input form-name="compliantForm" input-list="[{model: vm.model.SubjectiveHistory, type: 'textarea', cssClass:'xxlarge'}]">
-                        <notes-value ng-model="vm.model.SubjectiveHistory"></notes-value>
-                    </notes-input>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</form>
-
-<form editable-form name="patientForm" notes-section-form>
+﻿<form editable-form name="patientForm" notes-section-form>
     <notes-section-title section-form="patientForm">Patient Info</notes-section-title>
     <div layout="row">
         <div flex="33" layout="column">
@@ -133,4 +96,176 @@
     </div>
 </form>
 
-<button ng-click="vm.aftersavenotes()">Click Me</button>
+<form editable-form name="compliantForm" notes-section-form>
+    <notes-section-title section-form="compliantForm">Compliant</notes-section-title>
+    <div layout="row">
+        <div flex="50" layout="column">
+            <div layout="row">
+                <div flex="20" class="col-row-header">Chief Complaint</div>
+                <div flex class="col-row-content">
+                    <notes-input form-name="compliantForm" input-list="[{model: vm.model.Compliant, type: 'textarea', cssClass:'xxlarge'}]">
+                        <notes-value ng-model="vm.model.Compliant"></notes-value>
+                    </notes-input>
+
+                </div>
+            </div>
+            <div layout="row">
+                <div flex="20" class="col-row-header">Mentation</div>
+                <div flex class="col-row-content">
+                    <notes-input form-name="compliantForm" input-list="[{model: vm.model.Mentation1, type: 'dropdown'}, {model: vm.model.Mentation2, type: 'text', cssClass:'medium'}]">
+                        <notes-value ng-model="vm.model.Mentation1"></notes-value>
+                        <notes-value ng-model="vm.model.Mentation2"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+        </div>
+        <div flex="50" layout="column">
+            <div layout="row">
+                <div flex="20" class="col-row-header">History</div>
+                <div flex class="col-row-content">
+                    <notes-input form-name="compliantForm" input-list="[{model: vm.model.SubjectiveHistory, type: 'textarea', cssClass:'xxlarge'}]">
+                        <notes-value ng-model="vm.model.SubjectiveHistory"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form editable-form name="historyForm" notes-section-form>
+    <notes-section-title section-form="historyForm">Past Ocular/Medical History</notes-section-title>
+    <div layout="row">
+        <div flex="50" layout="column">
+            <div layout="row">
+                <div flex="20" class="col-row-header">Glasses since</div>
+                <div flex class="col-row-content">
+                    <notes-input form-name="historyForm" input-list="[{model: vm.model.Glasses1, type: 'dropdown'}, {model: vm.model.Glasses2, type: 'text', cssClass:'medium'}]">
+                        <notes-value ng-model="vm.model.Glasses1"></notes-value>
+                        <notes-value ng-model="vm.model.Glasses2"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+            <div layout="row">
+                <div flex="20" class="col-row-header">Mentation</div>
+                <div flex class="col-row-content">
+                    <notes-input form-name="historyForm" input-list="[{model: vm.model.LastExam, type: 'date'}]">
+                        <notes-value ng-model="vm.model.LastExam"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+            <div layout="row">
+                <div flex="20" class="col-row-header">Contact Lens Hx</div>
+                <div flex class="col-row-content">
+                    <notes-input form-name="historyForm" input-list="[{model: vm.model.ContactLens1, type: 'dropdown'}, {model: vm.model.ContactLens2, type: 'text', cssClass:'medium'}]">
+                        <notes-value ng-model="vm.model.ContactLens1"></notes-value>
+                        <notes-value ng-model="vm.model.ContactLens2"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+            <div layout="row">
+                <div flex="20" class="col-row-header">Disease/Trauma</div>
+                <div flex class="col-row-content">
+                    <notes-input form-name="historyForm" input-list="[{model: vm.model.DiseaseTrauma1, type: 'dropdown'}, {model: vm.model.DiseaseTrauma2, type: 'text', cssClass:'medium'}, {model: vm.model.DiseaseTrauma3, type: 'dropdown'}, {model: vm.model.DiseaseTrauma4, type: 'text', cssClass:'medium'}, {model: vm.model.DiseaseTrauma5, type: 'dropdown'}, {model: vm.model.DiseaseTrauma6, type: 'text', cssClass:'medium'}]">
+                        <notes-value ng-model="vm.model.DiseaseTrauma1"></notes-value>
+                        <notes-value ng-model="vm.model.DiseaseTrauma2"></notes-value>
+                        <notes-value ng-model="vm.model.DiseaseTrauma3"></notes-value>
+                        <notes-value ng-model="vm.model.DiseaseTrauma4"></notes-value>
+                        <notes-value ng-model="vm.model.DiseaseTrauma5"></notes-value>
+                        <notes-value ng-model="vm.model.DiseaseTrauma6"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+            <div layout="row">
+                <div flex="20" class="col-row-header">Surgery/Treatment</div>
+                <div flex class="col-row-content">
+                    <notes-input form-name="historyForm" input-list="[{model: vm.model.SurgeryTreatment1, type: 'dropdown'}, {model: vm.model.SurgeryTreatment2, type: 'text', cssClass:'medium'}, {model: vm.model.SurgeryTreatment3, type: 'dropdown'}, {model: vm.model.SurgeryTreatment4, type: 'text', cssClass:'medium'}, {model: vm.model.SurgeryTreatment5, type: 'textarea'}]">
+                        <notes-value ng-model="vm.model.SurgeryTreatment1"></notes-value>
+                        <notes-value ng-model="vm.model.SurgeryTreatment2"></notes-value>
+                        <notes-value ng-model="vm.model.SurgeryTreatment3"></notes-value>
+                        <notes-value ng-model="vm.model.SurgeryTreatment4"></notes-value>
+                        <notes-value ng-model="vm.model.SurgeryTreatment5"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+        </div>
+        <div flex="50" layout="column">
+            <div layout="row">
+                <div flex="20" class="col-row-header">Medications</div>
+                <div flex class="col-row-content">
+                    <notes-input form-name="historyForm" input-list="[{model: vm.model.Medications, type: 'textarea', cssClass:'xxlarge'}]">
+                        <notes-value ng-model="vm.model.Medications"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+            <div layout="row">
+                <div flex="20" class="col-row-header">PMH</div>
+                <div flex class="col-row-content">
+                    <notes-input form-name="historyForm" input-list="[{model: vm.model.PMH1, type: 'dropdown'}, {model: vm.model.PMH2, type: 'text', cssClass:'medium'}, {model: vm.model.PMH3, type: 'dropdown'}, {model: vm.model.PHM4, type: 'text', cssClass:'medium'}]">
+                        <notes-value ng-model="vm.model.PMH1"></notes-value>
+                        <notes-value ng-model="vm.model.PMH2"></notes-value>
+                        <notes-value ng-model="vm.model.PMH3"></notes-value>
+                        <notes-value ng-model="vm.model.PHM4"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+            <div layout="row">
+                <div flex="20" class="col-row-header">Birth Hx</div>
+                <div flex class="col-row-content">
+                    <notes-input form-name="historyForm" input-list="[{model: vm.model.BirthHist1, type: 'dropdown'}, {model: vm.model.BirthHist2, type: 'text', cssClass:'medium'}]">
+                        <notes-value ng-model="vm.model.BirthHist1"></notes-value>
+                        <notes-value ng-model="vm.model.BirthHist2"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+            <div layout="row">
+                <div flex="20" class="col-row-header">GA</div>
+                <div flex class="col-row-content">
+                    <notes-input form-name="historyForm" input-list="[{model: vm.model.GA, type: 'text', cssClass:'medium'}, {model: vm.model.BirthHist3, type: 'text', cssClass:'medium'}]">
+                        <notes-value ng-model="vm.model.GA"></notes-value>
+                        <notes-value ng-model="vm.model.BirthHist3"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+            <div layout="row">
+                <div flex="20" class="col-row-header">PC Age</div>
+                <div flex class="col-row-content">
+                    <notes-input form-name="historyForm" input-list="[{model: vm.model.PCA, type: 'text', cssClass:'medium'}]">
+                        <notes-value ng-model="vm.model.PCA"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+            <div layout="row">
+                <div flex="20" class="col-row-header">Birth Wt</div>
+                <div flex class="col-row-content">
+                    <notes-input form-name="historyForm" input-list="[{model: vm.model.BirthWt, type: 'text', cssClass:'medium'}]">
+                        <notes-value ng-model="vm.model.BirthWt"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+            <div layout="row">
+                <div flex="20" class="col-row-header">Development Hx</div>
+                <div flex class="col-row-content">
+                    <notes-input form-name="historyForm" input-list="[{model: vm.model.DevelopHist1, type: 'dropdown'}, {model: vm.model.DevelopHist2, type: 'text', cssClass:'medium'}, {model: vm.model.DevelopHist3, type: 'dropdown'}, {model: vm.model.DevelopHist4, type: 'text', cssClass:'medium'}]">
+                        <notes-value ng-model="vm.model.DevelopHist1"></notes-value>
+                        <notes-value ng-model="vm.model.DevelopHist2"></notes-value>
+                        <notes-value ng-model="vm.model.DevelopHist3"></notes-value>
+                        <notes-value ng-model="vm.model.DevelopHist4"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+            <div layout="row">
+                <div flex="20" class="col-row-header">Family Hx</div>
+                <div flex class="col-row-content">
+                    <notes-input form-name="historyForm" input-list="[{model: vm.model.FH1, type: 'dropdown'}, {model: vm.model.FH2, type: 'text', cssClass:'medium'}, {model: vm.model.FH3, type: 'dropdown'}, {model: vm.model.FH4, type: 'text', cssClass:'medium'}, {model: vm.model.FH5, type: 'dropdown'}, {model: vm.model.FH6, type: 'text', cssClass:'medium'}]">
+                        <notes-value ng-model="vm.model.FH1"></notes-value>
+                        <notes-value ng-model="vm.model.FH2"></notes-value>
+                        <notes-value ng-model="vm.model.FH3"></notes-value>
+                        <notes-value ng-model="vm.model.FH4"></notes-value>
+                        <notes-value ng-model="vm.model.FH5"></notes-value>
+                        <notes-value ng-model="vm.model.FH6"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

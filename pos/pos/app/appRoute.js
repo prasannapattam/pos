@@ -68,7 +68,7 @@ function appRoute($stateProvider, $urlRouterProvider, $locationProvider, constan
             title: "Patient",
             icon: constants.iconTypes.patient,
             parentStateName: "patient",
-            templateUrl: window.virtualDirectory + "/app/notes/notestest.html",
+            templateUrl: window.virtualDirectory + "/app/notes/notes.html",
             controller: "notes",
             controllerAs: "vm",
             resolve: ['$stateParams', 'notesService', function ($stateParams, notesService ) {
