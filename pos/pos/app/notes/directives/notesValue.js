@@ -6,15 +6,15 @@ function notesValue(notesUtility) {
         restrict: 'E',
         replace: true,
         scope: {
-            ngModel: '=',
+            inputList: '=',
         },
         link: link,
-        template: '<span ng-class="{focusctrl:ngModel.focusctrl, correctctrl: ngModel.correctctrl}" ng-click="clearColourType()">{{ngModel.Value}}</span>'
+        template: '<span ng-repeat="item in inputList" ng-class="{focusctrl:item.focusctrl, correctctrl: item.correctctrl}" ng-click="clearColourType(item)">{{item.Value}} </span>'
     }
 
     function link(scope, element, attrs, nullController, transclude) {
-        scope.clearColourType = function () {
-            notesUtility.clearColourType(scope.ngModel);
+        scope.clearColourType = function (item) {
+            notesUtility.clearColourType(item);
         }
     }
 }
