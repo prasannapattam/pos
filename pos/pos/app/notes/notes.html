@@ -9,23 +9,20 @@
                                     , {model: vm.model.FirstName, type: 'text', cssClass:'small'}
                                     , {model: vm.model.MiddleName, type:'text', cssClass:'mini'}
                                     , {model: vm.model.LastName, type: 'text', cssClass:'small'}]">
-                        <notes-value ng-model="vm.model.Greeting"></notes-value>
-                        <notes-value ng-model="vm.model.FirstName"></notes-value>
-                        <notes-value ng-model="vm.model.MiddleName"></notes-value>
-                        <notes-value ng-model="vm.model.LastName"></notes-value>
+                        <notes-value input-list="[vm.model.Greeting, vm.model.FirstName, vm.model.MiddleName, vm.model.LastName]"></notes-value>
                     </notes-input>
                 </div>
             </div>
             <div layout="row">
                 <div flex="25" class="col-row-header">DOB</div>
                 <div flex class="col-row-content">
-                    <notes-input form-name="patientForm" input-list="[{model: vm.model.DOB, type: 'date'}]"><notes-value ng-model="vm.model.DOB"></notes-value> (<notes-value ng-model="vm.model.tbAge"></notes-value>)</notes-input>
+                    <notes-input form-name="patientForm" input-list="[{model: vm.model.DOB, type: 'date'}]"><notes-value input-list="[vm.model.DOB, {Value: '('}, vm.model.tbAge, {Value: ')'}]"></notes-value></notes-input>
                 </div>
             </div>
             <div layout="row">
                 <div flex="25" class="col-row-header">Sex</div>
                 <div flex class="col-row-content">
-                    <notes-input form-name="patientForm" input-list="[{model: vm.model.Sex, type: 'dropdown'}]"><notes-value ng-model="vm.model.Sex"></notes-value></notes-input>
+                    <notes-input form-name="patientForm" input-list="[{model: vm.model.Sex, type: 'dropdown'}]"><notes-value input-list="[vm.model.Sex]"></notes-value></notes-input>
                 </div>
             </div>
             <div layout="row">
@@ -41,8 +38,7 @@
                 <div flex class="col-row-content">
                     <notes-input form-name="patientForm" input-list="[{model: vm.model.HxFromList, type: 'dropdown'}
                                     , {model: vm.model.HxFromOther, type: 'text', cssClass:'small'}]">
-                        <notes-value ng-model="vm.model.HxFromList"></notes-value>
-                        <notes-value ng-model="vm.model.HxFromOther"></notes-value>
+                        <notes-value input-list="[vm.model.HxFromList, vm.model.HxFromOther]"></notes-value>
                     </notes-input>
                 </div>
             </div>
@@ -51,21 +47,20 @@
                 <div flex class="col-row-content">
                     <notes-input form-name="patientForm" input-list="[{model: vm.model.Refd, type: 'text', cssClass:'small'}
                                     , {model: vm.model.RefDoctor, type: 'text', cssClass:'small'}]">
-                        <notes-value ng-model="vm.model.Refd"></notes-value>
-                        (Dr. <notes-value ng-model="vm.model.RefDoctor"></notes-value>)
+                        <notes-value input-list="[vm.model.Refd, {Value: '(Dr. '}, vm.model.RefDoctor, {Value: ')'}]"></notes-value>
                     </notes-input>
                 </div>
             </div>
             <div layout="row">
                 <div flex="25" class="col-row-header">Allergies</div>
                 <div flex class="col-row-content">
-                    <notes-input form-name="patientForm" input-list="[{model: vm.model.Allergies, type: 'text', cssClass: 'xlarge'}]"><notes-value ng-model="vm.model.Allergies"></notes-value></notes-input>
+                    <notes-input form-name="patientForm" input-list="[{model: vm.model.Allergies, type: 'text', cssClass: 'xlarge'}]"><notes-value input-list="[vm.model.Allergies]"></notes-value></notes-input>
                 </div>
             </div>
             <div layout="row">
                 <div flex="25" class="col-row-header">Grade/Occup.</div>
                 <div flex class="col-row-content">
-                    <notes-input form-name="patientForm" input-list="[{model: vm.model.Occupation, type: 'text', cssClass: 'xlarge'}]"><notes-value ng-model="vm.model.Occupation"></notes-value></notes-input>
+                    <notes-input form-name="patientForm" input-list="[{model: vm.model.Occupation, type: 'text', cssClass: 'xlarge'}]"><notes-value input-list="[vm.model.Occupation]"></notes-value></notes-input>
                 </div>
             </div>
         </div>
@@ -104,7 +99,7 @@
                 <div flex="20" class="col-row-header">Chief Complaint</div>
                 <div flex class="col-row-content">
                     <notes-input form-name="compliantForm" input-list="[{model: vm.model.Compliant, type: 'textarea', cssClass:'xxlarge'}]">
-                        <notes-value ng-model="vm.model.Compliant"></notes-value>
+                        <notes-value input-list="[vm.model.Compliant]"></notes-value>
                     </notes-input>
 
                 </div>
@@ -113,8 +108,7 @@
                 <div flex="20" class="col-row-header">Mentation</div>
                 <div flex class="col-row-content">
                     <notes-input form-name="compliantForm" input-list="[{model: vm.model.Mentation1, type: 'dropdown'}, {model: vm.model.Mentation2, type: 'text', cssClass:'medium'}]">
-                        <notes-value ng-model="vm.model.Mentation1"></notes-value>
-                        <notes-value ng-model="vm.model.Mentation2"></notes-value>
+                        <notes-value input-list="[vm.model.Mentation1, vm.model.Mentation2]"></notes-value>
                     </notes-input>
                 </div>
             </div>
@@ -124,7 +118,7 @@
                 <div flex="20" class="col-row-header">History</div>
                 <div flex class="col-row-content">
                     <notes-input form-name="compliantForm" input-list="[{model: vm.model.SubjectiveHistory, type: 'textarea', cssClass:'xxlarge'}]">
-                        <notes-value ng-model="vm.model.SubjectiveHistory"></notes-value>
+                        <notes-value input-list="[vm.model.SubjectiveHistory]"></notes-value>
                     </notes-input>
                 </div>
             </div>
@@ -140,8 +134,7 @@
                 <div flex="20" class="col-row-header">Glasses since</div>
                 <div flex class="col-row-content">
                     <notes-input form-name="historyForm" input-list="[{model: vm.model.Glasses1, type: 'dropdown'}, {model: vm.model.Glasses2, type: 'text', cssClass:'medium'}]">
-                        <notes-value ng-model="vm.model.Glasses1"></notes-value>
-                        <notes-value ng-model="vm.model.Glasses2"></notes-value>
+                        <notes-value input-list="[vm.model.Glasses1, vm.model.Glasses2]"></notes-value>
                     </notes-input>
                 </div>
             </div>
@@ -149,7 +142,7 @@
                 <div flex="20" class="col-row-header">Mentation</div>
                 <div flex class="col-row-content">
                     <notes-input form-name="historyForm" input-list="[{model: vm.model.LastExam, type: 'date'}]">
-                        <notes-value ng-model="vm.model.LastExam"></notes-value>
+                        <notes-value input-list="[vm.model.LastExam]"></notes-value>
                     </notes-input>
                 </div>
             </div>
@@ -157,8 +150,7 @@
                 <div flex="20" class="col-row-header">Contact Lens Hx</div>
                 <div flex class="col-row-content">
                     <notes-input form-name="historyForm" input-list="[{model: vm.model.ContactLens1, type: 'dropdown'}, {model: vm.model.ContactLens2, type: 'text', cssClass:'medium'}]">
-                        <notes-value ng-model="vm.model.ContactLens1"></notes-value>
-                        <notes-value ng-model="vm.model.ContactLens2"></notes-value>
+                        <notes-value input-list="[vm.model.ContactLens1, vm.model.ContactLens2]"></notes-value>
                     </notes-input>
                 </div>
             </div>
@@ -166,12 +158,7 @@
                 <div flex="20" class="col-row-header">Disease/Trauma</div>
                 <div flex class="col-row-content">
                     <notes-input form-name="historyForm" input-list="[{model: vm.model.DiseaseTrauma1, type: 'dropdown'}, {model: vm.model.DiseaseTrauma2, type: 'text', cssClass:'medium'}, {model: vm.model.DiseaseTrauma3, type: 'dropdown'}, {model: vm.model.DiseaseTrauma4, type: 'text', cssClass:'medium'}, {model: vm.model.DiseaseTrauma5, type: 'dropdown'}, {model: vm.model.DiseaseTrauma6, type: 'text', cssClass:'medium'}]">
-                        <notes-value ng-model="vm.model.DiseaseTrauma1"></notes-value>
-                        <notes-value ng-model="vm.model.DiseaseTrauma2"></notes-value>
-                        <notes-value ng-model="vm.model.DiseaseTrauma3"></notes-value>
-                        <notes-value ng-model="vm.model.DiseaseTrauma4"></notes-value>
-                        <notes-value ng-model="vm.model.DiseaseTrauma5"></notes-value>
-                        <notes-value ng-model="vm.model.DiseaseTrauma6"></notes-value>
+                        <notes-value input-list="[vm.model.DiseaseTrauma1, vm.model.DiseaseTrauma2, vm.model.DiseaseTrauma3, vm.model.DiseaseTrauma4, vm.model.DiseaseTrauma5, vm.model.DiseaseTrauma6]"></notes-value>
                     </notes-input>
                 </div>
             </div>
@@ -179,11 +166,7 @@
                 <div flex="20" class="col-row-header">Surgery/Treatment</div>
                 <div flex class="col-row-content">
                     <notes-input form-name="historyForm" input-list="[{model: vm.model.SurgeryTreatment1, type: 'dropdown'}, {model: vm.model.SurgeryTreatment2, type: 'text', cssClass:'medium'}, {model: vm.model.SurgeryTreatment3, type: 'dropdown'}, {model: vm.model.SurgeryTreatment4, type: 'text', cssClass:'medium'}, {model: vm.model.SurgeryTreatment5, type: 'textarea'}]">
-                        <notes-value ng-model="vm.model.SurgeryTreatment1"></notes-value>
-                        <notes-value ng-model="vm.model.SurgeryTreatment2"></notes-value>
-                        <notes-value ng-model="vm.model.SurgeryTreatment3"></notes-value>
-                        <notes-value ng-model="vm.model.SurgeryTreatment4"></notes-value>
-                        <notes-value ng-model="vm.model.SurgeryTreatment5"></notes-value>
+                        <notes-value input-list="[vm.model.SurgeryTreatment1, vm.model.SurgeryTreatment2, vm.model.SurgeryTreatment3, vm.model.SurgeryTreatment4, vm.model.SurgeryTreatment5]"></notes-value>
                     </notes-input>
                 </div>
             </div>
@@ -193,7 +176,7 @@
                 <div flex="20" class="col-row-header">Medications</div>
                 <div flex class="col-row-content">
                     <notes-input form-name="historyForm" input-list="[{model: vm.model.Medications, type: 'textarea', cssClass:'xxlarge'}]">
-                        <notes-value ng-model="vm.model.Medications"></notes-value>
+                        <notes-value input-list="[vm.model.Medications]"></notes-value>
                     </notes-input>
                 </div>
             </div>
@@ -201,10 +184,7 @@
                 <div flex="20" class="col-row-header">PMH</div>
                 <div flex class="col-row-content">
                     <notes-input form-name="historyForm" input-list="[{model: vm.model.PMH1, type: 'dropdown'}, {model: vm.model.PMH2, type: 'text', cssClass:'medium'}, {model: vm.model.PMH3, type: 'dropdown'}, {model: vm.model.PHM4, type: 'text', cssClass:'medium'}]">
-                        <notes-value ng-model="vm.model.PMH1"></notes-value>
-                        <notes-value ng-model="vm.model.PMH2"></notes-value>
-                        <notes-value ng-model="vm.model.PMH3"></notes-value>
-                        <notes-value ng-model="vm.model.PHM4"></notes-value>
+                        <notes-value input-list="[vm.model.PMH1, vm.model.PMH2, vm.model.PMH3, vm.model.PHM4]"></notes-value>
                     </notes-input>
                 </div>
             </div>
@@ -212,8 +192,7 @@
                 <div flex="20" class="col-row-header">Birth Hx</div>
                 <div flex class="col-row-content">
                     <notes-input form-name="historyForm" input-list="[{model: vm.model.BirthHist1, type: 'dropdown'}, {model: vm.model.BirthHist2, type: 'text', cssClass:'medium'}]">
-                        <notes-value ng-model="vm.model.BirthHist1"></notes-value>
-                        <notes-value ng-model="vm.model.BirthHist2"></notes-value>
+                        <notes-value input-list="[vm.model.BirthHist1, vm.model.BirthHist2]"></notes-value>
                     </notes-input>
                 </div>
             </div>
@@ -221,8 +200,7 @@
                 <div flex="20" class="col-row-header">GA</div>
                 <div flex class="col-row-content">
                     <notes-input form-name="historyForm" input-list="[{model: vm.model.GA, type: 'text', cssClass:'medium'}, {model: vm.model.BirthHist3, type: 'text', cssClass:'medium'}]">
-                        <notes-value ng-model="vm.model.GA"></notes-value>
-                        <notes-value ng-model="vm.model.BirthHist3"></notes-value>
+                        <notes-value input-list="[vm.model.GA, vm.model.BirthHist3]"></notes-value>
                     </notes-input>
                 </div>
             </div>
@@ -230,7 +208,7 @@
                 <div flex="20" class="col-row-header">PC Age</div>
                 <div flex class="col-row-content">
                     <notes-input form-name="historyForm" input-list="[{model: vm.model.PCA, type: 'text', cssClass:'medium'}]">
-                        <notes-value ng-model="vm.model.PCA"></notes-value>
+                        <notes-value input-list="[vm.model.PCA]"></notes-value>
                     </notes-input>
                 </div>
             </div>
@@ -238,7 +216,7 @@
                 <div flex="20" class="col-row-header">Birth Wt</div>
                 <div flex class="col-row-content">
                     <notes-input form-name="historyForm" input-list="[{model: vm.model.BirthWt, type: 'text', cssClass:'medium'}]">
-                        <notes-value ng-model="vm.model.BirthWt"></notes-value>
+                        <notes-value input-list="[vm.model.BirthWt]"></notes-value>
                     </notes-input>
                 </div>
             </div>
@@ -246,10 +224,7 @@
                 <div flex="20" class="col-row-header">Development Hx</div>
                 <div flex class="col-row-content">
                     <notes-input form-name="historyForm" input-list="[{model: vm.model.DevelopHist1, type: 'dropdown'}, {model: vm.model.DevelopHist2, type: 'text', cssClass:'medium'}, {model: vm.model.DevelopHist3, type: 'dropdown'}, {model: vm.model.DevelopHist4, type: 'text', cssClass:'medium'}]">
-                        <notes-value ng-model="vm.model.DevelopHist1"></notes-value>
-                        <notes-value ng-model="vm.model.DevelopHist2"></notes-value>
-                        <notes-value ng-model="vm.model.DevelopHist3"></notes-value>
-                        <notes-value ng-model="vm.model.DevelopHist4"></notes-value>
+                        <notes-value input-list="[vm.model.DevelopHist1, vm.model.DevelopHist2, vm.model.DevelopHist3, vm.model.DevelopHist4]"></notes-value>
                     </notes-input>
                 </div>
             </div>
@@ -257,12 +232,7 @@
                 <div flex="20" class="col-row-header">Family Hx</div>
                 <div flex class="col-row-content">
                     <notes-input form-name="historyForm" input-list="[{model: vm.model.FH1, type: 'dropdown'}, {model: vm.model.FH2, type: 'text', cssClass:'medium'}, {model: vm.model.FH3, type: 'dropdown'}, {model: vm.model.FH4, type: 'text', cssClass:'medium'}, {model: vm.model.FH5, type: 'dropdown'}, {model: vm.model.FH6, type: 'text', cssClass:'medium'}]">
-                        <notes-value ng-model="vm.model.FH1"></notes-value>
-                        <notes-value ng-model="vm.model.FH2"></notes-value>
-                        <notes-value ng-model="vm.model.FH3"></notes-value>
-                        <notes-value ng-model="vm.model.FH4"></notes-value>
-                        <notes-value ng-model="vm.model.FH5"></notes-value>
-                        <notes-value ng-model="vm.model.FH6"></notes-value>
+                        <notes-value input-list="[vm.model.FH1, vm.model.FH2, vm.model.FH3, vm.model.FH4, vm.model.FH5, vm.model.FH6]"></notes-value>
                     </notes-input>
                 </div>
             </div>
