@@ -209,6 +209,14 @@ input.large{
     width: 393px;
 }
 
+.notes-second-line{
+    margin-top: 6px;
+}
+
+select.large{
+    width: 185px;
+}
+
 /* Tabs */
 .tabrow {
 	list-style: none;

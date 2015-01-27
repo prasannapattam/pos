@@ -13,7 +13,13 @@ function notesInputItem($compile, session, constants, notesUtility, notesService
         link: link
     }
 
-    function getTemplate(item) {
+    function getTemplate(item, parentScope) {
+
+        if (item.type === 'html') {
+            parentScope.newLine = true;
+            return item.value;
+        }
+
         var editableSpan = '<span'
 
         switch (item.type) {
@@ -35,7 +41,11 @@ function notesInputItem($compile, session, constants, notesUtility, notesService
             editableSpan += ' e-class="{{item.cssClass}}"';
         }
 
-        editableSpan += ' e-id="{{item.model.Name}}" e-name="{{item.model.Name}}" e-form="{{formName}}" e-ng-class="{focusctrl:item.model.focusctrl, correctctrl: item.model.correctctrl}" e-ng-focus="itemfocus()"></span>'
+        if (parentScope.newLine === true) {
+            item.model.newLine = true;
+        }
+
+        editableSpan += ' e-id="{{item.model.Name}}" e-name="{{item.model.Name}}" e-form="{{formName}}" e-ng-class="{focusctrl:item.model.focusctrl, correctctrl: item.model.correctctrl, \'notes-second-line\': item.model.newLine}" e-ng-focus="itemfocus()"></span>'
         return editableSpan;
     }
 
@@ -76,7 +86,7 @@ function notesInputItem($compile, session, constants, notesUtility, notesService
         //setting the colours
         notesUtility.setInputColours(scope.item.model);
 
-        var elementHtml = getTemplate(scope.item); //based on the item type creating the control
+        var elementHtml = getTemplate(scope.item, scope.$parent.$parent); //based on the item type creating the control
         element.html(elementHtml);
         $compile(element.contents())(scope);
         transclude(scope.$parent, function (clone, scope) {

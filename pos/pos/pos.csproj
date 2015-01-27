@@ -270,8 +270,6 @@
     <Content Include="app\notes\notes.js" />
     <Content Include="app\notes\notesService.js" />
     <Content Include="app\notes\notestest.html" />
-    <Content Include="app\notes\notestest.js" />
-    <Content Include="app\notes\notestestService.js" />
     <Content Include="app\patient\patient.html" />
     <Content Include="app\patient\patient.js" />
     <Content Include="app\patient\patientService.js" />
