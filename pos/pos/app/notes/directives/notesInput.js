@@ -10,7 +10,7 @@ function notesInput() {
         scope: {
             inputList: '=',
             formName: '@'
-        },
+    },
         template: '<notes-input-item form-name="{{formName}}" ng-repeat="item in inputList" item="item">'
                 + '<span ng-if="$first" ng-transclude></span>'
                 + '</notes-input-item>'

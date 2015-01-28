@@ -30,7 +30,8 @@ function notesSectionTitle(formUtility) {
 
     function link(scope, element, attrs, nullController, transclude) {
         scope.cancelForm = function cancelNotes(evt) {
-            formUtility.cancelForm(evt, scope.sectionForm);
+            //formUtility.cancelForm(evt, scope.sectionForm);
+            scope.sectionForm.$cancel()
         }
     }
 }

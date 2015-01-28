@@ -438,6 +438,7 @@ ul.dropdown-menu{
 }
 .form-control{
     padding: 0;
+    margin-left: 2px;
 }
 
 .md-button{
