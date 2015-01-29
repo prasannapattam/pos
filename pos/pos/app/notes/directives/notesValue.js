@@ -9,7 +9,7 @@ function notesValue(notesUtility) {
             inputList: '=',
         },
         link: link,
-        template: '<span ng-repeat="item in inputList" ng-class="{focusctrl:item.focusctrl, correctctrl: item.correctctrl}" ng-click="clearColourType(item)">{{item.Value}}</span>'
+        template: '<span ng-repeat="item in inputList" ng-class="{focusctrl:item.focusctrl, correctctrl: item.correctctrl}" ng-click="$parent.clearColourType(item)">{{item.Value}}</span>'
     }
 
     function link(scope, element, attrs, nullController, transclude) {
