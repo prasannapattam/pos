@@ -1,9 +1,36 @@
-﻿<form editable-form name="compliantForm">
+﻿<form editable-form name="compliantForm" notes-section-form>
     <notes-section-title section-form="compliantForm">Compliant</notes-section-title>
+    <div layout="row">
+        <div flex="50" layout="column">
+            <div layout="row">
+                <div flex="20" class="col-row-header">Chief Complaint</div>
+                <div flex class="col-row-content">
+                    <notes-input form-name="compliantForm" input-list="[{model: vm.model.Compliant, type: 'textarea', cssClass:'xxlarge'}]">
+                        <notes-value input-list="[vm.model.Compliant]"></notes-value>
+                    </notes-input>
 
-    <notes-input form-name="historyForm" input-list="[{model: vm.model.PMH1, type: 'dropdown'}, {model: vm.model.PMH2, type: 'text', cssClass:'medium'}, {value: '<br>', type: 'html'}, {model: vm.model.PMH3, type: 'dropdown'}, {model: vm.model.PHM4, type: 'text', cssClass:'medium'}]">
-        <notes-value input-list="[vm.model.PMH1, vm.model.PMH2, vm.model.PMH3, vm.model.PHM4]"></notes-value>
-    </notes-input>
+                </div>
+            </div>
+            <div layout="row">
+                <div flex="20" class="col-row-header">Mentation</div>
+                <div flex class="col-row-content">
+                    <notes-input form-name="compliantForm" input-list="[{model: vm.model.Mentation1, type: 'dropdown'}, {model: vm.model.Mentation2, type: 'text', cssClass:'medium'}]">
+                        <notes-value input-list="[vm.model.Mentation1, vm.model.Mentation2]"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+        </div>
+        <div flex="50" layout="column">
+            <div layout="row">
+                <div flex="20" class="col-row-header">History</div>
+                <div flex class="col-row-content">
+                    <notes-input form-name="compliantForm" input-list="[{model: vm.model.SubjectiveHistory, type: 'textarea', cssClass:'xxlarge'}]">
+                        <notes-value input-list="[vm.model.SubjectiveHistory]"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+        </div>
+    </div>
 </form>
 
 http://localhost:9703/pos/patient/1/notes/

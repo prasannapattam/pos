@@ -1,31 +1,39 @@
 ﻿'use strict'
 
 angular.module('pos').factory('notesUtility', notesUtility);
-notesUtility.$inject = ['constants'];
+notesUtility.$inject = ['constants', 'session', 'utility'];
 
-function notesUtility(constants) {
+function notesUtility(constants, session, utility) {
 
     var vm = {
         clearColourType: clearColourType,
-        setInputColours: setInputColours
+        setInputColours: setInputColours,
+        getNotesValue: getNotesValue
     };
 
     return vm;
 
-    function clearColourType(model) {
-        if (model === undefined)
+    function clearColourType(item) {
+        if (item === undefined)
             return;
-        if (model.ColourType === 1) {
-            model.ColourType = 0;
-            setInputColours(model);
+        if (item.ColourType === 1) {
+            item.ColourType = 0;
+            setInputColours(item);
         }
     }
 
-    function setInputColours(model) {
-        if (model === undefined)
+    function setInputColours(item) {
+        if (item === undefined)
             return;
-        model.focusctrl = model.ColourType === constants.colourType.New;
-        model.correctctrl = model.ColourType === constants.colourType.Correct;
+        item.focusctrl = item.ColourType === constants.colourType.New;
+        item.correctctrl = item.ColourType === constants.colourType.Correct;
     }
 
+    function getNotesValue(item) {
+        var list = session.lookups[item.LookUpFieldName];
+
+        return utility.lookupText(list, item.Value);
+
+
+    }
 };

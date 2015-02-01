@@ -16,6 +16,7 @@ function utility(toastr, constants) {
         getDefaultPatientPhoto: getDefaultPatientPhoto,
         getPhotoUrl: getPhotoUrl,
         lookupExists: lookupExists,
+        lookupText: lookupText,
         getGridHeight: getGridHeight
     };
 
@@ -56,7 +57,6 @@ function utility(toastr, constants) {
     }
 
     function lookupExists(list, value) {
-
         for(var counter = 0; counter < list.length; counter ++){
             if (list[counter].FieldValue === value) {
                 return true;
@@ -65,6 +65,18 @@ function utility(toastr, constants) {
 
         return false;
     }
+
+    function lookupText(list, value) {
+        for (var counter = 0; counter < list.length; counter++) {
+            if (list[counter].FieldDescription === value) {
+                return list[counter].FieldValue;
+            }
+        }
+
+        return null;
+    }
+
+
 
     function getGridHeight(gridClass) {
         var contentOffset = angular.element(document.getElementsByClassName('main-content')).offset();
