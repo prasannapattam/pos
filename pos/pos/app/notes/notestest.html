@@ -1,34 +1,35 @@
-﻿<form editable-form name="compliantForm" notes-section-form>
-    <notes-section-title section-form="compliantForm">Compliant</notes-section-title>
+﻿<form editable-form name="rxCtlForm" notes-section-form>
+    <notes-section-title section-form="rxCtlForm">Compliant</notes-section-title>
     <div layout="row">
-        <div flex="50" layout="column">
-            <div layout="row">
-                <div flex="20" class="col-row-header">Chief Complaint</div>
-                <div flex class="col-row-content">
-                    <notes-input form-name="compliantForm" input-list="[{model: vm.model.Compliant, type: 'textarea', cssClass:'xxlarge'}]">
-                        <notes-value input-list="[vm.model.Compliant]"></notes-value>
-                    </notes-input>
-
-                </div>
-            </div>
-            <div layout="row">
-                <div flex="20" class="col-row-header">Mentation</div>
-                <div flex class="col-row-content">
-                    <notes-input form-name="compliantForm" input-list="[{model: vm.model.Mentation1, type: 'dropdown'}, {model: vm.model.Mentation2, type: 'text', cssClass:'medium'}]">
-                        <notes-value input-list="[vm.model.Mentation1, vm.model.Mentation2]"></notes-value>
-                    </notes-input>
-                </div>
-            </div>
+        <div flex="10" class="col-row-header">
+            <div class="float-left">Rx given</div><div class="float-right">OD:</div>
         </div>
-        <div flex="50" layout="column">
-            <div layout="row">
-                <div flex="20" class="col-row-header">History</div>
-                <div flex class="col-row-content">
-                    <notes-input form-name="compliantForm" input-list="[{model: vm.model.SubjectiveHistory, type: 'textarea', cssClass:'xxlarge'}]">
-                        <notes-value input-list="[vm.model.SubjectiveHistory]"></notes-value>
-                    </notes-input>
-                </div>
-            </div>
+        <div flex="40" class="col-row-content">
+            <notes-input section-form="rxCtlForm" input-list="[{model: vm.model.RxOD1, type: 'text', cssClass:'small'}, {model: vm.model.RxOD2, type: 'text', cssClass:'small'}, {value: '&nbsp;&nbsp;&nbsp;&nbsp;<input type=\'checkbox\'>&nbsp;Populate', type: 'html'}]">
+                <notes-value input-list="[vm.model.RxOD1, vm.model.RxOD2]"></notes-value>
+            </notes-input>
+        </div>
+        <div flex="10" class="col-row-header">
+            <div class="float-left">CTL Rx</div><div class="float-right">OD:</div>
+        </div>
+        <div flex="40" class="col-row-content">
+            <notes-input section-form="rxCtlForm" input-list="[{model: vm.model.CTLRxOD1, type: 'text', cssClass:'small'}, {model: vm.model.CTLRxOD2, type: 'text', cssClass:'small'}, {model: vm.model.CTLRxOD3, type: 'text', cssClass:'small'}, {value: '&nbsp;&nbsp;&nbsp;&nbsp;<input type=\'checkbox\'>&nbsp;Populate', type: 'html'}]">
+                <notes-value input-list="[vm.model.CTLRxOD1, vm.model.CTLRxOD2, vm.model.CTLRxOD3]"></notes-value>
+            </notes-input>
+        </div>
+    </div>
+    <div layout="row">
+        <div flex="10" class="col-row-header float-right">OS:</div>
+        <div flex="40" class="col-row-content">
+            <notes-input section-form="rxCtlForm" input-list="[{model: vm.model.RXOS1, type: 'text', cssClass:'small'}, {model: vm.model.RXOS2, type: 'text', cssClass:'small'},{model: vm.model.RXOS3, type: 'text', cssClass:'small'}, {model: vm.model.RXOS4, type: 'text', cssClass:'medium'}]">
+                <notes-value input-list="[vm.model.RXOS1, vm.model.RXOS2, vm.model.RXOS3, vm.model.RXOS4]"></notes-value>
+            </notes-input>
+        </div>
+        <div flex="10" class="col-row-header float-right">OS:</div>
+        <div flex="40" class="col-row-content">
+            <notes-input section-form="rxCtlForm" input-list="[{model: vm.model.CTLRxOS1, type: 'text', cssClass:'small'}, {model: vm.model.CTLRxOS2, type: 'text', cssClass:'small'}, {model: vm.model.CTLRxOS3, type: 'text', cssClass:'small'}]">
+                <notes-value input-list="[vm.model.CTLRxOS1, vm.model.CTLRxOS2, vm.model.CTLRxOS3]"></notes-value>
+            </notes-input>
         </div>
     </div>
 </form>

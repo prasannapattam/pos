@@ -9,9 +9,9 @@ function notesInput() {
         transclude: true,
         scope: {
             inputList: '=',
-            formName: '@'
+            sectionForm: '=',
     },
-        template: '<notes-input-item form-name="{{formName}}" ng-repeat="item in inputList" item="item">'
+        template: '<notes-input-item section-form="sectionForm" ng-repeat="item in inputList" item="item">'
                 + '<span ng-if="$first" ng-transclude></span>'
                 + '</notes-input-item>'
     }

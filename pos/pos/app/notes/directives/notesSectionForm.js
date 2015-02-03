@@ -1,7 +1,8 @@
 ﻿angular.module('pos').directive('notesSectionForm', notesSectionForm);
-notesSectionForm.$inject = ['$document'];
+notesSectionForm.$inject = ['$document', '$timeout'];
 
-function notesSectionForm($document) {
+function notesSectionForm($document, $timeout) {
+    var currentForm;
     return {
         restrict: 'A',
         link: link,
@@ -20,10 +21,14 @@ function notesSectionForm($document) {
             var isChild = $(element).find(event.target).length > 0;
 
             if (!isChild && scope.sectionForm.$visible) {
-                scope.sectionForm.$submit();
+                currentForm = scope.sectionForm;
+                $timeout(submitForm);
             }
-
         });
+    }
+
+    function submitForm() {
+        currentForm.$submit();
     }
 }
 

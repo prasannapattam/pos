@@ -8,7 +8,7 @@ function notesInputItem($compile, session, constants, notesUtility, notesService
         replace: true,
         scope: {
             item: '=',
-            formName: '@'
+            sectionForm: '=',
         },
         link: link
     }
@@ -17,7 +17,7 @@ function notesInputItem($compile, session, constants, notesUtility, notesService
 
         if (item.type === 'html') {
             parentScope.newLine = true;
-            return item.value;
+            return '<span  ng-show="sectionForm.$visible">' + item.value + '<span>';
         }
 
         var editableSpan = '<span'
@@ -45,7 +45,7 @@ function notesInputItem($compile, session, constants, notesUtility, notesService
             item.model.newLine = true;
         }
 
-        editableSpan += ' e-id="{{item.model.Name}}" e-name="{{item.model.Name}}" e-form="{{formName}}" e-ng-class="{focusctrl:item.model.focusctrl, correctctrl: item.model.correctctrl, \'notes-second-line\': item.model.newLine}" e-ng-focus="itemfocus()"></span>'
+        editableSpan += ' e-id="{{item.model.Name}}" e-name="{{item.model.Name}}" e-form="{{sectionForm.$name}}" e-ng-class="{focusctrl:item.model.focusctrl, correctctrl: item.model.correctctrl, \'notes-second-line\': item.model.newLine}" e-ng-focus="itemfocus()"></span>'
         return editableSpan;
     }
 
