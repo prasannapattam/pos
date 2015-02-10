@@ -11,6 +11,7 @@ function utility(toastr, constants) {
         virtualDirectory: virtualDirectory,
         showInfo: showInfo,
         showError: showError,
+        imagePath: imagePath,
         iconPath: iconPath,
         routePath: routePath,
         getDefaultPatientPhoto: getDefaultPatientPhoto,
@@ -33,6 +34,10 @@ function utility(toastr, constants) {
 
     function iconPath(filename) {
         return window.virtualDirectory + "/content/images/icons/" + filename;
+    }
+
+    function imagePath(filename) {
+        return window.virtualDirectory + "/content/images/" + filename;
     }
 
     function routePath(path) {

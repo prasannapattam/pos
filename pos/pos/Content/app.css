@@ -41,6 +41,31 @@ div.top-header{
     height: 65px;
 }
 
+.h-table{
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+.h-table tbody tr td {
+    padding: 0;
+    background-color: #dfebf5;
+    padding-left: 0.5rem;
+    border: none;
+}
+
+.h-table tbody tr:hover {
+ background-color: transparent;
+}
+
+.h-image-horizontal{
+    width: 45px;
+}
+
+.h-image-vertical{
+    height: 50px;
+}
+
 /*div.left-header{
     width: 70px; 
     float: left; 

@@ -10,7 +10,8 @@ function notes(notesService, session, formUtility, utility) {
         init: init,
         saveNotes: saveNotes,
         cancelNotes: cancelNotes,
-        aftersavenotes: aftersavenotes
+        aftersavenotes: aftersavenotes,
+        utility: utility
     };
 
     init();

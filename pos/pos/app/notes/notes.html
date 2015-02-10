@@ -468,5 +468,168 @@
         </div>
     </div>
 </form>
+<form editable-form name="ocuMotilityForm" notes-section-form>
+    <notes-section-title section-form="ocuMotilityForm">Ocular Motility</notes-section-title>
+    <div layout="row">
+        <div flex="10" class="col-row-header">Ocular Motility:</div>
+        <div flex="90" class="col-row-content">
+            <notes-input section-form="ocuMotilityForm" input-list="[{model: vm.model.OcularMotility6, type: 'dropdown'}, {model: vm.model.OcularMotility1, type: 'dropdown'}, {model: vm.model.OcularMotility5, type: 'text', cssClass:'medium'}, {value: '<br>', type: 'html'}, {model: vm.model.OcularMotility2, type: 'dropdown'}, {model: vm.model.OcularMotility4, type: 'text', cssClass:'large'}]">
+                <notes-value input-list="[vm.model.OcularMotility6, vm.model.OcularMotility1, vm.model.OcularMotility5, vm.model.OcularMotility2, vm.model.OcularMotility4]"></notes-value>
+            </notes-input>
+        </div>
+    </div>
+    <div layout="row"><input type="checkbox" /> Accept defaults</div>
+</form>
+<form editable-form name="ticTacForm" notes-section-form>
+    <notes-section-title section-form="ticTacForm">Tic Tac To</notes-section-title>
+    <div layout="row">
+        <div flex="20" class="col-row-header"></div>
+        <div flex="20" class="col-row-content">
+            <notes-input section-form="ticTacForm" input-list="[{model: vm.model.OcMot1a, type: 'text', cssClass:'small'}, {model: vm.model.OcMot1b, type: 'text', cssClass:'small'}]">
+                <notes-value input-list="[vm.model.OcMot1a, vm.model.OcMot1b]"></notes-value>
+            </notes-input>
+        </div>
+        <div flex="20" class="col-row-content">
+            <notes-input section-form="ticTacForm" input-list="[{model: vm.model.OcMot2a, type: 'text', cssClass:'small'}, {model: vm.model.OcMot2b, type: 'text', cssClass:'small'}]">
+                <notes-value input-list="[vm.model.OcMot2a, vm.model.OcMot2b]"></notes-value>
+            </notes-input>
+        </div>
+        <div flex="20" class="col-row-content">
+            <notes-input section-form="ticTacForm" input-list="[{model: vm.model.OcMot3a, type: 'text', cssClass:'small'}, {model: vm.model.OcMot3b, type: 'text', cssClass:'small'}]">
+                <notes-value input-list="[vm.model.OcMot3a, vm.model.OcMot3b]"></notes-value>
+            </notes-input>
+        </div>
+        <div flex="20" class="col-row-header"></div>
+    </div>
+    <div layout="row">
+        <div flex="20" class="col-row-header"></div>
+        <div flex="20" class="col-row-content">
+            <notes-input section-form="ticTacForm" input-list="[{model: vm.model.OcMot4a, type: 'text', cssClass:'small'}, {model: vm.model.OcMot4b, type: 'text', cssClass:'small'}]">
+                <notes-value input-list="[vm.model.OcMot4a, vm.model.OcMot4b]"></notes-value>
+            </notes-input>
+        </div>
+        <div flex="20" class="col-row-content">
+            <notes-input section-form="ticTacForm" input-list="[{model: vm.model.OcMot5a, type: 'text', cssClass:'small'}, {model: vm.model.OcMot5b, type: 'text', cssClass:'small'}]">
+                <notes-value input-list="[vm.model.OcMot5a, vm.model.OcMot5b]"></notes-value>
+            </notes-input>
+        </div>
+        <div flex="20" class="col-row-content">
+            <notes-input section-form="ticTacForm" input-list="[{model: vm.model.OcMot6a, type: 'text', cssClass:'small'}, {model: vm.model.OcMot6b, type: 'text', cssClass:'small'}]">
+                <notes-value input-list="[vm.model.OcMot6a, vm.model.OcMot6b]"></notes-value>
+            </notes-input>
+        </div>
+        <div flex="20" class="col-row-header"></div>
+    </div>
+    <div layout="row">
+        <div flex="20" class="col-row-header"></div>
+        <div flex="20" class="col-row-content">
+            <notes-input section-form="ticTacForm" input-list="[{model: vm.model.OcMot7a, type: 'text', cssClass:'small'}, {model: vm.model.OcMot7b, type: 'text', cssClass:'small'}]">
+                <notes-value input-list="[vm.model.OcMot7a, vm.model.OcMot7b]"></notes-value>
+            </notes-input>
+        </div>
+        <div flex="20" class="col-row-content">
+            <notes-input section-form="ticTacForm" input-list="[{model: vm.model.OcMot8a, type: 'text', cssClass:'small'}, {model: vm.model.OcMot8b, type: 'text', cssClass:'small'}]">
+                <notes-value input-list="[vm.model.OcMot8a, vm.model.OcMot8b]"></notes-value>
+            </notes-input>
+        </div>
+        <div flex="20" class="col-row-content">
+            <notes-input section-form="ticTacForm" input-list="[{model: vm.model.OcMot9a, type: 'text', cssClass:'small'}, {model: vm.model.OcMot9b, type: 'text', cssClass:'small'}]">
+                <notes-value input-list="[vm.model.OcMot9a, vm.model.OcMot9b]"></notes-value>
+            </notes-input>
+        </div>
+        <div flex="20" class="col-row-header"></div>
+    </div>
+</form>
+<form editable-form name="headForm" notes-section-form>
+    <notes-section-title section-form="headForm"></notes-section-title>
+    <div layout="row">
+        <div flex="20" class="col-row-header">Head Tilt Right:</div>
+        <div flex="30" class="col-row-content">
+            <notes-input section-form="headForm" input-list="[{model: vm.model.HeadTiltRight1, type: 'text', cssClass:'small'}, {model: vm.model.HeadTiltRight2, type: 'text', cssClass:'small'}]">
+                <notes-value input-list="[vm.model.HeadTiltRight1, vm.model.HeadTiltRight2]"></notes-value>
+            </notes-input>
+        </div>
+        <div flex="20" class="col-row-header">Head Tilt Left:</div>
+        <div flex="30" class="col-row-content">
+            <notes-input section-form="headForm" input-list="[{model: vm.model.HeadTiltLeft1, type: 'text', cssClass:'small'}, {model: vm.model.HeadTiltLeft2, type: 'text', cssClass:'small'}]">
+                <notes-value input-list="[vm.model.HeadTiltLeft1, vm.model.HeadTiltLeft2]"></notes-value>
+            </notes-input>
+        </div>
+    </div>
+    <div layout="row">
+        <div flex="20" class="col-row-header">Adaptive Head Positions:</div>
+        <div flex="80" class="col-row-content">
+            <notes-input section-form="headForm" input-list="[{model: vm.model.HeadPosition1, type: 'dropdown'}, {model: vm.model.HeadPosition2, type: 'text', cssClass:'medium'}]">
+                <notes-value input-list="[vm.model.HeadPosition1, vm.model.HeadPosition2]"></notes-value>
+            </notes-input>
+        </div>
+    </div>
+    <div layout="row">
+        <div flex="20" class="col-row-header">Double Maddox Rod:</div>
+        <div flex="30" class="col-row-content">
+            <notes-input section-form="headForm" input-list="[{model: vm.model.DMR2, type: 'text', cssClass:'medium'}]">
+                <notes-value input-list="[vm.model.DMR2]"></notes-value>
+            </notes-input>
+        </div>
+        <div flex="20" class="col-row-header">Preference:</div>
+        <div flex="30" class="col-row-content">
+            <notes-input section-form="headForm" input-list="[{model: vm.model.Preference, type: 'dropdown'}]">
+                <notes-value input-list="[vm.model.Preference]"></notes-value>
+            </notes-input>
+        </div>
+    </div>
+</form>
+<form editable-form name="ocularForm" notes-section-form>
+    <notes-section-title section-form="ocularForm"></notes-section-title>
+    <div layout="row">
+        <div flex="10" class="col-row-header">Ocular Versions:</div>
+        <div flex="90" class="col-row-content">
+            <notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersions1, type: 'dropdown'}, {model: vm.model.OcularVersions11, type: 'dropdown'}, {model: vm.model.OcularVersions2, type: 'dropdown'}, {model: vm.model.OcularVersions3, type: 'dropdown'}, {model: vm.model.OcularVersions31, type: 'dropdown'}, {model: vm.model.OcularVersions4, type: 'dropdown'}, {model: vm.model.OcularVersions5, type: 'text', cssClass:'small'}]">
+                <notes-value input-list="[vm.model.OcularVersions1, vm.model.OcularVersions11, vm.model.OcularVersions2, vm.model.OcularVersions3, vm.model.OcularVersions31, vm.model.OcularVersions4, vm.model.OcularVersions5]"></notes-value>
+            </notes-input>
+        </div>
+    </div>
+    <div layout="row">
+        <div flex="10" class="col-row-header">Nystagmus:</div>
+        <div flex="90" class="col-row-content">
+            <notes-input section-form="ocularForm" input-list="[{model: vm.model.Nystagmus1, type: 'dropdown'}, {model: vm.model.Nystagmus2, type: 'text', cssClass:'small'}]">
+                <notes-value input-list="[vm.model.Nystagmus1, vm.model.Nystagmus2]"></notes-value>
+            </notes-input>
+        </div>
+    </div>
+    <table class="h-table">
+        <tr>
+            <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD1, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD1]"></notes-value></notes-input></td>
+            <td colspan="3">&nbsp;</td>
+            <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD2, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD2]"></notes-value></notes-input></td>
+            <td>&nbsp;</td>
+            <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS1, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS1]"></notes-value></notes-input></td>
+            <td colspan="3">&nbsp;</td>
+            <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS2, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS2]"></notes-value></notes-input></td>
+        </tr>
+        <tr>
+            <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD3, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD3]"></notes-value></notes-input></td>
+            <td><img ng-src="{{vm.utility.imagePath('line-vertical.gif')}}" class="h-image-vertical" /></td>
+            <td class="tight"><img ng-src="{{vm.utility.imagePath('line-horizontal.gif')}}" class="h-image-horizontal" /></td>
+            <td class="tight"><img ng-src="{{vm.utility.imagePath('line-vertical.gif')}}" class="h-image-vertical" /></td>
+            <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD4, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD4]"></notes-value></notes-input></td>
+            <td>&nbsp;</td>
+            <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS3, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS3]"></notes-value></notes-input></td>
+            <td><img ng-src="{{vm.utility.imagePath('line-vertical.gif')}}" class="h-image-vertical" /></td>
+            <td class="tight"><img ng-src="{{vm.utility.imagePath('line-horizontal.gif')}}" class="h-image-horizontal" /></td>
+            <td class="tight"><img ng-src="{{vm.utility.imagePath('line-vertical.gif')}}" class="h-image-vertical" /></td>
+            <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS4, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS4]"></notes-value></notes-input></td>
+        </tr>
+        <tr>
+            <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD5, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD5]"></notes-value></notes-input></td>
+            <td colspan="3">&nbsp;</td>
+            <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD6, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD6]"></notes-value></notes-input></td>
+            <td>&nbsp;</td>
+            <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS5, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS5]"></notes-value></notes-input></td>
+            <td colspan="3">&nbsp;</td>
+            <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS6, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS6]"></notes-value></notes-input></td>
+        </tr>
+    </table>
+</form>
     <br />
     <p></p>
