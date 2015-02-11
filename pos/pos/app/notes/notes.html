@@ -581,55 +581,61 @@
 </form>
 <form editable-form name="ocularForm" notes-section-form>
     <notes-section-title section-form="ocularForm"></notes-section-title>
-    <div layout="row">
-        <div flex="10" class="col-row-header">Ocular Versions:</div>
-        <div flex="90" class="col-row-content">
-            <notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersions1, type: 'dropdown'}, {model: vm.model.OcularVersions11, type: 'dropdown'}, {model: vm.model.OcularVersions2, type: 'dropdown'}, {model: vm.model.OcularVersions3, type: 'dropdown'}, {model: vm.model.OcularVersions31, type: 'dropdown'}, {model: vm.model.OcularVersions4, type: 'dropdown'}, {model: vm.model.OcularVersions5, type: 'text', cssClass:'small'}]">
-                <notes-value input-list="[vm.model.OcularVersions1, vm.model.OcularVersions11, vm.model.OcularVersions2, vm.model.OcularVersions3, vm.model.OcularVersions31, vm.model.OcularVersions4, vm.model.OcularVersions5]"></notes-value>
-            </notes-input>
+    <div layout="row" layout-align="center end">
+        <div flex>
+            <div layout="row">
+                <div flex="20" class="col-row-header">Ocular Versions:</div>
+                <div flex="80" class="col-row-content">
+                    <notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersions1, type: 'dropdown'}, {model: vm.model.OcularVersions11, type: 'dropdown'}, {model: vm.model.OcularVersions2, type: 'dropdown'}, {model: vm.model.OcularVersions3, type: 'dropdown'}, {model: vm.model.OcularVersions31, type: 'dropdown'}, {model: vm.model.OcularVersions4, type: 'dropdown'}, {model: vm.model.OcularVersions5, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.OcularVersions1, vm.model.OcularVersions11, vm.model.OcularVersions2, vm.model.OcularVersions3, vm.model.OcularVersions31, vm.model.OcularVersions4, vm.model.OcularVersions5]"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+            <div layout="row">
+                <div flex="20" class="col-row-header">Nystagmus:</div>
+                <div flex="80" class="col-row-content">
+                    <notes-input section-form="ocularForm" input-list="[{model: vm.model.Nystagmus1, type: 'dropdown'}, {model: vm.model.Nystagmus2, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.Nystagmus1, vm.model.Nystagmus2]"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+        </div>
+        <div flex="40" class="col-row-content text-center">
+            <table class="h-table">
+                <tr>
+                    <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD1, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD1]"></notes-value></notes-input></td>
+                    <td colspan="3">&nbsp;</td>
+                    <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD2, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD2]"></notes-value></notes-input></td>
+                    <td>&nbsp;</td>
+                    <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS1, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS1]"></notes-value></notes-input></td>
+                    <td colspan="3">&nbsp;</td>
+                    <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS2, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS2]"></notes-value></notes-input></td>
+                </tr>
+                <tr>
+                    <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD3, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD3]"></notes-value></notes-input></td>
+                    <td><img ng-src="{{vm.utility.imagePath('line-vertical.gif')}}" class="h-image-vertical" /></td>
+                    <td class="tight"><img ng-src="{{vm.utility.imagePath('line-horizontal.gif')}}" class="h-image-horizontal" /></td>
+                    <td class="tight"><img ng-src="{{vm.utility.imagePath('line-vertical.gif')}}" class="h-image-vertical" /></td>
+                    <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD4, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD4]"></notes-value></notes-input></td>
+                    <td>&nbsp;</td>
+                    <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS3, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS3]"></notes-value></notes-input></td>
+                    <td><img ng-src="{{vm.utility.imagePath('line-vertical.gif')}}" class="h-image-vertical" /></td>
+                    <td class="tight"><img ng-src="{{vm.utility.imagePath('line-horizontal.gif')}}" class="h-image-horizontal" /></td>
+                    <td class="tight"><img ng-src="{{vm.utility.imagePath('line-vertical.gif')}}" class="h-image-vertical" /></td>
+                    <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS4, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS4]"></notes-value></notes-input></td>
+                </tr>
+                <tr>
+                    <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD5, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD5]"></notes-value></notes-input></td>
+                    <td colspan="3">&nbsp;</td>
+                    <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD6, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD6]"></notes-value></notes-input></td>
+                    <td>&nbsp;</td>
+                    <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS5, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS5]"></notes-value></notes-input></td>
+                    <td colspan="3">&nbsp;</td>
+                    <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS6, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS6]"></notes-value></notes-input></td>
+                </tr>
+            </table>
         </div>
     </div>
-    <div layout="row">
-        <div flex="10" class="col-row-header">Nystagmus:</div>
-        <div flex="90" class="col-row-content">
-            <notes-input section-form="ocularForm" input-list="[{model: vm.model.Nystagmus1, type: 'dropdown'}, {model: vm.model.Nystagmus2, type: 'text', cssClass:'small'}]">
-                <notes-value input-list="[vm.model.Nystagmus1, vm.model.Nystagmus2]"></notes-value>
-            </notes-input>
-        </div>
-    </div>
-    <table class="h-table">
-        <tr>
-            <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD1, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD1]"></notes-value></notes-input></td>
-            <td colspan="3">&nbsp;</td>
-            <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD2, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD2]"></notes-value></notes-input></td>
-            <td>&nbsp;</td>
-            <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS1, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS1]"></notes-value></notes-input></td>
-            <td colspan="3">&nbsp;</td>
-            <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS2, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS2]"></notes-value></notes-input></td>
-        </tr>
-        <tr>
-            <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD3, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD3]"></notes-value></notes-input></td>
-            <td><img ng-src="{{vm.utility.imagePath('line-vertical.gif')}}" class="h-image-vertical" /></td>
-            <td class="tight"><img ng-src="{{vm.utility.imagePath('line-horizontal.gif')}}" class="h-image-horizontal" /></td>
-            <td class="tight"><img ng-src="{{vm.utility.imagePath('line-vertical.gif')}}" class="h-image-vertical" /></td>
-            <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD4, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD4]"></notes-value></notes-input></td>
-            <td>&nbsp;</td>
-            <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS3, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS3]"></notes-value></notes-input></td>
-            <td><img ng-src="{{vm.utility.imagePath('line-vertical.gif')}}" class="h-image-vertical" /></td>
-            <td class="tight"><img ng-src="{{vm.utility.imagePath('line-horizontal.gif')}}" class="h-image-horizontal" /></td>
-            <td class="tight"><img ng-src="{{vm.utility.imagePath('line-vertical.gif')}}" class="h-image-vertical" /></td>
-            <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS4, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS4]"></notes-value></notes-input></td>
-        </tr>
-        <tr>
-            <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD5, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD5]"></notes-value></notes-input></td>
-            <td colspan="3">&nbsp;</td>
-            <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD6, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD6]"></notes-value></notes-input></td>
-            <td>&nbsp;</td>
-            <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS5, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS5]"></notes-value></notes-input></td>
-            <td colspan="3">&nbsp;</td>
-            <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS6, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS6]"></notes-value></notes-input></td>
-        </tr>
-    </table>
 </form>
     <br />
     <p></p>
