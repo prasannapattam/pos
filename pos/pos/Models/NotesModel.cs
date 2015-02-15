@@ -236,6 +236,8 @@ namespace pos.Models
         public Field W4DDistance2 { get; set; }
         public Field Stereo1 { get; set; }
         public Field Stereo2 { get; set; }
+        public Field DiopterBaseOut { get; set; }
+
 
         //Anteior Segnment
         public Field AnteriorSegment { get; set; }

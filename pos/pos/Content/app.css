@@ -3,6 +3,11 @@
     font-size: 1.2em !important;
     font-family: Verdana, Geneva, sans-serif;
     background: url("images/background.jpg") no-repeat 0px 110px rgb(216, 216, 216);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
 }
 
 div.container{
@@ -49,7 +54,7 @@ div.top-header{
 
 .h-table tbody tr td {
     padding: 0;
-    background-color: #dfebf5;
+    /*background-color: #dfebf5;*/
     padding-left: 0.5rem;
     border: none;
 }
@@ -231,7 +236,11 @@ input.large{
 }
 
 .xxlarge{
-    width: 393px;
+    width: 425px;
+}
+
+.full-large {
+    width: 1000px;
 }
 
 .notes-second-line{
@@ -385,25 +394,27 @@ div.encounter-right{
     width: 24px;
 }
 
-.col-row-header{
+.col-row{
     background-color: #f3f3f3;
-    height: 30px;
-    border: 1px solid;
-    border-bottom: 0;
+    min-height: 30px;
+    border-bottom: 1px solid;
+    border-right: 1px solid;
     border-color: #d4d4d4;
     box-sizing: border-box;
+}
+
+.col-row-header{
     font-weight: bold;
     padding-top: 6px;
+    border-left: 1px solid;
+    border-color: #d4d4d4;
 }
 
 .col-row-content{
     background-color: #fff;
-    min-height: 30px;
-    border: 1px solid;
-    border-bottom: 0;
-    border-color: #d4d4d4;
-    box-sizing: border-box;
     padding-top: 6px;
+    border-left: 1px solid;
+    border-color: #d4d4d4;
 }
 
 .section-header{
@@ -506,6 +517,13 @@ ul.dropdown-menu{
 }
 .k-state-highlight{
     background-color: gainsboro;
+}
+
+.k-calendar .k-content .k-link {
+    font-size: small;
+}
+.k-calendar th {
+    font-size: small;
 }
 /* End Kendo overrides */
 
