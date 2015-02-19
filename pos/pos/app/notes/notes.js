@@ -79,32 +79,26 @@ function notes($scope, notesService, session, formUtility, utility, moment) {
     function notesWatchers() {
         //age calculation
         $scope.$watchGroup(['vm.model.ExamDate.Value', 'vm.model.DOB.Value'], function (newValues, oldValues) {
-            var examDateMoment = moment(newValues[0]);
-            var dobMoment = moment(newValues[1]);
-
-            if (examDateMoment.isValid() === true && dobMoment.isValid() === true) {
-                var age = examDateMoment.diff(dobMoment);
-                var duration = moment.duration(age);
-                var totalDays = duration.asDays();
-                var totalWeeks = parseInt(duration.asWeeks());
-                var totalMonths = parseInt(duration.asMonths());
-
-                var years = duration.years();
-                var months = duration.months();
-
-                var age = '';
-                if (totalMonths <= 6)
-                    age = totalWeeks + " weeks";
-                else if (totalMonths < 12)
-                    age = months + " month-old";
-                else if (years <= 10)
-                    age = years + '.' + months + " year-old";
-                else
-                    age = years + " year-old";
-
-                vm.model.tbAge.Value = age;
-            }
+            vm.model.tbAge.Value = getAge(newValues[1], newValues[0]);
         });
+
+    }
+
+    function getAge(dob, examDate) {
+
+        var diff = utility.dateDiff(dob, examDate);
+
+        var age = '';
+        if (diff.years === 0 && diff.months < 6)
+            age = diff.weeks + " weeks";
+        else if (diff.years === 0 && diff.months < 12)
+            age = diff.months + " month-old";
+        else if (diff.years < 10)
+            age = diff.years + '.' + diff.months + " year-old";
+        else
+            age = diff.years + " year-old";
+
+        return age;
 
     }
 }

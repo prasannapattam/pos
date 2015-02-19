@@ -1,9 +1,9 @@
 ﻿'use strict'
 
 angular.module('pos').factory('utility', utility);
-utility.$inject = ['toastr', 'constants'];
+utility.$inject = ['toastr', 'constants', 'moment'];
 
-function utility(toastr, constants) {
+function utility(toastr, constants, moment) {
 
     var virtualDirectory = window.virtualDirectory || '';
 
@@ -18,7 +18,8 @@ function utility(toastr, constants) {
         getPhotoUrl: getPhotoUrl,
         lookupExists: lookupExists,
         lookupText: lookupText,
-        getGridHeight: getGridHeight
+        getGridHeight: getGridHeight,
+        dateDiff: dateDiff
     };
 
     return vm;
@@ -81,8 +82,6 @@ function utility(toastr, constants) {
         return null;
     }
 
-
-
     function getGridHeight(gridClass) {
         var contentOffset = angular.element(document.getElementsByClassName('main-content')).offset();
         var contentHeight = angular.element(document.getElementsByClassName('main-content')[0]).height();
@@ -90,6 +89,31 @@ function utility(toastr, constants) {
         if (gridOffset !== undefined) {
             var gridHeight = contentHeight - (gridOffset.top - contentOffset.top) - 10;
             return gridHeight + 'px';
+        }
+    }
+
+    function dateDiff(startdate, enddate) {
+
+        //define moments for the startdate and enddate
+        var startdateMoment = moment(startdate);
+        var enddateMoment = moment(enddate);
+
+        if (startdateMoment.isValid() === true && enddateMoment.isValid() === true) {
+
+            //sending total weeks elapsed
+            var weeks = enddateMoment.diff(startdateMoment, 'weeks');
+
+            //getting the difference in years
+            var years = enddateMoment.diff(startdateMoment, 'years');
+
+            //moment returns the total months between the two dates, hence subtracting the years
+            var months = enddateMoment.diff(startdateMoment, 'months') - (years * 12);
+
+            //to calculate the days, first get the previous month and then subtract it from enddate
+            startdateMoment.add(years, 'years').add(months, 'months');
+            var days = enddateMoment.diff(startdateMoment, 'days')
+
+            return { years: years, months: months, days: days, weeks: weeks };
         }
     }
 
