@@ -82,6 +82,9 @@ function notes($scope, notesService, session, formUtility, utility, moment) {
             vm.model.tbAge.Value = getAge(newValues[1], newValues[0]);
         });
 
+        $scope.$watchGroup(['vm.model.Age.Value', 'vm.model.tbAge.Value', 'vm.model.GA.Value', 'vm.model.PCA.Value', 'vm.model.BirthWt.Value'], function (newValues, oldValues) {
+            summaryCalulation(newValues[0], newValues[1], newValues[2], newValues[3], newValues[4]);
+        });
     }
 
     function getAge(dob, examDate) {
@@ -100,6 +103,30 @@ function notes($scope, notesService, session, formUtility, utility, moment) {
 
         return age;
 
+    }
+
+    function summaryCalulation(oldAge, newAge, gaText, pcaText, birthWeightText) {
+        var summary = vm.model.Summary.Value;
+
+        //replacing the age
+        if (oldAge !== newAge) {
+            if (oldAge !== "" && summary.indexOf(oldAge) !== -1)
+                summary = summary.replace(oldAge, newAge);
+            else
+                summary = summary.replace(/[0-9. ]+year[- ]+old/i, newAge);
+            vm.model.Age.Value = newAge;
+        }
+
+
+        if (gaText !== "weeks" && gaText !== "")
+            summary = summary.replace("[GA]", gaText);
+        if (pcaText !== "weeks" && pcaText !== "")
+            summary = summary.replace("[PCA]", pcaText);
+        if (birthWeightText !== "")
+            summary = summary.replace("[BW]", birthWeightText);
+
+        if (vm.model.Summary.Value !== summary)
+            vm.model.Summary.Value = summary;
     }
 }
 
