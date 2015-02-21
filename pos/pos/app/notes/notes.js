@@ -23,8 +23,8 @@ function notes($scope, notesService, session, formUtility, utility, moment) {
         vm.doctors = notesService.doctors;
 
         //UI related changes to the model
-        //vm.model.Premature.LookUpFieldName = "BOOL";
 
+        //HxFrom
         vm.model.HxFromList = {
             Name: 'HxFromList',
             Value: vm.model.HxFrom.Value,
@@ -39,7 +39,6 @@ function notes($scope, notesService, session, formUtility, utility, moment) {
             ColourType: vm.model.HxFrom.ColourType
         }
 
-        //HxFrom
         if (utility.lookupExists(session.lookups.HxFrom, vm.model.HxFrom.Value)) {
             vm.model.HxFromList.Value = vm.model.HxFrom.Value;
             vm.model.HxFromOther.Value = '';
@@ -49,16 +48,6 @@ function notes($scope, notesService, session, formUtility, utility, moment) {
             vm.model.HxFromOther.Value = vm.model.HxFrom.Value;
         }
 
-
-        //removing the weeks (fix for old data)
-        if (vm.model.GA.Value === "weeks") {
-            vm.model.GA.Value = "";
-            vm.model.GA.ColourType = 0;
-        }
-        if (vm.model.PCA.Value === "weeks") {
-            vm.model.PCA.Value = "";
-            vm.model.PCA.ColourType = 0;
-        }
 
         //Add watchers
         notesWatchers();
@@ -85,6 +74,7 @@ function notes($scope, notesService, session, formUtility, utility, moment) {
         $scope.$watchGroup(['vm.model.Age.Value', 'vm.model.tbAge.Value', 'vm.model.GA.Value', 'vm.model.PCA.Value', 'vm.model.BirthWt.Value'], function (newValues, oldValues) {
             summaryCalulation(newValues[0], newValues[1], newValues[2], newValues[3], newValues[4]);
         });
+
     }
 
     function getAge(dob, examDate) {
@@ -128,5 +118,6 @@ function notes($scope, notesService, session, formUtility, utility, moment) {
         if (vm.model.Summary.Value !== summary)
             vm.model.Summary.Value = summary;
     }
+    
 }
 

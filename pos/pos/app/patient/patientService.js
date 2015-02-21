@@ -11,7 +11,8 @@ function patientService($http, utility) {
         resolve: resolve,
         savePatient: savePatient,
         encounterButtonTemplate: encounterButtonTemplate,
-        hideMenu: false
+        hideMenu: false,
+        header: undefined
 };
 
     return service;
@@ -21,6 +22,7 @@ function patientService($http, utility) {
         return $http.get("/api/patient", { params: { id: patientId } })
             .success(function (data) {
                 service.patientModel = data;
+                service.header = data.FullName;
             });
     }
 

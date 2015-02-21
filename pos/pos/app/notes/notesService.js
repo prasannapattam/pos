@@ -2,9 +2,9 @@
 
 angular.module('pos').factory('notesService', notesService);
 
-notesService.$inject = ['$http', 'session', 'patientService'];
+notesService.$inject = ['$http', 'session', 'patientService', 'constants'];
 
-function notesService($http, session, patientService) {
+function notesService($http, session, patientService, constants) {
 
     var service = {
         model: undefined,
@@ -12,6 +12,7 @@ function notesService($http, session, patientService) {
         autoComplete: undefined,
         resolve: resolve,
         save: save,
+        setHeader: setHeader
     };
 
     return service;
@@ -24,19 +25,6 @@ function notesService($http, session, patientService) {
         var getdata = { params: { "userName": session.profile.userName, "patientid": patientid, "examid": notesid || '' } };
         return $http.get('/api/notes', getdata).success(function (data) {
             var model = data.Notes;
-            model.HxFromList = {
-                Name: 'HxFromList',
-                Value: model.HxFrom.Value,
-                LookUpFieldName: model.HxFrom.LookUpFieldName,
-                ColourType: model.HxFrom.ColourType
-            };
-
-            model.HxFromOther = {
-                Name: 'HxFromOther',
-                Value: model.HxFrom.Value,
-                LookUpFieldName: model.HxFrom.LookUpFieldName,
-                ColourType: model.HxFrom.ColourType
-            }
 
             //removing the weeks (fix for old data)
             if (model.GA.Value === "weeks") {
@@ -57,7 +45,9 @@ function notesService($http, session, patientService) {
 
             service.doctors = data.Doctors;
             service.autoComplete = data.AutoComplete;
-            //addComputedProperties();
+
+            setHeader();
+
             //setOverrides();
 
             return data;
@@ -66,6 +56,36 @@ function notesService($http, session, patientService) {
 
     function save() {
 
+    }
+
+    function setHeader() {
+        var notestype = service.model.NotesType;
+
+        var headerText;
+        if (notestype === constants.notesType.Default) {
+            headerText = service.model.DoctorName.Value + ' - Notes Default';
+        }
+        else {
+            headerText = service.model.PatientName.Value;
+            var ExamID = service.model.hdnExamID;
+            var ExamDate = service.model.ExamDate;
+            var ExamSaveDate = service.model.ExamSaveDate;
+            var ExamCorrectDate = service.model.ExamCorrectDate;
+            if (ExamSaveDate !== null) {
+                headerText += ' - Notes saved on ' + ExamSaveDate.Value;
+            }
+            else if (ExamCorrectDate !== null) {
+                headerText += ' - Notes taken on ' + ExamDate.Value + ' (Corrected on ' + ExamCorrectDate.Value + ')';
+            }
+            else if (ExamID !== null) {
+                headerText += ' -  Notes taken on ' + ExamDate.Value;
+            }
+            else {
+                headerText += ' - New notes'
+            }
+        }
+
+        patientService.header = headerText;
     }
 
 }
