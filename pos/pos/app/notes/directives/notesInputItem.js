@@ -92,6 +92,13 @@ function notesInputItem($compile, session, constants, notesUtility, notesService
         transclude(scope.$parent, function (clone, scope) {
             element.children().append(clone);
         });
+
+        //pushing the models into the sectionForm
+        if (scope.sectionForm.models === undefined) {
+            scope.sectionForm.models = [];
+        }
+
+        scope.sectionForm.models.push(scope.item.model);
     }
 }
 
