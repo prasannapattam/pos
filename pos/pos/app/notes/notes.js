@@ -35,7 +35,6 @@ function notes($scope, notesService, session, formUtility, utility, moment) {
         vm.model.HxFromOther = {
             Name: 'HxFromOther',
             Value: vm.model.HxFrom.Value,
-            LookUpFieldName: vm.model.HxFrom.LookUpFieldName,
             ColourType: vm.model.HxFrom.ColourType
         }
 
@@ -68,16 +67,34 @@ function notes($scope, notesService, session, formUtility, utility, moment) {
     function notesWatchers() {
         //age calculation
         $scope.$watchGroup(['vm.model.ExamDate.Value', 'vm.model.DOB.Value'], function (newValues, oldValues) {
-            vm.model.tbAge.Value = getAge(newValues[1], newValues[0]);
+            ageCalculation(newValues[1], newValues[0]);
         });
 
+        //summary calculation
         $scope.$watchGroup(['vm.model.Age.Value', 'vm.model.tbAge.Value', 'vm.model.GA.Value', 'vm.model.PCA.Value', 'vm.model.BirthWt.Value'], function (newValues, oldValues) {
             summaryCalulation(newValues[0], newValues[1], newValues[2], newValues[3], newValues[4]);
         });
 
+        //HxFrom calculation
+        $scope.$watchGroup(['vm.model.HxFromList.Value', 'vm.model.HxFromOther.Value'], function (newValues, oldValues) {
+            if (newValues[0] === "") {
+                vm.model.HxFrom.Value = newValues[1];
+            }
+            else {
+                vm.model.HxFromOther.Value = "";
+                vm.model.HxFrom.Value = newValues[0];
+            }
+        });
+
+        //discussedCalculation
+        $scope.$watchGroup(['vm.model.HxFrom.Value', 'vm.model.FirstName.Value', 'vm.model.Sex.Value'], function (newValues, oldValues) {
+            discussedCalculation(newValues[0], newValues[1], newValues[2]);
+        });
+
+
     }
 
-    function getAge(dob, examDate) {
+    function ageCalculation(dob, examDate) {
 
         var diff = utility.dateDiff(dob, examDate);
 
@@ -91,7 +108,7 @@ function notes($scope, notesService, session, formUtility, utility, moment) {
         else
             age = diff.years + " year-old";
 
-        return age;
+        vm.model.tbAge.Value = age;
 
     }
 
@@ -119,5 +136,25 @@ function notes($scope, notesService, session, formUtility, utility, moment) {
             vm.model.Summary.Value = summary;
     }
     
+    function discussedCalculation(hxFrom, FirstName, sex) {
+        var discussed = "Discussed findings with " + FirstName;
+
+        if (hxFrom !== "" && hxFrom != "patient") {
+            var displaySex = '';
+            if (hxFrom.indexOf("patient and") >= 0) {
+                hxFrom = hxFrom.replace("patient and", "").trim();
+                if (sex.toLowerCase() == 'female')
+                    displaySex += "her";
+                else
+                    displaySex += "his";
+                discussed += " and " + displaySex + " " + hxFrom;
+            }
+            else {
+                discussed += "'s " + hxFrom;
+            }
+
+        }
+        vm.model.Discussed.Value = discussed;
+    }
 }
 

@@ -38,15 +38,15 @@
                 <div flex class="col-row-content">
                     <notes-input section-form="patientForm" input-list="[{model: vm.model.HxFromList, type: 'dropdown'}
                                     , {model: vm.model.HxFromOther, type: 'text', cssClass:'small'}]">
-                        <notes-value input-list="[vm.model.HxFromList, vm.model.HxFromOther]"></notes-value>
+                        {{vm.model.HxFrom.Value}}
                     </notes-input>
                 </div>
             </div>
             <div layout="row" class="col-row">
                 <div flex="25" class="col-row-header">Ref'd By</div>
                 <div flex class="col-row-content">
-                    <notes-input section-form="patientForm" input-list="[{model: vm.model.Refd, type: 'text', cssClass:'small'}
-                                    , {model: vm.model.RefDoctor, type: 'text', cssClass:'small'}]">
+                    <notes-input section-form="patientForm" input-list="[{model: vm.model.Refd, type: 'text', cssClass:'medium'}
+                                    , {model: vm.model.RefDoctor, type: 'text', cssClass:'medium'}]">
                         <notes-value input-list="[vm.model.Refd, {Value: '(Dr. '}, vm.model.RefDoctor, {Value: ')'}]"></notes-value>
                     </notes-input>
                 </div>
