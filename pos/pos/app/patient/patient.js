@@ -19,6 +19,7 @@ function patient($state, patientService, utility) {
         vm.model = patientService.patientModel;
         vm.model.header = vm.model.PatientName;
         vm.menuItems = getMenu();
+        patientService.hideMenu = false;
     }
 
     function getMenu() {
