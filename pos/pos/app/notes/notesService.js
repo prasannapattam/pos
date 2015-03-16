@@ -12,15 +12,14 @@ function notesService($http, session, patientService, constants) {
         autoComplete: undefined,
         resolve: resolve,
         save: save,
-        setHeader: setHeader
+        setHeader: setHeader,
+        showPatientMenu: showPatientMenu,
+        hidePatientMenu: hidePatientMenu
     };
 
     return service;
 
     function resolve(patientid, notesid) {
-
-        //hiding the patient menu
-        patientService.hideMenu = true;
 
         var getdata = { params: { "userName": session.profile.userName, "patientid": patientid, "examid": notesid || '' } };
         return $http.get('/api/notes', getdata).success(function (data) {
@@ -88,4 +87,11 @@ function notesService($http, session, patientService, constants) {
         patientService.header = headerText;
     }
 
+    function showPatientMenu() {
+        patientService.hideMenu = false;
+    }
+
+    function hidePatientMenu() {
+        patientService.hideMenu = true;
+    }
 }

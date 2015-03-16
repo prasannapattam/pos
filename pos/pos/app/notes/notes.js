@@ -50,6 +50,12 @@ function notes($scope, notesService, session, formUtility, utility, moment) {
 
         //Add watchers
         notesWatchers();
+
+        $scope.$on('$stateChangeStart', function (evt, toState, toParams, fromState, fromParams) {
+            notesService.showPatientMenu()
+        });
+
+        notesService.hidePatientMenu();
     }
 
     function saveNotes(data) {

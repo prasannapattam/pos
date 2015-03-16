@@ -1,11 +1,4 @@
 ﻿<div data-spy="scroll" data-target=".navbar-example" data-offset="10">
-    <div class="navbar-example">
-        <ul class="nav nav-stacked" role="tablist">
-            <li role="presentation" class="active"><a href="#">Home</a></li>
-            <li role="presentation"><a href="#compliantForm">compliant</a></li>
-            <li role="presentation"><a href="#">Messages</a></li>
-        </ul>
-    </div>
     <form editable-form name="patientForm" notes-section-form>
         <notes-section-title section-form="patientForm">Patient Info</notes-section-title>
         <div layout="row" class="col-row">
@@ -351,7 +344,7 @@
     </form>
 
     <form editable-form name="manCycForm" notes-section-form>
-        <notes-section-title section-form="manCycForm">Man/Cyc</notes-section-title>
+        <notes-section-title section-form="manCycForm">Rfx</notes-section-title>
 
         <div layout="row" class="col-row">
             <div flex="10" class="col-row-header">
@@ -413,15 +406,12 @@
                 </notes-input>
             </div>
         </div>
-    </form>
-    <form editable-form name="rxCtlForm" notes-section-form>
-        <notes-section-title section-form="rxCtlForm">Rx given / CTL Rx</notes-section-title>
         <div layout="row" class="col-row">
             <div flex="10" class="col-row-header">
                 <div class="float-left">Rx given</div><div class="float-right">OD:</div>
             </div>
             <div flex="40" class="col-row-content">
-                <notes-input section-form="rxCtlForm" input-list="[{model: vm.model.RxOD1, type: 'text', cssClass:'small'}, {model: vm.model.RxOD2, type: 'text', cssClass:'small'}, {value: '&nbsp;&nbsp;&nbsp;&nbsp;<input type=\'checkbox\'>&nbsp;Populate', type: 'html'}]">
+                <notes-input section-form="manCycForm" input-list="[{model: vm.model.RxOD1, type: 'text', cssClass:'small'}, {model: vm.model.RxOD2, type: 'text', cssClass:'small'}, {value: '&nbsp;&nbsp;&nbsp;&nbsp;<input type=\'checkbox\'>&nbsp;Populate', type: 'html'}]">
                     <notes-value input-list="[vm.model.RxOD1, vm.model.RxOD2]"></notes-value>
                 </notes-input>
             </div>
@@ -429,7 +419,7 @@
                 <div class="float-left">CTL Rx</div><div class="float-right">OD:</div>
             </div>
             <div flex="40" class="col-row-content">
-                <notes-input section-form="rxCtlForm" input-list="[{model: vm.model.CTLRxOD1, type: 'text', cssClass:'small'}, {model: vm.model.CTLRxOD2, type: 'text', cssClass:'small'}, {model: vm.model.CTLRxOD3, type: 'text', cssClass:'small'}, {value: '&nbsp;&nbsp;&nbsp;&nbsp;<input type=\'checkbox\'>&nbsp;Populate', type: 'html'}]">
+                <notes-input section-form="manCycForm" input-list="[{model: vm.model.CTLRxOD1, type: 'text', cssClass:'small'}, {model: vm.model.CTLRxOD2, type: 'text', cssClass:'small'}, {model: vm.model.CTLRxOD3, type: 'text', cssClass:'small'}, {value: '&nbsp;&nbsp;&nbsp;&nbsp;<input type=\'checkbox\'>&nbsp;Populate', type: 'html'}]">
                     <notes-value input-list="[vm.model.CTLRxOD1, vm.model.CTLRxOD2, vm.model.CTLRxOD3]"></notes-value>
                 </notes-input>
             </div>
@@ -437,13 +427,13 @@
         <div layout="row" class="col-row">
             <div flex="10" class="col-row-header text-right">OS:</div>
             <div flex="40" class="col-row-content">
-                <notes-input section-form="rxCtlForm" input-list="[{model: vm.model.RXOS1, type: 'text', cssClass:'small'}, {model: vm.model.RXOS2, type: 'text', cssClass:'small'},{model: vm.model.RXOS3, type: 'text', cssClass:'small'}, {model: vm.model.RXOS4, type: 'text', cssClass:'medium'}]">
+                <notes-input section-form="manCycForm" input-list="[{model: vm.model.RXOS1, type: 'text', cssClass:'small'}, {model: vm.model.RXOS2, type: 'text', cssClass:'small'},{model: vm.model.RXOS3, type: 'text', cssClass:'small'}, {model: vm.model.RXOS4, type: 'text', cssClass:'medium'}]">
                     <notes-value input-list="[vm.model.RXOS1, vm.model.RXOS2, vm.model.RXOS3, vm.model.RXOS4]"></notes-value>
                 </notes-input>
             </div>
             <div flex="10" class="col-row-header text-right">OS:</div>
             <div flex="40" class="col-row-content">
-                <notes-input section-form="rxCtlForm" input-list="[{model: vm.model.CTLRxOS1, type: 'text', cssClass:'small'}, {model: vm.model.CTLRxOS2, type: 'text', cssClass:'small'}, {model: vm.model.CTLRxOS3, type: 'text', cssClass:'small'}]">
+                <notes-input section-form="manCycForm" input-list="[{model: vm.model.CTLRxOS1, type: 'text', cssClass:'small'}, {model: vm.model.CTLRxOS2, type: 'text', cssClass:'small'}, {model: vm.model.CTLRxOS3, type: 'text', cssClass:'small'}]">
                     <notes-value input-list="[vm.model.CTLRxOS1, vm.model.CTLRxOS2, vm.model.CTLRxOS3]"></notes-value>
                 </notes-input>
             </div>
