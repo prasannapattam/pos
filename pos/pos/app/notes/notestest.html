@@ -1,38 +1,242 @@
-﻿<form editable-form name="rxCtlForm" notes-section-form>
-    <notes-section-title section-form="rxCtlForm">Compliant</notes-section-title>
-    <div layout="row">
-        <div flex="10" class="col-row-header">
-            <div class="float-left">Rx given</div><div class="float-right">OD:</div>
+﻿http://www.codingeverything.com/2014/02/BootstrapDocsSideBar.html
+https://github.com/KyleMit/Spices/tree/gh-pages
+
+
+
+
+http://www.bootply.com/82265
+http://stackoverflow.com/questions/18914080/bootstrap-3-scrollspy-with-sidebar
+<style>
+    body {
+        padding-top: 50px;
+    }
+
+    #masthead {
+        min-height: 270px;
+        background-color: #117711;
+        color: #ddeedd;
+    }
+
+        #masthead h1 {
+            font-size: 55px;
+            line-height: 1;
+        }
+
+        #masthead .well {
+            margin-top: 16%;
+            background-color: #226622;
+            border-color: #225522;
+        }
+
+    @media screen and (min-width: 768px) {
+        #masthead h1 {
+            font-size: 100px;
+        }
+    }
+
+    .navbar-bright {
+        background-color: #226622;
+        color: #fff;
+    }
+
+        .navbar-bright a, #masthead a, #masthead .lead {
+            color: #aaccaa;
+        }
+
+        .navbar-bright li > a:hover {
+            background-color: #003300;
+        }
+
+    @media (min-width: 979px) {
+        #mynav.affix-top {
+            position: static;
+            margin-top: 30px;
+            width: 228px;
+        }
+
+        #mynav.affix {
+            position: fixed;
+            top: 70px;
+            width: 228px;
+        }
+    }
+
+    #mynav li.active a {
+        background-color: red;
+    }
+</style>
+<header class="navbar navbar-bright navbar-fixed-top" role="banner">
+    <div class="container">
+        <div class="navbar-header">
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+
+                <span class="icon-bar"></span> <span class="icon-bar"></span>
+
+            </button> <a href="/" class="navbar-brand">Bootstrap</a>
+
         </div>
-        <div flex="40" class="col-row-content">
-            <notes-input section-form="rxCtlForm" input-list="[{model: vm.model.RxOD1, type: 'text', cssClass:'small'}, {model: vm.model.RxOD2, type: 'text', cssClass:'small'}, {value: '&nbsp;&nbsp;&nbsp;&nbsp;<input type=\'checkbox\'>&nbsp;Populate', type: 'html'}]">
-                <notes-value input-list="[vm.model.RxOD1, vm.model.RxOD2]"></notes-value>
-            </notes-input>
-        </div>
-        <div flex="10" class="col-row-header">
-            <div class="float-left">CTL Rx</div><div class="float-right">OD:</div>
-        </div>
-        <div flex="40" class="col-row-content">
-            <notes-input section-form="rxCtlForm" input-list="[{model: vm.model.CTLRxOD1, type: 'text', cssClass:'small'}, {model: vm.model.CTLRxOD2, type: 'text', cssClass:'small'}, {model: vm.model.CTLRxOD3, type: 'text', cssClass:'small'}, {value: '&nbsp;&nbsp;&nbsp;&nbsp;<input type=\'checkbox\'>&nbsp;Populate', type: 'html'}]">
-                <notes-value input-list="[vm.model.CTLRxOD1, vm.model.CTLRxOD2, vm.model.CTLRxOD3]"></notes-value>
-            </notes-input>
+        <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="#" class="droppedHover">Getting started</a>
+
+                </li>
+                <li>
+                    <a href="#" class="">Editor</a>
+
+                </li>
+                <li>
+                    <a href="#" class="">Visual Builder</a>
+
+                </li>
+                <li>
+                    <a href="#" class="">Community</a>
+
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<div id="masthead" class="">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <h1 class="">
+                    Bootply
+                    <p class="lead">The easiest way to apply Bootstrap</p>
+                </h1>
+
+            </div>
+            <div class="col-md-4">
+                <div class="well well-lg">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <img src="//placehold.it/160x90" class="img-responsive">
+                        </div>
+                        <div class="col-sm-6">
+                            <strong class="">Important</strong>
+
+                            <p class="">Blah blah blah blah bla!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div layout="row">
-        <div flex="10" class="col-row-header float-right">OS:</div>
-        <div flex="40" class="col-row-content">
-            <notes-input section-form="rxCtlForm" input-list="[{model: vm.model.RXOS1, type: 'text', cssClass:'small'}, {model: vm.model.RXOS2, type: 'text', cssClass:'small'},{model: vm.model.RXOS3, type: 'text', cssClass:'small'}, {model: vm.model.RXOS4, type: 'text', cssClass:'medium'}]">
-                <notes-value input-list="[vm.model.RXOS1, vm.model.RXOS2, vm.model.RXOS3, vm.model.RXOS4]"></notes-value>
-            </notes-input>
+    <!-- /cont -->
+</div>
+<!-- Begin Body -->
+<div class="container" id="mycontentcon">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="list-group navbar" id="sidebar">
+                <ul class="nav" id="mynav" data-spy="affix" data-offset-top="280">
+                    <li>
+                        <a href="#c1" class="list-group-item">
+                            Content 1
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#c2" class="list-group-item" contenteditable="false">
+                            Content 2
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#c3" class="list-group-item" contenteditable="false">
+                            Content 3
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#c4" class="list-group-item" contenteditable="false">
+                            Content 4
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#c5" class="list-group-item" contenteditable="false">
+                            Content 5
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div flex="10" class="col-row-header float-right">OS:</div>
-        <div flex="40" class="col-row-content">
-            <notes-input section-form="rxCtlForm" input-list="[{model: vm.model.CTLRxOS1, type: 'text', cssClass:'small'}, {model: vm.model.CTLRxOS2, type: 'text', cssClass:'small'}, {model: vm.model.CTLRxOS3, type: 'text', cssClass:'small'}]">
-                <notes-value input-list="[vm.model.CTLRxOS1, vm.model.CTLRxOS2, vm.model.CTLRxOS3]"></notes-value>
-            </notes-input>
+        <div class="col-md-9" id="mycontent">
+            <div id="c1">
+                <h2 class="">Content 1</h2>
+                At Bootply we attempt to build simple Bootstrap templates that utilize
+                the code Bootstap CSS without a lot of customization. Tia cor magni dolores
+                eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui
+                dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia
+                non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam
+                quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem
+                ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?
+                <hr class="col-md-12">
+            </div>
+            <div id="c2">
+                <h2>Content 2</h2>
+                Rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto
+                beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
+                sit aspernatur aut odit aut fugit, sed quia cor magni dolores eos qui ratione
+                voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum
+                quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam
+                eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
+                Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit
+                laboriosam, nisi ut
+                <hr class="col-md-12">
+            </div> <div id="c3">
+                <h2 class="">Content 3</h2>
+                Rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto
+                beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
+                sit aspernatur aut odit aut fugit, sed quia cor magni dolores eos qui ratione
+                voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum
+                quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam
+                eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
+                Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit
+                laboriosam, nisi ut
+                <hr class="col-md-12">
+            </div><div id="c4">
+                <h2 class="">Content 4</h2>
+                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
+                doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore
+                veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim
+                ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
+                cor magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro
+                quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci
+                velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore
+                magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum
+                exercitationem ullam corporis suscipit laboriosam, nisi ut
+            </div><div id="c5" style="min-height:500px;">
+                <h2 class="">Content 5</h2>
+                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
+                doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore
+                veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim
+                ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
+                cor magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro
+                quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci
+                velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore
+                magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum
+                exercitationem ullam corporis suscipit laboriosam, nisi ut
+            </div>
         </div>
     </div>
-</form>
+</div>
+<script>
+    $('body').scrollspy({ target: '#sidebar', offset: 80 });
 
-http://localhost:9703/pos/patient/1/notes/
 
+    var clicked = false;
+    $('#mynav li a').click(
+    function () {
+        $('#mycontent > div > h2').css('padding-top', 0);
+        $($(this).attr('href') + ' > h2').css('padding-top', '50px');
+        clicked = true;
+    }
+    );
+
+    $('body').on('activate.bs.scrollspy', function () {
+        console.log('scrolling...');
+        if (!clicked) $('#mycontent > div > h2').css('padding-top', 0);
+        clicked = false;
+    })
+</script>

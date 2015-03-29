@@ -52,7 +52,9 @@ function notes($scope, notesService, session, formUtility, utility, moment) {
         notesWatchers();
 
         $scope.$on('$stateChangeStart', function (evt, toState, toParams, fromState, fromParams) {
-            notesService.showPatientMenu()
+            notesService.showPatientMenu();
+            //evt.preventDefault();
+
         });
 
         notesService.hidePatientMenu();
