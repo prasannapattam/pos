@@ -438,6 +438,10 @@
   <ItemGroup>
     <Content Include="Views\Home\Test.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\ehrppk - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\ehrppk - Web Deploy.pubxml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -456,7 +460,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>58947</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:9703/pos</IISUrl>
+          <IISUrl>http://localhost:9703</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
