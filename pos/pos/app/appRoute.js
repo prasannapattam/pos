@@ -7,7 +7,7 @@ function appRoute($stateProvider, $urlRouterProvider, $locationProvider, constan
 
     $stateProvider
         .state("dashboard", {
-            url: window.virtualDirectory,
+            url: window.virtualDirectory + '/',
             title: "Dashboard",
             icon: constants.iconTypes.dashboard,
             templateUrl: window.virtualDirectory + "/app/dashboard/dashboard.html",
@@ -101,6 +101,6 @@ function appRoute($stateProvider, $urlRouterProvider, $locationProvider, constan
     $locationProvider.html5Mode(true);
 
     $urlRouterProvider.when('', '/')
-    $urlRouterProvider.when(window.virtualDirectory + '/', window.virtualDirectory);
+    //$urlRouterProvider.when(window.virtualDirectory + '/', window.virtualDirectory);
 
 }
