@@ -52,9 +52,15 @@ function notesService($http, session, patientService, constants) {
             return data;
         });
     }
-
-    function save() {
-
+    
+    function save(saveType, data) {
+        var req = {
+            method: 'POST',
+            url: 'api/notes/',
+            params:{ "type": saveType },
+            data: data
+        }
+        return $http(req);
     }
 
     function setHeader() {

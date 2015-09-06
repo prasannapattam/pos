@@ -1,9 +1,9 @@
 ﻿'use strict';
 
 angular.module('pos').controller('notes', notes);
-notes.$inject = ['$scope','notesService', 'session', 'formUtility', 'utility', 'moment'];
+notes.$inject = ['$scope', 'notesService', 'session', 'formUtility', 'utility', 'moment', 'constants'];
 
-function notes($scope, notesService, session, formUtility, utility, moment) {
+function notes($scope, notesService, session, formUtility, utility, moment, constants) {
     var vm = {
         model: {},
         doctors: [],
@@ -60,8 +60,10 @@ function notes($scope, notesService, session, formUtility, utility, moment) {
         notesService.hidePatientMenu();
     }
 
-    function saveNotes(data) {
-        //alert('saved');
+    //function saveNotes(data) {
+    function saveNotes() {
+
+        notesService.save(constants.notesSaveType.Save, vm.model);
     }
 
     function cancelNotes(evt, form) {
