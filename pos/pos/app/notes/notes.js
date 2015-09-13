@@ -12,6 +12,8 @@ function notes($scope, notesService, session, formUtility, utility, moment, cons
         cancelNotes: cancelNotes,
         aftersavenotes: aftersavenotes,
         utility: utility
+        //signOffNotes: signOffNotes,
+        //correctNotes: correctNotes
     };
 
     init();
@@ -58,20 +60,81 @@ function notes($scope, notesService, session, formUtility, utility, moment, cons
         });
 
         notesService.hidePatientMenu();
+
+        //Set visibility of Controls
+        //setVisibility();
     }
 
-    //function saveNotes(data) {
-    function saveNotes() {
-
-        notesService.save(constants.notesSaveType.Save, vm.model);
-    }
+   
 
     function cancelNotes(evt, form) {
         formUtility.cancelForm(evt, form);
     }
 
+    function saveNotes() {
+        saveAll(constants.notesSaveType.Save, vm.model);
+    }
+
     function aftersavenotes() {
         //alert(vm.model.SpcWr1OD.Value);
+    }
+
+    function signOffNotes() {
+        saveAll(constants.notesSaveType.SignOff, vm.model);
+    }
+
+    function correctNotes() {
+        saveAll(constants.notesSaveType.Correct, vm.model);
+    }
+
+    function saveAll(savetype, model) {        
+        
+        if ((savetype === constants.notesSaveType.SignOff || savetype === constants.notesSaveType.Correct) && !validateNotes())
+            return;
+
+        deleteComputedProperties();
+        notesService.save(savetype, model);
+    }
+
+    function validateNotes() {
+        var ret = CheckNoPref();
+
+        if (ret) {
+            if ((vm.model.SLE.Value === true || vm.model.PenLight.Value === true) && vm.model.Dilate3.Value !== undefined)
+                ret = true;
+            else {
+                utility.showError('SLE/Pen-light options and dilated options are required');
+                ret = false;
+            }
+        }
+
+        return ret;
+    }
+
+    function CheckNoPref() {
+        var noprefchecked = vm.model.NoPref.Value;
+        if (noprefchecked) {
+            var od = vm.model.VAscOD1.Value + ' ' + vm.model.VAscOD2.Value;
+            var os = vm.model.DistOS1.Value + ' ' + vm.model.DistOS2.Value;
+
+            if (od != os) {
+                utility.showError('VA sc Dist OD and OS should be equal when No Pref checkbox is checked');
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    function deleteComputedProperties() {
+        delete vm.model.HeaderText;
+        delete vm.model.AgeCalculation;
+        delete vm.model.HxFromList;
+        delete vm.model.HxFromOther;
+        delete vm.model.HxFromCalculation;
+        delete vm.model.CopyToCalculation;
+        delete vm.model.SummaryCalculation;
+        delete vm.model.DiscussedCalculation;
     }
 
     function notesWatchers() {
@@ -166,5 +229,12 @@ function notes($scope, notesService, session, formUtility, utility, moment, cons
         }
         vm.model.Discussed.Value = discussed;
     }
+
+    //function setVisibility() {
+
+    //    vm.model.showSave = constants.notesType.Saved == vm.model.NotesType;
+    //    vm.model.showCorrect = constants.notesType.Correct == vm.model.NotesType;
+    //    vm.model.showSignOff = constants.notesType.Saved == vm.model.NotesType;
+    //}
 }
 
