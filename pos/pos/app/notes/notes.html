@@ -1,1037 +1,1045 @@
 ﻿<div data-spy="scroll" data-target=".navbar-example" data-offset="10">
-    <form editable-form name="patientForm" notes-section-form>
-        <notes-section-title section-form="patientForm">Patient Info</notes-section-title>
-        <div layout="row" class="col-row">
-            <div flex="33" layout="column">
-                <div layout="row" class="col-row">
-                    <div flex="25" class="col-row-header">Patient Name</div>
-                    <div flex class="col-row-content">
-                        <notes-input section-form="patientForm" input-list="[{model: vm.model.Greeting, type: 'dropdown'}
+    <div class="ui-grid">
+        <div layout="row" class="ui-grid-header ui-grid-top-panel ui-grid-cell-contents">          
+            <md-button type="button" class="md-raised" ng-click="vm.saveNotes()" ng-show="vm.model.showSave">Save</md-button>
+            <md-button type="button" class="md-raised" ng-click="vm.correctNotes()" ng-show="vm.model.showCorrect">Correct</md-button>
+            <md-button type="button" class="md-raised" ng-click="vm.signOffNotes()" ng-show="vm.model.showSignOff">Sign off</md-button>
+            <md-button type="button" class="md-raised" ng-click="vm.cancelNotes($event,this)">Cancel</md-button>
+        </div>
+    </div>
+        <form editable-form name="patientForm" notes-section-form>
+            <notes-section-title section-form="patientForm">Patient Info</notes-section-title>
+            <div layout="row" class="col-row">
+                <div flex="33" layout="column">
+                    <div layout="row" class="col-row">
+                        <div flex="25" class="col-row-header">Patient Name</div>
+                        <div flex class="col-row-content">
+                            <notes-input section-form="patientForm" input-list="[{model: vm.model.Greeting, type: 'dropdown'}
                                     , {model: vm.model.FirstName, type: 'text', cssClass:'small'}
                                     , {model: vm.model.MiddleName, type:'text', cssClass:'mini'}
                                     , {model: vm.model.LastName, type: 'text', cssClass:'small'}]">
-                            <notes-value input-list="[vm.model.Greeting, vm.model.FirstName, vm.model.MiddleName, vm.model.LastName]"></notes-value>
-                        </notes-input>
+                                <notes-value input-list="[vm.model.Greeting, vm.model.FirstName, vm.model.MiddleName, vm.model.LastName]"></notes-value>
+                            </notes-input>
+                        </div>
+                    </div>
+                    <div layout="row" class="col-row">
+                        <div flex="25" class="col-row-header">DOB</div>
+                        <div flex class="col-row-content">
+                            <notes-input section-form="patientForm" input-list="[{model: vm.model.DOB, type: 'date'}]"><notes-value input-list="[vm.model.DOB, {Value: '('}, vm.model.tbAge, {Value: ')'}]"></notes-value></notes-input>
+                        </div>
+                    </div>
+                    <div layout="row" class="col-row">
+                        <div flex="25" class="col-row-header">Sex</div>
+                        <div flex class="col-row-content">
+                            <notes-input section-form="patientForm" input-list="[{model: vm.model.Sex, type: 'dropdown'}]"><notes-value input-list="[vm.model.Sex]"></notes-value></notes-input>
+                        </div>
+                    </div>
+                    <div layout="row" class="col-row">
+                        <div flex="25" class="col-row-header">Premature</div>
+                        <div flex class="col-row-content">
+                            <notes-input section-form="patientForm" input-list="[{model: vm.model.Premature, type: 'dropdown'}]">{{vm.model.Premature.Value | boolText }}</notes-input>
+                        </div>
                     </div>
                 </div>
-                <div layout="row" class="col-row">
-                    <div flex="25" class="col-row-header">DOB</div>
-                    <div flex class="col-row-content">
-                        <notes-input section-form="patientForm" input-list="[{model: vm.model.DOB, type: 'date'}]"><notes-value input-list="[vm.model.DOB, {Value: '('}, vm.model.tbAge, {Value: ')'}]"></notes-value></notes-input>
-                    </div>
-                </div>
-                <div layout="row" class="col-row">
-                    <div flex="25" class="col-row-header">Sex</div>
-                    <div flex class="col-row-content">
-                        <notes-input section-form="patientForm" input-list="[{model: vm.model.Sex, type: 'dropdown'}]"><notes-value input-list="[vm.model.Sex]"></notes-value></notes-input>
-                    </div>
-                </div>
-                <div layout="row" class="col-row">
-                    <div flex="25" class="col-row-header">Premature</div>
-                    <div flex class="col-row-content">
-                        <notes-input section-form="patientForm" input-list="[{model: vm.model.Premature, type: 'dropdown'}]">{{vm.model.Premature.Value | boolText }}</notes-input>
-                    </div>
-                </div>
-            </div>
-            <div flex="33" layout="column">
-                <div layout="row" class="col-row">
-                    <div flex="25" class="col-row-header">Hx From</div>
-                    <div flex class="col-row-content">
-                        <notes-input section-form="patientForm" input-list="[{model: vm.model.HxFromList, type: 'dropdown'}
+                <div flex="33" layout="column">
+                    <div layout="row" class="col-row">
+                        <div flex="25" class="col-row-header">Hx From</div>
+                        <div flex class="col-row-content">
+                            <notes-input section-form="patientForm" input-list="[{model: vm.model.HxFromList, type: 'dropdown'}
                                     , {model: vm.model.HxFromOther, type: 'text', cssClass:'small'}]">
-                            {{vm.model.HxFrom.Value}}
-                        </notes-input>
+                                {{vm.model.HxFrom.Value}}
+                            </notes-input>
+                        </div>
                     </div>
-                </div>
-                <div layout="row" class="col-row">
-                    <div flex="25" class="col-row-header">Ref'd By</div>
-                    <div flex class="col-row-content">
-                        <notes-input section-form="patientForm" input-list="[{model: vm.model.Refd, type: 'text', cssClass:'medium'}
+                    <div layout="row" class="col-row">
+                        <div flex="25" class="col-row-header">Ref'd By</div>
+                        <div flex class="col-row-content">
+                            <notes-input section-form="patientForm" input-list="[{model: vm.model.Refd, type: 'text', cssClass:'medium'}
                                     , {model: vm.model.RefDoctor, type: 'text', cssClass:'medium'}]">
-                            <notes-value input-list="[vm.model.Refd, {Value: '(Dr. '}, vm.model.RefDoctor, {Value: ')'}]"></notes-value>
-                        </notes-input>
+                                <notes-value input-list="[vm.model.Refd, {Value: '(Dr. '}, vm.model.RefDoctor, {Value: ')'}]"></notes-value>
+                            </notes-input>
+                        </div>
+                    </div>
+                    <div layout="row" class="col-row">
+                        <div flex="25" class="col-row-header">Allergies</div>
+                        <div flex class="col-row-content">
+                            <notes-input section-form="patientForm" input-list="[{model: vm.model.Allergies, type: 'text', cssClass: 'xlarge'}]"><notes-value input-list="[vm.model.Allergies]"></notes-value></notes-input>
+                        </div>
+                    </div>
+                    <div layout="row" class="col-row">
+                        <div flex="25" class="col-row-header">Grade/Occup.</div>
+                        <div flex class="col-row-content">
+                            <notes-input section-form="patientForm" input-list="[{model: vm.model.Occupation, type: 'text', cssClass: 'xlarge'}]"><notes-value input-list="[vm.model.Occupation]"></notes-value></notes-input>
+                        </div>
                     </div>
                 </div>
-                <div layout="row" class="col-row">
-                    <div flex="25" class="col-row-header">Allergies</div>
-                    <div flex class="col-row-content">
-                        <notes-input section-form="patientForm" input-list="[{model: vm.model.Allergies, type: 'text', cssClass: 'xlarge'}]"><notes-value input-list="[vm.model.Allergies]"></notes-value></notes-input>
+                <div flex="33" layout="column">
+                    <div layout="row" class="col-row">
+                        <div flex="25" class="col-row-header">Exam Date</div>
+                        <div flex class="col-row-content">
+                            <input type="text" kendo-date-picker ng-model="vm.model.ExamDate.Value" class="editable-wrap">
+                        </div>
                     </div>
-                </div>
-                <div layout="row" class="col-row">
-                    <div flex="25" class="col-row-header">Grade/Occup.</div>
-                    <div flex class="col-row-content">
-                        <notes-input section-form="patientForm" input-list="[{model: vm.model.Occupation, type: 'text', cssClass: 'xlarge'}]"><notes-value input-list="[vm.model.Occupation]"></notes-value></notes-input>
+                    <div layout="row" class="col-row">
+                        <div flex="25" class="col-row-header">Doctor</div>
+                        <div flex class="col-row-content">
+                            <select class="editable-input form-control editable-wrap" ng-model="vm.model.User.Value" ng-options="s.Value as s.Text for s in vm.doctors"></select>
+                        </div>
+                    </div>
+                    <div layout="row" class="col-row">
+                        <div flex="25" class="col-row-header">Defaults</div>
+                        <div flex class="col-row-content">
+                            <select class="editable-input form-control editable-wrap"></select>
+                        </div>
+                    </div>
+                    <div layout="row" class="col-row">
+                        <div flex="25" class="col-row-header"></div>
+                        <div flex class="col-row-content"></div>
                     </div>
                 </div>
             </div>
-            <div flex="33" layout="column">
-                <div layout="row" class="col-row">
-                    <div flex="25" class="col-row-header">Exam Date</div>
-                    <div flex class="col-row-content">
-                        <input type="text" kendo-date-picker ng-model="vm.model.ExamDate.Value" class="editable-wrap">
-                    </div>
-                </div>
-                <div layout="row" class="col-row">
-                    <div flex="25" class="col-row-header">Doctor</div>
-                    <div flex class="col-row-content">
-                        <select class="editable-input form-control editable-wrap" ng-model="vm.model.User.Value" ng-options="s.Value as s.Text for s in vm.doctors"></select>
-                    </div>
-                </div>
-                <div layout="row" class="col-row">
-                    <div flex="25" class="col-row-header">Defaults</div>
-                    <div flex class="col-row-content">
-                        <select class="editable-input form-control editable-wrap"></select>
-                    </div>
-                </div>
-                <div layout="row" class="col-row">
-                    <div flex="25" class="col-row-header"></div>
-                    <div flex class="col-row-content"></div>
-                </div>
-            </div>
-        </div>
-    </form>
+        </form>
+    </section>
+        <form editable-form name="compliantForm" id="compliantForm" notes-section-form>
+            <notes-section-title section-form="compliantForm">Compliant</notes-section-title>
+            <div layout="row" class="col-row">
+                <div flex="10" class="col-row-header">Chief Complaint</div>
+                <div flex="40" class="col-row-content">
+                    <notes-input section-form="compliantForm" input-list="[{model: vm.model.Compliant, type: 'textarea', cssClass:'xxlarge'}]">
+                        <notes-value input-list="[vm.model.Compliant]"></notes-value>
+                    </notes-input>
 
-    <form editable-form name="compliantForm" id="compliantForm" notes-section-form>
-        <notes-section-title section-form="compliantForm">Compliant</notes-section-title>
-        <div layout="row" class="col-row">
-            <div flex="10" class="col-row-header">Chief Complaint</div>
-            <div flex="40" class="col-row-content">
-                <notes-input section-form="compliantForm" input-list="[{model: vm.model.Compliant, type: 'textarea', cssClass:'xxlarge'}]">
-                    <notes-value input-list="[vm.model.Compliant]"></notes-value>
-                </notes-input>
+                </div>
+                <div flex="10" class="col-row-header">History</div>
+                <div flex="40" class="col-row-content">
+                    <notes-input section-form="compliantForm" input-list="[{model: vm.model.SubjectiveHistory, type: 'textarea', cssClass:'xxlarge'}]">
+                        <notes-value input-list="[vm.model.SubjectiveHistory]"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+            <div layout="row" class="col-row">
+                <div flex="10" class="col-row-header">Mentation</div>
+                <div flex class="col-row-content">
+                    <notes-input section-form="compliantForm" input-list="[{model: vm.model.Mentation1, type: 'dropdown'}, {model: vm.model.Mentation2, type: 'text', cssClass:'medium'}]">
+                        <notes-value input-list="[vm.model.Mentation1, vm.model.Mentation2]"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+        </form>
+    </section>
 
+        <form editable-form name="historyForm" notes-section-form>
+            <notes-section-title section-form="historyForm">Past Ocular/Medical History</notes-section-title>
+            <div layout="row" class="col-row">
+                <div flex="50" layout="column">
+                    <div layout="row" class="col-row">
+                        <div flex="20" class="col-row-header">Glasses since</div>
+                        <div flex class="col-row-content">
+                            <notes-input section-form="historyForm" input-list="[{model: vm.model.Glasses1, type: 'dropdown', cssClass: 'large'}, {model: vm.model.Glasses2, type: 'text', cssClass:'large'}]">
+                                <notes-value input-list="[vm.model.Glasses1, vm.model.Glasses2]"></notes-value>
+                            </notes-input>
+                        </div>
+                    </div>
+                    <div layout="row" class="col-row">
+                        <div flex="20" class="col-row-header">Last Exam</div>
+                        <div flex class="col-row-content">
+                            <notes-input section-form="historyForm" input-list="[{model: vm.model.LastExam, type: 'date'}]">
+                                <notes-value input-list="[vm.model.LastExam]"></notes-value>
+                            </notes-input>
+                        </div>
+                    </div>
+                    <div layout="row" class="col-row">
+                        <div flex="20" class="col-row-header">Contact Lens Hx</div>
+                        <div flex class="col-row-content">
+                            <notes-input section-form="historyForm" input-list="[{model: vm.model.ContactLens1, type: 'dropdown', cssClass: 'large'}, {model: vm.model.ContactLens2, type: 'text', cssClass:'medium'}]">
+                                <notes-value input-list="[vm.model.ContactLens1, vm.model.ContactLens2]"></notes-value>
+                            </notes-input>
+                        </div>
+                    </div>
+                    <div layout="row" class="col-row">
+                        <div flex="20" class="col-row-header">Disease/Trauma</div>
+                        <div flex class="col-row-content">
+                            <notes-input section-form="historyForm" input-list="[{model: vm.model.DiseaseTrauma1, type: 'dropdown', cssClass: 'large'}, {model: vm.model.DiseaseTrauma2, type: 'text', cssClass:'medium'}, {value: '<br>', type: 'html'}, {model: vm.model.DiseaseTrauma3, type: 'dropdown', cssClass: 'large'}, {model: vm.model.DiseaseTrauma4, type: 'text', cssClass:'medium'}, {value: '<br>', type: 'html'}, {model: vm.model.DiseaseTrauma5, type: 'dropdown', cssClass: 'large'}, {model: vm.model.DiseaseTrauma6, type: 'text', cssClass:'medium'}]">
+                                <notes-value input-list="[vm.model.DiseaseTrauma1, vm.model.DiseaseTrauma2, vm.model.DiseaseTrauma3, vm.model.DiseaseTrauma4, vm.model.DiseaseTrauma5, vm.model.DiseaseTrauma6]"></notes-value>
+                            </notes-input>
+                        </div>
+                    </div>
+                    <div layout="row" class="col-row">
+                        <div flex="20" class="col-row-header">Surgery/Treatment</div>
+                        <div flex class="col-row-content">
+                            <notes-input section-form="historyForm" input-list="[{model: vm.model.SurgeryTreatment1, type: 'dropdown', cssClass: 'large'}, {model: vm.model.SurgeryTreatment2, type: 'text', cssClass:'medium'}, {value: '<br>', type: 'html'}, {model: vm.model.SurgeryTreatment3, type: 'dropdown', cssClass: 'large'}, {model: vm.model.SurgeryTreatment4, type: 'text', cssClass:'medium'}, {value: '<br>', type: 'html'}, {model: vm.model.SurgeryTreatment5, type: 'textarea'}]">
+                                <notes-value input-list="[vm.model.SurgeryTreatment1, vm.model.SurgeryTreatment2, vm.model.SurgeryTreatment3, vm.model.SurgeryTreatment4, vm.model.SurgeryTreatment5]"></notes-value>
+                            </notes-input>
+                        </div>
+                    </div>
+                </div>
+                <div flex="50" layout="column">
+                    <div layout="row" class="col-row">
+                        <div flex="20" class="col-row-header">Medications</div>
+                        <div flex class="col-row-content">
+                            <notes-input section-form="historyForm" input-list="[{model: vm.model.Medications, type: 'textarea', cssClass:'xxlarge'}]">
+                                <notes-value input-list="[vm.model.Medications]"></notes-value>
+                            </notes-input>
+                        </div>
+                    </div>
+                    <div layout="row" class="col-row">
+                        <div flex="20" class="col-row-header">PMH</div>
+                        <div flex class="col-row-content">
+                            <notes-input section-form="historyForm" input-list="[{model: vm.model.PMH1, type: 'dropdown', cssClass: 'large'}, {model: vm.model.PMH2, type: 'text', cssClass:'medium'}, {value: '<br>', type: 'html'}, {model: vm.model.PMH3, type: 'dropdown', cssClass: 'large'}, {model: vm.model.PHM4, type: 'text', cssClass:'medium'}]">
+                                <notes-value input-list="[vm.model.PMH1, vm.model.PMH2, vm.model.PMH3, vm.model.PHM4]"></notes-value>
+                            </notes-input>
+                        </div>
+                    </div>
+                    <div layout="row" class="col-row">
+                        <div flex="20" class="col-row-header">Birth Hx</div>
+                        <div flex class="col-row-content">
+                            <notes-input section-form="historyForm" input-list="[{model: vm.model.BirthHist1, type: 'dropdown', cssClass: 'large'}, {model: vm.model.BirthHist2, type: 'text', cssClass:'medium'}]">
+                                <notes-value input-list="[vm.model.BirthHist1, vm.model.BirthHist2]"></notes-value>
+                            </notes-input>
+                        </div>
+                    </div>
+                    <div layout="row" class="col-row">
+                        <div flex="20" class="col-row-header">GA</div>
+                        <div flex class="col-row-content">
+                            <notes-input section-form="historyForm" input-list="[{model: vm.model.GA, type: 'text', cssClass:'medium'}, {model: vm.model.BirthHist3, type: 'text', cssClass:'medium'}]">
+                                <notes-value input-list="[vm.model.GA, vm.model.BirthHist3]"></notes-value>
+                            </notes-input>
+                        </div>
+                    </div>
+                    <div layout="row" class="col-row">
+                        <div flex="20" class="col-row-header">PC Age</div>
+                        <div flex class="col-row-content">
+                            <notes-input section-form="historyForm" input-list="[{model: vm.model.PCA, type: 'text', cssClass:'medium'}]">
+                                <notes-value input-list="[vm.model.PCA]"></notes-value>
+                            </notes-input>
+                        </div>
+                    </div>
+                    <div layout="row" class="col-row">
+                        <div flex="20" class="col-row-header">Birth Wt</div>
+                        <div flex class="col-row-content">
+                            <notes-input section-form="historyForm" input-list="[{model: vm.model.BirthWt, type: 'text', cssClass:'medium'}]">
+                                <notes-value input-list="[vm.model.BirthWt]"></notes-value>
+                            </notes-input>
+                        </div>
+                    </div>
+                    <div layout="row" class="col-row">
+                        <div flex="20" class="col-row-header">Development Hx</div>
+                        <div flex class="col-row-content">
+                            <notes-input section-form="historyForm" input-list="[{model: vm.model.DevelopHist1, type: 'dropdown', cssClass: 'large'}, {model: vm.model.DevelopHist2, type: 'text', cssClass:'medium'}, {value: '<br>', type: 'html'}, {model: vm.model.DevelopHist3, type: 'dropdown', cssClass: 'large'}, {model: vm.model.DevelopHist4, type: 'text', cssClass:'medium'}]">
+                                <notes-value input-list="[vm.model.DevelopHist1, vm.model.DevelopHist2, vm.model.DevelopHist3, vm.model.DevelopHist4]"></notes-value>
+                            </notes-input>
+                        </div>
+                    </div>
+                    <div layout="row" class="col-row">
+                        <div flex="20" class="col-row-header">Family Hx</div>
+                        <div flex class="col-row-content">
+                            <notes-input section-form="historyForm" input-list="[{model: vm.model.FH1, type: 'dropdown', cssClass: 'large'}, {model: vm.model.FH2, type: 'text', cssClass:'medium'}, {value: '<br>', type: 'html'}, {model: vm.model.FH3, type: 'dropdown', cssClass: 'large'}, {model: vm.model.FH4, type: 'text', cssClass:'medium'}, {value: '<br>', type: 'html'}, {model: vm.model.FH5, type: 'dropdown', cssClass: 'large'}, {model: vm.model.FH6, type: 'text', cssClass:'medium'}]">
+                                <notes-value input-list="[vm.model.FH1, vm.model.FH2, vm.model.FH3, vm.model.FH4, vm.model.FH5, vm.model.FH6]"></notes-value>
+                            </notes-input>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div flex="10" class="col-row-header">History</div>
-            <div flex="40" class="col-row-content">
-                <notes-input section-form="compliantForm" input-list="[{model: vm.model.SubjectiveHistory, type: 'textarea', cssClass:'xxlarge'}]">
-                    <notes-value input-list="[vm.model.SubjectiveHistory]"></notes-value>
-                </notes-input>
+        </form>
+        <form editable-form name="vaSpcForm" notes-section-form>
+            <notes-section-title section-form="vaSpcForm">VA/Spc</notes-section-title>
+            <div layout="row" class="col-row">
+                <div flex="10" class="col-row-header">Tested with:</div>
+                <div flex="25" class="col-row-content">
+                    <notes-input section-form="vaSpcForm" input-list="[{model: vm.model.VisualAcuity, type: 'dropdown'}]"><notes-value input-list="[vm.model.VisualAcuity]"></notes-value></notes-input>
+                </div>
+                <div flex="10" class="col-row-header">BINOC sc Dist</div>
+                <div flex class="col-row-content">
+                    <notes-input section-form="vaSpcForm" input-list="[{model: vm.model.Binocsc1, type: 'dropdown'}, {model: vm.model.Binocsc2, type: 'text', cssClass:'medium'}]">
+                        <notes-value input-list="[vm.model.Binocsc1, vm.model.Binocsc2]"></notes-value>
+                    </notes-input>
+                </div>
             </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="10" class="col-row-header">Mentation</div>
-            <div flex class="col-row-content">
-                <notes-input section-form="compliantForm" input-list="[{model: vm.model.Mentation1, type: 'dropdown'}, {model: vm.model.Mentation2, type: 'text', cssClass:'medium'}]">
-                    <notes-value input-list="[vm.model.Mentation1, vm.model.Mentation2]"></notes-value>
-                </notes-input>
+            <div layout="row" class="col-row">
+                <div flex="10" class="col-row-header">
+                    <div class="float-left">VA sc Dist</div><div class="float-right">OD:</div>
+                </div>
+                <div flex="25" class="col-row-content">
+                    <notes-input section-form="vaSpcForm" input-list="[{model: vm.model.VAscOD1, type: 'dropdown'}, {model: vm.model.VAscOD2, type: 'text', cssClass:'medium'}]">
+                        <notes-value input-list="[vm.model.VAscOD1, vm.model.VAscOD2]"></notes-value>
+                    </notes-input>
+                </div>
+                <div div flex="10" class="col-row-header">
+                    <div class="float-left">VA cc Dist</div><div class="float-right">OD:</div>
+                </div>
+                <div flex="25" class="col-row-content">
+                    <notes-input section-form="vaSpcForm" input-list="[{model: vm.model.VAccOD1, type: 'dropdown'}, {model: vm.model.VAccOD2, type: 'text', cssClass:'medium'}]">
+                        <notes-value input-list="[vm.model.VAccOD1, vm.model.VAccOD2]"></notes-value>
+                    </notes-input>
+                </div>
+                <div div flex="10" class="col-row-header">
+                    <div class="float-left">VA Near</div><div class="float-right">OD:</div>
+                </div>
+                <div flex="20" class="col-row-content">
+                    <notes-input section-form="vaSpcForm" input-list="[{model: vm.model.VAOD1, type: 'dropdown'}, {model: vm.model.VAOD2, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.VAOD1, vm.model.VAOD2]"></notes-value>
+                    </notes-input>
+                </div>
             </div>
-        </div>
-    </form>
+            <div layout="row" class="col-row">
+                <div flex="10" class="col-row-header">
+                    <div class="float-left">No Pref <input type="checkbox" /></div><div class="float-right">OS:</div>
+                </div>
+                <div flex="25" class="col-row-content">
+                    <notes-input section-form="vaSpcForm" input-list="[{model: vm.model.DistOS1, type: 'dropdown'}, {model: vm.model.DistOS2, type: 'text', cssClass:'medium'}]">
+                        <notes-value input-list="[vm.model.DistOS1, vm.model.DistOS2]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="10" class="col-row-header text-right">OS:</div>
+                <div flex="25" class="col-row-content">
+                    <notes-input section-form="vaSpcForm" input-list="[{model: vm.model.DistOS3, type: 'dropdown'}, {model: vm.model.DistOS4, type: 'text', cssClass:'medium'}]">
+                        <notes-value input-list="[vm.model.DistOS3, vm.model.DistOS4]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="10" class="col-row-header text-right">OS:</div>
+                <div flex="20" class="col-row-content">
+                    <notes-input section-form="vaSpcForm" input-list="[{model: vm.model.NearOS1, type: 'dropdown'}, {model: vm.model.NearOS2, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.NearOS1, vm.model.NearOS2]"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+            <div layout="row" class="col-row">
+                <div flex="10" class="col-row-header">
+                    <div class="float-left">Spc Wr1</div><div class="float-right">OD:</div>
+                </div>
+                <div flex="25" class="col-row-content">
+                    <notes-input section-form="vaSpcForm" input-list="[{model: vm.model.SpcWr1OD, type: 'text', cssClass:'large'}]">
+                        <notes-value input-list="[vm.model.SpcWr1OD]"></notes-value>
+                    </notes-input>
+                </div>
+                <div div flex="10" class="col-row-header">
+                    <div class="float-left">Spc Wr2</div><div class="float-right">OD:</div>
+                </div>
+                <div flex="25" class="col-row-content">
+                    <notes-input section-form="vaSpcForm" input-list="[{model: vm.model.SpcWr2OD, type: 'text', cssClass:'large'}]">
+                        <notes-value input-list="[vm.model.SpcWr2OD]"></notes-value>
+                    </notes-input>
+                </div>
+                <div div flex="10" class="col-row-header">
+                    <div class="float-left">Spc Wr3</div><div class="float-right">OD:</div>
+                </div>
+                <div flex="20" class="col-row-content">
+                    <notes-input section-form="vaSpcForm" input-list="[{model: vm.model.SpcWr3OD, type: 'text', cssClass:'large'}]">
+                        <notes-value input-list="[vm.model.SpcWr3OD]"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+            <div layout="row" class="col-row">
+                <div flex="10" class="col-row-header text-right">OS:</div>
+                <div flex="25" class="col-row-content">
+                    <notes-input section-form="vaSpcForm" input-list="[{model: vm.model.SpcWr1OS, type: 'text', cssClass:'large'}]">
+                        <notes-value input-list="[vm.model.SpcWr1OS]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="10" class="col-row-header text-right">OS:</div>
+                <div flex="25" class="col-row-content">
+                    <notes-input section-form="vaSpcForm" input-list="[{model: vm.model.SpcWr2OS, type: 'text', cssClass:'large'}]">
+                        <notes-value input-list="[vm.model.SpcWr2OS]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="10" class="col-row-header text-right">OS:</div>
+                <div flex="20" class="col-row-content">
+                    <notes-input section-form="vaSpcForm" input-list="[{model: vm.model.SpcWr3OS, type: 'text', cssClass:'large'}]">
+                        <notes-value input-list="[vm.model.SpcWr3OS]"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+        </form>
 
-    <form editable-form name="historyForm" notes-section-form>
-        <notes-section-title section-form="historyForm">Past Ocular/Medical History</notes-section-title>
-        <div layout="row" class="col-row">
-            <div flex="50" layout="column">
-                <div layout="row" class="col-row">
-                    <div flex="20" class="col-row-header">Glasses since</div>
-                    <div flex class="col-row-content">
-                        <notes-input section-form="historyForm" input-list="[{model: vm.model.Glasses1, type: 'dropdown', cssClass: 'large'}, {model: vm.model.Glasses2, type: 'text', cssClass:'large'}]">
-                            <notes-value input-list="[vm.model.Glasses1, vm.model.Glasses2]"></notes-value>
-                        </notes-input>
-                    </div>
-                </div>
-                <div layout="row" class="col-row">
-                    <div flex="20" class="col-row-header">Last Exam</div>
-                    <div flex class="col-row-content">
-                        <notes-input section-form="historyForm" input-list="[{model: vm.model.LastExam, type: 'date'}]">
-                            <notes-value input-list="[vm.model.LastExam]"></notes-value>
-                        </notes-input>
-                    </div>
-                </div>
-                <div layout="row" class="col-row">
-                    <div flex="20" class="col-row-header">Contact Lens Hx</div>
-                    <div flex class="col-row-content">
-                        <notes-input section-form="historyForm" input-list="[{model: vm.model.ContactLens1, type: 'dropdown', cssClass: 'large'}, {model: vm.model.ContactLens2, type: 'text', cssClass:'medium'}]">
-                            <notes-value input-list="[vm.model.ContactLens1, vm.model.ContactLens2]"></notes-value>
-                        </notes-input>
-                    </div>
-                </div>
-                <div layout="row" class="col-row">
-                    <div flex="20" class="col-row-header">Disease/Trauma</div>
-                    <div flex class="col-row-content">
-                        <notes-input section-form="historyForm" input-list="[{model: vm.model.DiseaseTrauma1, type: 'dropdown', cssClass: 'large'}, {model: vm.model.DiseaseTrauma2, type: 'text', cssClass:'medium'}, {value: '<br>', type: 'html'}, {model: vm.model.DiseaseTrauma3, type: 'dropdown', cssClass: 'large'}, {model: vm.model.DiseaseTrauma4, type: 'text', cssClass:'medium'}, {value: '<br>', type: 'html'}, {model: vm.model.DiseaseTrauma5, type: 'dropdown', cssClass: 'large'}, {model: vm.model.DiseaseTrauma6, type: 'text', cssClass:'medium'}]">
-                            <notes-value input-list="[vm.model.DiseaseTrauma1, vm.model.DiseaseTrauma2, vm.model.DiseaseTrauma3, vm.model.DiseaseTrauma4, vm.model.DiseaseTrauma5, vm.model.DiseaseTrauma6]"></notes-value>
-                        </notes-input>
-                    </div>
-                </div>
-                <div layout="row" class="col-row">
-                    <div flex="20" class="col-row-header">Surgery/Treatment</div>
-                    <div flex class="col-row-content">
-                        <notes-input section-form="historyForm" input-list="[{model: vm.model.SurgeryTreatment1, type: 'dropdown', cssClass: 'large'}, {model: vm.model.SurgeryTreatment2, type: 'text', cssClass:'medium'}, {value: '<br>', type: 'html'}, {model: vm.model.SurgeryTreatment3, type: 'dropdown', cssClass: 'large'}, {model: vm.model.SurgeryTreatment4, type: 'text', cssClass:'medium'}, {value: '<br>', type: 'html'}, {model: vm.model.SurgeryTreatment5, type: 'textarea'}]">
-                            <notes-value input-list="[vm.model.SurgeryTreatment1, vm.model.SurgeryTreatment2, vm.model.SurgeryTreatment3, vm.model.SurgeryTreatment4, vm.model.SurgeryTreatment5]"></notes-value>
-                        </notes-input>
-                    </div>
-                </div>
-            </div>
-            <div flex="50" layout="column">
-                <div layout="row" class="col-row">
-                    <div flex="20" class="col-row-header">Medications</div>
-                    <div flex class="col-row-content">
-                        <notes-input section-form="historyForm" input-list="[{model: vm.model.Medications, type: 'textarea', cssClass:'xxlarge'}]">
-                            <notes-value input-list="[vm.model.Medications]"></notes-value>
-                        </notes-input>
-                    </div>
-                </div>
-                <div layout="row" class="col-row">
-                    <div flex="20" class="col-row-header">PMH</div>
-                    <div flex class="col-row-content">
-                        <notes-input section-form="historyForm" input-list="[{model: vm.model.PMH1, type: 'dropdown', cssClass: 'large'}, {model: vm.model.PMH2, type: 'text', cssClass:'medium'}, {value: '<br>', type: 'html'}, {model: vm.model.PMH3, type: 'dropdown', cssClass: 'large'}, {model: vm.model.PHM4, type: 'text', cssClass:'medium'}]">
-                            <notes-value input-list="[vm.model.PMH1, vm.model.PMH2, vm.model.PMH3, vm.model.PHM4]"></notes-value>
-                        </notes-input>
-                    </div>
-                </div>
-                <div layout="row" class="col-row">
-                    <div flex="20" class="col-row-header">Birth Hx</div>
-                    <div flex class="col-row-content">
-                        <notes-input section-form="historyForm" input-list="[{model: vm.model.BirthHist1, type: 'dropdown', cssClass: 'large'}, {model: vm.model.BirthHist2, type: 'text', cssClass:'medium'}]">
-                            <notes-value input-list="[vm.model.BirthHist1, vm.model.BirthHist2]"></notes-value>
-                        </notes-input>
-                    </div>
-                </div>
-                <div layout="row" class="col-row">
-                    <div flex="20" class="col-row-header">GA</div>
-                    <div flex class="col-row-content">
-                        <notes-input section-form="historyForm" input-list="[{model: vm.model.GA, type: 'text', cssClass:'medium'}, {model: vm.model.BirthHist3, type: 'text', cssClass:'medium'}]">
-                            <notes-value input-list="[vm.model.GA, vm.model.BirthHist3]"></notes-value>
-                        </notes-input>
-                    </div>
-                </div>
-                <div layout="row" class="col-row">
-                    <div flex="20" class="col-row-header">PC Age</div>
-                    <div flex class="col-row-content">
-                        <notes-input section-form="historyForm" input-list="[{model: vm.model.PCA, type: 'text', cssClass:'medium'}]">
-                            <notes-value input-list="[vm.model.PCA]"></notes-value>
-                        </notes-input>
-                    </div>
-                </div>
-                <div layout="row" class="col-row">
-                    <div flex="20" class="col-row-header">Birth Wt</div>
-                    <div flex class="col-row-content">
-                        <notes-input section-form="historyForm" input-list="[{model: vm.model.BirthWt, type: 'text', cssClass:'medium'}]">
-                            <notes-value input-list="[vm.model.BirthWt]"></notes-value>
-                        </notes-input>
-                    </div>
-                </div>
-                <div layout="row" class="col-row">
-                    <div flex="20" class="col-row-header">Development Hx</div>
-                    <div flex class="col-row-content">
-                        <notes-input section-form="historyForm" input-list="[{model: vm.model.DevelopHist1, type: 'dropdown', cssClass: 'large'}, {model: vm.model.DevelopHist2, type: 'text', cssClass:'medium'}, {value: '<br>', type: 'html'}, {model: vm.model.DevelopHist3, type: 'dropdown', cssClass: 'large'}, {model: vm.model.DevelopHist4, type: 'text', cssClass:'medium'}]">
-                            <notes-value input-list="[vm.model.DevelopHist1, vm.model.DevelopHist2, vm.model.DevelopHist3, vm.model.DevelopHist4]"></notes-value>
-                        </notes-input>
-                    </div>
-                </div>
-                <div layout="row" class="col-row">
-                    <div flex="20" class="col-row-header">Family Hx</div>
-                    <div flex class="col-row-content">
-                        <notes-input section-form="historyForm" input-list="[{model: vm.model.FH1, type: 'dropdown', cssClass: 'large'}, {model: vm.model.FH2, type: 'text', cssClass:'medium'}, {value: '<br>', type: 'html'}, {model: vm.model.FH3, type: 'dropdown', cssClass: 'large'}, {model: vm.model.FH4, type: 'text', cssClass:'medium'}, {value: '<br>', type: 'html'}, {model: vm.model.FH5, type: 'dropdown', cssClass: 'large'}, {model: vm.model.FH6, type: 'text', cssClass:'medium'}]">
-                            <notes-value input-list="[vm.model.FH1, vm.model.FH2, vm.model.FH3, vm.model.FH4, vm.model.FH5, vm.model.FH6]"></notes-value>
-                        </notes-input>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
+        <form editable-form name="manCycForm" notes-section-form>
+            <notes-section-title section-form="manCycForm">Rfx</notes-section-title>
 
-    <form editable-form name="vaSpcForm" notes-section-form>
-        <notes-section-title section-form="vaSpcForm">VA/Spc</notes-section-title>
-        <div layout="row" class="col-row">
-            <div flex="10" class="col-row-header">Tested with:</div>
-            <div flex="25" class="col-row-content">
-                <notes-input section-form="vaSpcForm" input-list="[{model: vm.model.VisualAcuity, type: 'dropdown'}]"><notes-value input-list="[vm.model.VisualAcuity]"></notes-value></notes-input>
-            </div>
-            <div flex="10" class="col-row-header">BINOC sc Dist</div>
-            <div flex class="col-row-content">
-                <notes-input section-form="vaSpcForm" input-list="[{model: vm.model.Binocsc1, type: 'dropdown'}, {model: vm.model.Binocsc2, type: 'text', cssClass:'medium'}]">
-                    <notes-value input-list="[vm.model.Binocsc1, vm.model.Binocsc2]"></notes-value>
-                </notes-input>
-            </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="10" class="col-row-header">
-                <div class="float-left">VA sc Dist</div><div class="float-right">OD:</div>
-            </div>
-            <div flex="25" class="col-row-content">
-                <notes-input section-form="vaSpcForm" input-list="[{model: vm.model.VAscOD1, type: 'dropdown'}, {model: vm.model.VAscOD2, type: 'text', cssClass:'medium'}]">
-                    <notes-value input-list="[vm.model.VAscOD1, vm.model.VAscOD2]"></notes-value>
-                </notes-input>
-            </div>
-            <div div flex="10" class="col-row-header">
-                <div class="float-left">VA cc Dist</div><div class="float-right">OD:</div>
-            </div>
-            <div flex="25" class="col-row-content">
-                <notes-input section-form="vaSpcForm" input-list="[{model: vm.model.VAccOD1, type: 'dropdown'}, {model: vm.model.VAccOD2, type: 'text', cssClass:'medium'}]">
-                    <notes-value input-list="[vm.model.VAccOD1, vm.model.VAccOD2]"></notes-value>
-                </notes-input>
-            </div>
-            <div div flex="10" class="col-row-header">
-                <div class="float-left">VA Near</div><div class="float-right">OD:</div>
-            </div>
-            <div flex="20" class="col-row-content">
-                <notes-input section-form="vaSpcForm" input-list="[{model: vm.model.VAOD1, type: 'dropdown'}, {model: vm.model.VAOD2, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.VAOD1, vm.model.VAOD2]"></notes-value>
-                </notes-input>
-            </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="10" class="col-row-header">
-                <div class="float-left">No Pref <input type="checkbox" /></div><div class="float-right">OS:</div>
-            </div>
-            <div flex="25" class="col-row-content">
-                <notes-input section-form="vaSpcForm" input-list="[{model: vm.model.DistOS1, type: 'dropdown'}, {model: vm.model.DistOS2, type: 'text', cssClass:'medium'}]">
-                    <notes-value input-list="[vm.model.DistOS1, vm.model.DistOS2]"></notes-value>
-                </notes-input>
-            </div>
-            <div flex="10" class="col-row-header text-right">OS:</div>
-            <div flex="25" class="col-row-content">
-                <notes-input section-form="vaSpcForm" input-list="[{model: vm.model.DistOS3, type: 'dropdown'}, {model: vm.model.DistOS4, type: 'text', cssClass:'medium'}]">
-                    <notes-value input-list="[vm.model.DistOS3, vm.model.DistOS4]"></notes-value>
-                </notes-input>
-            </div>
-            <div flex="10" class="col-row-header text-right">OS:</div>
-            <div flex="20" class="col-row-content">
-                <notes-input section-form="vaSpcForm" input-list="[{model: vm.model.NearOS1, type: 'dropdown'}, {model: vm.model.NearOS2, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.NearOS1, vm.model.NearOS2]"></notes-value>
-                </notes-input>
-            </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="10" class="col-row-header">
-                <div class="float-left">Spc Wr1</div><div class="float-right">OD:</div>
-            </div>
-            <div flex="25" class="col-row-content">
-                <notes-input section-form="vaSpcForm" input-list="[{model: vm.model.SpcWr1OD, type: 'text', cssClass:'large'}]">
-                    <notes-value input-list="[vm.model.SpcWr1OD]"></notes-value>
-                </notes-input>
-            </div>
-            <div div flex="10" class="col-row-header">
-                <div class="float-left">Spc Wr2</div><div class="float-right">OD:</div>
-            </div>
-            <div flex="25" class="col-row-content">
-                <notes-input section-form="vaSpcForm" input-list="[{model: vm.model.SpcWr2OD, type: 'text', cssClass:'large'}]">
-                    <notes-value input-list="[vm.model.SpcWr2OD]"></notes-value>
-                </notes-input>
-            </div>
-            <div div flex="10" class="col-row-header">
-                <div class="float-left">Spc Wr3</div><div class="float-right">OD:</div>
-            </div>
-            <div flex="20" class="col-row-content">
-                <notes-input section-form="vaSpcForm" input-list="[{model: vm.model.SpcWr3OD, type: 'text', cssClass:'large'}]">
-                    <notes-value input-list="[vm.model.SpcWr3OD]"></notes-value>
-                </notes-input>
-            </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="10" class="col-row-header text-right">OS:</div>
-            <div flex="25" class="col-row-content">
-                <notes-input section-form="vaSpcForm" input-list="[{model: vm.model.SpcWr1OS, type: 'text', cssClass:'large'}]">
-                    <notes-value input-list="[vm.model.SpcWr1OS]"></notes-value>
-                </notes-input>
-            </div>
-            <div flex="10" class="col-row-header text-right">OS:</div>
-            <div flex="25" class="col-row-content">
-                <notes-input section-form="vaSpcForm" input-list="[{model: vm.model.SpcWr2OS, type: 'text', cssClass:'large'}]">
-                    <notes-value input-list="[vm.model.SpcWr2OS]"></notes-value>
-                </notes-input>
-            </div>
-            <div flex="10" class="col-row-header text-right">OS:</div>
-            <div flex="20" class="col-row-content">
-                <notes-input section-form="vaSpcForm" input-list="[{model: vm.model.SpcWr3OS, type: 'text', cssClass:'large'}]">
-                    <notes-value input-list="[vm.model.SpcWr3OS]"></notes-value>
-                </notes-input>
-            </div>
-        </div>
-    </form>
-
-    <form editable-form name="manCycForm" notes-section-form>
-        <notes-section-title section-form="manCycForm">Rfx</notes-section-title>
-
-        <div layout="row" class="col-row">
-            <div flex="10" class="col-row-header">
-                <div class="float-left">Man Rfx</div><div class="float-right">OD:</div>
-            </div>
-            <div flex="20" class="col-row-content">
-                <notes-input section-form="manCycForm" input-list="[{model: vm.model.ManRfxOD1, type: 'text', cssClass:'small'}, {model: vm.model.ManRfxOD2, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.ManRfxOD1, vm.model.ManRfxOD2]"></notes-value>
-                </notes-input>
-            </div>
-            <div flex="5" class="col-row-header">
-                <div class="float-left">VA</div><div class="float-right">OD:</div>
-            </div>
-            <div flex="15" class="col-row-content">
-                <notes-input section-form="manCycForm" input-list="[{model: vm.model.ManVAOD1, type: 'dropdown', cssClass:'small'}, {model: vm.model.ManVAOD2, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.ManVAOD1, vm.model.ManVAOD2]"></notes-value>
-                </notes-input>
-            </div>
-            <div flex="10" class="col-row-header">
-                <div class="float-left">Cyc Rfx</div><div class="float-right">OD:</div>
-            </div>
-            <div flex="20" class="col-row-content">
-                <notes-input section-form="manCycForm" input-list="[{model: vm.model.CycRfxOD, type: 'text', cssClass:'medium'}]">
-                    <notes-value input-list="[vm.model.CycRfxOD]"></notes-value>
-                </notes-input>
-            </div>
-            <div flex="5" class="col-row-header">
-                <div class="float-left">VA</div><div class="float-right">OD:</div>
-            </div>
-            <div flex="15" class="col-row-content">
-                <notes-input section-form="manCycForm" input-list="[{model: vm.model.CycVAOD3, type: 'dropdown', cssClass:'small'}, {model: vm.model.CycVAOD4, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.CycVAOD3, vm.model.CycVAOD4]"></notes-value>
-                </notes-input>
-            </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="10" class="col-row-header text-right">OS:</div>
-            <div flex="20" class="col-row-content">
-                <notes-input section-form="manCycForm" input-list="[{model: vm.model.ManRfxOS1, type: 'text', cssClass:'small'}, {model: vm.model.ManRfxOS2, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.ManRfxOS1, vm.model.ManRfxOS2]"></notes-value>
-                </notes-input>
-            </div>
-            <div flex="5" class="col-row-header text-right">OS:</div>
-            <div flex="15" class="col-row-content">
-                <notes-input section-form="manCycForm" input-list="[{model: vm.model.ManVSOS1, type: 'dropdown', cssClass:'small'}, {model: vm.model.ManVSOS2, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.ManVSOS1, vm.model.ManVSOS2]"></notes-value>
-                </notes-input>
-            </div>
-            <div flex="10" class="col-row-header text-right">OS:</div>
-            <div flex="20" class="col-row-content">
-                <notes-input section-form="manCycForm" input-list="[{model: vm.model.CycRfxOS, type: 'text', cssClass:'medium'}]">
-                    <notes-value input-list="[vm.model.CycRfxOS]"></notes-value>
-                </notes-input>
-            </div>
-            <div flex="5" class="col-row-header text-right">OS:</div>
-            <div flex="15" class="col-row-content">
-                <notes-input section-form="manCycForm" input-list="[{model: vm.model.CycVSOS1, type: 'dropdown', cssClass:'small'}, {model: vm.model.CycVSOS2, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.CycVSOS1, vm.model.CycVSOS2]"></notes-value>
-                </notes-input>
-            </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="10" class="col-row-header">
-                <div class="float-left">Rx given</div><div class="float-right">OD:</div>
-            </div>
-            <div flex="40" class="col-row-content">
-                <notes-input section-form="manCycForm" input-list="[{model: vm.model.RxOD1, type: 'text', cssClass:'small'}, {model: vm.model.RxOD2, type: 'text', cssClass:'small'}, {value: '&nbsp;&nbsp;&nbsp;&nbsp;<input type=\'checkbox\'>&nbsp;Populate', type: 'html'}]">
-                    <notes-value input-list="[vm.model.RxOD1, vm.model.RxOD2]"></notes-value>
-                </notes-input>
-            </div>
-            <div flex="10" class="col-row-header">
-                <div class="float-left">CTL Rx</div><div class="float-right">OD:</div>
-            </div>
-            <div flex="40" class="col-row-content">
-                <notes-input section-form="manCycForm" input-list="[{model: vm.model.CTLRxOD1, type: 'text', cssClass:'small'}, {model: vm.model.CTLRxOD2, type: 'text', cssClass:'small'}, {model: vm.model.CTLRxOD3, type: 'text', cssClass:'small'}, {value: '&nbsp;&nbsp;&nbsp;&nbsp;<input type=\'checkbox\'>&nbsp;Populate', type: 'html'}]">
-                    <notes-value input-list="[vm.model.CTLRxOD1, vm.model.CTLRxOD2, vm.model.CTLRxOD3]"></notes-value>
-                </notes-input>
-            </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="10" class="col-row-header text-right">OS:</div>
-            <div flex="40" class="col-row-content">
-                <notes-input section-form="manCycForm" input-list="[{model: vm.model.RXOS1, type: 'text', cssClass:'small'}, {model: vm.model.RXOS2, type: 'text', cssClass:'small'},{model: vm.model.RXOS3, type: 'text', cssClass:'small'}, {model: vm.model.RXOS4, type: 'text', cssClass:'medium'}]">
-                    <notes-value input-list="[vm.model.RXOS1, vm.model.RXOS2, vm.model.RXOS3, vm.model.RXOS4]"></notes-value>
-                </notes-input>
-            </div>
-            <div flex="10" class="col-row-header text-right">OS:</div>
-            <div flex="40" class="col-row-content">
-                <notes-input section-form="manCycForm" input-list="[{model: vm.model.CTLRxOS1, type: 'text', cssClass:'small'}, {model: vm.model.CTLRxOS2, type: 'text', cssClass:'small'}, {model: vm.model.CTLRxOS3, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.CTLRxOS1, vm.model.CTLRxOS2, vm.model.CTLRxOS3]"></notes-value>
-                </notes-input>
-            </div>
-        </div>
-    </form>
-    <form editable-form name="vsPupForm" notes-section-form>
-        <notes-section-title section-form="vsPupForm">Visual Fields & Pupils</notes-section-title>
-        <div layout="row" class="col-row">
-            <div flex="10" class="col-row-header">Visual Fields:</div>
-            <div flex="90" class="col-row-content">
-                <notes-input section-form="vsPupForm" input-list="[{model: vm.model.Confront1, type: 'dropdown'}, {model: vm.model.Confront2, type: 'dropdown'}, {model: vm.model.Confront3, type: 'text', cssClass:'medium'}]">
-                    <notes-value input-list="[vm.model.Confront1, vm.model.Confront2, vm.model.Confront3]"></notes-value>
-                </notes-input>
-            </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="10" class="col-row-header">Pupils:</div>
-            <div flex="90" class="col-row-content">
-                <notes-input section-form="vsPupForm" input-list="[{model: vm.model.PupilOD1, type: 'dropdown'}, {model: vm.model.PupilOD2, type: 'dropdown'}, {model: vm.model.PupilOS1, type: 'dropdown'}, {model: vm.model.PupilOS2, type: 'dropdown'}, {model: vm.model.Pupil, type: 'text', cssClass:'medium'}]">
-                    <notes-value input-list="[vm.model.PupilOD1, vm.model.PupilOD2, vm.model.PupilOS1, vm.model.PupilOS2, vm.model.Pupil]"></notes-value>
-                </notes-input>
-            </div>
-        </div>
-    </form>
-    <form editable-form name="ocuMotilityForm" notes-section-form>
-        <notes-section-title section-form="ocuMotilityForm">Ocular Motility</notes-section-title>
-        <div layout="row" class="col-row">
-            <div flex="10" class="col-row-header">Ocular Motility:</div>
-            <div flex="90" class="col-row-content">
-                <notes-input section-form="ocuMotilityForm" input-list="[{model: vm.model.OcularMotility6, type: 'dropdown'}, {model: vm.model.OcularMotility1, type: 'dropdown'}, {model: vm.model.OcularMotility5, type: 'text', cssClass:'medium'}, {value: '<br>', type: 'html'}, {model: vm.model.OcularMotility2, type: 'dropdown'}, {model: vm.model.OcularMotility4, type: 'text', cssClass:'large'}]">
-                    <notes-value input-list="[vm.model.OcularMotility6, vm.model.OcularMotility1, vm.model.OcularMotility5, vm.model.OcularMotility2, vm.model.OcularMotility4]"></notes-value>
-                </notes-input>
-            </div>
-        </div>
-    </form>
-    <form editable-form name="ticTacForm" notes-section-form>
-        <notes-section-title section-form="ticTacForm">Tic Tac To</notes-section-title>
-        <div layout="row" class="col-row">
-            <div flex="20" class="col-row-header"></div>
-            <div flex="20" class="col-row-content">
-                <notes-input section-form="ticTacForm" input-list="[{model: vm.model.OcMot1a, type: 'text', cssClass:'small'}, {model: vm.model.OcMot1b, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.OcMot1a, vm.model.OcMot1b]"></notes-value>
-                </notes-input>
-            </div>
-            <div flex="20" class="col-row-content">
-                <notes-input section-form="ticTacForm" input-list="[{model: vm.model.OcMot2a, type: 'text', cssClass:'small'}, {model: vm.model.OcMot2b, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.OcMot2a, vm.model.OcMot2b]"></notes-value>
-                </notes-input>
-            </div>
-            <div flex="20" class="col-row-content">
-                <notes-input section-form="ticTacForm" input-list="[{model: vm.model.OcMot3a, type: 'text', cssClass:'small'}, {model: vm.model.OcMot3b, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.OcMot3a, vm.model.OcMot3b]"></notes-value>
-                </notes-input>
-            </div>
-            <div flex="20" class="col-row-header"></div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="20" class="col-row-header"></div>
-            <div flex="20" class="col-row-content">
-                <notes-input section-form="ticTacForm" input-list="[{model: vm.model.OcMot4a, type: 'text', cssClass:'small'}, {model: vm.model.OcMot4b, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.OcMot4a, vm.model.OcMot4b]"></notes-value>
-                </notes-input>
-            </div>
-            <div flex="20" class="col-row-content">
-                <notes-input section-form="ticTacForm" input-list="[{model: vm.model.OcMot5a, type: 'text', cssClass:'small'}, {model: vm.model.OcMot5b, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.OcMot5a, vm.model.OcMot5b]"></notes-value>
-                </notes-input>
-            </div>
-            <div flex="20" class="col-row-content">
-                <notes-input section-form="ticTacForm" input-list="[{model: vm.model.OcMot6a, type: 'text', cssClass:'small'}, {model: vm.model.OcMot6b, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.OcMot6a, vm.model.OcMot6b]"></notes-value>
-                </notes-input>
-            </div>
-            <div flex="20" class="col-row-header"></div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="20" class="col-row-header"></div>
-            <div flex="20" class="col-row-content">
-                <notes-input section-form="ticTacForm" input-list="[{model: vm.model.OcMot7a, type: 'text', cssClass:'small'}, {model: vm.model.OcMot7b, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.OcMot7a, vm.model.OcMot7b]"></notes-value>
-                </notes-input>
-            </div>
-            <div flex="20" class="col-row-content">
-                <notes-input section-form="ticTacForm" input-list="[{model: vm.model.OcMot8a, type: 'text', cssClass:'small'}, {model: vm.model.OcMot8b, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.OcMot8a, vm.model.OcMot8b]"></notes-value>
-                </notes-input>
-            </div>
-            <div flex="20" class="col-row-content">
-                <notes-input section-form="ticTacForm" input-list="[{model: vm.model.OcMot9a, type: 'text', cssClass:'small'}, {model: vm.model.OcMot9b, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.OcMot9a, vm.model.OcMot9b]"></notes-value>
-                </notes-input>
-            </div>
-            <div flex="20" class="col-row-header"></div>
-        </div>
-    </form>
-    <form editable-form name="headForm" notes-section-form>
-        <notes-section-title section-form="headForm"></notes-section-title>
-        <div layout="row" class="col-row">
-            <div flex="20" class="col-row-header">Head Tilt Right:</div>
-            <div flex="30" class="col-row-content">
-                <notes-input section-form="headForm" input-list="[{model: vm.model.HeadTiltRight1, type: 'text', cssClass:'small'}, {model: vm.model.HeadTiltRight2, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.HeadTiltRight1, vm.model.HeadTiltRight2]"></notes-value>
-                </notes-input>
-            </div>
-            <div flex="20" class="col-row-header">Head Tilt Left:</div>
-            <div flex="30" class="col-row-content">
-                <notes-input section-form="headForm" input-list="[{model: vm.model.HeadTiltLeft1, type: 'text', cssClass:'small'}, {model: vm.model.HeadTiltLeft2, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.HeadTiltLeft1, vm.model.HeadTiltLeft2]"></notes-value>
-                </notes-input>
-            </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="20" class="col-row-header">Adaptive Head Positions:</div>
-            <div flex="80" class="col-row-content">
-                <notes-input section-form="headForm" input-list="[{model: vm.model.HeadPosition1, type: 'dropdown'}, {model: vm.model.HeadPosition2, type: 'text', cssClass:'medium'}]">
-                    <notes-value input-list="[vm.model.HeadPosition1, vm.model.HeadPosition2]"></notes-value>
-                </notes-input>
-            </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="20" class="col-row-header">Double Maddox Rod:</div>
-            <div flex="30" class="col-row-content">
-                <notes-input section-form="headForm" input-list="[{model: vm.model.DMR2, type: 'text', cssClass:'medium'}]">
-                    <notes-value input-list="[vm.model.DMR2]"></notes-value>
-                </notes-input>
-            </div>
-            <div flex="20" class="col-row-header">Preference:</div>
-            <div flex="30" class="col-row-content">
-                <notes-input section-form="headForm" input-list="[{model: vm.model.Preference, type: 'dropdown'}]">
-                    <notes-value input-list="[vm.model.Preference]"></notes-value>
-                </notes-input>
-            </div>
-        </div>
-    </form>
-    <form editable-form name="ocularForm" notes-section-form>
-        <notes-section-title section-form="ocularForm"></notes-section-title>
-        <div layout="row" class="col-row" layout-align="center end">
-            <div flex>
-                <div layout="row" class="col-row">
-                    <div flex="20" class="col-row-header">Ocular Versions:</div>
-                    <div flex="80" class="col-row-content">
-                        <notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersions1, type: 'dropdown'}, {model: vm.model.OcularVersions11, type: 'dropdown'}, {model: vm.model.OcularVersions2, type: 'dropdown'}, {model: vm.model.OcularVersions3, type: 'dropdown'}, {model: vm.model.OcularVersions31, type: 'dropdown'}, {model: vm.model.OcularVersions4, type: 'dropdown'}, {model: vm.model.OcularVersions5, type: 'text', cssClass:'small'}]">
-                            <notes-value input-list="[vm.model.OcularVersions1, vm.model.OcularVersions11, vm.model.OcularVersions2, vm.model.OcularVersions3, vm.model.OcularVersions31, vm.model.OcularVersions4, vm.model.OcularVersions5]"></notes-value>
-                        </notes-input>
-                    </div>
+            <div layout="row" class="col-row">
+                <div flex="10" class="col-row-header">
+                    <div class="float-left">Man Rfx</div><div class="float-right">OD:</div>
                 </div>
-                <div layout="row" class="col-row">
-                    <div flex="20" class="col-row-header">Nystagmus:</div>
-                    <div flex="80" class="col-row-content">
-                        <notes-input section-form="ocularForm" input-list="[{model: vm.model.Nystagmus1, type: 'dropdown'}, {model: vm.model.Nystagmus2, type: 'text', cssClass:'small'}]">
-                            <notes-value input-list="[vm.model.Nystagmus1, vm.model.Nystagmus2]"></notes-value>
-                        </notes-input>
-                    </div>
+                <div flex="20" class="col-row-content">
+                    <notes-input section-form="manCycForm" input-list="[{model: vm.model.ManRfxOD1, type: 'text', cssClass:'small'}, {model: vm.model.ManRfxOD2, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.ManRfxOD1, vm.model.ManRfxOD2]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="5" class="col-row-header">
+                    <div class="float-left">VA</div><div class="float-right">OD:</div>
+                </div>
+                <div flex="15" class="col-row-content">
+                    <notes-input section-form="manCycForm" input-list="[{model: vm.model.ManVAOD1, type: 'dropdown', cssClass:'small'}, {model: vm.model.ManVAOD2, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.ManVAOD1, vm.model.ManVAOD2]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="10" class="col-row-header">
+                    <div class="float-left">Cyc Rfx</div><div class="float-right">OD:</div>
+                </div>
+                <div flex="20" class="col-row-content">
+                    <notes-input section-form="manCycForm" input-list="[{model: vm.model.CycRfxOD, type: 'text', cssClass:'medium'}]">
+                        <notes-value input-list="[vm.model.CycRfxOD]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="5" class="col-row-header">
+                    <div class="float-left">VA</div><div class="float-right">OD:</div>
+                </div>
+                <div flex="15" class="col-row-content">
+                    <notes-input section-form="manCycForm" input-list="[{model: vm.model.CycVAOD3, type: 'dropdown', cssClass:'small'}, {model: vm.model.CycVAOD4, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.CycVAOD3, vm.model.CycVAOD4]"></notes-value>
+                    </notes-input>
                 </div>
             </div>
-            <div flex="40" class="col-row-content text-center">
-                <table class="full-width">
-                    <tr>
-                        <td class="text-center">
-                            <table class="h-table">
-                                <tr>
-                                    <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD1, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD1]"></notes-value></notes-input></td>
-                                    <td colspan="3">&nbsp;</td>
-                                    <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD2, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD2]"></notes-value></notes-input></td>
-                                    <td>&nbsp;</td>
-                                    <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS1, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS1]"></notes-value></notes-input></td>
-                                    <td colspan="3">&nbsp;</td>
-                                    <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS2, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS2]"></notes-value></notes-input></td>
-                                </tr>
-                                <tr>
-                                    <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD3, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD3]"></notes-value></notes-input></td>
-                                    <td><img ng-src="{{vm.utility.imagePath('line-vertical.gif')}}" class="h-image-vertical" /></td>
-                                    <td class="tight"><img ng-src="{{vm.utility.imagePath('line-horizontal.gif')}}" class="h-image-horizontal" /></td>
-                                    <td class="tight"><img ng-src="{{vm.utility.imagePath('line-vertical.gif')}}" class="h-image-vertical" /></td>
-                                    <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD4, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD4]"></notes-value></notes-input></td>
-                                    <td>&nbsp;</td>
-                                    <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS3, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS3]"></notes-value></notes-input></td>
-                                    <td><img ng-src="{{vm.utility.imagePath('line-vertical.gif')}}" class="h-image-vertical" /></td>
-                                    <td class="tight"><img ng-src="{{vm.utility.imagePath('line-horizontal.gif')}}" class="h-image-horizontal" /></td>
-                                    <td class="tight"><img ng-src="{{vm.utility.imagePath('line-vertical.gif')}}" class="h-image-vertical" /></td>
-                                    <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS4, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS4]"></notes-value></notes-input></td>
-                                </tr>
-                                <tr>
-                                    <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD5, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD5]"></notes-value></notes-input></td>
-                                    <td colspan="3">&nbsp;</td>
-                                    <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD6, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD6]"></notes-value></notes-input></td>
-                                    <td>&nbsp;</td>
-                                    <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS5, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS5]"></notes-value></notes-input></td>
-                                    <td colspan="3">&nbsp;</td>
-                                    <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS6, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS6]"></notes-value></notes-input></td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
+            <div layout="row" class="col-row">
+                <div flex="10" class="col-row-header text-right">OS:</div>
+                <div flex="20" class="col-row-content">
+                    <notes-input section-form="manCycForm" input-list="[{model: vm.model.ManRfxOS1, type: 'text', cssClass:'small'}, {model: vm.model.ManRfxOS2, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.ManRfxOS1, vm.model.ManRfxOS2]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="5" class="col-row-header text-right">OS:</div>
+                <div flex="15" class="col-row-content">
+                    <notes-input section-form="manCycForm" input-list="[{model: vm.model.ManVSOS1, type: 'dropdown', cssClass:'small'}, {model: vm.model.ManVSOS2, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.ManVSOS1, vm.model.ManVSOS2]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="10" class="col-row-header text-right">OS:</div>
+                <div flex="20" class="col-row-content">
+                    <notes-input section-form="manCycForm" input-list="[{model: vm.model.CycRfxOS, type: 'text', cssClass:'medium'}]">
+                        <notes-value input-list="[vm.model.CycRfxOS]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="5" class="col-row-header text-right">OS:</div>
+                <div flex="15" class="col-row-content">
+                    <notes-input section-form="manCycForm" input-list="[{model: vm.model.CycVSOS1, type: 'dropdown', cssClass:'small'}, {model: vm.model.CycVSOS2, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.CycVSOS1, vm.model.CycVSOS2]"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+            <div layout="row" class="col-row">
+                <div flex="10" class="col-row-header">
+                    <div class="float-left">Rx given</div><div class="float-right">OD:</div>
+                </div>
+                <div flex="40" class="col-row-content">
+                    <notes-input section-form="manCycForm" input-list="[{model: vm.model.RxOD1, type: 'text', cssClass:'small'}, {model: vm.model.RxOD2, type: 'text', cssClass:'small'}, {value: '&nbsp;&nbsp;&nbsp;&nbsp;<input type=\'checkbox\'>&nbsp;Populate', type: 'html'}]">
+                        <notes-value input-list="[vm.model.RxOD1, vm.model.RxOD2]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="10" class="col-row-header">
+                    <div class="float-left">CTL Rx</div><div class="float-right">OD:</div>
+                </div>
+                <div flex="40" class="col-row-content">
+                    <notes-input section-form="manCycForm" input-list="[{model: vm.model.CTLRxOD1, type: 'text', cssClass:'small'}, {model: vm.model.CTLRxOD2, type: 'text', cssClass:'small'}, {model: vm.model.CTLRxOD3, type: 'text', cssClass:'small'}, {value: '&nbsp;&nbsp;&nbsp;&nbsp;<input type=\'checkbox\'>&nbsp;Populate', type: 'html'}]">
+                        <notes-value input-list="[vm.model.CTLRxOD1, vm.model.CTLRxOD2, vm.model.CTLRxOD3]"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+            <div layout="row" class="col-row">
+                <div flex="10" class="col-row-header text-right">OS:</div>
+                <div flex="40" class="col-row-content">
+                    <notes-input section-form="manCycForm" input-list="[{model: vm.model.RXOS1, type: 'text', cssClass:'small'}, {model: vm.model.RXOS2, type: 'text', cssClass:'small'},{model: vm.model.RXOS3, type: 'text', cssClass:'small'}, {model: vm.model.RXOS4, type: 'text', cssClass:'medium'}]">
+                        <notes-value input-list="[vm.model.RXOS1, vm.model.RXOS2, vm.model.RXOS3, vm.model.RXOS4]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="10" class="col-row-header text-right">OS:</div>
+                <div flex="40" class="col-row-content">
+                    <notes-input section-form="manCycForm" input-list="[{model: vm.model.CTLRxOS1, type: 'text', cssClass:'small'}, {model: vm.model.CTLRxOS2, type: 'text', cssClass:'small'}, {model: vm.model.CTLRxOS3, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.CTLRxOS1, vm.model.CTLRxOS2, vm.model.CTLRxOS3]"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+        </form>
+        <form editable-form name="vsPupForm" notes-section-form>
+            <notes-section-title section-form="vsPupForm">Visual Fields & Pupils</notes-section-title>
+            <div layout="row" class="col-row">
+                <div flex="10" class="col-row-header">Visual Fields:</div>
+                <div flex="90" class="col-row-content">
+                    <notes-input section-form="vsPupForm" input-list="[{model: vm.model.Confront1, type: 'dropdown'}, {model: vm.model.Confront2, type: 'dropdown'}, {model: vm.model.Confront3, type: 'text', cssClass:'medium'}]">
+                        <notes-value input-list="[vm.model.Confront1, vm.model.Confront2, vm.model.Confront3]"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+            <div layout="row" class="col-row">
+                <div flex="10" class="col-row-header">Pupils:</div>
+                <div flex="90" class="col-row-content">
+                    <notes-input section-form="vsPupForm" input-list="[{model: vm.model.PupilOD1, type: 'dropdown'}, {model: vm.model.PupilOD2, type: 'dropdown'}, {model: vm.model.PupilOS1, type: 'dropdown'}, {model: vm.model.PupilOS2, type: 'dropdown'}, {model: vm.model.Pupil, type: 'text', cssClass:'medium'}]">
+                        <notes-value input-list="[vm.model.PupilOD1, vm.model.PupilOD2, vm.model.PupilOS1, vm.model.PupilOS2, vm.model.Pupil]"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+        </form>
+        <form editable-form name="ocuMotilityForm" notes-section-form>
+            <notes-section-title section-form="ocuMotilityForm">Ocular Motility</notes-section-title>
+            <div layout="row" class="col-row">
+                <div flex="10" class="col-row-header">Ocular Motility:</div>
+                <div flex="90" class="col-row-content">
+                    <notes-input section-form="ocuMotilityForm" input-list="[{model: vm.model.OcularMotility6, type: 'dropdown'}, {model: vm.model.OcularMotility1, type: 'dropdown'}, {model: vm.model.OcularMotility5, type: 'text', cssClass:'medium'}, {value: '<br>', type: 'html'}, {model: vm.model.OcularMotility2, type: 'dropdown'}, {model: vm.model.OcularMotility4, type: 'text', cssClass:'large'}]">
+                        <notes-value input-list="[vm.model.OcularMotility6, vm.model.OcularMotility1, vm.model.OcularMotility5, vm.model.OcularMotility2, vm.model.OcularMotility4]"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+        </form>
+        <form editable-form name="ticTacForm" notes-section-form>
+            <notes-section-title section-form="ticTacForm">Tic Tac To</notes-section-title>
+            <div layout="row" class="col-row">
+                <div flex="20" class="col-row-header"></div>
+                <div flex="20" class="col-row-content">
+                    <notes-input section-form="ticTacForm" input-list="[{model: vm.model.OcMot1a, type: 'text', cssClass:'small'}, {model: vm.model.OcMot1b, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.OcMot1a, vm.model.OcMot1b]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="20" class="col-row-content">
+                    <notes-input section-form="ticTacForm" input-list="[{model: vm.model.OcMot2a, type: 'text', cssClass:'small'}, {model: vm.model.OcMot2b, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.OcMot2a, vm.model.OcMot2b]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="20" class="col-row-content">
+                    <notes-input section-form="ticTacForm" input-list="[{model: vm.model.OcMot3a, type: 'text', cssClass:'small'}, {model: vm.model.OcMot3b, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.OcMot3a, vm.model.OcMot3b]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="20" class="col-row-header"></div>
+            </div>
+            <div layout="row" class="col-row">
+                <div flex="20" class="col-row-header"></div>
+                <div flex="20" class="col-row-content">
+                    <notes-input section-form="ticTacForm" input-list="[{model: vm.model.OcMot4a, type: 'text', cssClass:'small'}, {model: vm.model.OcMot4b, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.OcMot4a, vm.model.OcMot4b]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="20" class="col-row-content">
+                    <notes-input section-form="ticTacForm" input-list="[{model: vm.model.OcMot5a, type: 'text', cssClass:'small'}, {model: vm.model.OcMot5b, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.OcMot5a, vm.model.OcMot5b]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="20" class="col-row-content">
+                    <notes-input section-form="ticTacForm" input-list="[{model: vm.model.OcMot6a, type: 'text', cssClass:'small'}, {model: vm.model.OcMot6b, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.OcMot6a, vm.model.OcMot6b]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="20" class="col-row-header"></div>
+            </div>
+            <div layout="row" class="col-row">
+                <div flex="20" class="col-row-header"></div>
+                <div flex="20" class="col-row-content">
+                    <notes-input section-form="ticTacForm" input-list="[{model: vm.model.OcMot7a, type: 'text', cssClass:'small'}, {model: vm.model.OcMot7b, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.OcMot7a, vm.model.OcMot7b]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="20" class="col-row-content">
+                    <notes-input section-form="ticTacForm" input-list="[{model: vm.model.OcMot8a, type: 'text', cssClass:'small'}, {model: vm.model.OcMot8b, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.OcMot8a, vm.model.OcMot8b]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="20" class="col-row-content">
+                    <notes-input section-form="ticTacForm" input-list="[{model: vm.model.OcMot9a, type: 'text', cssClass:'small'}, {model: vm.model.OcMot9b, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.OcMot9a, vm.model.OcMot9b]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="20" class="col-row-header"></div>
+            </div>
+        </form>
+        <form editable-form name="headForm" notes-section-form>
+            <notes-section-title section-form="headForm"></notes-section-title>
+            <div layout="row" class="col-row">
+                <div flex="20" class="col-row-header">Head Tilt Right:</div>
+                <div flex="30" class="col-row-content">
+                    <notes-input section-form="headForm" input-list="[{model: vm.model.HeadTiltRight1, type: 'text', cssClass:'small'}, {model: vm.model.HeadTiltRight2, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.HeadTiltRight1, vm.model.HeadTiltRight2]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="20" class="col-row-header">Head Tilt Left:</div>
+                <div flex="30" class="col-row-content">
+                    <notes-input section-form="headForm" input-list="[{model: vm.model.HeadTiltLeft1, type: 'text', cssClass:'small'}, {model: vm.model.HeadTiltLeft2, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.HeadTiltLeft1, vm.model.HeadTiltLeft2]"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+            <div layout="row" class="col-row">
+                <div flex="20" class="col-row-header">Adaptive Head Positions:</div>
+                <div flex="80" class="col-row-content">
+                    <notes-input section-form="headForm" input-list="[{model: vm.model.HeadPosition1, type: 'dropdown'}, {model: vm.model.HeadPosition2, type: 'text', cssClass:'medium'}]">
+                        <notes-value input-list="[vm.model.HeadPosition1, vm.model.HeadPosition2]"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+            <div layout="row" class="col-row">
+                <div flex="20" class="col-row-header">Double Maddox Rod:</div>
+                <div flex="30" class="col-row-content">
+                    <notes-input section-form="headForm" input-list="[{model: vm.model.DMR2, type: 'text', cssClass:'medium'}]">
+                        <notes-value input-list="[vm.model.DMR2]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="20" class="col-row-header">Preference:</div>
+                <div flex="30" class="col-row-content">
+                    <notes-input section-form="headForm" input-list="[{model: vm.model.Preference, type: 'dropdown'}]">
+                        <notes-value input-list="[vm.model.Preference]"></notes-value>
+                    </notes-input>
+                </div>
+            </div>
+        </form>
+        <form editable-form name="ocularForm" notes-section-form>
+            <notes-section-title section-form="ocularForm"></notes-section-title>
+            <div layout="row" class="col-row" layout-align="center end">
+                <div flex>
+                    <div layout="row" class="col-row">
+                        <div flex="20" class="col-row-header">Ocular Versions:</div>
+                        <div flex="80" class="col-row-content">
+                            <notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersions1, type: 'dropdown'}, {model: vm.model.OcularVersions11, type: 'dropdown'}, {model: vm.model.OcularVersions2, type: 'dropdown'}, {model: vm.model.OcularVersions3, type: 'dropdown'}, {model: vm.model.OcularVersions31, type: 'dropdown'}, {model: vm.model.OcularVersions4, type: 'dropdown'}, {model: vm.model.OcularVersions5, type: 'text', cssClass:'small'}]">
+                                <notes-value input-list="[vm.model.OcularVersions1, vm.model.OcularVersions11, vm.model.OcularVersions2, vm.model.OcularVersions3, vm.model.OcularVersions31, vm.model.OcularVersions4, vm.model.OcularVersions5]"></notes-value>
+                            </notes-input>
+                        </div>
+                    </div>
+                    <div layout="row" class="col-row">
+                        <div flex="20" class="col-row-header">Nystagmus:</div>
+                        <div flex="80" class="col-row-content">
+                            <notes-input section-form="ocularForm" input-list="[{model: vm.model.Nystagmus1, type: 'dropdown'}, {model: vm.model.Nystagmus2, type: 'text', cssClass:'small'}]">
+                                <notes-value input-list="[vm.model.Nystagmus1, vm.model.Nystagmus2]"></notes-value>
+                            </notes-input>
+                        </div>
+                    </div>
+                </div>
+                <div flex="40" class="col-row-content text-center">
+                    <table class="full-width">
+                        <tr>
+                            <td class="text-center">
+                                <table class="h-table">
+                                    <tr>
+                                        <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD1, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD1]"></notes-value></notes-input></td>
+                                        <td colspan="3">&nbsp;</td>
+                                        <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD2, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD2]"></notes-value></notes-input></td>
+                                        <td>&nbsp;</td>
+                                        <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS1, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS1]"></notes-value></notes-input></td>
+                                        <td colspan="3">&nbsp;</td>
+                                        <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS2, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS2]"></notes-value></notes-input></td>
+                                    </tr>
+                                    <tr>
+                                        <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD3, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD3]"></notes-value></notes-input></td>
+                                        <td><img ng-src="{{vm.utility.imagePath('line-vertical.gif')}}" class="h-image-vertical" /></td>
+                                        <td class="tight"><img ng-src="{{vm.utility.imagePath('line-horizontal.gif')}}" class="h-image-horizontal" /></td>
+                                        <td class="tight"><img ng-src="{{vm.utility.imagePath('line-vertical.gif')}}" class="h-image-vertical" /></td>
+                                        <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD4, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD4]"></notes-value></notes-input></td>
+                                        <td>&nbsp;</td>
+                                        <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS3, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS3]"></notes-value></notes-input></td>
+                                        <td><img ng-src="{{vm.utility.imagePath('line-vertical.gif')}}" class="h-image-vertical" /></td>
+                                        <td class="tight"><img ng-src="{{vm.utility.imagePath('line-horizontal.gif')}}" class="h-image-horizontal" /></td>
+                                        <td class="tight"><img ng-src="{{vm.utility.imagePath('line-vertical.gif')}}" class="h-image-vertical" /></td>
+                                        <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS4, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS4]"></notes-value></notes-input></td>
+                                    </tr>
+                                    <tr>
+                                        <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD5, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD5]"></notes-value></notes-input></td>
+                                        <td colspan="3">&nbsp;</td>
+                                        <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD6, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD6]"></notes-value></notes-input></td>
+                                        <td>&nbsp;</td>
+                                        <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS5, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS5]"></notes-value></notes-input></td>
+                                        <td colspan="3">&nbsp;</td>
+                                        <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS6, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS6]"></notes-value></notes-input></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
 
+                </div>
             </div>
-        </div>
-    </form>
-    <form editable-form name="fusForm" notes-section-form>
-        <notes-section-title section-form="fusForm">Fusional Amplitudes / Near Point</notes-section-title>
-        <div layout="row" class="col-row">
-            <div flex="5" class="col-row-header text-right">BO:</div>
-            <div flex="10" class="col-row-content">
-                <notes-input section-form="fusForm" input-list="[{model: vm.model.FusAmpBO, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.FusAmpBO]"></notes-value>
-                </notes-input>
+        </form>
+        <form editable-form name="fusForm" notes-section-form>
+            <notes-section-title section-form="fusForm">Fusional Amplitudes / Near Point</notes-section-title>
+            <div layout="row" class="col-row">
+                <div flex="5" class="col-row-header text-right">BO:</div>
+                <div flex="10" class="col-row-content">
+                    <notes-input section-form="fusForm" input-list="[{model: vm.model.FusAmpBO, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.FusAmpBO]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="5" class="col-row-header text-right">BI:</div>
+                <div flex="10" class="col-row-content">
+                    <notes-input section-form="fusForm" input-list="[{model: vm.model.FusAmpBI, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.FusAmpBI]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="15" class="col-row-header text-right">Convergence:</div>
+                <div flex class="col-row-content">
+                    <notes-input section-form="fusForm" input-list="[{model: vm.model.Convergence, type: 'text', cssClass:'medium'}]">
+                        <notes-value input-list="[vm.model.Convergence]"></notes-value>
+                    </notes-input>
+                </div>
             </div>
-            <div flex="5" class="col-row-header text-right">BI:</div>
-            <div flex="10" class="col-row-content">
-                <notes-input section-form="fusForm" input-list="[{model: vm.model.FusAmpBI, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.FusAmpBI]"></notes-value>
-                </notes-input>
+            <div layout="row" class="col-row">
+                <div flex="5" class="col-row-header text-right">BU:</div>
+                <div flex="10" class="col-row-content">
+                    <notes-input section-form="fusForm" input-list="[{model: vm.model.FusAmpBU, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.FusAmpBU]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="5" class="col-row-header text-right">BD:</div>
+                <div flex="10" class="col-row-content">
+                    <notes-input section-form="fusForm" input-list="[{model: vm.model.FusAmpBD, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.FusAmpBD]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="15" class="col-row-header text-right">Accommodation:</div>
+                <div flex class="col-row-content">
+                    <notes-input section-form="fusForm" input-list="[{model: vm.model.Accommodation, type: 'text', cssClass:'medium'}]">
+                        <notes-value input-list="[vm.model.Accommodation]"></notes-value>
+                    </notes-input>
+                </div>
             </div>
-            <div flex="15" class="col-row-header text-right">Convergence:</div>
-            <div flex class="col-row-content">
-                <notes-input section-form="fusForm" input-list="[{model: vm.model.Convergence, type: 'text', cssClass:'medium'}]">
-                    <notes-value input-list="[vm.model.Convergence]"></notes-value>
-                </notes-input>
+            <div layout="row" class="col-row">
+                <div flex="5" class="col-row-header text-right">LVR:</div>
+                <div flex="10" class="col-row-content">
+                    <notes-input section-form="fusForm" input-list="[{model: vm.model.LVRR1, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.LVRR1]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="5" class="col-row-header text-right">R:</div>
+                <div flex="10" class="col-row-content">
+                    <notes-input section-form="fusForm" input-list="[{model: vm.model.LVRR2, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.LVRR2]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="10" class="col-row-content text-right">
+                    <notes-input section-form="fusForm" input-list="[{model: vm.model.LVRL1, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.LVRL1]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="5" class="col-row-header text-center">L</div>
+                <div flex class="col-row-content">
+                    <notes-input section-form="fusForm" input-list="[{model: vm.model.LVRL2, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.LVRL2]"></notes-value>
+                    </notes-input>
+                </div>
             </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="5" class="col-row-header text-right">BU:</div>
-            <div flex="10" class="col-row-content">
-                <notes-input section-form="fusForm" input-list="[{model: vm.model.FusAmpBU, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.FusAmpBU]"></notes-value>
-                </notes-input>
+        </form>
+        <form editable-form name="binoForm" notes-section-form>
+            <notes-section-title section-form="binoForm">Binocularity</notes-section-title>
+            <div layout="row" class="col-row">
+                <div flex="10" class="col-row-header">Tested with:</div>
+                <div flex="90" class="col-row-content">
+                    <notes-input section-form="binoForm" input-list="[{model: vm.model.Binocularity1, type: 'dropdown'}, {model: vm.model.Binocularity2, type: 'dropdown'}, {model: vm.model.Binocularity3, type: 'text', cssClass:'large'}, {model: vm.model.Binocularity4, type: 'text', cssClass:'large'}]">
+                        <notes-value input-list="[vm.model.Binocularity1, vm.model.Binocularity2, vm.model.Binocularity3, vm.model.Binocularity4]"></notes-value>
+                    </notes-input>
+                </div>
             </div>
-            <div flex="5" class="col-row-header text-right">BD:</div>
-            <div flex="10" class="col-row-content">
-                <notes-input section-form="fusForm" input-list="[{model: vm.model.FusAmpBD, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.FusAmpBD]"></notes-value>
-                </notes-input>
+            <div layout="row" class="col-row">
+                <div flex="10" class="col-row-header">W4D Near:</div>
+                <div flex="30" class="col-row-content">
+                    <notes-input section-form="binoForm" input-list="[{model: vm.model.W4DNear1, type: 'dropdown'}, {model: vm.model.W4DNear2, type: 'text', cssClass:'medium'}]">
+                        <notes-value input-list="[vm.model.W4DNear1, vm.model.W4DNear2]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="30" class="col-row-header text-right">W4D Distance:</div>
+                <div flex="30" class="col-row-content">
+                    <notes-input section-form="binoForm" input-list="[{model: vm.model.W4DDistance1, type: 'dropdown'}, {model: vm.model.W4DDistance2, type: 'text', cssClass:'medium'}]">
+                        <notes-value input-list="[vm.model.W4DDistance1, vm.model.W4DDistance2]"></notes-value>
+                    </notes-input>
+                </div>
             </div>
-            <div flex="15" class="col-row-header text-right">Accommodation:</div>
-            <div flex class="col-row-content">
-                <notes-input section-form="fusForm" input-list="[{model: vm.model.Accommodation, type: 'text', cssClass:'medium'}]">
-                    <notes-value input-list="[vm.model.Accommodation]"></notes-value>
-                </notes-input>
+            <div layout="row" class="col-row">
+                <div flex="10" class="col-row-header">Stereo(Titmus):</div>
+                <div flex="30" class="col-row-content">
+                    <notes-input section-form="binoForm" input-list="[{model: vm.model.Stereo1, type: 'dropdown'}, {model: vm.model.Stereo2, type: 'text', cssClass:'medium'}]">
+                        <notes-value input-list="[vm.model.Stereo1, vm.model.Stereo2]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="30" class="col-row-header text-right">+ 4 diopter base out:</div>
+                <div flex="30" class="col-row-content">
+                    <notes-input section-form="binoForm" input-list="[{model: vm.model.DiopterBaseOut, type: 'dropdown'}]">
+                        <notes-value input-list="[vm.model.DiopterBaseOut]"></notes-value>
+                    </notes-input>
+                </div>
             </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="5" class="col-row-header text-right">LVR:</div>
-            <div flex="10" class="col-row-content">
-                <notes-input section-form="fusForm" input-list="[{model: vm.model.LVRR1, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.LVRR1]"></notes-value>
-                </notes-input>
+        </form>
+        <form editable-form name="antForm" notes-section-form>
+            <notes-section-title section-form="antForm">Ant Segment</notes-section-title>
+            <div layout="row" class="col-row">
+                <div flex="15" class="col-row-header">Ant Segment Exam:</div>
+                <div flex class="col-row-content">
+                    <notes-input section-form="antForm" input-list="[{model: vm.model.AnteriorSegment, type: 'textarea', cssClass:'full-large'}]">
+                        <notes-value input-list="[vm.model.AnteriorSegment]"></notes-value>
+                    </notes-input>
+                </div>
             </div>
-            <div flex="5" class="col-row-header text-right">R:</div>
-            <div flex="10" class="col-row-content">
-                <notes-input section-form="fusForm" input-list="[{model: vm.model.LVRR2, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.LVRR2]"></notes-value>
-                </notes-input>
+            <div layout="row" class="col-row">
+                <div flex="15" class="col-row-header"></div>
+                <div flex class="col-row-content">
+                    SLE: <input type="checkbox" />&nbsp;&nbsp;
+                    Pen-light: <input type="checkbox" />&nbsp;&nbsp;
+                </div>
             </div>
-            <div flex="10" class="col-row-content text-right">
-                <notes-input section-form="fusForm" input-list="[{model: vm.model.LVRL1, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.LVRL1]"></notes-value>
-                </notes-input>
+            <div layout="row" class="col-row">
+                <div flex="15" class="col-row-header">Lids/Lashes/Lacrimal:</div>
+                <div flex class="col-row-content">
+                    <notes-input section-form="antForm" input-list="[{model: vm.model.LidLashLacrimal1, type: 'dropdown'}, {model: vm.model.LidLashLacrimal2, type: 'dropdown'}, {model: vm.model.LidLashLacrimal3, type: 'dropdown'}, {model: vm.model.LidLashLacrimal4, type: 'dropdown'}, {model: vm.model.LidLashLacrimal5, type: 'text', cssClass:'medium'}]">
+                        <notes-value input-list="[vm.model.LidLashLacrimal1, vm.model.LidLashLacrimal2, vm.model.LidLashLacrimal3, vm.model.LidLashLacrimal4, vm.model.LidLashLacrimal5]"></notes-value>
+                    </notes-input>
+                </div>
             </div>
-            <div flex="5" class="col-row-header text-center">L</div>
-            <div flex class="col-row-content">
-                <notes-input section-form="fusForm" input-list="[{model: vm.model.LVRL2, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.LVRL2]"></notes-value>
-                </notes-input>
+            <div layout="row" class="col-row">
+                <div flex="15" class="col-row-header">Exophthalmometry:</div>
+                <div flex="10" class="col-row-content">
+                    <notes-input section-form="antForm" input-list="[{model: vm.model.Exophthalmometry, type: 'dropdown'}]">
+                        <notes-value input-list="[vm.model.Exophthalmometry]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="5" class="col-row-header text-right">OD:</div>
+                <div flex="10" class="col-row-content">
+                    <notes-input section-form="antForm" input-list="[{model: vm.model.ExophthalmometryOD, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.ExophthalmometryOD]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="5" class="col-row-header text-right">OS:</div>
+                <div flex class="col-row-content">
+                    <notes-input section-form="antForm" input-list="[{model: vm.model.ExophthalmometryOS, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.ExophthalmometryOS]"></notes-value>
+                    </notes-input>
+                </div>
             </div>
-        </div>
-    </form>
-    <form editable-form name="binoForm" notes-section-form>
-        <notes-section-title section-form="binoForm">Binocularity</notes-section-title>
-        <div layout="row" class="col-row">
-            <div flex="10" class="col-row-header">Tested with:</div>
-            <div flex="90" class="col-row-content">
-                <notes-input section-form="binoForm" input-list="[{model: vm.model.Binocularity1, type: 'dropdown'}, {model: vm.model.Binocularity2, type: 'dropdown'}, {model: vm.model.Binocularity3, type: 'text', cssClass:'large'}, {model: vm.model.Binocularity4, type: 'text', cssClass:'large'}]">
-                    <notes-value input-list="[vm.model.Binocularity1, vm.model.Binocularity2, vm.model.Binocularity3, vm.model.Binocularity4]"></notes-value>
-                </notes-input>
+            <div layout="row" class="col-row">
+                <div flex="15" class="col-row-header text-right">OD PF:</div>
+                <div flex="10" class="col-row-content">
+                    <notes-input section-form="antForm" input-list="[{model: vm.model.ODPF, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.ODPF]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="5" class="col-row-header text-right">MRD1:</div>
+                <div flex="10" class="col-row-content">
+                    <notes-input section-form="antForm" input-list="[{model: vm.model.ODMRD1, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.ODMRD1]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="5" class="col-row-header text-right">MRD2:</div>
+                <div flex="10" class="col-row-content">
+                    <notes-input section-form="antForm" input-list="[{model: vm.model.ODMRD2, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.ODMRD2]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="10" class="col-row-header text-right">Levator Fxn:</div>
+                <div flex class="col-row-content">
+                    <notes-input section-form="antForm" input-list="[{model: vm.model.ODLevatorFxn1, type: 'dropdown'}, {model: vm.model.ODLevatorFxn2, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.ODLevatorFxn1, vm.model.ODLevatorFxn2]"></notes-value>
+                    </notes-input>
+                </div>
             </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="10" class="col-row-header">W4D Near:</div>
-            <div flex="30" class="col-row-content">
-                <notes-input section-form="binoForm" input-list="[{model: vm.model.W4DNear1, type: 'dropdown'}, {model: vm.model.W4DNear2, type: 'text', cssClass:'medium'}]">
-                    <notes-value input-list="[vm.model.W4DNear1, vm.model.W4DNear2]"></notes-value>
-                </notes-input>
+            <div layout="row" class="col-row">
+                <div flex="15" class="col-row-header text-right">OS PF:</div>
+                <div flex="10" class="col-row-content">
+                    <notes-input section-form="antForm" input-list="[{model: vm.model.OSPF, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.OSPF]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="5" class="col-row-header text-right">MRD1:</div>
+                <div flex="10" class="col-row-content">
+                    <notes-input section-form="antForm" input-list="[{model: vm.model.OSMRD1, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.OSMRD1]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="5" class="col-row-header text-right">MRD2:</div>
+                <div flex="10" class="col-row-content">
+                    <notes-input section-form="antForm" input-list="[{model: vm.model.OSMRD2, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.OSMRD2]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="10" class="col-row-header text-right">Levator Fxn:</div>
+                <div flex class="col-row-content">
+                    <notes-input section-form="antForm" input-list="[{model: vm.model.OSLevatorFxn1, type: 'dropdown'}, {model: vm.model.OSLevatorFxn2, type: 'text', cssClass:'small'}]">
+                        <notes-value input-list="[vm.model.OSLevatorFxn1, vm.model.OSLevatorFxn2]"></notes-value>
+                    </notes-input>
+                </div>
             </div>
-            <div flex="30" class="col-row-header text-right">W4D Distance:</div>
-            <div flex="30" class="col-row-content">
-                <notes-input section-form="binoForm" input-list="[{model: vm.model.W4DDistance1, type: 'dropdown'}, {model: vm.model.W4DDistance2, type: 'text', cssClass:'medium'}]">
-                    <notes-value input-list="[vm.model.W4DDistance1, vm.model.W4DDistance2]"></notes-value>
-                </notes-input>
+        </form>
+        <form editable-form name="antSegForm" notes-section-form>
+            <notes-section-title section-form="antSegForm"></notes-section-title>
+            <div layout="row" class="col-row">
+                <div flex="10" class="col-row-header">Conj/Sclera:</div>
+                <div flex="90" class="col-row-content">
+                    <notes-input section-form="antSegForm" input-list="[{model: vm.model.ConjSclera1, type: 'dropdown', cssClass: 'large'}, {model: vm.model.ConjSclera2, type: 'dropdown', cssClass: 'small'}, {model: vm.model.ConjSclera3, type: 'dropdown', cssClass: 'large'}, {model: vm.model.ConjSclera4, type: 'dropdown', cssClass: 'small'}, {model: vm.model.ConjSclera5, type: 'text', cssClass:'large'}]">
+                        <notes-value input-list="[vm.model.ConjSclera1, vm.model.ConjSclera2, vm.model.ConjSclera3, vm.model.ConjSclera4, vm.model.ConjSclera5]"></notes-value>
+                    </notes-input>
+                </div>
             </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="10" class="col-row-header">Stereo(Titmus):</div>
-            <div flex="30" class="col-row-content">
-                <notes-input section-form="binoForm" input-list="[{model: vm.model.Stereo1, type: 'dropdown'}, {model: vm.model.Stereo2, type: 'text', cssClass:'medium'}]">
-                    <notes-value input-list="[vm.model.Stereo1, vm.model.Stereo2]"></notes-value>
-                </notes-input>
+            <div layout="row" class="col-row">
+                <div flex="10" class="col-row-header">Cornea:</div>
+                <div flex="90" class="col-row-content">
+                    <notes-input section-form="antSegForm" input-list="[{model: vm.model.Cornea1, type: 'dropdown', cssClass: 'large'}, {model: vm.model.Cornea2, type: 'dropdown', cssClass: 'small'}, {model: vm.model.Cornea3, type: 'dropdown', cssClass: 'large'}, {model: vm.model.Cornea4, type: 'dropdown', cssClass: 'small'}, {model: vm.model.Cornea5, type: 'text', cssClass:'large'}]">
+                        <notes-value input-list="[vm.model.Cornea1, vm.model.Cornea2, vm.model.Cornea3, vm.model.Cornea4, vm.model.Cornea5]"></notes-value>
+                    </notes-input>
+                </div>
             </div>
-            <div flex="30" class="col-row-header text-right">+ 4 diopter base out:</div>
-            <div flex="30" class="col-row-content">
-                <notes-input section-form="binoForm" input-list="[{model: vm.model.DiopterBaseOut, type: 'dropdown'}]">
-                    <notes-value input-list="[vm.model.DiopterBaseOut]"></notes-value>
-                </notes-input>
+            <div layout="row" class="col-row">
+                <div flex="10" class="col-row-header">Ant Chamber:</div>
+                <div flex="90" class="col-row-content">
+                    <notes-input section-form="antSegForm" input-list="[{model: vm.model.AntChamber1, type: 'dropdown', cssClass: 'large'}, {model: vm.model.AntChamber2, type: 'dropdown', cssClass: 'small'}, {model: vm.model.AntChamber3, type: 'dropdown', cssClass: 'large'}, {model: vm.model.AntChamber4, type: 'dropdown', cssClass: 'small'}, {model: vm.model.AntChamber5, type: 'text', cssClass:'large'}]">
+                        <notes-value input-list="[vm.model.AntChamber1, vm.model.AntChamber2, vm.model.AntChamber3, vm.model.AntChamber4, vm.model.AntChamber5]"></notes-value>
+                    </notes-input>
+                </div>
             </div>
-        </div>
-    </form>
-    <form editable-form name="antForm" notes-section-form>
-        <notes-section-title section-form="antForm">Ant Segment</notes-section-title>
-        <div layout="row" class="col-row">
-            <div flex="15" class="col-row-header">Ant Segment Exam:</div>
-            <div flex class="col-row-content">
-                <notes-input section-form="antForm" input-list="[{model: vm.model.AnteriorSegment, type: 'textarea', cssClass:'full-large'}]">
-                    <notes-value input-list="[vm.model.AnteriorSegment]"></notes-value>
-                </notes-input>
+            <div layout="row" class="col-row">
+                <div flex="10" class="col-row-header">Iris:</div>
+                <div flex="90" class="col-row-content">
+                    <notes-input section-form="antSegForm" input-list="[{model: vm.model.Iris1, type: 'dropdown', cssClass: 'large'}, {model: vm.model.Iris2, type: 'dropdown', cssClass: 'small'}, {model: vm.model.Iris3, type: 'dropdown', cssClass: 'large'}, {model: vm.model.Iris4, type: 'dropdown', cssClass: 'small'}, {model: vm.model.Iris5, type: 'text', cssClass:'large'}]">
+                        <notes-value input-list="[vm.model.Iris1, vm.model.Iris2, vm.model.Iris3, vm.model.Iris4, vm.model.Iris5]"></notes-value>
+                    </notes-input>
+                </div>
             </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="15" class="col-row-header"></div>
-            <div flex class="col-row-content">
-                SLE: <input type="checkbox" />&nbsp;&nbsp;
-                Pen-light: <input type="checkbox" />&nbsp;&nbsp;
+            <div layout="row" class="col-row">
+                <div flex="10" class="col-row-header">Lens:</div>
+                <div flex="90" class="col-row-content">
+                    <notes-input section-form="antSegForm" input-list="[{model: vm.model.Lens1, type: 'dropdown', cssClass: 'large'}, {model: vm.model.Lens2, type: 'dropdown', cssClass: 'small'}, {model: vm.model.Lens3, type: 'dropdown', cssClass: 'large'}, {model: vm.model.Lens4, type: 'dropdown', cssClass: 'small'}, {model: vm.model.Lens5, type: 'text', cssClass:'large'}]">
+                        <notes-value input-list="[vm.model.Lens1, vm.model.Lens2, vm.model.Lens3, vm.model.Lens4, vm.model.Lens5]"></notes-value>
+                    </notes-input>
+                </div>
             </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="15" class="col-row-header">Lids/Lashes/Lacrimal:</div>
-            <div flex class="col-row-content">
-                <notes-input section-form="antForm" input-list="[{model: vm.model.LidLashLacrimal1, type: 'dropdown'}, {model: vm.model.LidLashLacrimal2, type: 'dropdown'}, {model: vm.model.LidLashLacrimal3, type: 'dropdown'}, {model: vm.model.LidLashLacrimal4, type: 'dropdown'}, {model: vm.model.LidLashLacrimal5, type: 'text', cssClass:'medium'}]">
-                    <notes-value input-list="[vm.model.LidLashLacrimal1, vm.model.LidLashLacrimal2, vm.model.LidLashLacrimal3, vm.model.LidLashLacrimal4, vm.model.LidLashLacrimal5]"></notes-value>
-                </notes-input>
+            <div layout="row" class="col-row">
+                <div flex="10" class="col-row-header">Tono:</div>
+                <div flex="25" class="col-row-content">
+                    <notes-input section-form="antSegForm" input-list="[{model: vm.model.Tono1, type: 'dropdown', cssClass: 'large'}, {model: vm.model.Tono2, type: 'dropdown', cssClass: 'small'}]">
+                        <notes-value input-list="[vm.model.Tono1, vm.model.Tono2]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="5" class="col-row-header text-right">OD:</div>
+                <div flex="10" class="col-row-content">
+                    <notes-input section-form="antSegForm" input-list="[{model: vm.model.Tono3, type: 'text', cssClass: 'small'}]">
+                        <notes-value input-list="[vm.model.Tono3]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="5" class="col-row-header text-right">OS:</div>
+                <div flex class="col-row-content">
+                    <notes-input section-form="antSegForm" input-list="[{model: vm.model.Tono4, type: 'text', cssClass: 'small'}]">
+                        <notes-value input-list="[vm.model.Tono4]"></notes-value>
+                    </notes-input>
+                </div>
             </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="15" class="col-row-header">Exophthalmometry:</div>
-            <div flex="10" class="col-row-content">
-                <notes-input section-form="antForm" input-list="[{model: vm.model.Exophthalmometry, type: 'dropdown'}]">
-                    <notes-value input-list="[vm.model.Exophthalmometry]"></notes-value>
-                </notes-input>
+        </form>
+        <form editable-form name="postSegmentForm" notes-section-form>
+            <notes-section-title section-form="postSegmentForm">Post Segment</notes-section-title>
+            <div layout="row" class="col-row">
+                <div flex="10" class="col-row-header">Dilated:</div>
+                <div flex="90" class="col-row-content">
+                    <notes-input section-form="postSegmentForm" input-list="[{model: vm.model.Dilate3, type: 'dropdown'}]">
+                        <notes-value input-list="[vm.model.Dilate3]"></notes-value>
+                    </notes-input>
+                </div>
             </div>
-            <div flex="5" class="col-row-header text-right">OD:</div>
-            <div flex="10" class="col-row-content">
-                <notes-input section-form="antForm" input-list="[{model: vm.model.ExophthalmometryOD, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.ExophthalmometryOD]"></notes-value>
-                </notes-input>
+            <div layout="row" class="col-row">
+                <div flex="25" class="col-row-header">
+                    <div class="float-left">Fundus Exam:</div>
+                    <div class="float-right">Optic nerve heads are</div>
+                </div>
+                <div flex class="col-row-content">
+                    <notes-input section-form="postSegmentForm" input-list="[{model: vm.model.Fundus1, type: 'text', cssClass: 'xxlarge'}]">
+                        <notes-value input-list="[vm.model.Fundus1]"></notes-value>
+                    </notes-input>
+                </div>
             </div>
-            <div flex="5" class="col-row-header text-right">OS:</div>
-            <div flex class="col-row-content">
-                <notes-input section-form="antForm" input-list="[{model: vm.model.ExophthalmometryOS, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.ExophthalmometryOS]"></notes-value>
-                </notes-input>
+            <div layout="row" class="col-row">
+                <div flex="25" class="col-row-header text-right">with</div>
+                <div flex class="col-row-content">
+                    <notes-input section-form="postSegmentForm" input-list="[{model: vm.model.Fundus2, type: 'text', cssClass: 'xxlarge'}]">
+                        <notes-value input-list="[vm.model.Fundus2]"></notes-value>
+                    </notes-input>
+                </div>
             </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="15" class="col-row-header text-right">OD PF:</div>
-            <div flex="10" class="col-row-content">
-                <notes-input section-form="antForm" input-list="[{model: vm.model.ODPF, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.ODPF]"></notes-value>
-                </notes-input>
+            <div layout="row" class="col-row">
+                <div flex="10" class="col-row-header text-nowrap">Retina & Mac OU:</div>
+                <div flex="90" class="col-row-content">
+                    <notes-input section-form="postSegmentForm" input-list="[{model: vm.model.RetinaOU, type: 'textarea', cssClass: 'full-large'}]">
+                        <notes-value input-list="[vm.model.RetinaOU]"></notes-value>
+                    </notes-input>
+                </div>
             </div>
-            <div flex="5" class="col-row-header text-right">MRD1:</div>
-            <div flex="10" class="col-row-content">
-                <notes-input section-form="antForm" input-list="[{model: vm.model.ODMRD1, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.ODMRD1]"></notes-value>
-                </notes-input>
+            <div layout="row" class="col-row">
+                <div flex="10" class="col-row-header">Ret Vessels OD:</div>
+                <div flex="40" class="col-row-content">
+                    <notes-input section-form="postSegmentForm" input-list="[{model: vm.model.RetOD, type: 'textarea', cssClass:'xxlarge'}]">
+                        <notes-value input-list="[vm.model.RetOD]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="10" class="col-row-header">Ret Vessels OS:</div>
+                <div flex="40" class="col-row-content">
+                    <notes-input section-form="postSegmentForm" input-list="[{model: vm.model.RetOS, type: 'textarea', cssClass:'xxlarge'}]">
+                        <notes-value input-list="[vm.model.RetOS]"></notes-value>
+                    </notes-input>
+                </div>
             </div>
-            <div flex="5" class="col-row-header text-right">MRD2:</div>
-            <div flex="10" class="col-row-content">
-                <notes-input section-form="antForm" input-list="[{model: vm.model.ODMRD2, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.ODMRD2]"></notes-value>
-                </notes-input>
+            <div layout="row" class="col-row">
+                <div flex="10" class="col-row-header">Macula OD:</div>
+                <div flex="40" class="col-row-content">
+                    <notes-input section-form="postSegmentForm" input-list="[{model: vm.model.MaculaOD, type: 'textarea', cssClass:'xxlarge'}]">
+                        <notes-value input-list="[vm.model.MaculaOD]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="10" class="col-row-header">Macula OS:</div>
+                <div flex="40" class="col-row-content">
+                    <notes-input section-form="postSegmentForm" input-list="[{model: vm.model.MaculaOS, type: 'textarea', cssClass:'xxlarge'}]">
+                        <notes-value input-list="[vm.model.MaculaOS]"></notes-value>
+                    </notes-input>
+                </div>
             </div>
-            <div flex="10" class="col-row-header text-right">Levator Fxn:</div>
-            <div flex class="col-row-content">
-                <notes-input section-form="antForm" input-list="[{model: vm.model.ODLevatorFxn1, type: 'dropdown'}, {model: vm.model.ODLevatorFxn2, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.ODLevatorFxn1, vm.model.ODLevatorFxn2]"></notes-value>
-                </notes-input>
+        </form>
+        <form editable-form name="summaryForm" notes-section-form>
+            <notes-section-title section-form="summaryForm">Summary</notes-section-title>
+            <div layout="row" class="col-row">
+                <div flex="10" class="col-row-header">Summary:</div>
+                <div flex="90" class="col-row-content">
+                    <notes-input section-form="summaryForm" input-list="[{model: vm.model.Summary, type: 'textarea', cssClass: 'full-large'}]">
+                        <notes-value input-list="[vm.model.Summary]"></notes-value>
+                    </notes-input>
+                </div>
             </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="15" class="col-row-header text-right">OS PF:</div>
-            <div flex="10" class="col-row-content">
-                <notes-input section-form="antForm" input-list="[{model: vm.model.OSPF, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.OSPF]"></notes-value>
-                </notes-input>
+            <div layout="row" class="col-row">
+                <div flex="10" class="col-row-header">Discussed:</div>
+                <div flex="90" class="col-row-content">
+                    <notes-input section-form="summaryForm" input-list="[{model: vm.model.Discussed, type: 'text', cssClass: 'full-large'}]">
+                        <notes-value input-list="[vm.model.Discussed]"></notes-value>
+                    </notes-input>
+                </div>
             </div>
-            <div flex="5" class="col-row-header text-right">MRD1:</div>
-            <div flex="10" class="col-row-content">
-                <notes-input section-form="antForm" input-list="[{model: vm.model.OSMRD1, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.OSMRD1]"></notes-value>
-                </notes-input>
+            <div layout="row" class="col-row">
+                <div flex="10" class="col-row-header">Advised:</div>
+                <div flex="90" class="col-row-content">
+                    <notes-input section-form="summaryForm" input-list="[{model: vm.model.Advised, type: 'textarea', cssClass: 'full-large'}]">
+                        <notes-value input-list="[vm.model.Advised]"></notes-value>
+                    </notes-input>
+                </div>
             </div>
-            <div flex="5" class="col-row-header text-right">MRD2:</div>
-            <div flex="10" class="col-row-content">
-                <notes-input section-form="antForm" input-list="[{model: vm.model.OSMRD2, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.OSMRD2]"></notes-value>
-                </notes-input>
+            <div layout="row" class="col-row">
+                <div flex="10" class="col-row-header">Follow-up:</div>
+                <div flex="90" class="col-row-content">
+                    <notes-input section-form="antSegForm" input-list="[{model: vm.model.FollowUp1, type: 'dropdown'}, {model: vm.model.FollowUp2, type: 'dropdown'}, {model: vm.model.FollowUp3, type: 'dropdown'}, {model: vm.model.FollowUp4, type: 'text', cssClass:'medium'}]">
+                        <notes-value input-list="[vm.model.FollowUp1, vm.model.FollowUp2, vm.model.FollowUp3, vm.model.FollowUp4]"></notes-value>
+                    </notes-input>
+                </div>
             </div>
-            <div flex="10" class="col-row-header text-right">Levator Fxn:</div>
-            <div flex class="col-row-content">
-                <notes-input section-form="antForm" input-list="[{model: vm.model.OSLevatorFxn1, type: 'dropdown'}, {model: vm.model.OSLevatorFxn2, type: 'text', cssClass:'small'}]">
-                    <notes-value input-list="[vm.model.OSLevatorFxn1, vm.model.OSLevatorFxn2]"></notes-value>
-                </notes-input>
+            <div layout="row" class="col-row">
+                <div flex="10" class="col-row-header">Letter to:</div>
+                <div flex="60" class="col-row-content">
+                    <notes-input section-form="summaryForm" input-list="[{model: vm.model.CopyTo, type: 'text', cssClass: 'xxlarge'}]">
+                        <notes-value input-list="[vm.model.CopyTo]"></notes-value>
+                    </notes-input>
+                </div>
+                <div flex="10" class="col-row-header text-right">Print Queue:</div>
+                <div flex class="col-row-content">
+                    <input type="checkbox" />
+                </div>
             </div>
-        </div>
-    </form>
-    <form editable-form name="antSegForm" notes-section-form>
-        <notes-section-title section-form="antSegForm"></notes-section-title>
-        <div layout="row" class="col-row">
-            <div flex="10" class="col-row-header">Conj/Sclera:</div>
-            <div flex="90" class="col-row-content">
-                <notes-input section-form="antSegForm" input-list="[{model: vm.model.ConjSclera1, type: 'dropdown', cssClass: 'large'}, {model: vm.model.ConjSclera2, type: 'dropdown', cssClass: 'small'}, {model: vm.model.ConjSclera3, type: 'dropdown', cssClass: 'large'}, {model: vm.model.ConjSclera4, type: 'dropdown', cssClass: 'small'}, {model: vm.model.ConjSclera5, type: 'text', cssClass:'large'}]">
-                    <notes-value input-list="[vm.model.ConjSclera1, vm.model.ConjSclera2, vm.model.ConjSclera3, vm.model.ConjSclera4, vm.model.ConjSclera5]"></notes-value>
-                </notes-input>
+            <div layout="row" class="col-row">
+                <div flex="10" class="col-row-header">Exam Note to:</div>
+                <div flex class="col-row-content">
+                    <notes-input section-form="summaryForm" input-list="[{model: vm.model.ExamNoteTo, type: 'text', cssClass: 'xxlarge'}]">
+                        <notes-value input-list="[vm.model.ExamNoteTo]"></notes-value>
+                    </notes-input>
+                </div>
             </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="10" class="col-row-header">Cornea:</div>
-            <div flex="90" class="col-row-content">
-                <notes-input section-form="antSegForm" input-list="[{model: vm.model.Cornea1, type: 'dropdown', cssClass: 'large'}, {model: vm.model.Cornea2, type: 'dropdown', cssClass: 'small'}, {model: vm.model.Cornea3, type: 'dropdown', cssClass: 'large'}, {model: vm.model.Cornea4, type: 'dropdown', cssClass: 'small'}, {model: vm.model.Cornea5, type: 'text', cssClass:'large'}]">
-                    <notes-value input-list="[vm.model.Cornea1, vm.model.Cornea2, vm.model.Cornea3, vm.model.Cornea4, vm.model.Cornea5]"></notes-value>
-                </notes-input>
+            <div layout="row" class="col-row">
+                <div flex="10" class="col-row-header">Notes:</div>
+                <div flex="90" class="col-row-content">
+                    <notes-input section-form="summaryForm" input-list="[{model: vm.model.Notes, type: 'textarea', cssClass: 'full-large'}]">
+                        <notes-value input-list="[vm.model.Notes]"></notes-value>
+                    </notes-input>
+                </div>
             </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="10" class="col-row-header">Ant Chamber:</div>
-            <div flex="90" class="col-row-content">
-                <notes-input section-form="antSegForm" input-list="[{model: vm.model.AntChamber1, type: 'dropdown', cssClass: 'large'}, {model: vm.model.AntChamber2, type: 'dropdown', cssClass: 'small'}, {model: vm.model.AntChamber3, type: 'dropdown', cssClass: 'large'}, {model: vm.model.AntChamber4, type: 'dropdown', cssClass: 'small'}, {model: vm.model.AntChamber5, type: 'text', cssClass:'large'}]">
-                    <notes-value input-list="[vm.model.AntChamber1, vm.model.AntChamber2, vm.model.AntChamber3, vm.model.AntChamber4, vm.model.AntChamber5]"></notes-value>
-                </notes-input>
-            </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="10" class="col-row-header">Iris:</div>
-            <div flex="90" class="col-row-content">
-                <notes-input section-form="antSegForm" input-list="[{model: vm.model.Iris1, type: 'dropdown', cssClass: 'large'}, {model: vm.model.Iris2, type: 'dropdown', cssClass: 'small'}, {model: vm.model.Iris3, type: 'dropdown', cssClass: 'large'}, {model: vm.model.Iris4, type: 'dropdown', cssClass: 'small'}, {model: vm.model.Iris5, type: 'text', cssClass:'large'}]">
-                    <notes-value input-list="[vm.model.Iris1, vm.model.Iris2, vm.model.Iris3, vm.model.Iris4, vm.model.Iris5]"></notes-value>
-                </notes-input>
-            </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="10" class="col-row-header">Lens:</div>
-            <div flex="90" class="col-row-content">
-                <notes-input section-form="antSegForm" input-list="[{model: vm.model.Lens1, type: 'dropdown', cssClass: 'large'}, {model: vm.model.Lens2, type: 'dropdown', cssClass: 'small'}, {model: vm.model.Lens3, type: 'dropdown', cssClass: 'large'}, {model: vm.model.Lens4, type: 'dropdown', cssClass: 'small'}, {model: vm.model.Lens5, type: 'text', cssClass:'large'}]">
-                    <notes-value input-list="[vm.model.Lens1, vm.model.Lens2, vm.model.Lens3, vm.model.Lens4, vm.model.Lens5]"></notes-value>
-                </notes-input>
-            </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="10" class="col-row-header">Tono:</div>
-            <div flex="25" class="col-row-content">
-                <notes-input section-form="antSegForm" input-list="[{model: vm.model.Tono1, type: 'dropdown', cssClass: 'large'}, {model: vm.model.Tono2, type: 'dropdown', cssClass: 'small'}]">
-                    <notes-value input-list="[vm.model.Tono1, vm.model.Tono2]"></notes-value>
-                </notes-input>
-            </div>
-            <div flex="5" class="col-row-header text-right">OD:</div>
-            <div flex="10" class="col-row-content">
-                <notes-input section-form="antSegForm" input-list="[{model: vm.model.Tono3, type: 'text', cssClass: 'small'}]">
-                    <notes-value input-list="[vm.model.Tono3]"></notes-value>
-                </notes-input>
-            </div>
-            <div flex="5" class="col-row-header text-right">OS:</div>
-            <div flex class="col-row-content">
-                <notes-input section-form="antSegForm" input-list="[{model: vm.model.Tono4, type: 'text', cssClass: 'small'}]">
-                    <notes-value input-list="[vm.model.Tono4]"></notes-value>
-                </notes-input>
-            </div>
-        </div>
-    </form>
-    <form editable-form name="postSegmentForm" notes-section-form>
-        <notes-section-title section-form="postSegmentForm">Post Segment</notes-section-title>
-        <div layout="row" class="col-row">
-            <div flex="10" class="col-row-header">Dilated:</div>
-            <div flex="90" class="col-row-content">
-                <notes-input section-form="postSegmentForm" input-list="[{model: vm.model.Dilate3, type: 'dropdown'}]">
-                    <notes-value input-list="[vm.model.Dilate3]"></notes-value>
-                </notes-input>
-            </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="25" class="col-row-header">
-                <div class="float-left">Fundus Exam:</div>
-                <div class="float-right">Optic nerve heads are</div>
-            </div>
-            <div flex class="col-row-content">
-                <notes-input section-form="postSegmentForm" input-list="[{model: vm.model.Fundus1, type: 'text', cssClass: 'xxlarge'}]">
-                    <notes-value input-list="[vm.model.Fundus1]"></notes-value>
-                </notes-input>
-            </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="25" class="col-row-header text-right">with</div>
-            <div flex class="col-row-content">
-                <notes-input section-form="postSegmentForm" input-list="[{model: vm.model.Fundus2, type: 'text', cssClass: 'xxlarge'}]">
-                    <notes-value input-list="[vm.model.Fundus2]"></notes-value>
-                </notes-input>
-            </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="10" class="col-row-header text-nowrap">Retina & Mac OU:</div>
-            <div flex="90" class="col-row-content">
-                <notes-input section-form="postSegmentForm" input-list="[{model: vm.model.RetinaOU, type: 'textarea', cssClass: 'full-large'}]">
-                    <notes-value input-list="[vm.model.RetinaOU]"></notes-value>
-                </notes-input>
-            </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="10" class="col-row-header">Ret Vessels OD:</div>
-            <div flex="40" class="col-row-content">
-                <notes-input section-form="postSegmentForm" input-list="[{model: vm.model.RetOD, type: 'textarea', cssClass:'xxlarge'}]">
-                    <notes-value input-list="[vm.model.RetOD]"></notes-value>
-                </notes-input>
-            </div>
-            <div flex="10" class="col-row-header">Ret Vessels OS:</div>
-            <div flex="40" class="col-row-content">
-                <notes-input section-form="postSegmentForm" input-list="[{model: vm.model.RetOS, type: 'textarea', cssClass:'xxlarge'}]">
-                    <notes-value input-list="[vm.model.RetOS]"></notes-value>
-                </notes-input>
-            </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="10" class="col-row-header">Macula OD:</div>
-            <div flex="40" class="col-row-content">
-                <notes-input section-form="postSegmentForm" input-list="[{model: vm.model.MaculaOD, type: 'textarea', cssClass:'xxlarge'}]">
-                    <notes-value input-list="[vm.model.MaculaOD]"></notes-value>
-                </notes-input>
-            </div>
-            <div flex="10" class="col-row-header">Macula OS:</div>
-            <div flex="40" class="col-row-content">
-                <notes-input section-form="postSegmentForm" input-list="[{model: vm.model.MaculaOS, type: 'textarea', cssClass:'xxlarge'}]">
-                    <notes-value input-list="[vm.model.MaculaOS]"></notes-value>
-                </notes-input>
-            </div>
-        </div>
-    </form>
-    <form editable-form name="summaryForm" notes-section-form>
-        <notes-section-title section-form="summaryForm">Summary</notes-section-title>
-        <div layout="row" class="col-row">
-            <div flex="10" class="col-row-header">Summary:</div>
-            <div flex="90" class="col-row-content">
-                <notes-input section-form="summaryForm" input-list="[{model: vm.model.Summary, type: 'textarea', cssClass: 'full-large'}]">
-                    <notes-value input-list="[vm.model.Summary]"></notes-value>
-                </notes-input>
-            </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="10" class="col-row-header">Discussed:</div>
-            <div flex="90" class="col-row-content">
-                <notes-input section-form="summaryForm" input-list="[{model: vm.model.Discussed, type: 'text', cssClass: 'full-large'}]">
-                    <notes-value input-list="[vm.model.Discussed]"></notes-value>
-                </notes-input>
-            </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="10" class="col-row-header">Advised:</div>
-            <div flex="90" class="col-row-content">
-                <notes-input section-form="summaryForm" input-list="[{model: vm.model.Advised, type: 'textarea', cssClass: 'full-large'}]">
-                    <notes-value input-list="[vm.model.Advised]"></notes-value>
-                </notes-input>
-            </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="10" class="col-row-header">Follow-up:</div>
-            <div flex="90" class="col-row-content">
-                <notes-input section-form="antSegForm" input-list="[{model: vm.model.FollowUp1, type: 'dropdown'}, {model: vm.model.FollowUp2, type: 'dropdown'}, {model: vm.model.FollowUp3, type: 'dropdown'}, {model: vm.model.FollowUp4, type: 'text', cssClass:'medium'}]">
-                    <notes-value input-list="[vm.model.FollowUp1, vm.model.FollowUp2, vm.model.FollowUp3, vm.model.FollowUp4]"></notes-value>
-                </notes-input>
-            </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="10" class="col-row-header">Letter to:</div>
-            <div flex="60" class="col-row-content">
-                <notes-input section-form="summaryForm" input-list="[{model: vm.model.CopyTo, type: 'text', cssClass: 'xxlarge'}]">
-                    <notes-value input-list="[vm.model.CopyTo]"></notes-value>
-                </notes-input>
-            </div>
-            <div flex="10" class="col-row-header text-right">Print Queue:</div>
-            <div flex class="col-row-content">
-                <input type="checkbox" />
-            </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="10" class="col-row-header">Exam Note to:</div>
-            <div flex class="col-row-content">
-                <notes-input section-form="summaryForm" input-list="[{model: vm.model.ExamNoteTo, type: 'text', cssClass: 'xxlarge'}]">
-                    <notes-value input-list="[vm.model.ExamNoteTo]"></notes-value>
-                </notes-input>
-            </div>
-        </div>
-        <div layout="row" class="col-row">
-            <div flex="10" class="col-row-header">Notes:</div>
-            <div flex="90" class="col-row-content">
-                <notes-input section-form="summaryForm" input-list="[{model: vm.model.Notes, type: 'textarea', cssClass: 'full-large'}]">
-                    <notes-value input-list="[vm.model.Notes]"></notes-value>
-                </notes-input>
-            </div>
-        </div>
-    </form>
+        </form>
 
-    <br />
-    <p></p>
+        <br />
+        <p></p>
 
 </div>

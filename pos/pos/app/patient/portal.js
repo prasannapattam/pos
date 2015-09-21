@@ -1,7 +1,7 @@
 ﻿'use strict';
 angular.module('pos').controller('portal', portal);
-portal.$inject = ['$scope', '$filter', 'patientService', 'session', 'utility', 'uiGridConstants'];
-function portal($scope, $filter, patientService, session, utility, uiGridConstants) {
+portal.$inject = ['$scope', '$filter', 'patientService', 'session', 'utility', 'uiGridConstants', '$state'];
+function portal($scope, $filter, patientService, session, utility, uiGridConstants, $state) {
 
     var encounterGridOptions = {
         enableColumnMenus: false,
@@ -9,7 +9,7 @@ function portal($scope, $filter, patientService, session, utility, uiGridConstan
         enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
         enableVerticalScrollbar: uiGridConstants.scrollbars.WHEN_NEEDED,
         columnDefs: [
-                { name: 'ExamDate', field: 'ExamDate', displayName: 'Encounter History', cellTemplate: encounterCellTemplate(), width: '100%' },
+                { name: 'ExamDate', field: 'ExamDate', displayName: 'Encounter History', headerCellTemplate:  encounterHeaderTemplate(),  cellTemplate: encounterCellTemplate(), width: '100%' },
         ]
     };
 
@@ -21,7 +21,8 @@ function portal($scope, $filter, patientService, session, utility, uiGridConstan
         validatePatientName: validatePatientName,
         validatePatientNumberAndSave: validatePatientNumberAndSave,
         patientPhotoUrl: patientPhotoUrl,
-        boolSelectList: session.lookups.BOOL
+        boolSelectList: session.lookups.BOOL,
+        navigateNotes: navigateNotes
     };
 
     init();
@@ -85,8 +86,18 @@ function portal($scope, $filter, patientService, session, utility, uiGridConstan
     }
 
     function encounterCellTemplate() {
-        return '<div layout="row"><span flex class="text-nowrap">{{getExternalScopes().getHistoryText(row)}}</span>' + patientService.encounterButtonTemplate() + "</div>";
+        return '<div layout="row"><span flex class="text-nowrap">{{getExternalScopes().getHistoryText(row)}}</span>' + patientService.encounterButtonTemplate() + '</div>';
+    }    
+    
+    function navigateNotes() {
+        $state.go('patient.notes', { patientid: vm.patientModel.PatientID, notesid: '' });
     }
 
+    function encounterHeaderTemplate() {
+        return '<div layout="row">'
+            + '<span flex class="text-nowrap">Encounter History</span>' 
+            + '<md-button type="button" class="md-raised" ng-click="getExternalScopes().navigateNotes();">New Notes</md-button></div>';
+    }
+    
 }
 

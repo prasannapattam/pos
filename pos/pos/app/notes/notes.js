@@ -1,9 +1,9 @@
 ﻿'use strict';
 
 angular.module('pos').controller('notes', notes);
-notes.$inject = ['$scope', 'notesService', 'session', 'formUtility', 'utility', 'moment', 'constants'];
+notes.$inject = ['$scope', 'notesService', 'session', 'formUtility', 'utility', 'moment', 'constants', '$window'];
 
-function notes($scope, notesService, session, formUtility, utility, moment, constants) {
+function notes($scope, notesService, session, formUtility, utility, moment, constants, $window) {
     var vm = {
         model: {},
         doctors: [],
@@ -11,9 +11,9 @@ function notes($scope, notesService, session, formUtility, utility, moment, cons
         saveNotes: saveNotes,
         cancelNotes: cancelNotes,
         aftersavenotes: aftersavenotes,
-        utility: utility
-        //signOffNotes: signOffNotes,
-        //correctNotes: correctNotes
+        utility: utility,
+        signOffNotes: signOffNotes,
+        correctNotes: correctNotes
     };
 
     init();
@@ -62,7 +62,7 @@ function notes($scope, notesService, session, formUtility, utility, moment, cons
         notesService.hidePatientMenu();
 
         //Set visibility of Controls
-        //setVisibility();
+        setVisibility();
     }
 
    
@@ -94,13 +94,14 @@ function notes($scope, notesService, session, formUtility, utility, moment, cons
 
         deleteComputedProperties();
         notesService.save(savetype, model);
+        $window.history.back()
     }
 
     function validateNotes() {
         var ret = CheckNoPref();
 
         if (ret) {
-            if ((vm.model.SLE.Value === true || vm.model.PenLight.Value === true) && vm.model.Dilate3.Value !== undefined)
+            if ((vm.model.SLE.Value.toLowerCase() === "true" || vm.model.PenLight.toLowerCase() === "true") && vm.model.Dilate3.Value !== undefined)
                 ret = true;
             else {
                 utility.showError('SLE/Pen-light options and dilated options are required');
@@ -230,11 +231,11 @@ function notes($scope, notesService, session, formUtility, utility, moment, cons
         vm.model.Discussed.Value = discussed;
     }
 
-    //function setVisibility() {
+    function setVisibility() {
 
-    //    vm.model.showSave = constants.notesType.Saved == vm.model.NotesType;
-    //    vm.model.showCorrect = constants.notesType.Correct == vm.model.NotesType;
-    //    vm.model.showSignOff = constants.notesType.Saved == vm.model.NotesType;
-    //}
+        vm.model.showSave = vm.model.NotesType == constants.notesType.Saved;
+        vm.model.showCorrect = vm.model.NotesType == constants.notesType.Correct;
+        vm.model.showSignOff = vm.model.NotesType == constants.notesType.Saved;
+    }
 }
 
