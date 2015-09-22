@@ -1,12 +1,10 @@
 ﻿<div data-spy="scroll" data-target=".navbar-example" data-offset="10">
-    <div class="ui-grid">
-        <div layout="row" class="ui-grid-header ui-grid-top-panel ui-grid-cell-contents">          
-            <md-button type="button" class="md-raised" ng-click="vm.saveNotes()" ng-show="vm.model.showSave">Save</md-button>
-            <md-button type="button" class="md-raised" ng-click="vm.correctNotes()" ng-show="vm.model.showCorrect">Correct</md-button>
-            <md-button type="button" class="md-raised" ng-click="vm.signOffNotes()" ng-show="vm.model.showSignOff">Sign off</md-button>
+        <div layout="row" layout-align="end" class="ui-grid-header ui-grid-top-panel ui-grid-cell-contents">          
+            <md-button type="button" class="md-raised" ng-click="vm.saveNotes()" ng-hide="vm.model.hideSave">Save</md-button>
+            <md-button type="button" class="md-raised" ng-click="vm.correctNotes()" ng-hide="vm.model.hideCorrect">Correct</md-button>
+            <md-button type="button" class="md-raised" ng-click="vm.signOffNotes()" ng-hide="vm.model.hideSignOff">Sign off</md-button>
             <md-button type="button" class="md-raised" ng-click="vm.cancelNotes($event,this)">Cancel</md-button>
         </div>
-    </div>
         <form editable-form name="patientForm" notes-section-form>
             <notes-section-title section-form="patientForm">Patient Info</notes-section-title>
             <div layout="row" class="col-row">
@@ -99,7 +97,6 @@
                 </div>
             </div>
         </form>
-    </section>
         <form editable-form name="compliantForm" id="compliantForm" notes-section-form>
             <notes-section-title section-form="compliantForm">Compliant</notes-section-title>
             <div layout="row" class="col-row">
@@ -126,8 +123,6 @@
                 </div>
             </div>
         </form>
-    </section>
-
         <form editable-form name="historyForm" notes-section-form>
             <notes-section-title section-form="historyForm">Past Ocular/Medical History</notes-section-title>
             <div layout="row" class="col-row">

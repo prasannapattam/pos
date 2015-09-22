@@ -1,7 +1,7 @@
 ﻿'use strict';
 angular.module('pos').controller('encounterHistory', encounterHistory);
-encounterHistory.$inject = ['$scope', '$filter', '$window', 'patientService', 'utility', 'uiGridConstants'];
-function encounterHistory($scope, $filter, $window, patientService, utility, uiGridConstants) {
+encounterHistory.$inject = ['$scope', '$filter', '$window', 'patientService', 'utility', 'uiGridConstants', '$state'];
+function encounterHistory($scope, $filter, $window, patientService, utility, uiGridConstants, $state) {
 
     var encounterGridOptions = {
         enableColumnMenus: false,
@@ -19,7 +19,8 @@ function encounterHistory($scope, $filter, $window, patientService, utility, uiG
         patientModel: {},
         encounterGridOptions: encounterGridOptions,
         getHistoryText: getHistoryText,
-        gridHeight: '0px'
+        gridHeight: '0px',
+        navigateNotes: navigateNotes
 };
 
     init();
@@ -60,7 +61,9 @@ function encounterHistory($scope, $filter, $window, patientService, utility, uiG
         vm.gridHeight = utility.getGridHeight('encounter-grid');
     }
 
-
+    function navigateNotes() {
+        $state.go('patient.notes', { patientid: vm.patientModel.PatientID, notesid: '' });
+    }
 
 }
 

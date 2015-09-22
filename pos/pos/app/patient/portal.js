@@ -9,7 +9,7 @@ function portal($scope, $filter, patientService, session, utility, uiGridConstan
         enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
         enableVerticalScrollbar: uiGridConstants.scrollbars.WHEN_NEEDED,
         columnDefs: [
-                { name: 'ExamDate', field: 'ExamDate', displayName: 'Encounter History', headerCellTemplate:  encounterHeaderTemplate(),  cellTemplate: encounterCellTemplate(), width: '100%' },
+                { name: 'ExamDate', field: 'ExamDate', headerCellTemplate:  encounterHeaderTemplate(),  cellTemplate: encounterCellTemplate(), width: '100%' },
         ]
     };
 
@@ -96,7 +96,8 @@ function portal($scope, $filter, patientService, session, utility, uiGridConstan
     function encounterHeaderTemplate() {
         return '<div layout="row">'
             + '<span flex class="text-nowrap">Encounter History</span>' 
-            + '<md-button type="button" class="md-raised" ng-click="getExternalScopes().navigateNotes();">New Notes</md-button></div>';
+            + '<md-button type="button" class="md-raised" ng-click="getExternalScopes().navigateNotes();">New Notes</md-button>'
+            + '</div>';
     }
     
 }

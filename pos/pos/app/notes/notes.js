@@ -68,7 +68,7 @@ function notes($scope, notesService, session, formUtility, utility, moment, cons
    
 
     function cancelNotes(evt, form) {
-        formUtility.cancelForm(evt, form);
+        formUtility.cancelFormGoBack(evt, form);
     }
 
     function saveNotes() {
@@ -94,7 +94,7 @@ function notes($scope, notesService, session, formUtility, utility, moment, cons
 
         deleteComputedProperties();
         notesService.save(savetype, model);
-        $window.history.back()
+        $window.history.back();
     }
 
     function validateNotes() {
@@ -233,9 +233,9 @@ function notes($scope, notesService, session, formUtility, utility, moment, cons
 
     function setVisibility() {
 
-        vm.model.showSave = vm.model.NotesType == constants.notesType.Saved;
-        vm.model.showCorrect = vm.model.NotesType == constants.notesType.Correct;
-        vm.model.showSignOff = vm.model.NotesType == constants.notesType.Saved;
+        vm.model.hideSave = vm.model.NotesType !== constants.notesType.New && model.NotesType() !== constants.notesType.Saved;
+        vm.model.hideCorrect = vm.model.NotesType !== constants.notesType.Correct;
+        vm.model.hideSignOff = vm.model.NotesType !== constants.notesType.New && model.NotesType() !== constants.notesType.Saved;
     }
 }
 
