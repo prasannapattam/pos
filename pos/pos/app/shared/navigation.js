@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('pos').factory('navigation', navigation)
-navigation.$inject = ['$state', 'utility', 'constants'];
+navigation.$inject = ['$state', 'utility', 'constants','$mdDialog'];
 
-function navigation($state, utility, constants) {
+function navigation($state, utility, constants, $mdDialog) {
 
     var tab = function (tabs, title, icon, stateName, params, parentStateName) {
         var self = this;
@@ -36,7 +36,8 @@ function navigation($state, utility, constants) {
         addTab: addTab,
         gotoPatient: gotoPatient,
         addOrActivateTab: addOrActivateTab,
-        setLeftMenu: setLeftMenu
+        setLeftMenu: setLeftMenu,
+        newPatient: newPatient
     };
 
     init();
@@ -120,6 +121,15 @@ function navigation($state, utility, constants) {
             $(menuItem).siblings().removeClass("k-state-highlight");
             $(menuItem).addClass("k-state-highlight");
         }
+    }
+
+    function newPatient() {
+        
+        $mdDialog.show({
+            controller: demographics,
+            controllerAs: "vm",
+            templateUrl: utility.virtualDirectory + '/app/patient/demographics.html'
+        })
     }
 }
 

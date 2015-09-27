@@ -18,7 +18,8 @@ function dashboard($window, $scope, dashboardService, navigation, uiGridConstant
     var vm = {
         gridOptions: gridOptions,
         navigateToPatient: navigateToPatient,
-        gridHeight: '0px'
+        gridHeight: '0px',
+        newPatient: newPatient
     };
 
     init();
@@ -43,5 +44,9 @@ function dashboard($window, $scope, dashboardService, navigation, uiGridConstant
 
     function navigateToPatient(row) {
         navigation.gotoPatient(row.entity.ID, row.entity.PatientName);
+    }
+
+    function newPatient() {
+        navigation.newPatient();
     }
 }

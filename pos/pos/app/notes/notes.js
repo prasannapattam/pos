@@ -92,7 +92,7 @@ function notes($scope, notesService, session, formUtility, utility, moment, cons
         if ((savetype === constants.notesSaveType.SignOff || savetype === constants.notesSaveType.Correct) && !validateNotes())
             return;
 
-        deleteComputedProperties();
+        //deleteComputedProperties();
         notesService.save(savetype, model);
         $window.history.back();
     }
@@ -101,7 +101,7 @@ function notes($scope, notesService, session, formUtility, utility, moment, cons
         var ret = CheckNoPref();
 
         if (ret) {
-            if ((vm.model.SLE.Value.toLowerCase() === "true" || vm.model.PenLight.toLowerCase() === "true") && vm.model.Dilate3.Value !== undefined)
+            if ((vm.model.SLE.Value == true || vm.model.PenLight.Value == true) && vm.model.Dilate3.Value !== undefined)
                 ret = true;
             else {
                 utility.showError('SLE/Pen-light options and dilated options are required');
@@ -151,13 +151,14 @@ function notes($scope, notesService, session, formUtility, utility, moment, cons
 
         //HxFrom calculation
         $scope.$watchGroup(['vm.model.HxFromList.Value', 'vm.model.HxFromOther.Value'], function (newValues, oldValues) {
-            if (newValues[0] === "") {
-                vm.model.HxFrom.Value = newValues[1];
-            }
-            else {
-                vm.model.HxFromOther.Value = "";
-                vm.model.HxFrom.Value = newValues[0];
-            }
+          
+                if (newValues[0] === "") {
+                    vm.model.HxFrom.Value = newValues[1];
+                }
+                else {
+                    vm.model.HxFromOther.Value = "";
+                    vm.model.HxFrom.Value = newValues[0];
+                }
         });
 
         //discussedCalculation
@@ -187,6 +188,7 @@ function notes($scope, notesService, session, formUtility, utility, moment, cons
     }
 
     function summaryCalulation(oldAge, newAge, gaText, pcaText, birthWeightText) {
+
         var summary = vm.model.Summary.Value;
 
         //replacing the age
@@ -211,6 +213,7 @@ function notes($scope, notesService, session, formUtility, utility, moment, cons
     }
     
     function discussedCalculation(hxFrom, FirstName, sex) {
+
         var discussed = "Discussed findings with " + FirstName;
 
         if (hxFrom !== "" && hxFrom != "patient") {
@@ -232,10 +235,9 @@ function notes($scope, notesService, session, formUtility, utility, moment, cons
     }
 
     function setVisibility() {
-
-        vm.model.hideSave = vm.model.NotesType !== constants.notesType.New && model.NotesType() !== constants.notesType.Saved;
+        vm.model.hideSave = vm.model.NotesType !== constants.notesType.New && vm.model.NotesType !== constants.notesType.Saved;
         vm.model.hideCorrect = vm.model.NotesType !== constants.notesType.Correct;
-        vm.model.hideSignOff = vm.model.NotesType !== constants.notesType.New && model.NotesType() !== constants.notesType.Saved;
+        vm.model.hideSignOff = vm.model.NotesType !== constants.notesType.New && vm.model.NotesType !== constants.notesType.Saved;
     }
 }
 

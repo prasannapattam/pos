@@ -1,4 +1,4 @@
-﻿<div section-header text="Today's Patients" css-class="main-header"></div>
+﻿<div section-header text="Users" css-class="main-header"></div>
 
 <div layout="row">
     <div>
@@ -7,7 +7,7 @@
                 <md-item ng-repeat="item in vm.model" class="user-list-item" ng-click="vm.selectUser(item)" ng-class="{'user-list-item-selected': item.selected }">
                     <md-item-content class="md-item-content">
                         <div class="md-tile-left">
-                            <img class="top-header" ng-src="{{item.FullPhotoUrl}}" class="face" class="face" alt="{{item.FullName}}">
+                            <img class="top-header" ng-src="{{item.FullPhotoUrl}}" alt="{{item.FullName}}">
                         </div>
                         <div class="md-tile-content">
                             <h3>{{item.FullName}}</h3>

@@ -278,7 +278,7 @@
             </div>
             <div layout="row" class="col-row">
                 <div flex="10" class="col-row-header">
-                    <div class="float-left">No Pref <input type="checkbox" /></div><div class="float-right">OS:</div>
+                    <div class="float-left">No Pref <input type="checkbox" ng-model="vm.model.NoPref.Value"/></div><div class="float-right">OS:</div>
                 </div>
                 <div flex="25" class="col-row-content">
                     <notes-input section-form="vaSpcForm" input-list="[{model: vm.model.DistOS1, type: 'dropdown'}, {model: vm.model.DistOS2, type: 'text', cssClass:'medium'}]">
@@ -756,8 +756,8 @@
             <div layout="row" class="col-row">
                 <div flex="15" class="col-row-header"></div>
                 <div flex class="col-row-content">
-                    SLE: <input type="checkbox" />&nbsp;&nbsp;
-                    Pen-light: <input type="checkbox" />&nbsp;&nbsp;
+                    SLE: <input type="checkbox" ng-model="vm.model.SLE.Value"/>&nbsp;&nbsp;
+                    Pen-light: <input type="checkbox" ng-model="vm.model.PenLight.Value" />&nbsp;&nbsp;
                 </div>
             </div>
             <div layout="row" class="col-row">
