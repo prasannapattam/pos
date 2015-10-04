@@ -1,0 +1,109 @@
+﻿
+<md-dialog aria-label="{{vm.model.title}}" ng-cloak>
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{vm.model.title}}</h2>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div ng-repeat="item in vm.model.historyModel">               
+                <div class="ui-grid-header ui-grid-top-panel ui-grid-cell-contents">{{item.Header}}</div>
+
+                <div ng-show="vm.model.showdistHistory">
+                    <div class="col-row-content" ng-hide="{{item.FieldValue.HasHistory}}">No History</div>
+                    <div ng-show="{{item.FieldValue.HasHistory}}">
+                        <div layout="row" class="col-row">
+                            <div flex="20" class="col-row-header">VA sc Dist:</div>
+                            <div flex="30" class="col-row-content">{{item.FieldValue.VAsc}}</div>
+                            <div flex="20" class="col-row-header">VA Near:</div>
+                            <div flex="30" class="col-row-content">{{item.FieldValue.VAnear}}</div>
+                        </div>
+                        <div layout="row" class="col-row">
+                            <div flex="20" class="col-row-header">VA cc Dist:</div>
+                            <div flex="80" class="col-row-content">{{item.FieldValue.VAcc}}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-show="vm.model.showrfxHistory">
+                    <div class="col-row-content" ng-hide="{{item.FieldValue.HasHistory}}">No History</div>
+                    <div ng-show="{{item.FieldValue.HasHistory}}">
+                        <div layout="row" class="col-row">
+                            <div flex="20" class="col-row-header">Man Rfx:</div>
+                            <div flex="30" class="col-row-content">{{item.FieldValue.ManRfx}}</div>
+                            <div flex="20" class="col-row-header">Cyc Rfx:</div>
+                            <div flex="30" class="col-row-content">{{item.FieldValue.CycRfx}}</div>
+                        </div>
+                        <div layout="row" class="col-row">
+                            <div flex="20" class="col-row-header">VA:</div>
+                            <div flex="30" class="col-row-content">{{item.FieldValue.ManVA}}</div>
+                            <div flex="20" class="col-row-header">VA:</div>
+                            <div flex="30" class="col-row-content">{{item.FieldValue.CycVA}}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-show="vm.model.showocmHistory">
+                    <div class="col-row-content" ng-hide="{{item.FieldValue.HasHistory}}">No History</div>
+                    <div ng-show="{{item.FieldValue.HasHistory}}">
+                        <div layout="row" class="col-row">
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-show="vm.model.showbinoHistory">
+                    <div class="col-row-content" ng-hide="{{item.FieldValue.HasHistory}}">No History</div>
+                    <div ng-show="{{item.FieldValue.HasHistory}}">
+                        <div layout="row" class="col-row">
+                            <div flex="20" class="col-row-header">Binocularity:</div>
+                            <div flex="80" class="col-row-content">{{item.FieldValue.Binocularity}}</div>
+                        </div>
+                        <div layout="row" class="col-row">
+                            <div flex="20" class="col-row-header">W4D Near:</div>
+                            <div flex="30" class="col-row-content">{{item.FieldValue.W4DNear}}</div>
+                            <div flex="20" class="col-row-header">Stereo(Titmus):</div>
+                            <div flex="30" class="col-row-content">{{item.FieldValue.Stereo}}</div>
+                        </div>
+                        <div layout="row" class="col-row">
+                            <div flex="20" class="col-row-header">W4D Distance:</div>
+                            <div flex="80" class="col-row-content">{{item.FieldValue.W4DDist}}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-show="vm.model.showsumHistory">
+                    <div class="col-row-content" ng-hide="{{item.FieldValue.HasSumHistory}}">No History</div>
+                    <div ng-show="{{item.FieldValue.HasSumHistory}}">
+                        <div layout="row" class="col-row">
+                            <div flex="20" class="col-row-header">Summary:</div>
+                            <div flex="80" class="col-row-content">{{item.FieldValue.Summary}}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-show="vm.model.showcchHistory">
+                    <div class="col-row-content" ng-hide="{{item.FieldValue.HasCcHistory}}">No History</div>
+                    <div ng-show="{{item.FieldValue.HasCcHistory}}">
+                        <div layout="row" class="col-row">
+                            <div flex="20" class="col-row-header">Chief Complaint:</div>
+                            <div flex="80" class="col-row-content">{{item.FieldValue.Compliant}}</div>
+                        </div>
+                        <div layout="row" class="col-row">
+                            <div flex="20" class="col-row-header">History:</div>
+                            <div flex="80" class="col-row-content">{{item.FieldValue.SubjectiveHistory}}</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </md-dialog-content>
+        <div class="md-actions">
+            <md-button ng-click="vm.closeDialog()" class="md-raised md-primary">
+                Close
+            </md-button>
+        </div>
+    </form>
+</md-dialog>
+

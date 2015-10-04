@@ -46,6 +46,15 @@ function constants() {
         user: "users.png"
     }
 
+    var historyType = {
+        distHistory: "distHistory",
+        rfxHistory: "rfxHistory",
+        ocmHistory: "ocmHistory",
+        binoHistory: "binoHistory",
+        sumHistory: "sumHistory",
+        cchHistory: "cchHistory"
+    }
+
 
 
     var service = {
@@ -55,7 +64,8 @@ function constants() {
         notesSaveType: notesSaveType,
         fieldType: fieldType,
         iconTypes: iconTypes,
-        sex: sex
+        sex: sex,
+        historyType: historyType
     };
 
     return service;

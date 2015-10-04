@@ -21,6 +21,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -244,6 +245,8 @@
     <Content Include="app\notes\directives\notesInputItem.js" />
     <Content Include="app\notes\directives\notesSectionForm.js" />
     <Content Include="app\notes\directives\notesSectionTitle.js" />
+    <Content Include="app\notes\history.html" />
+    <Content Include="app\notes\history.js" />
     <Content Include="app\notes\notesUtility.js" />
     <Content Include="app\notes\directives\notesValue.js" />
     <Content Include="app\patient\demographics.html" />
@@ -290,6 +293,7 @@
     <Content Include="Content\angular-material-grey-theme.css" />
     <Content Include="Content\angular-material.min.css" />
     <Content Include="Content\app.css" />
+    <Content Include="Content\Images\icons\ic_close_24px.svg" />
     <Content Include="Content\Images\icons\mail.png" />
     <Content Include="Content\Images\icons\note-edit.png" />
     <Content Include="Content\bootstrap\bootstrap-theme.css" />

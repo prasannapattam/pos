@@ -1,9 +1,9 @@
 ﻿'use strict';
 
 angular.module('pos').controller('notes', notes);
-notes.$inject = ['$scope', 'notesService', 'session', 'formUtility', 'utility', 'moment', 'constants', '$window'];
+notes.$inject = ['$scope', 'notesService', 'session', 'formUtility', 'utility', 'moment', 'constants', '$window', '$mdDialog'];
 
-function notes($scope, notesService, session, formUtility, utility, moment, constants, $window) {
+function notes($scope, notesService, session, formUtility, utility, moment, constants, $window, $mdDialog) {
     var vm = {
         model: {},
         doctors: [],
@@ -13,7 +13,8 @@ function notes($scope, notesService, session, formUtility, utility, moment, cons
         aftersavenotes: aftersavenotes,
         utility: utility,
         signOffNotes: signOffNotes,
-        correctNotes: correctNotes
+        correctNotes: correctNotes,
+        constants:constants
     };
 
     init();
@@ -23,6 +24,9 @@ function notes($scope, notesService, session, formUtility, utility, moment, cons
     function init() {
         vm.model = notesService.model;
         vm.doctors = notesService.doctors;
+
+        addViewModelExtenders();
+        //var object = angular.extend({}, vm.model, History);
 
         //UI related changes to the model
 
@@ -127,16 +131,16 @@ function notes($scope, notesService, session, formUtility, utility, moment, cons
         return true;
     }
 
-    function deleteComputedProperties() {
-        delete vm.model.HeaderText;
-        delete vm.model.AgeCalculation;
-        delete vm.model.HxFromList;
-        delete vm.model.HxFromOther;
-        delete vm.model.HxFromCalculation;
-        delete vm.model.CopyToCalculation;
-        delete vm.model.SummaryCalculation;
-        delete vm.model.DiscussedCalculation;
-    }
+    //function deleteComputedProperties() {
+    //    delete vm.model.HeaderText;
+    //    delete vm.model.AgeCalculation;
+    //    delete vm.model.HxFromList;
+    //    delete vm.model.HxFromOther;
+    //    delete vm.model.HxFromCalculation;
+    //    delete vm.model.CopyToCalculation;
+    //    delete vm.model.SummaryCalculation;
+    //    delete vm.model.DiscussedCalculation;
+    //}
 
     function notesWatchers() {
         //age calculation
@@ -152,13 +156,13 @@ function notes($scope, notesService, session, formUtility, utility, moment, cons
         //HxFrom calculation
         $scope.$watchGroup(['vm.model.HxFromList.Value', 'vm.model.HxFromOther.Value'], function (newValues, oldValues) {
           
-                if (newValues[0] === "") {
-                    vm.model.HxFrom.Value = newValues[1];
-                }
-                else {
-                    vm.model.HxFromOther.Value = "";
-                    vm.model.HxFrom.Value = newValues[0];
-                }
+            if (newValues[0] === "") {
+                vm.model.HxFrom.Value = newValues[1];
+            }
+            else {
+                vm.model.HxFromOther.Value = "";
+                vm.model.HxFrom.Value = newValues[0];
+            }
         });
 
         //discussedCalculation
@@ -216,7 +220,7 @@ function notes($scope, notesService, session, formUtility, utility, moment, cons
 
         var discussed = "Discussed findings with " + FirstName;
 
-        if (hxFrom !== "" && hxFrom != "patient") {
+        if (hxFrom != undefined && hxFrom !== "" && hxFrom != "patient") {
             var displaySex = '';
             if (hxFrom.indexOf("patient and") >= 0) {
                 hxFrom = hxFrom.replace("patient and", "").trim();
@@ -239,5 +243,130 @@ function notes($scope, notesService, session, formUtility, utility, moment, cons
         vm.model.hideCorrect = vm.model.NotesType !== constants.notesType.Correct;
         vm.model.hideSignOff = vm.model.NotesType !== constants.notesType.New && vm.model.NotesType !== constants.notesType.Saved;
     }
+
+    function addViewModelExtenders() {
+
+        angular.forEach(vm.model.History.Rfx, function (item, index) {
+            $scope.$watchGroup(['vm.model.History.Rfx[' + index + '].FieldValue.ManRfxOD1', 'vm.model.History.Rfx[' + index + '].FieldValue.ManRfxOD2', 'vm.model.History.Rfx[' + index + '].FieldValue.ManRfxOS1', 'vm.model.History.Rfx[' + index + '].FieldValue.ManRfxOS2'], function (newValues, oldValues) {
+                debugger;
+                item.FieldValue.ManRfx = GetOdOsString(newValues[0], newValues[1], newValues[2], newValues[3]);
+            });
+            $scope.$watchGroup(['vm.model.History.Rfx[' + index + '].FieldValue.ManVAOD1', 'vm.model.History.Rfx[' + index + '].FieldValue.ManVAOD2', 'vm.model.History.Rfx[' + index + '].FieldValue.ManVSOS1', 'vm.model.History.Rfx[' + index + '].FieldValue.ManVSOS2'], function (newValues, oldValues) {
+                debugger;
+
+                item.FieldValue.ManVA = GetOdOsString(newValues[0], newValues[1], newValues[2], newValues[3]);
+            });
+            $scope.$watchGroup(['vm.model.History.Rfx[' + index + '].FieldValue.CycRfxOD', "", 'vm.model.History.Rfx[' + index + '].FieldValue.CycRfxOS', ""], function (newValues, oldValues) {
+                debugger;
+                item.FieldValue.CycRfx = GetOdOsString(newValues[0], newValues[1], newValues[2], newValues[3]);
+            });
+            $scope.$watchGroup(['vm.model.History.Rfx[' + index + '].FieldValue.CycVAOD3', 'vm.model.History.Rfx[' + index + '].FieldValue.CycVAOD4', 'vm.model.History.Rfx[' + index + '].FieldValue.CycVSOS1', 'vm.model.History.Rfx[' + index + '].FieldValue.CycVSOS2'], function (newValues, oldValues) {
+                debugger;
+                item.FieldValue.CycVA = GetOdOsString(newValues[0], newValues[1], newValues[2], newValues[3]);
+            });
+            $scope.$watchGroup(['vm.model.History.Rfx[' + index + '].FieldValue.ManRfx', 'vm.model.History.Rfx[' + index + '].FieldValue.ManVA', 'vm.model.History.Rfx[' + index + '].FieldValue.CycRfx', 'vm.model.History.Rfx[' + index + '].FieldValue.CycVA'], function (newValues, oldValues) {
+                debugger;
+                item.FieldValue.HasHistory = (newValues[0] !== "" || newValues[1] !== "" || newValues[2] !== "" || newValues[3] !== "");
+            });
+        });
+
+        angular.forEach(vm.model.History.Cch, function (item, index) {
+            $scope.$watchGroup(['vm.model.History.Cch[' + index + '].FieldValue.Compliant', 'vm.model.History.Cch[' + index + '].FieldValue.SubjectiveHistory'], function (newValues, oldValues) {
+                debugger;
+                item.FieldValue.HasCcHistory = (newValues[0] !== "" || newValues[1] !== "");
+            });
+            $scope.$watchGroup(['vm.model.History.Cch[' + index + '].FieldValue.Summary'], function (newValues, oldValues) {
+                debugger;
+                item.FieldValue.HasSumHistory = (newValues[0] !== "");
+            });
+        });
+
+        angular.forEach(vm.model.History.Dist, function (item, index) {
+            $scope.$watchGroup(['vm.model.History.Dist[' + index + '].FieldValue.VAscOD1', 'vm.model.History.Dist[' + index + '].FieldValue.VAscOD2', 'vm.model.History.Dist[' + index + '].FieldValue.DistOS1', 'vm.model.History.Dist[' + index + '].FieldValue.DistOS2'], function (newValues, oldValues) {
+                debugger;
+                item.FieldValue.VAsc = GetOdOsString(newValues[0], newValues[1], newValues[2], newValues[3]);
+            });
+            $scope.$watchGroup(['vm.model.History.Dist[' + index + '].FieldValue.VAccOD1', 'vm.model.History.Dist[' + index + '].FieldValue.VAccOD2', 'vm.model.History.Dist[' + index + '].FieldValue.DistOS3', 'vm.model.History.Dist[' + index + '].FieldValue.DistOS4'], function (newValues, oldValues) {
+                debugger;
+                item.FieldValue.VAcc = GetOdOsString(newValues[0], newValues[1], newValues[2], newValues[3]);
+            });
+            $scope.$watchGroup(['vm.model.History.Dist[' + index + '].FieldValue.VAOD1', 'vm.model.History.Dist[' + index + '].FieldValue.VAOD2', 'vm.model.History.Dist[' + index + '].FieldValue.NearOS1', 'vm.model.History.Dist[' + index + '].FieldValue.NearOS2'], function (newValues, oldValues) {
+                debugger;
+                item.FieldValue.VAnear = GetOdOsString(newValues[0], newValues[1], newValues[2], newValues[3]);
+            });
+            $scope.$watchGroup(['vm.model.History.Dist[' + index + '].FieldValue.VAsc', 'vm.model.History.Dist[' + index + '].FieldValue.VAcc', 'vm.model.History.Dist[' + index + '].FieldValue.VAnear'], function (newValues, oldValues) {
+                debugger;
+                item.FieldValue.HasHistory = (newValues[0] !== "" || newValues[1] !== "" || newValues[2] !== "");
+            });
+        });
+
+        angular.forEach(vm.model.History.Bino, function (item, index) {
+            $scope.$watchGroup(['vm.model.History.Bino[' + index + '].FieldValue.Binocularity1', 'vm.model.History.Bino[' + index + '].FieldValue.Binocularity2', 'vm.model.History.Bino[' + index + '].FieldValue.Binocularity3', 'vm.model.History.Bino[' + index + '].FieldValue.Binocularity4'], function (newValues, oldValues) {
+                debugger;
+                item.FieldValue.Binocularity = (newValues[0] + " " + newValues[1] + " " + newValues[2] + " " + newValues[3]);
+            });
+            $scope.$watchGroup(['vm.model.History.Bino[' + index + '].FieldValue.W4DNear1', 'vm.model.History.Bino[' + index + '].FieldValue.W4DNear2'], function (newValues, oldValues) {
+                debugger;
+                item.FieldValue.W4DNear = (newValues[0] + " " + newValues[1]);
+            });
+            $scope.$watchGroup(['vm.model.History.Bino[' + index + '].FieldValue.Stereo1', 'vm.model.History.Bino[' + index + '].FieldValue.Stereo2'], function (newValues, oldValues) {
+                debugger;
+                item.FieldValue.Stereo = (newValues[0] + " " + newValues[1]);
+            });
+            $scope.$watchGroup(['vm.model.History.Bino[' + index + '].FieldValue.Binocularity', 'vm.model.History.Dist[' + index + '].FieldValue.W4DNear', 'vm.model.History.Dist[' + index + '].FieldValue.Stereo'], function (newValues, oldValues) {
+                debugger;
+                item.FieldValue.HasHistory = (newValues[0] !== "" || newValues[1] !== "" || newValues[2] !== "");
+            });
+        });
+
+        angular.forEach(vm.model.History.Ocm, function (item, index) {
+            debugger;
+            item.FieldValue.HasHistory = true;
+        });
+
+    }
+
+    function GetOdOsString(od1, od2, os1, os2) {
+        var od = od1;
+        if (od2 !== "" && od2 !== undefined)
+            od += " " + od2;
+        var os = os1;
+        if (os2 !== "" && os2 !== undefined)
+            os += " " + os2;
+
+        var ou = "";
+
+        if (od == os)
+            ou = od;
+
+        od = (od == "" || od == undefined) ? od : od + " OD ";
+        os = (os == "" || os == undefined) ? os : os + " OS";
+        ou = (ou == "" || ou == undefined) ? ou : ou + " OU";
+
+        var odosString = "";
+
+        if ((od != "" && od != undefined) || (os != "" && os != undefined)) {
+            if (ou != "" && ou != undefined)
+                odosString = ou;
+            else
+                odosString = od + os;
+        }
+
+        return odosString;
+    }
+
+
+
+    //function showHistory(historyType)
+    //{        
+    //    $mdDialog.show({
+    //        controller: history,
+    //        controllerAs: "vm",
+    //        clickOutsideToClose: true,
+    //        templateUrl: utility.virtualDirectory + '/app/notes/history.html',
+    //        locals: { $mdDialog: $mdDialog, notesModel: vm.model, historyType: historyType }
+    //    });
+        
+    //}
 }
 

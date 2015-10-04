@@ -1,5 +1,5 @@
 ﻿<div data-spy="scroll" data-target=".navbar-example" data-offset="10">
-        <div layout="row" layout-align="end" class="ui-grid-header ui-grid-top-panel ui-grid-cell-contents">          
+        <div layout="row" layout-align="end center" class="ui-grid-header ui-grid-top-panel ui-grid-cell-contents">          
             <md-button type="button" class="md-raised" ng-click="vm.saveNotes()" ng-hide="vm.model.hideSave">Save</md-button>
             <md-button type="button" class="md-raised" ng-click="vm.correctNotes()" ng-hide="vm.model.hideCorrect">Correct</md-button>
             <md-button type="button" class="md-raised" ng-click="vm.signOffNotes()" ng-hide="vm.model.hideSignOff">Sign off</md-button>
@@ -98,7 +98,7 @@
             </div>
         </form>
         <form editable-form name="compliantForm" id="compliantForm" notes-section-form>
-            <notes-section-title section-form="compliantForm">Compliant</notes-section-title>
+            <notes-section-title section-form="compliantForm" show-history="true" title="CC History" history-type="cchHistory" history-Model="vm.model.History.Cch">Compliant</notes-section-title>
             <div layout="row" class="col-row">
                 <div flex="10" class="col-row-header">Chief Complaint</div>
                 <div flex="40" class="col-row-content">
@@ -237,7 +237,7 @@
             </div>
         </form>
         <form editable-form name="vaSpcForm" notes-section-form>
-            <notes-section-title section-form="vaSpcForm">VA/Spc</notes-section-title>
+            <notes-section-title section-form="vaSpcForm" show-history="true" title="Dist & Near History" history-type="distHistory" history-Model="vm.model.History.Dist">VA/Spc</notes-section-title>
             <div layout="row" class="col-row">
                 <div flex="10" class="col-row-header">Tested with:</div>
                 <div flex="25" class="col-row-content">
@@ -273,7 +273,7 @@
                 <div flex="20" class="col-row-content">
                     <notes-input section-form="vaSpcForm" input-list="[{model: vm.model.VAOD1, type: 'dropdown'}, {model: vm.model.VAOD2, type: 'text', cssClass:'small'}]">
                         <notes-value input-list="[vm.model.VAOD1, vm.model.VAOD2]"></notes-value>
-                    </notes-input>
+                    </notes-input> 
                 </div>
             </div>
             <div layout="row" class="col-row">
@@ -347,7 +347,7 @@
         </form>
 
         <form editable-form name="manCycForm" notes-section-form>
-            <notes-section-title section-form="manCycForm">Rfx</notes-section-title>
+            <notes-section-title section-form="manCycForm" show-history="true" title="Rfx History" history-type="rfxHistory" history-Model="vm.model.History.Rfx">Rfx</notes-section-title>
 
             <div layout="row" class="col-row">
                 <div flex="10" class="col-row-header">
@@ -609,28 +609,28 @@
                                     <tr>
                                         <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD3, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD3]"></notes-value></notes-input></td>
                                         <td><img ng-src="{{vm.utility.imagePath('line-vertical.gif')}}" class="h-image-vertical" /></td>
-                                        <td class="tight"><img ng-src="{{vm.utility.imagePath('line-horizontal.gif')}}" class="h-image-horizontal" /></td>
-                                        <td class="tight"><img ng-src="{{vm.utility.imagePath('line-vertical.gif')}}" class="h-image-vertical" /></td>
-                                        <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD4, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD4]"></notes-value></notes-input></td>
-                                        <td>&nbsp;</td>
-                                        <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS3, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS3]"></notes-value></notes-input></td>
-                                        <td><img ng-src="{{vm.utility.imagePath('line-vertical.gif')}}" class="h-image-vertical" /></td>
-                                        <td class="tight"><img ng-src="{{vm.utility.imagePath('line-horizontal.gif')}}" class="h-image-horizontal" /></td>
-                                        <td class="tight"><img ng-src="{{vm.utility.imagePath('line-vertical.gif')}}" class="h-image-vertical" /></td>
-                                        <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS4, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS4]"></notes-value></notes-input></td>
-                                    </tr>
-                                    <tr>
-                                        <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD5, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD5]"></notes-value></notes-input></td>
-                                        <td colspan="3">&nbsp;</td>
-                                        <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD6, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD6]"></notes-value></notes-input></td>
-                                        <td>&nbsp;</td>
-                                        <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS5, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS5]"></notes-value></notes-input></td>
-                                        <td colspan="3">&nbsp;</td>
-                                        <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS6, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS6]"></notes-value></notes-input></td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
+                    <td class="tight"><img ng-src="{{vm.utility.imagePath('line-horizontal.gif')}}" class="h-image-horizontal" /></td>
+                    <td class="tight"><img ng-src="{{vm.utility.imagePath('line-vertical.gif')}}" class="h-image-vertical" /></td>
+                    <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD4, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD4]"></notes-value></notes-input></td>
+                    <td>&nbsp;</td>
+                    <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS3, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS3]"></notes-value></notes-input></td>
+                    <td><img ng-src="{{vm.utility.imagePath('line-vertical.gif')}}" class="h-image-vertical" /></td>
+                    <td class="tight"><img ng-src="{{vm.utility.imagePath('line-horizontal.gif')}}" class="h-image-horizontal" /></td>
+                    <td class="tight"><img ng-src="{{vm.utility.imagePath('line-vertical.gif')}}" class="h-image-vertical" /></td>
+                    <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS4, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS4]"></notes-value></notes-input></td>
+                    </tr>
+                    <tr>
+                        <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD5, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD5]"></notes-value></notes-input></td>
+                        <td colspan="3">&nbsp;</td>
+                        <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOD6, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOD6]"></notes-value></notes-input></td>
+                        <td>&nbsp;</td>
+                        <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS5, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS5]"></notes-value></notes-input></td>
+                        <td colspan="3">&nbsp;</td>
+                        <td><notes-input section-form="ocularForm" input-list="[{model: vm.model.OcularVersionOS6, type: 'dropdown'}]"><notes-value input-list="[vm.model.OcularVersionOS6]"></notes-value></notes-input></td>
+                    </tr>
+                    </table>
+                    </td>
+                    </tr>
                     </table>
 
                 </div>
@@ -705,7 +705,7 @@
             </div>
         </form>
         <form editable-form name="binoForm" notes-section-form>
-            <notes-section-title section-form="binoForm">Binocularity</notes-section-title>
+            <notes-section-title section-form="binoForm" show-history="true" title="Binocularity History" history-type="binoHistory" history-Model="vm.model.History.Bino">Binocularity</notes-section-title>
             <div layout="row" class="col-row">
                 <div flex="10" class="col-row-header">Tested with:</div>
                 <div flex="90" class="col-row-content">
@@ -727,7 +727,7 @@
                         <notes-value input-list="[vm.model.W4DDistance1, vm.model.W4DDistance2]"></notes-value>
                     </notes-input>
                 </div>
-            </div>
+            </div>            
             <div layout="row" class="col-row">
                 <div flex="10" class="col-row-header">Stereo(Titmus):</div>
                 <div flex="30" class="col-row-content">
@@ -741,7 +741,7 @@
                         <notes-value input-list="[vm.model.DiopterBaseOut]"></notes-value>
                     </notes-input>
                 </div>
-            </div>
+            </div>            
         </form>
         <form editable-form name="antForm" notes-section-form>
             <notes-section-title section-form="antForm">Ant Segment</notes-section-title>
@@ -971,7 +971,7 @@
             </div>
         </form>
         <form editable-form name="summaryForm" notes-section-form>
-            <notes-section-title section-form="summaryForm">Summary</notes-section-title>
+            <notes-section-title section-form="summaryForm" show-history="true" title="Summary History" history-type="sumHistory" history-Model="vm.model.History.Cch">Summary</notes-section-title>
             <div layout="row" class="col-row">
                 <div flex="10" class="col-row-header">Summary:</div>
                 <div flex="90" class="col-row-content">
@@ -1036,5 +1036,7 @@
 
         <br />
         <p></p>
+    
+
 
 </div>

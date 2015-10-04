@@ -1,12 +1,16 @@
 ﻿angular.module('pos').directive('notesSectionTitle', notesSectionTitle);
-notesSectionTitle.$inject = ['formUtility', 'notesUtility'];
+notesSectionTitle.$inject = ['formUtility', 'notesUtility', 'utility', '$mdDialog'];
 
-function notesSectionTitle(formUtility, notesUtility) {
+function notesSectionTitle(formUtility, notesUtility, utility, $mdDialog) {
     return {
         restrict: 'E',
         transclude: true,
         scope: {
             sectionForm: '=',
+            showHistory: '@',
+            title: '@',
+            historyType: '@',
+            historyModel: '='
         },
         link: link,
         template: '<div class="ui-grid">'
@@ -22,6 +26,9 @@ function notesSectionTitle(formUtility, notesUtility) {
         + '            Save'
         + '        </md-button>'
         + '    </span>'
+        + '    <md-button aria-label="" class="md-raised" ng-show="{{showHistory}}" ng-click="displayHistory(historyModel,historyType,title)">'
+        + '           <img ng-src="{{geticonPath()}}" title="{{title}}" class="centered" />'
+        + '    </md-button>'
         + '</div>'
         + '</div>'
 
@@ -37,6 +44,21 @@ function notesSectionTitle(formUtility, notesUtility) {
             for (var counter = 0; counter < scope.sectionForm.models.length; counter++) {
                 notesUtility.clearColourType(scope.sectionForm.models[counter]);
             }
+        }
+
+        scope.geticonPath = function () {
+            return utility.iconPath("history.png");
+        }
+
+        scope.displayHistory = function (historyModel, historyType, title) {
+
+            $mdDialog.show({
+                controller: history,
+                controllerAs: "vm",
+                clickOutsideToClose: true,
+                templateUrl: utility.virtualDirectory + '/app/notes/history.html',
+                locals: { $mdDialog: $mdDialog, historyModel: historyModel, historyType: historyType, title: title }
+            });
         }
     }
 }
