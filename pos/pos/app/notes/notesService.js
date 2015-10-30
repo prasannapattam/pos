@@ -24,7 +24,6 @@ function notesService($http, session, patientService, constants) {
         var getdata = { params: { "userName": session.profile.userName, "patientid": patientid, "examid": notesid || '' } };
         return $http.get('/api/notes', getdata).success(function (data) {
             var model = data.Notes;
-
             //removing the weeks (fix for old data)
             if (model.GA.Value === "weeks") {
                 model.GA.Value = "";

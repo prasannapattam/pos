@@ -37,7 +37,8 @@ function navigation($state, utility, constants, $mdDialog) {
         gotoPatient: gotoPatient,
         addOrActivateTab: addOrActivateTab,
         setLeftMenu: setLeftMenu,
-        newPatient: newPatient
+        newPatient: newPatient,
+        gobacktoPatient: gobacktoPatient
     };
 
     init();
@@ -78,12 +79,12 @@ function navigation($state, utility, constants, $mdDialog) {
     function addTab(title, icon, stateName, params, parentStateName) {
         //checking if the tab is already present 
         if (!checkAndActivateTab(stateName, params, parentStateName))
-            vm.tabs.push(new tab(vm.tabs, title, icon, stateName, params, parentStateName))
+            vm.tabs.push(new tab(vm.tabs, title, icon, stateName, params, parentStateName));
     }
 
     function gotoPatient(patientId, patientName) {
         vm.addTab(patientName, constants.iconTypes.patient, 'patient.portal', { patientid: patientId }, 'patient');
-        $state.go("patient.portal", { patientid: patientId, patientName: patientName })
+        $state.go("patient.portal", { patientid: patientId, patientName: patientName });
     }
 
     function addOrActivateTab(state, params) {
@@ -126,10 +127,14 @@ function navigation($state, utility, constants, $mdDialog) {
     function newPatient() {
         
         $mdDialog.show({
-            controller: demographics,
+            controller: addPatient,
             controllerAs: "vm",
-            templateUrl: utility.virtualDirectory + '/app/patient/demographics.html'
-        })
+            templateUrl: utility.virtualDirectory + '/app/patient/addPatient.html'
+        });
+    }
+
+    function gobacktoPatient(patientId, patientName) {
+        $state.go("patient.portal", { patientid: patientId, patientName: patientName });
     }
 }
 

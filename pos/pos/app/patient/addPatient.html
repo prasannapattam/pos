@@ -1,0 +1,135 @@
+﻿<md-dialog aria-label="Add Patient" ng-cloak>
+    <form name="addPatientForm">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Add Patient</h2>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="ui-grid">
+                <div layout="row" class="ui-grid-header ui-grid-top-panel ui-grid-cell-contents">
+                    <!-- buttons to submit / cancel form -->
+                    <md-button type="button" class="md-raised" ng-click="vm.cancel($event)">
+                        Cancel
+                    </md-button>
+                    <md-button type="submit" class="md-primary md-raised" ng-click="vm.savePatient($data)">
+                        Save
+                    </md-button>
+                </div>
+                <div layout="row" layout-align="start center">
+                    <div flex="25" class="text-center">
+                        <img class="patient-photo" ng-src="{{vm.patientModel.PhotoUrl}}" />
+                    </div>
+                    <div flex>
+                        <div layout="row">
+                            <div flex="25" class="col-row-header">Name</div>
+                            <div flex class="col-row-content">
+                                <md-input-container>
+                                    <select name="greeting" id="greeting" ng-model="vm.patientModel.Greeting">
+                                        <option ng-repeat="greet in vm.patientModel.lookups.Greet" value="{{greet.FieldValue}}">{{greet.FieldValue}}</option>
+                                    </select>
+                                    <input type="text" name="firstName" ng-model="vm.patientModel.FirstName" maxlength="20" class="medium" />
+                                    <input type="text" name="middleName" ng-model="vm.patientModel.MiddleName" maxlength="20" class="small" />
+                                    <input type="text" name="lastName" ng-model="vm.patientModel.LastName" maxlength="20" class="medium" />
+                                </md-input-container>
+                            </div>
+                        </div>
+                        <div layout="row">
+                            <div flex="25" class="col-row-header">Patient #</div>
+                            <div flex class="col-row-content">
+                                <md-input-container>
+                                    <input type="text" name="patientNumber" ng-model="vm.patientModel.PatientNumber" maxlength="20" classss="medium" />
+                                </md-input-container>
+                            </div>
+                        </div>
+                        <div layout="row">
+                            <div flex="25" class="col-row-header">Nick Name</div>
+                            <md-input-container>
+                                <div flex class="col-row-content">
+                                    <md-input-container>
+                                        <input type="text" name="nickName" ng-model="vm.patientModel.NickName" maxlength="20" class="medium" />
+                                    </md-input-container>
+                                </div>
+                        </div>
+                        <div layout="row">
+                            <div flex="25" class="col-row-header">Date Of Birth</div>
+                            <div flex class="col-row-content">
+                                <md-input-container>
+                                    <span editable-bsdate="vm.patientModel.DateOfBirth" e-name="DateOfBirth" is-open="false">
+                                        {{vm.patientModel.DateOfBirth | date:'MM/dd/yyyy' }} ({{vm.patientModel.DateOfBirth | patientAge}})
+                                    </span>
+                                    <md-datepicker ng-model="vm.patientModel.DateOfBirth"></md-datepicker>
+                                </md-input-container>
+                            </div>
+                        </div>
+                        <div layout="row">
+                            <div flex="25" class="col-row-header">Premature Birth</div>
+                            <div flex class="col-row-content">
+                                <md-input-container>
+                                    <select name="PrematureBirth" ng-model="vm.patientModel.PrematureBirth">
+                                        <option ng-repeat="bool in vm.patientModel.lookups.BOOL" value="{{bool.FieldValue}}">{{bool.FieldValue}}</option>
+                                    </select>
+                                </md-input-container>
+                            </div>
+                        </div>
+                        <div layout="row">
+                            <div flex="25" class="col-row-header">Sex</div>
+                            <div flex class="col-row-content">
+                                <md-input-container>
+                                    <select name="Sex" id="Sex" ng-model="vm.patientModel.Sex">
+                                        <option ng-repeat="sex in vm.patientModel.lookups.Sex" value="{{sex.FieldValue}}">{{sex.FieldValue}}</option>
+                                    </select>
+                                </md-input-container>
+                            </div>
+                        </div>
+                        <div layout="row">
+                            <div flex="25" class="col-row-header">Grade / Occupation</div>
+                            <div flex class="col-row-content">
+                                <md-input-container>
+                                    <input type="text" name="Occupation" ng-model="vm.patientModel.Occupation" maxlength="50" class="large"></>
+                                </md-input-container>
+                            </div>
+                        </div>
+                        <div layout="row">
+                            <div flex="25" class="col-row-header">Hx From</div>
+                            <div flex class="col-row-content">
+                                <md-input-container>
+                                    <select name="hxFromList" ng-model="vm.patientModel.HxFromList">
+                                        <option ng-repeat="hxfrom in vm.patientModel.lookups.HxFrom" value="{{hxfrom.FieldValue}}">{{hxfrom.FieldValue}}</option>
+                                    </select>
+                                    <input type="text" name="hxFromOther" ng-model="vm.patientModel.HxFromOther" maxlength="20" class="medium"></>
+                                </md-input-container>
+                            </div>
+                        </div>
+                        <div layout="row">
+                            <div flex="25" class="col-row-header">Ref'd By</div>
+                            <div flex class="col-row-content">
+                                <md-input-container>
+                                    <input type="text" name="ReferredFrom" ng-model="vm.patientModel.ReferredFrom" maxlength="20" class="large"></>
+                                    (PCP:<input type="text" name="ReferredDoctor" ng-model="vm.patientModel.ReferredDoctor" maxlength="20" class="large"></>)
+                                    &nbsp;&nbsp;<input type="checkbox" name="RefSame" ng-model="vm.patientModel.RefSame" title="Same" ng-checked="vm.copyRef($data)"></>
+                                </md-input-container>
+                            </div>
+                        </div>
+                        <div layout="row">
+                            <div flex="25" class="col-row-header">Allergies</div>
+                            <div flex class="col-row-content">
+                                <md-input-container>
+                                <input type="text" name="allergies" ng-model="vm.patientModel.Allergies" maxlength="50" class="xlarge"></>
+                                </md-input-container>
+                            </div>
+                        </div>
+                        <div layout="row">
+                            <div flex="25" class="col-row-header">Medications</div>
+                            <div flex class="col-row-content">
+                                <md-input-container>
+                                    <input type="text" name="medications" ng-model="vm.patientModel.Medications" maxlength="50" class="xlarge" />
+                                </md-input-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </md-dialog-content>
+    </form>
+</md-dialog>

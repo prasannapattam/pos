@@ -1,9 +1,7 @@
 ﻿<div layout="column">
-    <div layout="row">
+    <div layout="row" layout-align="space-between center">
         <div section-header text="Today's Patients" css-class="main-header"></div>
-        <div layout="row" layout-align="end center">
-            <md-button type="button" class="md-raised" ng-click="vm.newPatient();">New Patient</md-button>
-        </div>
+        <md-button type="button" class="md-raised" ng-click="vm.newPatient();">New Patient</md-button>
     </div>
     <div ui-grid="vm.gridOptions" external-scopes="vm" ui-grid-resize-columns ui-grid-auto-resize class="patient-grid" ng-style="{'height' : vm.gridHeight }"></div>
 </div>

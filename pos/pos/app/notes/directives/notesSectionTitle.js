@@ -27,7 +27,7 @@ function notesSectionTitle(formUtility, notesUtility, utility, $mdDialog) {
         + '        </md-button>'
         + '    </span>'
         + '    <md-button aria-label="" class="md-raised" ng-show="{{showHistory}}" ng-click="displayHistory(historyModel,historyType,title)">'
-        + '           <img ng-src="{{geticonPath()}}" title="{{title}}" class="centered" />'
+        + '           <img ng-src="{{geticonPath(\'history.png\')}}" title="{{title}}" class="centered" />'
         + '    </md-button>'
         + '</div>'
         + '</div>'
@@ -46,8 +46,8 @@ function notesSectionTitle(formUtility, notesUtility, utility, $mdDialog) {
             }
         }
 
-        scope.geticonPath = function () {
-            return utility.iconPath("history.png");
+        scope.geticonPath = function (imgName) {
+            return utility.iconPath(imgName);
         }
 
         scope.displayHistory = function (historyModel, historyType, title) {

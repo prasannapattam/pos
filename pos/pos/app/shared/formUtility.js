@@ -6,8 +6,7 @@ formUtility.$inject = ['$mdDialog', '$window'];
 function formUtility($mdDialog, $window) {
     var vm = {
         requiredValidation: requiredValidation,
-        cancelForm: cancelForm,
-        cancelFormGoBack: cancelFormGoBack
+        cancelForm: cancelForm
     };
 
     return vm;
@@ -25,33 +24,17 @@ function formUtility($mdDialog, $window) {
         var confirm = showDialog(evt);
 
         if (form !== undefined) {
-            $mdDialog.show(confirm).then(function () {
+            return $mdDialog.show(confirm).then(function () {
                 $mdDialog.cancel();
+                return true;
             }, function () {
-                //do nothing
+                $mdDialog.hide();
+                return false;
             });
         }
         else {
             return $mdDialog.show(confirm);
         }
-    }
-
-    function cancelFormGoBack(evt, form) {
-
-        var confirm = showDialog(evt);
-
-        if (form !== undefined) {
-            $mdDialog.show(confirm).then(function () {
-                $mdDialog.cancel();
-                $window.history.back();
-            }, function () {
-                //do nothing
-            });
-        }
-        else {
-            return $mdDialog.show(confirm);
-        }
-
     }
 
     function showDialog(evt) {

@@ -1,9 +1,9 @@
 ﻿'use strict';
 
 angular.module('pos').controller('notes', notes);
-notes.$inject = ['$scope', 'notesService', 'session', 'formUtility', 'utility', 'moment', 'constants', '$window', '$mdDialog'];
+notes.$inject = ['$scope', 'notesService', 'session', 'formUtility', 'utility', 'moment', 'constants', '$window', '$mdDialog', 'navigation'];
 
-function notes($scope, notesService, session, formUtility, utility, moment, constants, $window, $mdDialog) {
+function notes($scope, notesService, session, formUtility, utility, moment, constants, $window, $mdDialog, navigation) {
     var vm = {
         model: {},
         doctors: [],
@@ -72,7 +72,12 @@ function notes($scope, notesService, session, formUtility, utility, moment, cons
    
 
     function cancelNotes(evt, form) {
-        formUtility.cancelFormGoBack(evt, form);
+
+        formUtility.cancelForm(evt, form).then(function (result) {
+            if (result) {
+                navigation.gobacktoPatient(vm.model.hdnPatientID.Value, vm.model.PatientName.Value);
+            }
+        });
     }
 
     function saveNotes() {
@@ -97,8 +102,9 @@ function notes($scope, notesService, session, formUtility, utility, moment, cons
             return;
 
         //deleteComputedProperties();
-        notesService.save(savetype, model);
-        $window.history.back();
+        notesService.save(savetype, model).then(function () {
+            navigation.gobacktoPatient(vm.model.hdnPatientID.Value, vm.model.PatientName.Value);
+        });
     }
 
     function validateNotes() {
@@ -248,79 +254,62 @@ function notes($scope, notesService, session, formUtility, utility, moment, cons
 
         angular.forEach(vm.model.History.Rfx, function (item, index) {
             $scope.$watchGroup(['vm.model.History.Rfx[' + index + '].FieldValue.ManRfxOD1', 'vm.model.History.Rfx[' + index + '].FieldValue.ManRfxOD2', 'vm.model.History.Rfx[' + index + '].FieldValue.ManRfxOS1', 'vm.model.History.Rfx[' + index + '].FieldValue.ManRfxOS2'], function (newValues, oldValues) {
-                debugger;
                 item.FieldValue.ManRfx = GetOdOsString(newValues[0], newValues[1], newValues[2], newValues[3]);
             });
             $scope.$watchGroup(['vm.model.History.Rfx[' + index + '].FieldValue.ManVAOD1', 'vm.model.History.Rfx[' + index + '].FieldValue.ManVAOD2', 'vm.model.History.Rfx[' + index + '].FieldValue.ManVSOS1', 'vm.model.History.Rfx[' + index + '].FieldValue.ManVSOS2'], function (newValues, oldValues) {
-                debugger;
-
                 item.FieldValue.ManVA = GetOdOsString(newValues[0], newValues[1], newValues[2], newValues[3]);
             });
             $scope.$watchGroup(['vm.model.History.Rfx[' + index + '].FieldValue.CycRfxOD', "", 'vm.model.History.Rfx[' + index + '].FieldValue.CycRfxOS', ""], function (newValues, oldValues) {
-                debugger;
                 item.FieldValue.CycRfx = GetOdOsString(newValues[0], newValues[1], newValues[2], newValues[3]);
             });
             $scope.$watchGroup(['vm.model.History.Rfx[' + index + '].FieldValue.CycVAOD3', 'vm.model.History.Rfx[' + index + '].FieldValue.CycVAOD4', 'vm.model.History.Rfx[' + index + '].FieldValue.CycVSOS1', 'vm.model.History.Rfx[' + index + '].FieldValue.CycVSOS2'], function (newValues, oldValues) {
-                debugger;
                 item.FieldValue.CycVA = GetOdOsString(newValues[0], newValues[1], newValues[2], newValues[3]);
             });
             $scope.$watchGroup(['vm.model.History.Rfx[' + index + '].FieldValue.ManRfx', 'vm.model.History.Rfx[' + index + '].FieldValue.ManVA', 'vm.model.History.Rfx[' + index + '].FieldValue.CycRfx', 'vm.model.History.Rfx[' + index + '].FieldValue.CycVA'], function (newValues, oldValues) {
-                debugger;
                 item.FieldValue.HasHistory = (newValues[0] !== "" || newValues[1] !== "" || newValues[2] !== "" || newValues[3] !== "");
             });
         });
 
         angular.forEach(vm.model.History.Cch, function (item, index) {
             $scope.$watchGroup(['vm.model.History.Cch[' + index + '].FieldValue.Compliant', 'vm.model.History.Cch[' + index + '].FieldValue.SubjectiveHistory'], function (newValues, oldValues) {
-                debugger;
                 item.FieldValue.HasCcHistory = (newValues[0] !== "" || newValues[1] !== "");
             });
             $scope.$watchGroup(['vm.model.History.Cch[' + index + '].FieldValue.Summary'], function (newValues, oldValues) {
-                debugger;
                 item.FieldValue.HasSumHistory = (newValues[0] !== "");
             });
         });
 
         angular.forEach(vm.model.History.Dist, function (item, index) {
             $scope.$watchGroup(['vm.model.History.Dist[' + index + '].FieldValue.VAscOD1', 'vm.model.History.Dist[' + index + '].FieldValue.VAscOD2', 'vm.model.History.Dist[' + index + '].FieldValue.DistOS1', 'vm.model.History.Dist[' + index + '].FieldValue.DistOS2'], function (newValues, oldValues) {
-                debugger;
                 item.FieldValue.VAsc = GetOdOsString(newValues[0], newValues[1], newValues[2], newValues[3]);
             });
             $scope.$watchGroup(['vm.model.History.Dist[' + index + '].FieldValue.VAccOD1', 'vm.model.History.Dist[' + index + '].FieldValue.VAccOD2', 'vm.model.History.Dist[' + index + '].FieldValue.DistOS3', 'vm.model.History.Dist[' + index + '].FieldValue.DistOS4'], function (newValues, oldValues) {
-                debugger;
                 item.FieldValue.VAcc = GetOdOsString(newValues[0], newValues[1], newValues[2], newValues[3]);
             });
             $scope.$watchGroup(['vm.model.History.Dist[' + index + '].FieldValue.VAOD1', 'vm.model.History.Dist[' + index + '].FieldValue.VAOD2', 'vm.model.History.Dist[' + index + '].FieldValue.NearOS1', 'vm.model.History.Dist[' + index + '].FieldValue.NearOS2'], function (newValues, oldValues) {
-                debugger;
                 item.FieldValue.VAnear = GetOdOsString(newValues[0], newValues[1], newValues[2], newValues[3]);
             });
             $scope.$watchGroup(['vm.model.History.Dist[' + index + '].FieldValue.VAsc', 'vm.model.History.Dist[' + index + '].FieldValue.VAcc', 'vm.model.History.Dist[' + index + '].FieldValue.VAnear'], function (newValues, oldValues) {
-                debugger;
                 item.FieldValue.HasHistory = (newValues[0] !== "" || newValues[1] !== "" || newValues[2] !== "");
             });
         });
 
         angular.forEach(vm.model.History.Bino, function (item, index) {
             $scope.$watchGroup(['vm.model.History.Bino[' + index + '].FieldValue.Binocularity1', 'vm.model.History.Bino[' + index + '].FieldValue.Binocularity2', 'vm.model.History.Bino[' + index + '].FieldValue.Binocularity3', 'vm.model.History.Bino[' + index + '].FieldValue.Binocularity4'], function (newValues, oldValues) {
-                debugger;
                 item.FieldValue.Binocularity = (newValues[0] + " " + newValues[1] + " " + newValues[2] + " " + newValues[3]);
             });
             $scope.$watchGroup(['vm.model.History.Bino[' + index + '].FieldValue.W4DNear1', 'vm.model.History.Bino[' + index + '].FieldValue.W4DNear2'], function (newValues, oldValues) {
-                debugger;
                 item.FieldValue.W4DNear = (newValues[0] + " " + newValues[1]);
             });
             $scope.$watchGroup(['vm.model.History.Bino[' + index + '].FieldValue.Stereo1', 'vm.model.History.Bino[' + index + '].FieldValue.Stereo2'], function (newValues, oldValues) {
-                debugger;
                 item.FieldValue.Stereo = (newValues[0] + " " + newValues[1]);
             });
             $scope.$watchGroup(['vm.model.History.Bino[' + index + '].FieldValue.Binocularity', 'vm.model.History.Dist[' + index + '].FieldValue.W4DNear', 'vm.model.History.Dist[' + index + '].FieldValue.Stereo'], function (newValues, oldValues) {
-                debugger;
                 item.FieldValue.HasHistory = (newValues[0] !== "" || newValues[1] !== "" || newValues[2] !== "");
             });
         });
 
         angular.forEach(vm.model.History.Ocm, function (item, index) {
-            debugger;
             item.FieldValue.HasHistory = true;
         });
 

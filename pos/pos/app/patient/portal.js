@@ -32,7 +32,12 @@ function portal($scope, $filter, patientService, session, utility, uiGridConstan
     function init() {
         // initialization
         vm.patientModel = patientService.patientModel;
-        vm.encounterGridOptions.data = patientService.patientModel.History;
+        //TODO: patientService.patientModel is not refreshed, so added the below once resolved should remove this.
+        patientService.resolve(vm.patientModel.PatientID).then(function () {
+            vm.patientModel = patientService.patientModel;
+            vm.encounterGridOptions.data = patientService.patientModel.History;
+        });
+        //vm.encounterGridOptions.data = patientService.patientModel.History;
         vm.patientModel.PhotoUrl = utility.getDefaultPatientPhoto(vm.patientModel.Sex);
     }
 
@@ -94,7 +99,7 @@ function portal($scope, $filter, patientService, session, utility, uiGridConstan
     }
 
     function encounterHeaderTemplate() {
-        return '<div layout="row">'
+        return '<div layout="row"  layout-align="space-between center">'
             + '<span flex class="text-nowrap">Encounter History</span>' 
             + '<md-button type="button" class="md-raised" ng-click="getExternalScopes().navigateNotes();">New Notes</md-button>'
             + '</div>';
